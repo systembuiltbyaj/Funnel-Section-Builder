@@ -1,14 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { lock } from "./actions";
 import { LivePreview, type PreviewItem } from "./live-preview";
 import { sampleForPreview } from "@/lib/samples";
-import {
-  sections, gptImageCards, carouselCards, localWebsiteCards,
-  type SectionId,
-} from "@/lib/section-catalogue";
 import { PROMPT_GROUPS as builderGroups } from "@/lib/prompt-groups";
 import { useFunnelSelection } from "@/lib/funnel-selection-provider";
 import { INITIAL_SEL } from "@/lib/catalogue";
@@ -17,27 +14,6 @@ import {
   variationShortName,
   type BuilderSelection,
 } from "@/lib/prompt-assembly";
-
-type TabId = SectionId | "builder";
-
-const tabs: { id: TabId; label: string }[] = [
-  { id: "builder", label: "🧩 Funnel Builder" },
-  { id: "hero", label: "🏠 Hero" },
-  { id: "empathy", label: "💗 Empathy" },
-  { id: "opportunity", label: "🔓 Opportunity" },
-  { id: "compare", label: "⚖️ Before/After" },
-  { id: "usp", label: "✨ USP" },
-  { id: "offer", label: "🎁 Offer" },
-  { id: "social", label: "💬 Social Proof" },
-  { id: "risk", label: "🛡️ Risk Reversal" },
-  { id: "authority", label: "👑 Authority" },
-  { id: "urgency", label: "⏰ Urgency" },
-  { id: "faq", label: "❓ FAQ" },
-  { id: "footer", label: "📄 Footer" },
-  { id: "gptimage", label: "🎨 GPT Image BG" },
-  { id: "carousel", label: "🎠 Carousels" },
-  { id: "local", label: "🏡 Local Website" },
-];
 
 function CopyButton({
   text,
@@ -68,87 +44,6 @@ function CopyButton({
     >
       {copied ? "✓ Copied" : label}
     </button>
-  );
-}
-
-function PromptBlock({ text }: { text: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <>
-      <div
-        className={`relative font-mono text-[11.5px] text-[#C0B8E0] leading-[1.75] whitespace-pre-wrap rounded-lg border border-[#2A2250] bg-[#0B091A] px-4 py-3 mb-3 transition-[max-height] duration-300 ease-out overflow-hidden ${
-          open ? "max-h-[700px]" : "max-h-[110px]"
-        }`}
-      >
-        {text}
-        {!open && (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute bottom-0 left-0 right-0 h-10"
-            style={{ background: "linear-gradient(transparent, #0B091A)" }}
-          />
-        )}
-      </div>
-      <div className="flex gap-2 mt-auto">
-        <CopyButton text={text} className="flex-1" />
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="rounded-md border border-[#2A2250] text-[#A09AB8] text-[12.5px] px-3 py-2.5 transition hover:border-[#7C5CFC] hover:text-white"
-        >
-          {open ? "Collapse ↑" : "Expand ↓"}
-        </button>
-      </div>
-    </>
-  );
-}
-
-function SectionPromptTabs({ base, vars }: { base: string; vars: string }) {
-  const hasBase = base.trim().length > 0;
-  const [active, setActive] = useState<"base" | "vars">(hasBase ? "base" : "vars");
-
-  // Single-prompt cards (no base prompt) — show just the prompt, no tab toggle.
-  if (!hasBase) {
-    return <PromptBlock text={vars} />;
-  }
-
-  const text = active === "base" ? base : vars;
-  return (
-    <>
-      <div
-        role="tablist"
-        aria-label="Prompt type"
-        className="inline-flex rounded-lg border border-[#2A2250] bg-[#0B091A] p-1 mb-3 self-start"
-      >
-        <button
-          type="button"
-          role="tab"
-          aria-selected={active === "base"}
-          onClick={() => setActive("base")}
-          className={`px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] rounded-md transition ${
-            active === "base"
-              ? "bg-[#7C5CFC] text-white"
-              : "text-[#A09AB8] hover:text-white"
-          }`}
-        >
-          Base Prompt
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={active === "vars"}
-          onClick={() => setActive("vars")}
-          className={`px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] rounded-md transition ${
-            active === "vars"
-              ? "bg-[#F5C842] text-[#0D0B1F]"
-              : "text-[#A09AB8] hover:text-white"
-          }`}
-        >
-          Client Variables
-        </button>
-      </div>
-      <PromptBlock key={active} text={text} />
-    </>
   );
 }
 
@@ -1182,181 +1077,48 @@ function FunnelBuilder() {
 }
 
 export function PrivateContent() {
-  const [tab, setTab] = useState<TabId>("builder");
-  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
-  const [live, setLive] = useState<{ heading: string; items: PreviewItem[] } | null>(null);
-
-  const showBuilder = tab === "builder";
-  const visibleSections = [...sections, ...gptImageCards, ...carouselCards, ...localWebsiteCards].filter((s) => tab === s.id);
-
   return (
-    <div className="relative min-h-[100dvh] bg-[#0D0B1F] text-white overflow-x-hidden">
+    <div className="relative min-h-[100dvh] overflow-x-hidden bg-[#0D0B1F] text-white">
       <div
         aria-hidden
-        className="pointer-events-none fixed top-[-100px] left-1/2 -translate-x-1/2 w-[900px] h-[600px] z-0"
+        className="pointer-events-none fixed left-1/2 top-[-100px] z-0 h-[600px] w-[900px] -translate-x-1/2"
         style={{
           background:
             "radial-gradient(ellipse at 50% 30%, rgba(124,92,252,0.13) 0%, transparent 65%)",
         }}
       />
 
-      <div className="relative z-10">
-        {/* Header */}
-        <section className="pt-16 pb-9 px-6 text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(124,92,252,0.22)] bg-[rgba(124,92,252,0.1)] px-3.5 py-1.5 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[#9B82FF] mb-5">
-            ⚡ 10P FUNNEL FRAMEWORK · AI PROMPT BUILDER
-          </span>
-          <h1
-            className="font-bold leading-[1.1] mb-3.5"
-            style={{
-              fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)",
-              fontSize: "clamp(30px, 5vw, 50px)",
-            }}
+      {/* Slim app bar. Browsing the catalogue lives on the hub now, so this page
+          carries no section tabs and no marketing header — work starts at the
+          top of the viewport instead of a screen and a half down. */}
+      <header className="sticky top-0 z-30 border-b border-[#2A2250] bg-[#0D0B1F]/92 backdrop-blur">
+        <div className="mx-auto flex max-w-[1200px] items-center gap-3 px-4 py-2.5">
+          <Link
+            href="/"
+            className="shrink-0 rounded-md border border-[#2A2250] px-2.5 py-1.5 text-[12px] text-[#A09AB8] transition hover:border-[#7C5CFC] hover:text-[#E8E4F5]"
           >
-            Funnel <em className="not-italic text-[#F5C842]">Section Builder</em>
-          </h1>
-          <p className="text-[15px] text-[#A09AB8] leading-[1.65] max-w-[540px] mx-auto">
-            Compose a full funnel section-by-section in the builder, or browse every variation&apos;s
-            wireframe + copy-ready prompts.
-          </p>
-        </section>
-
-        {/* Tabs */}
-        <div className="flex flex-wrap gap-2 justify-center px-6 pb-9">
-          {tabs.map((t) => (
-            <button
-              key={t.id}
-              type="button"
-              onClick={() => setTab(t.id)}
-              className={`rounded-full border px-4 py-1.5 text-[12.5px] font-medium transition ${
-                tab === t.id
-                  ? "bg-[#7C5CFC] border-[#7C5CFC] text-white"
-                  : "bg-transparent border-[#2A2250] text-[#A09AB8] hover:border-[#7C5CFC] hover:text-white"
-              }`}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Funnel Builder */}
-        {showBuilder && <FunnelBuilder />}
-
-        {/* Grid */}
-        {!showBuilder && (
-        <div className="grid gap-[22px] px-6 pb-14 max-w-[1180px] mx-auto" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}>
-          {visibleSections.map((s, i) => (
-            <Fragment key={`${s.id}-${s.number}`}>
-            {s.group && s.group !== visibleSections[i - 1]?.group && (
-              <div className="col-span-full flex items-center gap-3 mt-3 first:mt-0">
-                <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-[#10B981]">
-                  {s.group}
-                </span>
-                <span className="h-px flex-1 bg-gradient-to-r from-[#2A2250] to-transparent" />
-              </div>
-            )}
-            <article
-              className="flex flex-col overflow-hidden rounded-[14px] border border-[#2A2250] bg-[#161330] transition-all hover:border-[#4A3A8A] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)]"
-            >
-              {s.previewSrc && (
-                <div className="border-b border-[#2A2250] bg-[#0B091A] p-[18px_20px]">
-                  <div className={`relative w-full ${s.id === "gptimage" ? "aspect-[4/3]" : "aspect-[2/1]"}`}>
-                    <button
-                      type="button"
-                      onClick={() => setLightbox({ src: s.previewSrc!, alt: s.title })}
-                      aria-label={`Open ${s.title} preview full screen`}
-                      className="group absolute inset-0 block overflow-hidden rounded-md cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFC]"
-                    >
-                      <Image
-                        src={s.previewSrc}
-                        alt={`${s.title} thumbnail`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 380px"
-                        className={`${s.id === "gptimage" ? "object-contain" : "object-cover"} transition-transform duration-300 group-hover:scale-[1.03]`}
-                        unoptimized
-                      />
-                      <span className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/20" />
-                      <span className="pointer-events-none absolute top-2 right-2 inline-flex items-center gap-1 rounded-md bg-black/55 backdrop-blur px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                          <polyline points="15 3 21 3 21 9" />
-                          <polyline points="9 21 3 21 3 15" />
-                          <line x1="21" y1="3" x2="14" y2="10" />
-                          <line x1="3" y1="21" x2="10" y2="14" />
-                        </svg>
-                        Expand
-                      </span>
-                    </button>
-                    {sampleForPreview(s.previewSrc) && (
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setLive({
-                            heading: s.title,
-                            items: [
-                              {
-                                id: `${s.id}-${s.number}`,
-                                title: s.title,
-                                sampleSrc: sampleForPreview(s.previewSrc)!,
-                              },
-                            ],
-                          })
-                        }
-                        className="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 rounded-md bg-black/65 backdrop-blur px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#7C5CFC]"
-                      >
-                        ▶ Live
-                      </button>
-                    )}
-                  </div>
-                </div>
-              )}
-              <div className="p-5 flex flex-col flex-1">
-                <div className={`text-[10px] font-semibold uppercase tracking-[0.13em] mb-1.5 ${s.labelClass}`}>
-                  {s.category
-                    ? s.category.toUpperCase()
-                    : s.funnelTypes
-                    ? s.funnelTypes.join(" · ").toUpperCase()
-                    : `${s.number} · ${s.label}`}
-                </div>
-                <h3
-                  className="text-[17px] font-bold mb-1.5"
-                  style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
-                >
-                  {s.title}
-                </h3>
-                <p className="text-[12.5px] text-[#A09AB8] leading-[1.55] mb-3.5">{s.description}</p>
-                <SectionPromptTabs base={s.basePrompt} vars={s.varsPrompt} />
-              </div>
-            </article>
-            </Fragment>
-          ))}
-
-        </div>
-        )}
-
-        {/* Footer */}
-        <footer className="border-t border-[#2A2250] text-center py-9 px-6 text-[12.5px] text-[#4A4468]">
-          <form action={lock}>
+            ← Hub
+          </Link>
+          <span
+            className="truncate text-[13px] font-bold"
+            style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
+          >
+            Funnel Builder
+          </span>
+          <form action={lock} className="ml-auto shrink-0">
             <button
               type="submit"
-              className="inline-flex items-center gap-1.5 rounded-md border border-[#2A2250] text-[#A09AB8] px-4.5 py-2 text-[12.5px] transition hover:border-[#F87171] hover:text-[#F87171]"
+              className="rounded-md border border-[#2A2250] px-3 py-1.5 text-[11.5px] text-[#5A5478] transition hover:border-[#F87171] hover:text-[#F87171]"
             >
-              🔒 Lock & Sign Out
+              Sign out
             </button>
           </form>
-        </footer>
-      </div>
+        </div>
+      </header>
 
-      {live && (
-        <LivePreview
-          heading={live.heading}
-          items={live.items}
-          kit={{}}
-          onClose={() => setLive(null)}
-        />
-      )}
-      {lightbox && (
-        <Lightbox src={lightbox.src} alt={lightbox.alt} onClose={() => setLightbox(null)} />
-      )}
+      <div className="relative z-10">
+        <FunnelBuilder />
+      </div>
     </div>
   );
 }
