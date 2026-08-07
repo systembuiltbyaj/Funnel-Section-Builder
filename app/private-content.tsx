@@ -10,6 +10,8 @@ import {
   type SectionId,
 } from "@/lib/section-catalogue";
 import { PROMPT_GROUPS as builderGroups } from "@/lib/prompt-groups";
+import { useFunnelSelection } from "@/lib/funnel-selection-provider";
+import { INITIAL_SEL } from "@/lib/catalogue";
 import {
   buildOutputs as assemblePrompts,
   variationShortName,
@@ -198,10 +200,12 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
   );
 }
 
+/**
+ * A mutable copy of the default selections. INITIAL_SEL is a shared module
+ * constant, so callers that build a selection set by mutation must not touch it.
+ */
 const freshSelections = (): Record<string, BuilderSelection> =>
-  Object.fromEntries(
-    builderGroups.map((g) => [g.id, { enabled: false, variation: g.variations[0].number, copy: "" }])
-  );
+  Object.fromEntries(Object.entries(INITIAL_SEL).map(([id, s]) => [id, { ...s }]));
 
 // ---- Brand Check color/font helpers ----
 function normHex(hex: string): string | null {
@@ -283,14 +287,28 @@ function usedFonts(html: string): string[] {
 }
 
 function FunnelBuilder() {
-  const [primary, setPrimary] = useState("");
-  const [background, setBackground] = useState("");
-  const [fontHead, setFontHead] = useState("");
-  const [fontSub, setFontSub] = useState("");
-  const [fontBody, setFontBody] = useState("");
-  const [images, setImages] = useState("");
+  // Selections and the brand kit live in the shared provider so the hub's
+  // library can add sections that this builder then reads. Local aliases keep
+  // the rest of this component unchanged.
+  const {
+    sel,
+    kit,
+    setSection: update,
+    setKit,
+    replaceAll,
+    reset: resetSelection,
+  } = useFunnelSelection();
+  const { primary, background, fontHead, fontSub, fontBody, images } = kit;
+  const setPrimary = (v: string) => setKit({ primary: v });
+  const setBackground = (v: string) => setKit({ background: v });
+  const setFontHead = (v: string) => setKit({ fontHead: v });
+  const setFontSub = (v: string) => setKit({ fontSub: v });
+  const setFontBody = (v: string) => setKit({ fontBody: v });
+  // No setter for `images`: it has no input in the UI today — it is only read
+  // for prompts and round-tripped through saved projects. Add one via
+  // setKit({ images }) if an editor is ever introduced.
+
   const [includeRef, setIncludeRef] = useState(true);
-  const [sel, setSel] = useState<Record<string, BuilderSelection>>(freshSelections);
   const [generated, setGenerated] = useState(false);
   const [mode, setMode] = useState<"analyze" | "manual" | "check">("analyze");
   const [fullCopy, setFullCopy] = useState("");
@@ -410,6 +428,12 @@ function FunnelBuilder() {
 
   const loadProject = async (id: string) => {
     setProjectsOpen(false);
+    // Selections now persist across pages, so a load can silently discard work
+    // collected on the hub. Confirm before overwriting anything unsaved.
+    const dirty = Object.values(sel).some((s) => s?.enabled);
+    if (dirty && !window.confirm("Loading this funnel will replace the sections you have selected. Continue?")) {
+      return;
+    }
     setProjStatus("Loading…");
     try {
       const res = await fetch(`/api/projects/${id}`);
@@ -420,14 +444,18 @@ function FunnelBuilder() {
       }
       const { project } = await res.json();
       const d = project.data || {};
-      setPrimary(d.primary || "");
-      setBackground(d.background || "");
-      setFontHead(d.fontHead || "");
-      setFontSub(d.fontSub || "");
-      setFontBody(d.fontBody || "");
-      setImages(d.images || "");
       setIncludeRef(d.includeRef ?? true);
-      setSel(d.sel || freshSelections());
+      replaceAll({
+        sel: d.sel || INITIAL_SEL,
+        kit: {
+          primary: d.primary || "",
+          background: d.background || "",
+          fontHead: d.fontHead || "",
+          fontSub: d.fontSub || "",
+          fontBody: d.fontBody || "",
+          images: d.images || "",
+        },
+      });
       setGenerated(false);
       setProjStatus(`Loaded "${project.name}"`);
     } catch {
@@ -446,9 +474,6 @@ function FunnelBuilder() {
       /* ignore */
     }
   };
-
-  const update = (id: string, patch: Partial<BuilderSelection>) =>
-    setSel((prev) => ({ ...prev, [id]: { ...prev[id], ...patch } }));
 
   const buildOutputs = useCallback(
     () =>
@@ -506,7 +531,7 @@ function FunnelBuilder() {
         next[s.sectionId] = { enabled: true, variation, copy: s.copy || "" };
         nextReasons[s.sectionId] = s.reason || "";
       }
-      setSel(next);
+      replaceAll({ sel: next, kit });
       setReasons(nextReasons);
       setMeta({ niche: data.niche || "", vibe: data.vibe || "" });
       setGenerated(false);
@@ -568,13 +593,7 @@ function FunnelBuilder() {
   };
 
   const reset = () => {
-    setPrimary("");
-    setBackground("");
-    setFontHead("");
-    setFontSub("");
-    setFontBody("");
-    setImages("");
-    setSel(freshSelections());
+    resetSelection();
     setGenerated(false);
     setFullCopy("");
     setReasons({});
