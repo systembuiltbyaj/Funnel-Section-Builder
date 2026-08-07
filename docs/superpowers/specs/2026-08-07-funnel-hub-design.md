@@ -68,9 +68,16 @@ It owns exactly what both the library and the builder touch:
 
 Persisted to `localStorage` on change, hydrated on mount.
 
-Everything else stays inside `FunnelBuilder`: modes, analyze results, Brand Check
-state, and `buildOutputs`. **Prompt-assembly logic does not move.** It is the
-least-tested, highest-risk code in the file and this change has no reason to touch it.
+Everything else stays inside `FunnelBuilder`: modes, analyze results, and Brand
+Check state.
+
+**Prompt assembly moves once, first, and only to become testable.** The original
+intent was to leave `buildOutputs` untouched, but it is a `useCallback` inside
+`FunnelBuilder` and therefore uncallable from a test without adding a React
+testing dependency — which is disallowed. Since the testing plan below depends on
+snapshotting its output, it is extracted verbatim into `lib/prompt-assembly.ts` as
+a pure function in the first task, before any other change. No logic is altered in
+that move; the extraction is what makes every later task verifiable.
 
 ### Components
 
