@@ -3,6 +3,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 
 const COOKIE_NAME = "private_tool_auth";
 const MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
@@ -77,6 +78,9 @@ export async function unlock(_prev: { error?: string } | null, formData: FormDat
 }
 
 export async function lock() {
+  // Sign out of Supabase (if configured) and clear the passcode cookie.
+  const supabase = await createClient();
+  if (supabase) await supabase.auth.signOut();
   const store = await cookies();
   store.delete(COOKIE_NAME);
   redirect("/");
