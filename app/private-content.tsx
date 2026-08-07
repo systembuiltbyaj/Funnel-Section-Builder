@@ -12040,6 +12040,95 @@ function FunnelBuilder() {
 
   const enabledCount = builderGroups.filter((g) => sel[g.id]?.enabled).length;
 
+  // --- Saved projects (Supabase full-stack layer) ---
+  const supabaseOn = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
+  const [projects, setProjects] = useState<{ id: string; name: string; updated_at: string }[]>([]);
+  const [projectsOpen, setProjectsOpen] = useState(false);
+  const [projStatus, setProjStatus] = useState("");
+
+  const refreshProjects = useCallback(async () => {
+    try {
+      const res = await fetch("/api/projects");
+      if (res.ok) {
+        const d = await res.json();
+        setProjects(d.projects || []);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  useEffect(() => {
+    if (supabaseOn) refreshProjects();
+  }, [supabaseOn, refreshProjects]);
+
+  const saveProject = async () => {
+    const name = window.prompt("Save funnel as:", "My funnel");
+    if (name === null) return;
+    setProjStatus("Saving…");
+    try {
+      const res = await fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim() || "Untitled funnel",
+          data: { primary, background, fontHead, fontSub, fontBody, images, includeRef, sel },
+        }),
+      });
+      if (res.ok) {
+        setProjStatus("Saved ✓");
+        refreshProjects();
+      } else {
+        const d = await res.json().catch(() => ({}));
+        setProjStatus(d.error || "Save failed");
+      }
+    } catch {
+      setProjStatus("Save failed");
+    }
+    setTimeout(() => setProjStatus(""), 2500);
+  };
+
+  const loadProject = async (id: string) => {
+    setProjectsOpen(false);
+    setProjStatus("Loading…");
+    try {
+      const res = await fetch(`/api/projects/${id}`);
+      if (!res.ok) {
+        setProjStatus("Load failed");
+        setTimeout(() => setProjStatus(""), 2500);
+        return;
+      }
+      const { project } = await res.json();
+      const d = project.data || {};
+      setPrimary(d.primary || "");
+      setBackground(d.background || "");
+      setFontHead(d.fontHead || "");
+      setFontSub(d.fontSub || "");
+      setFontBody(d.fontBody || "");
+      setImages(d.images || "");
+      setIncludeRef(d.includeRef ?? true);
+      setSel(d.sel || freshSelections());
+      setResults(null);
+      setFullPrompt(null);
+      setGenerated(false);
+      setProjStatus(`Loaded "${project.name}"`);
+    } catch {
+      setProjStatus("Load failed");
+    }
+    setTimeout(() => setProjStatus(""), 2500);
+  };
+
+  const deleteProject = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!window.confirm("Delete this saved funnel?")) return;
+    try {
+      const res = await fetch(`/api/projects/${id}`, { method: "DELETE" });
+      if (res.ok) refreshProjects();
+    } catch {
+      /* ignore */
+    }
+  };
+
   const update = (id: string, patch: Partial<BuilderSelection>) =>
     setSel((prev) => ({ ...prev, [id]: { ...prev[id], ...patch } }));
 
@@ -12300,6 +12389,59 @@ function FunnelBuilder() {
 
   return (
     <div className="max-w-[920px] mx-auto px-6 pb-16">
+      {/* Saved projects bar (Supabase full-stack layer) */}
+      {supabaseOn && (
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+          <button
+            type="button"
+            onClick={saveProject}
+            className="rounded-md border border-[#2A2250] bg-[#161330] text-white text-[12.5px] font-semibold px-3.5 py-2 transition hover:border-[#7C5CFC]"
+          >
+            💾 Save funnel
+          </button>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => {
+                setProjectsOpen((o) => !o);
+                if (!projectsOpen) refreshProjects();
+              }}
+              className="rounded-md border border-[#2A2250] bg-[#161330] text-white text-[12.5px] font-semibold px-3.5 py-2 transition hover:border-[#7C5CFC]"
+            >
+              📁 My Projects ({projects.length})
+            </button>
+            {projectsOpen && (
+              <div className="absolute z-30 mt-1 left-1/2 -translate-x-1/2 w-[280px] rounded-lg border border-[#2A2250] bg-[#12102A] p-1.5 max-h-[320px] overflow-auto shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+                {projects.length === 0 ? (
+                  <p className="text-[12px] text-[#5A5478] px-2 py-3 text-center">
+                    No saved funnels yet. Build one, then hit Save.
+                  </p>
+                ) : (
+                  projects.map((p) => (
+                    <div
+                      key={p.id}
+                      onClick={() => loadProject(p.id)}
+                      className="group flex items-center justify-between gap-2 rounded-md px-2.5 py-2 cursor-pointer hover:bg-[#1A1740]"
+                    >
+                      <span className="text-[12.5px] text-white truncate">{p.name}</span>
+                      <button
+                        type="button"
+                        onClick={(e) => deleteProject(p.id, e)}
+                        aria-label="Delete saved funnel"
+                        className="text-[#5A5478] hover:text-[#F87171] text-[13px] opacity-0 group-hover:opacity-100 transition"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+          {projStatus && <span className="text-[12px] text-[#4ade80]">{projStatus}</span>}
+        </div>
+      )}
+
       {/* Mode toggle */}
       <div className="flex justify-center mb-5">
         <div className="inline-flex rounded-lg border border-[#2A2250] bg-[#0B091A] p-1">
