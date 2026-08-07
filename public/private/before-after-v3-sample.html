@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Before vs After V3 — Dramatic Split</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-old: #0D0505; --bg-new: #030D05; --accent: #A855F7;
+    --old-color: #EF4444; --new-color: #22C55E; --text: #FFFFFF; --muted: #9A9A9A; --divider: rgba(255,255,255,0.1);
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #050505; color: var(--text); font-family: 'Outfit', sans-serif; -webkit-font-smoothing: antialiased; }
+  .header { text-align: center; padding: 80px 24px 40px; background: #050505; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(34px, 5vw, 56px); font-weight: 700; line-height: 1.08; letter-spacing: -0.01em; max-width: 780px; margin: 0 auto; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; position: relative; min-height: 600px; }
+  .half { padding: 80px 64px; opacity: 0; }
+  .half.visible { opacity: 1; transition: opacity 1s ease, transform 1s ease; transform: translateX(0) !important; }
+  .left { background: var(--bg-old); transform: translateX(-24px); }
+  .right { background: var(--bg-new); transform: translateX(24px); }
+  .h-label { font-size: clamp(36px, 4.5vw, 56px); font-weight: 800; letter-spacing: -0.01em; line-height: 1; margin-bottom: 12px; }
+  .left .h-label { color: var(--old-color); }
+  .right .h-label { color: var(--new-color); }
+  .h-sub { color: var(--muted); font-size: 16px; font-style: italic; line-height: 1.5; margin-bottom: 36px; max-width: 420px; }
+  .items { display: flex; flex-direction: column; gap: 6px; }
+  .item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 14px; border-radius: 8px; transition: background-color .25s; }
+  .left .item:hover { background: rgba(239,68,68,0.08); }
+  .right .item:hover { background: rgba(34,197,94,0.08); }
+  .icon { width: 22px; font-weight: 700; font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .left .icon { color: var(--old-color); }
+  .right .icon { color: var(--new-color); }
+  .item-text { font-size: 16px; line-height: 1.55; color: var(--text); }
+  .divider { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent 0%, var(--divider) 15%, var(--divider) 85%, transparent 100%); transform: translateX(-50%); pointer-events: none; box-shadow: 0 0 24px rgba(168,85,247,0.4); }
+  .vs { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: #0A0A0A; border: 1px solid var(--divider); display: grid; place-items: center; font-weight: 800; font-size: 18px; letter-spacing: 0.08em; color: var(--text); box-shadow: 0 0 30px rgba(168,85,247,0.25); animation: vsPulse 2.4s ease-in-out infinite; }
+  @keyframes vsPulse { 0%,100% { box-shadow: 0 0 30px rgba(168,85,247,0.25); } 50% { box-shadow: 0 0 50px rgba(168,85,247,0.5); } }
+  @media (max-width: 768px) {
+    .split { grid-template-columns: 1fr; min-height: auto; }
+    .half { padding: 48px 22px; }
+    .divider { left: 0; right: 0; top: 50%; bottom: auto; height: 2px; width: 100%; background: linear-gradient(to right, transparent 0%, var(--divider) 15%, var(--divider) 85%, transparent 100%); }
+    .vs { top: 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) { .half { opacity: 1; transform: none; } .vs { animation: none; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <p class="label">Two Realities</p>
+  <h2>Which One Are You Living Right Now?</h2>
+</div>
+<section class="split">
+  <div class="half left">
+    <div class="h-label">BEFORE</div>
+    <p class="h-sub">The story most coaches know too well.</p>
+    <div class="items">
+      <div class="item"><span class="icon">✗</span><span class="item-text">Grinding 12-hour days for client scraps</span></div>
+      <div class="item"><span class="icon">✗</span><span class="item-text">Saying yes to work you hate for the money</span></div>
+      <div class="item"><span class="icon">✗</span><span class="item-text">Plateaued at $10K/mo for the last 18 months</span></div>
+      <div class="item"><span class="icon">✗</span><span class="item-text">No system, no team, no time to think</span></div>
+      <div class="item"><span class="icon">✗</span><span class="item-text">Secretly wondering if you made the right call</span></div>
+    </div>
+  </div>
+  <div class="half right">
+    <div class="h-label">AFTER</div>
+    <p class="h-sub">What's waiting on the other side.</p>
+    <div class="items">
+      <div class="item"><span class="icon">✓</span><span class="item-text">Premium clients, premium fees, premium life</span></div>
+      <div class="item"><span class="icon">✓</span><span class="item-text">Selective with projects. Picky by design.</span></div>
+      <div class="item"><span class="icon">✓</span><span class="item-text">Crossed $50K/mo in month 9 of the program</span></div>
+      <div class="item"><span class="icon">✓</span><span class="item-text">System runs itself. You run the vision.</span></div>
+      <div class="item"><span class="icon">✓</span><span class="item-text">100% certain you made the right call.</span></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="vs">VS</div>
+</section>
+<script>
+  const halves = document.querySelectorAll('.half');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  halves.forEach(h => obs.observe(h));
+</script>
+</body>
+</html>

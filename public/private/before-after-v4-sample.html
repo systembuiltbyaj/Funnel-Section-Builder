@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Before vs After V4 — Centered Axis · Modern SaaS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F8FAFC; --bg-card: #FFFFFF; --accent: #4F46E5;
+    --old-color: #DC2626; --new-color: #16A34A;
+    --axis-bg: #F1F5F9; --text: #0F172A; --muted: #64748B; --border: #E2E8F0;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1180px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(32px, 4.5vw, 48px); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; max-width: 760px; margin: 0 auto 16px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 700px; margin: 0 auto; }
+  .table-wrap { max-width: 960px; margin: 0 auto; }
+  .col-heads { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 0 24px 20px; margin-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .h-old { color: var(--old-color); text-align: left; }
+  .h-new { color: var(--new-color); text-align: right; }
+  .h-label { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+  .rows { display: flex; flex-direction: column; gap: 14px; padding-top: 24px; }
+  .row { display: flex; flex-direction: column; gap: 12px; padding: 18px 24px 20px; border-radius: 14px; background: var(--bg-card); border: 1px solid var(--border); transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+  .row:hover { border-color: rgba(79,70,229,0.25); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(15,23,42,0.04); }
+  .axis-wrap { display: flex; justify-content: center; }
+  .axis { background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 7px 16px; border-radius: 999px; white-space: nowrap; text-align: center; box-shadow: 0 4px 14px rgba(79,70,229,0.22); opacity: 0; transform: scale(0.85); }
+  .row.visible .axis { opacity: 1; transform: scale(1); transition: opacity .6s ease, transform .6s ease; animation: axisPulse 2.6s 1s ease-in-out infinite; }
+  @keyframes axisPulse {
+    0%, 100% { box-shadow: 0 4px 14px rgba(79,70,229,0.22); }
+    50%      { box-shadow: 0 6px 22px rgba(79,70,229,0.5); }
+  }
+  .comparison { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 20px; align-items: center; }
+  .compare-divider { background: var(--border); height: 28px; align-self: center; justify-self: center; }
+  .old-text { color: var(--old-color); font-size: 16px; line-height: 1.4; text-align: left; opacity: 0; transform: translateX(-12px); }
+  .new-text { color: var(--new-color); font-size: 16px; line-height: 1.4; text-align: right; font-weight: 500; opacity: 0; transform: translateX(12px); }
+  .row.visible .old-text, .row.visible .new-text { opacity: 0.95; transform: translateX(0); transition: opacity .7s ease, transform .7s ease; }
+
+  /* Summary block */
+  .summary { max-width: 960px; margin: 56px auto 0; padding: 36px 32px; background: linear-gradient(135deg, rgba(79,70,229,0.06) 0%, rgba(22,163,74,0.06) 100%); border: 1px solid var(--border); border-radius: 18px; text-align: center; opacity: 0; transform: translateY(16px); }
+  .summary.visible { opacity: 1; transform: translateY(0); transition: opacity .8s ease, transform .8s ease; }
+  .summary-label { color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 8px; }
+  .summary-title { font-size: clamp(22px, 2.6vw, 28px); font-weight: 700; color: var(--text); margin-bottom: 24px; line-height: 1.3; }
+  .summary-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .sum-stat { display: flex; flex-direction: column; align-items: center; }
+  .sum-num { font-size: clamp(32px, 4.2vw, 48px); font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+  .sum-num.up   { color: var(--new-color); }
+  .sum-num.down { color: var(--new-color); }
+  .sum-label { font-size: 13px; color: var(--muted); margin-top: 8px; font-weight: 500; }
+
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .col-heads { display: none; }
+    .row { padding: 16px 18px 18px; }
+    .comparison { grid-template-columns: 1fr; gap: 10px; }
+    .compare-divider { display: none; }
+    .old-text, .new-text { text-align: center; padding: 10px 12px; border-radius: 8px; }
+    .row .old-text { background: rgba(220,38,38,0.05); }
+    .row .new-text { background: rgba(22,163,74,0.05); }
+    .summary { padding: 28px 20px; }
+    .summary-stats { grid-template-columns: 1fr; gap: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .old-text, .new-text, .axis { opacity: 1 !important; transform: none !important; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Shift in Approach</p>
+      <h2>Same Goal. Completely Different Path.</h2>
+      <p class="sub">Here's exactly what changes when you stop guessing and start using a system that's already been proven 400+ times.</p>
+    </div>
+    <div class="table-wrap">
+      <div class="col-heads">
+        <div class="h-old h-label">✗ Without the Method</div>
+        <div class="h-new h-label">With the Method ✓</div>
+      </div>
+      <div class="rows">
+        <div class="row"><div class="axis-wrap"><span class="axis">Revenue/mo</span></div><div class="comparison"><div class="old-text">Stuck at $8K–$12K</div><div class="compare-divider"></div><div class="new-text">Hitting $30K–$50K</div></div></div>
+        <div class="row"><div class="axis-wrap"><span class="axis">Hours worked</span></div><div class="comparison"><div class="old-text">60+ exhausting hours</div><div class="compare-divider"></div><div class="new-text">Under 25 focused hours</div></div></div>
+        <div class="row"><div class="axis-wrap"><span class="axis">Close rate</span></div><div class="comparison"><div class="old-text">1 in 10 calls convert</div><div class="compare-divider"></div><div class="new-text">1 in 3 calls close</div></div></div>
+        <div class="row"><div class="axis-wrap"><span class="axis">Lead quality</span></div><div class="comparison"><div class="old-text">Chasing cold prospects</div><div class="compare-divider"></div><div class="new-text">Attracting warm buyers</div></div></div>
+        <div class="row"><div class="axis-wrap"><span class="axis">Confidence</span></div><div class="comparison"><div class="old-text">Doubting every decision</div><div class="compare-divider"></div><div class="new-text">Executing with certainty</div></div></div>
+      </div>
+
+      <div class="summary">
+        <p class="summary-label">The Overall Shift</p>
+        <h3 class="summary-title">In 90 days, the numbers tell the whole story.</h3>
+        <div class="summary-stats">
+          <div class="sum-stat"><div class="sum-num up" data-count="275" data-prefix="+" data-suffix="%">+275%</div><div class="sum-label">Monthly Revenue</div></div>
+          <div class="sum-stat"><div class="sum-num down" data-count="63" data-prefix="−" data-suffix="%">−63%</div><div class="sum-label">Hours Worked</div></div>
+          <div class="sum-stat"><div class="sum-num up" data-count="200" data-prefix="+" data-suffix="%">+200%</div><div class="sum-label">Close Rate</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const rows = document.querySelectorAll('.row');
+  const rowObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...rows].indexOf(e.target) * 100); rowObs.unobserve(e.target); } });
+  }, { threshold: 0.2 });
+  rows.forEach(r => rowObs.observe(r));
+
+  const summary = document.querySelector('.summary');
+  const sumObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); sumObs.unobserve(e.target); } });
+  }, { threshold: 0.3 });
+  if (summary) sumObs.observe(summary);
+
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1400;
+      const tick = (t) => { const p = Math.min(1, (t - start) / dur); const val = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = prefix + val + suffix; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

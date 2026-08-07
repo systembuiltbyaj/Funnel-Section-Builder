@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Academy — Sneak Peek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #030110;
+    --accent: #6366F1;
+    --text: #FFFFFF;
+    --muted: rgba(255, 255, 255, 0.5);
+    --border: rgba(255, 255, 255, 0.08);
+    --card: rgba(255, 255, 255, 0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .section {
+    position: relative;
+    width: 100%;
+    padding: 96px 24px;
+    background:
+      radial-gradient(900px 500px at 50% -5%, rgba(99, 102, 241, 0.12), transparent 70%),
+      var(--bg);
+    overflow: hidden;
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Header */
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+  }
+  .label .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .heading {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .heading .l1 {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .heading .l2 {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(32px, 5.5vw, 48px);
+    line-height: 1.1;
+    color: var(--accent);
+  }
+
+  /* Dashboard screenshot */
+  .dashboard {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 56px;
+  }
+  .dashboard .frame {
+    position: relative;
+    border-radius: 12px;
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.55),
+      0 0 60px rgba(99, 102, 241, 0.2);
+  }
+  .dashboard .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+  }
+  .dashboard .browser-bar span {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+  }
+  .dashboard img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .dashboard .img-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(3, 1, 16, 0.05), rgba(3, 1, 16, 0.35));
+    pointer-events: none;
+  }
+
+  /* Course cards grid */
+  .courses {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    width: 100%;
+  }
+  .course {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .course:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+    transform: translateY(-3px);
+  }
+  .course .thumb {
+    position: relative;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .course .thumb::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120px 60px at 70% 20%, rgba(255, 255, 255, 0.12), transparent 70%);
+  }
+  .course .thumb .play {
+    position: relative;
+    z-index: 1;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+  .course .body { padding: 16px; }
+  .course .title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .course .desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-bottom: 16px;
+    min-height: 38px;
+  }
+  .course .progress {
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+  }
+  .course .progress .fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), #8b9fff);
+  }
+  .course .meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 9px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+  .reveal.delay-3 { transition-delay: 0.3s; }
+  .reveal.delay-4 { transition-delay: 0.4s; }
+
+  .scale-in { opacity: 0; transform: scale(0.95); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .scale-in.visible { opacity: 1; transform: scale(1); }
+
+  @media (max-width: 768px) {
+    .section { padding: 64px 18px; }
+    .courses { grid-template-columns: 1fr; }
+    .course .desc { min-height: 0; }
+  }
+</style>
+</head>
+<body>
+  <section class="section">
+    <div class="wrap">
+      <span class="label reveal"><span class="dot"></span><span id="labelText"></span></span>
+
+      <h2 class="heading reveal delay-1">
+        <span class="l1" id="h2l1"></span>
+        <span class="l2" id="h2accent"></span>
+      </h2>
+
+      <div class="dashboard scale-in">
+        <div class="frame">
+          <div class="browser-bar"><span></span><span></span><span></span></div>
+          <img id="dashImg" alt="AI Academy member dashboard preview" />
+          <div class="img-tint"></div>
+        </div>
+      </div>
+
+      <div class="courses" id="courses"></div>
+    </div>
+  </section>
+
+<script>
+  /* === CLIENT VARIABLES — EDIT HERE === */
+  const DASHBOARD_IMG = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80";
+  const LABEL         = "SNEAK PEEK";
+  const H2_LINE_1     = "Here's exactly";
+  const H2_ACCENT     = "what's inside.";
+  const COURSES = [
+    { gradient: "linear-gradient(135deg,#1a0d4a,#3d1a8b)", title: "AI Solopreneur Model",   desc: "Productize your intelligence with agentic systems." },
+    { gradient: "linear-gradient(135deg,#0d2b3d,#1a6b5a)", title: "Vibe Coding Mastery",    desc: "3 levels of vibe coding mastery, start to finish." },
+    { gradient: "linear-gradient(135deg,#1a2b0d,#3d6b1a)", title: "AI Monetization Models", desc: "Scale your acquisition with AI-leveraged systems." },
+    { gradient: "linear-gradient(135deg,#2b1a0d,#6b3d1a)", title: "AI Softwares I Use",      desc: "Best AI tools and softwares for different cases." },
+    { gradient: "linear-gradient(135deg,#0d1a3d,#1a3d8b)", title: "Remix My Templates",      desc: "Copy-paste my best projects, apps and funnels." },
+    { gradient: "linear-gradient(135deg,#1a0d2b,#3d1a6b)", title: "Call Recordings",         desc: "Watch live calls you missed, always up to date." }
+  ];
+
+  /* Inline play icon */
+  const PLAY_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8 5.5v13l11-6.5z"/></svg>`;
+
+  /* Render copy */
+  document.getElementById('dashImg').src           = DASHBOARD_IMG;
+  document.getElementById('labelText').textContent = LABEL;
+  document.getElementById('h2l1').textContent      = H2_LINE_1;
+  document.getElementById('h2accent').textContent  = H2_ACCENT;
+
+  const grid = document.getElementById('courses');
+  COURSES.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'course reveal delay-' + ((i % 4) + 1);
+    card.innerHTML =
+      '<div class="thumb" style="background:' + c.gradient + '">' +
+        '<div class="play">' + PLAY_SVG + '</div>' +
+      '</div>' +
+      '<div class="body">' +
+        '<div class="title"></div>' +
+        '<div class="desc"></div>' +
+        '<div class="progress"><div class="fill"></div></div>' +
+        '<div class="meta"><span>Course ' + String(i + 1).padStart(2, '0') + '</span><span>0% complete</span></div>' +
+      '</div>';
+    card.querySelector('.title').textContent = c.title;
+    card.querySelector('.desc').textContent  = c.desc;
+    grid.appendChild(card);
+  });
+
+  /* Reusable scroll reveal */
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    }), { threshold: 0.15 }
+  );
+  document.querySelectorAll('.reveal, .scale-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

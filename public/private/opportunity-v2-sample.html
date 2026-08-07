@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Opportunity V2 — Vertical Stepper · Dark Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0D0D0D; --bg-card: #1A1A1A; --accent: #F5C842; --text: #FFFFFF; --muted: #9A9A9A;
+    --step-1: #3B82F6; --step-2: #F59E0B; --step-3: #22C55E; --border: #2A2A2A;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 100px 32px; }
+  .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 40% 60%; gap: 64px; align-items: start; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 18px; }
+  h2 { font-size: clamp(34px, 4.6vw, 50px); font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 8px; }
+  h2 .accent { color: var(--accent); font-style: italic; display: block; font-weight: 600; }
+  .sub { font-size: 16px; line-height: 1.6; color: var(--muted); margin: 16px 0 28px; }
+  .intro { font-size: 16px; line-height: 1.6; color: var(--muted); margin-bottom: 36px; max-width: 440px; }
+  .left-stats { display: flex; flex-direction: column; gap: 12px; }
+  .left-stat { display: flex; align-items: baseline; gap: 14px; }
+  .left-stat-num { color: var(--accent); font-size: 28px; font-weight: 700; min-width: 80px; }
+  .left-stat-label { color: var(--muted); font-size: 14px; }
+  .stepper { position: relative; padding-left: 36px; }
+  .stepper::before { content: ''; position: absolute; left: 27px; top: 28px; bottom: 28px; border-left: 2px dashed var(--border); transform-origin: top; transform: scaleY(0); }
+  .stepper.visible::before { transform: scaleY(1); transition: transform 1.2s ease; }
+  .step { position: relative; margin-bottom: 22px; opacity: 0; transform: translateX(20px); }
+  .step.visible { opacity: 1; transform: translateX(0); transition: opacity .7s ease, transform .7s ease; }
+  .step-num { position: absolute; left: -36px; top: 0; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 22px; border: 4px solid var(--bg); }
+  .step.s1 .step-num { background: var(--step-1); }
+  .step.s2 .step-num { background: var(--step-2); }
+  .step.s3 .step-num { background: var(--step-3); }
+  .step-card { background: var(--bg-card); padding: 22px 26px; margin-left: 38px; border-radius: 12px; border: 1px solid var(--border); }
+  .step-title { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .step-body { font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .container { grid-template-columns: 1fr; gap: 40px; }
+    .stepper { padding-left: 24px; }
+    .stepper::before { left: 19px; }
+    .step-num { left: -24px; width: 44px; height: 44px; font-size: 17px; border-width: 3px; }
+    .step-card { margin-left: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .stepper::before { transform: scaleY(1) !important; } .step { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div>
+      <p class="label">How It Works</p>
+      <h2>The Revenue Acceleration Framework™<span class="accent">Three Steps. Ninety Days.</span></h2>
+      <p class="sub">Not a course. Not a template. A hands-on system with real accountability.</p>
+      <p class="intro">Most coaches spend years figuring out what takes our clients 90 days. The difference is having a battle-tested system and someone who's walked the path before you.</p>
+      <div class="left-stats">
+        <div class="left-stat"><span class="left-stat-num" data-count="500" data-suffix="+">500+</span><span class="left-stat-label">clients transformed</span></div>
+        <div class="left-stat"><span class="left-stat-num" data-count="2" data-prefix="$" data-suffix="M">$2M</span><span class="left-stat-label">in client revenue generated</span></div>
+        <div class="left-stat"><span class="left-stat-num" data-count="92" data-suffix="%">92%</span><span class="left-stat-label">client satisfaction rate</span></div>
+      </div>
+    </div>
+    <div class="stepper">
+      <div class="step s1"><div class="step-num">1</div><div class="step-card"><h3 class="step-title">Diagnose &amp; Design</h3><p class="step-body">We identify exactly what's blocking your growth and rebuild your offer architecture from the ground up.</p></div></div>
+      <div class="step s2"><div class="step-num">2</div><div class="step-card"><h3 class="step-title">Build &amp; Launch</h3><p class="step-body">Your new client acquisition system goes live. First qualified leads arrive within 14 days.</p></div></div>
+      <div class="step s3"><div class="step-num">3</div><div class="step-card"><h3 class="step-title">Optimize &amp; Scale</h3><p class="step-body">Data-driven iteration every week until you hit your income target — then we build the team around it.</p></div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const stepperObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); stepperObs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  stepperObs.observe(document.querySelector('.stepper'));
+  const steps = document.querySelectorAll('.step');
+  const stepObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...steps].indexOf(e.target) * 200); stepObs.unobserve(e.target); } });
+  }, { threshold: 0.2 });
+  steps.forEach(s => stepObs.observe(s));
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1200;
+      const tick = (t) => { const p = Math.min(1, (t - start) / dur); const val = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = prefix + val + suffix; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

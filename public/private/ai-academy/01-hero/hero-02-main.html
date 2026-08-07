@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Academy — Fullscreen Space Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* === GLOBAL BRAND TOKENS === */
+    --bg:     #030110;
+    --accent: #6366F1;
+    --text:   #FFFFFF;
+    --muted:  rgba(255,255,255,0.5);
+    --border: rgba(255,255,255,0.08);
+    --card:   rgba(255,255,255,0.03);
+
+    /* === CLIENT VARIABLES — EDIT HERE === */
+    --btn-bg:      #1A1835;
+    --btn-border:  rgba(99,102,241,0.5);
+    --timer-color: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ===================== HERO SECTION ===================== */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Layer 1 — background image + Ken Burns slow zoom */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.0);
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    from { transform: scale(1.0); }
+    to   { transform: scale(1.08); }
+  }
+
+  /* Dark gradient overlay — bottom heavy, with an indigo wash */
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(120% 90% at 50% 10%, rgba(99,102,241,0.18), rgba(3,1,16,0) 55%),
+      linear-gradient(180deg, rgba(3,1,16,0.55) 0%, rgba(3,1,16,0.35) 30%, rgba(3,1,16,0.85) 78%, var(--bg) 100%);
+  }
+
+  /* Layer 2 — Nav */
+  .hero__nav {
+    position: relative;
+    z-index: 3;
+    height: 70px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .hero__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.2px;
+    color: var(--text);
+  }
+  .hero__logo .logo-mark {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(99,102,241,0.15);
+    border: 0.5px solid rgba(99,102,241,0.4);
+    color: var(--accent);
+  }
+  .hero__logo img { height: 30px; width: auto; display: block; }
+  .hero__support {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .hero__support:hover { color: var(--text); }
+
+  /* Layer 3 — Centered content column */
+  .hero__content {
+    position: relative;
+    z-index: 3;
+    flex: 1;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 24px 24px 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0;
+  }
+
+  /* a. Social proof pill */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid var(--border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 28px;
+  }
+  .pill .stars {
+    display: inline-flex;
+    gap: 1px;
+    color: #FBBF24;
+  }
+  .pill .count { color: var(--text); font-weight: 600; }
+
+  /* b. H1 line 1 */
+  .hero__h1 {
+    font-size: 56px;
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -1.2px;
+    color: var(--text);
+    margin: 0;
+  }
+  /* c. Typewriter line */
+  .hero__typeline {
+    display: block;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 52px;
+    line-height: 1.1;
+    color: var(--accent);
+    margin-top: 4px;
+    min-height: 1.1em;
+  }
+  .type-cursor {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: var(--accent);
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+  /* d. Subtext */
+  .hero__sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 540px;
+    margin: 26px auto 0;
+  }
+
+  /* e. CTA button */
+  .hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 34px;
+    padding: 16px 32px;
+    border-radius: 999px;
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  }
+  .hero__cta:hover {
+    transform: translateY(-1px);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 8px 40px rgba(99,102,241,0.45);
+  }
+  .hero__cta svg { width: 18px; height: 18px; }
+
+  /* f. Urgency line */
+  .hero__urgency {
+    margin-top: 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* g. Countdown */
+  .countdown {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .cd-box {
+    min-width: 76px;
+    padding: 14px 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid var(--border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .cd-num {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--timer-color);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+  .cd-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* h. Stat cards */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    width: 100%;
+    max-width: 640px;
+    margin-top: 40px;
+  }
+  .stat-card {
+    padding: 22px 18px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid var(--border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .stat-label {
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  /* Staggered fade-up on load */
+  .anim {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .d1 { animation-delay: 0.08s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.30s; }
+  .d4 { animation-delay: 0.42s; }
+  .d5 { animation-delay: 0.54s; }
+  .d6 { animation-delay: 0.64s; }
+  .d7 { animation-delay: 0.74s; }
+  .d8 { animation-delay: 0.86s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anim { opacity: 1; transform: none; animation: none; }
+    .hero__bg { animation: none; }
+    .type-cursor { animation: none; }
+  }
+
+  /* ===================== MOBILE ===================== */
+  @media (max-width: 768px) {
+    .hero__nav { padding: 0 20px; }
+    .hero__content { padding: 16px 20px 48px; }
+    .hero__h1 { font-size: 34px; letter-spacing: -0.6px; }
+    .hero__typeline { font-size: 32px; }
+    .hero__sub { font-size: 16px; margin-top: 20px; }
+    .hero__cta { margin-top: 28px; padding: 14px 26px; font-size: 14px; }
+    .countdown { gap: 8px; }
+    .cd-box { min-width: 0; flex: 1; padding: 12px 6px; }
+    .cd-num { font-size: 26px; }
+    .stats { grid-template-columns: 1fr; max-width: 360px; }
+  }
+</style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero__bg" id="heroBg"></div>
+    <div class="hero__overlay"></div>
+
+    <!-- Nav -->
+    <nav class="hero__nav anim d1">
+      <div class="hero__logo" id="brandLogo">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l2.2 5.3L20 10l-5.8 1.7L12 17l-2.2-5.3L4 10l5.8-1.7L12 3z"/>
+          </svg>
+        </span>
+        <span id="brandName">AI Academy</span>
+      </div>
+      <a class="hero__support" id="supportLink" href="mailto:support@gustensun.com">support@gustensun.com</a>
+    </nav>
+
+    <!-- Centered content -->
+    <div class="hero__content">
+      <!-- a. Social proof pill -->
+      <div class="pill anim d2">
+        <span class="stars" aria-hidden="true">
+          <svg viewBox="0 0 20 20" width="13" height="13" fill="currentColor"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.1l-4.94 2.6.94-5.5-4-3.9 5.53-.8L10 1.5z"/></svg>
+          <svg viewBox="0 0 20 20" width="13" height="13" fill="currentColor"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.1l-4.94 2.6.94-5.5-4-3.9 5.53-.8L10 1.5z"/></svg>
+          <svg viewBox="0 0 20 20" width="13" height="13" fill="currentColor"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.1l-4.94 2.6.94-5.5-4-3.9 5.53-.8L10 1.5z"/></svg>
+          <svg viewBox="0 0 20 20" width="13" height="13" fill="currentColor"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.1l-4.94 2.6.94-5.5-4-3.9 5.53-.8L10 1.5z"/></svg>
+          <svg viewBox="0 0 20 20" width="13" height="13" fill="currentColor"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.1l-4.94 2.6.94-5.5-4-3.9 5.53-.8L10 1.5z"/></svg>
+        </span>
+        Trusted by <span class="count" id="studentCount">7,231+</span> students
+      </div>
+
+      <!-- b + c. Heading -->
+      <h1 class="hero__h1 anim d3">
+        <span id="h1Line1">Build a business you love,</span>
+        <span class="hero__typeline"><span id="typewriter"></span><span class="type-cursor">|</span></span>
+      </h1>
+
+      <!-- d. Subtext -->
+      <p class="hero__sub anim d4" id="subText">Join the best community, courses and coaching calls for mastering AI.</p>
+
+      <!-- e. CTA -->
+      <a class="hero__cta anim d5" id="ctaBtn" href="#join">
+        <span id="ctaText">Join AI Academy — 40% OFF</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+
+      <!-- f. Urgency -->
+      <div class="hero__urgency anim d5" id="urgencyLine">PRICE GOING UP JUNE 7TH</div>
+
+      <!-- g. Countdown -->
+      <div class="countdown anim d6" aria-label="Time remaining">
+        <div class="cd-box"><span class="cd-num" id="cd">00</span><span class="cd-label">Days</span></div>
+        <div class="cd-box"><span class="cd-num" id="ch">00</span><span class="cd-label">Hours</span></div>
+        <div class="cd-box"><span class="cd-num" id="cm">00</span><span class="cd-label">Mins</span></div>
+        <div class="cd-box"><span class="cd-num" id="cs">00</span><span class="cd-label">Secs</span></div>
+      </div>
+
+      <!-- h. Stat cards -->
+      <div class="stats" id="statsRow">
+        <div class="stat-card anim d6"><div class="stat-num">$15M+</div><div class="stat-label">in verified member revenue</div></div>
+        <div class="stat-card anim d7"><div class="stat-num">10+</div><div class="stat-label">years of business experience</div></div>
+        <div class="stat-card anim d8"><div class="stat-num">50+</div><div class="stat-label">apps built using AI</div></div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  /* === CLIENT VARIABLES — EDIT HERE === */
+  const BG_IMAGE   = "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1920&q=80"; // Space bg
+  const LOGO_URL   = "";                          // optional; if empty show BRAND_NAME as text logo
+  const BRAND_NAME = "AI Academy";
+  const EMAIL      = "support@gustensun.com";
+  const STUDENTS   = "7,231+";
+  const H1_LINE_1  = "Build a business you love,";
+  const TYPEWRITER_PHRASES = ["with AI agents", "with Vibe Coding", "with AI Funnels", "with one person"];
+  const SUBTEXT    = "Join the best community, courses and coaching calls for mastering AI.";
+  const CTA_TEXT   = "Join AI Academy — 40% OFF";
+  const URGENCY    = "PRICE GOING UP JUNE 7TH";
+  const DEADLINE   = "2026-08-01T23:59:59";
+  const STATS = [
+    { num: "$15M+", label: "in verified member revenue" },
+    { num: "10+",   label: "years of business experience" },
+    { num: "50+",   label: "apps built using AI" }
+  ];
+
+  /* ---- Bind variables into the DOM (so a single source of truth drives the page) ---- */
+  document.getElementById('heroBg').style.backgroundImage = `url("${BG_IMAGE}")`;
+
+  // Logo: image if provided, otherwise text logo (default).
+  if (LOGO_URL) {
+    const logoEl = document.getElementById('brandLogo');
+    logoEl.innerHTML = `<img src="${LOGO_URL}" alt="${BRAND_NAME}">`;
+  } else {
+    document.getElementById('brandName').textContent = BRAND_NAME;
+  }
+
+  const supportLink = document.getElementById('supportLink');
+  supportLink.textContent = EMAIL;
+  supportLink.href = `mailto:${EMAIL}`;
+
+  document.getElementById('studentCount').textContent = STUDENTS;
+  document.getElementById('h1Line1').textContent = H1_LINE_1;
+  document.getElementById('subText').textContent = SUBTEXT;
+  document.getElementById('ctaText').textContent = CTA_TEXT;
+  document.getElementById('urgencyLine').textContent = URGENCY;
+  document.title = `${BRAND_NAME} — Fullscreen Space Hero`;
+
+  // Re-render stat cards from STATS, preserving the staggered animation classes.
+  (function renderStats() {
+    const row = document.getElementById('statsRow');
+    const delays = ['d6', 'd7', 'd8'];
+    row.innerHTML = STATS.map((s, i) =>
+      `<div class="stat-card anim ${delays[i] || 'd8'}"><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`
+    ).join('');
+  })();
+
+  /* ---- Typewriter effect: cycles phrases, 80ms/char, 3s pause, then deletes ---- */
+  (function typewriter() {
+    const target = document.getElementById('typewriter');
+    const TYPE_SPEED = 80;
+    const DELETE_SPEED = 40;
+    const HOLD = 3000;
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function tick() {
+      const phrase = TYPEWRITER_PHRASES[phraseIndex];
+      if (!deleting) {
+        charIndex++;
+        target.textContent = phrase.slice(0, charIndex);
+        if (charIndex === phrase.length) {
+          deleting = true;
+          setTimeout(tick, HOLD);
+          return;
+        }
+        setTimeout(tick, TYPE_SPEED);
+      } else {
+        charIndex--;
+        target.textContent = phrase.slice(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % TYPEWRITER_PHRASES.length;
+          setTimeout(tick, 300);
+          return;
+        }
+        setTimeout(tick, DELETE_SPEED);
+      }
+    }
+    tick();
+  })();
+
+  /* ---- REUSABLE COUNTDOWN (verbatim from spec) ---- */
+  function initCountdown(deadline, ids) {
+    const pad = n => String(n).padStart(2, '0');
+    setInterval(() => {
+      const diff = new Date(deadline) - new Date();
+      if (diff <= 0) return;
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor(diff % 86400000 / 3600000);
+      const m = Math.floor(diff % 3600000 / 60000);
+      const s = Math.floor(diff % 60000 / 1000);
+      const el = id => document.getElementById(id);
+      if (el(ids.d)) el(ids.d).textContent = pad(d);
+      if (el(ids.h)) el(ids.h).textContent = pad(h);
+      if (el(ids.m)) el(ids.m).textContent = pad(m);
+      if (el(ids.s)) el(ids.s).textContent = pad(s);
+    }, 1000);
+  }
+
+  // Paint the countdown once immediately, then tick live every second.
+  (function paintCountdownNow() {
+    const pad = n => String(n).padStart(2, '0');
+    const diff = new Date(DEADLINE) - new Date();
+    if (diff > 0) {
+      document.getElementById('cd').textContent = pad(Math.floor(diff / 86400000));
+      document.getElementById('ch').textContent = pad(Math.floor(diff % 86400000 / 3600000));
+      document.getElementById('cm').textContent = pad(Math.floor(diff % 3600000 / 60000));
+      document.getElementById('cs').textContent = pad(Math.floor(diff % 60000 / 1000));
+    }
+  })();
+  initCountdown(DEADLINE, { d: 'cd', h: 'ch', m: 'cm', s: 'cs' });
+</script>
+</body>
+</html>

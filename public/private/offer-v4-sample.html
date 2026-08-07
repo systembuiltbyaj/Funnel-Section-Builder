@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Offer V4 — 3-Tier Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F8FAFC; --accent: #4F46E5;
+    --p1: #64748B; --p2: #4F46E5; --p3: #7C3AED;
+    --text: #0F172A; --muted: #64748B; --check: #16A34A; --bonus: #D97706; --border: #E2E8F0; --popular-bg: #EEF2FF;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 14px; }
+  h2 { font-size: clamp(30px, 4.4vw, 46px); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 680px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
+  .plan { position: relative; background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 36px 28px; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease, box-shadow .25s; }
+  .plan.visible { opacity: 1; transform: translateY(0); }
+  .plan:hover { box-shadow: 0 16px 40px rgba(15,23,42,0.08); }
+  .plan.popular { border: 2px solid var(--p2); margin-top: -8px; box-shadow: 0 20px 50px rgba(79,70,229,0.15); }
+  .badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--p2); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 999px; white-space: nowrap; }
+  .p-label { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
+  .plan.t1 .p-label { color: var(--p1); }
+  .plan.t2 .p-label { color: var(--p2); }
+  .plan.t3 .p-label { color: var(--p3); }
+  .p-price { font-size: clamp(36px, 4vw, 44px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 22px; line-height: 1; }
+  .feats { list-style: none; margin-bottom: 24px; flex: 1; }
+  .feat { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; font-size: 14.5px; line-height: 1.4; }
+  .feat .ck { color: var(--check); flex-shrink: 0; margin-top: 1px; }
+  .feat.bonus .ck { color: var(--bonus); }
+  .feat.bonus { color: var(--bonus); font-weight: 600; }
+  .feat svg { width: 16px; height: 16px; }
+  .p-cta { display: block; text-align: center; padding: 14px; border-radius: 999px; font-weight: 800; font-size: 15px; text-decoration: none; transition: transform .2s, filter .2s; }
+  .plan.t1 .p-cta { background: #E2E8F0; color: var(--text); }
+  .plan.t2 .p-cta { background: var(--p2); color: #fff; }
+  .plan.t3 .p-cta { background: var(--p3); color: #fff; }
+  .p-cta:hover { transform: translateY(-2px); filter: brightness(1.05); }
+  .p-note { font-size: 12.5px; color: var(--muted); font-style: italic; text-align: center; margin-top: 12px; }
+  @media (max-width: 900px) {
+    .section { padding: 56px 18px; }
+    .grid { grid-template-columns: 1fr; gap: 32px; }
+    .plan.popular { margin-top: 0; order: -1; }
+  }
+  @media (prefers-reduced-motion: reduce) { .plan { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">Choose Your Path</p>
+      <h2>Three Ways to Work Together.</h2>
+      <p class="sub">Every option includes the core framework. Choose the level of support that fits where you are.</p>
+    </div>
+    <div class="grid">
+      <div class="plan t1">
+        <div class="p-label">Self-Study</div>
+        <div class="p-price">$997</div>
+        <ul class="feats">
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Core 12-Week Video Curriculum</li>
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>The Revenue Playbook™ PDF</li>
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Private Community Access</li>
+        </ul>
+        <a class="p-cta" href="#self">Start Self-Study →</a>
+        <p class="p-note">Best if you prefer to go at your own pace</p>
+      </div>
+      <div class="plan t2 popular">
+        <span class="badge">Most Popular</span>
+        <div class="p-label">Group Coaching</div>
+        <div class="p-price">$2,997</div>
+        <ul class="feats">
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Everything in Self-Study</li>
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Weekly Group Coaching Calls</li>
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Direct Slack Access to Coach</li>
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Monthly Hot-Seat Sessions</li>
+          <li class="feat bonus"><span class="ck">★</span>Bonus: DFY Email Templates ($297)</li>
+        </ul>
+        <a class="p-cta" href="#group">Join the Group →</a>
+        <p class="p-note">Best for accountability + community</p>
+      </div>
+      <div class="plan t3">
+        <div class="p-label">VIP Private</div>
+        <div class="p-price">$9,997</div>
+        <ul class="feats">
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Everything in Group Coaching</li>
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Weekly 1:1 Private Coaching Calls</li>
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Done-With-You Funnel Build</li>
+          <li class="feat"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span>Personal Revenue Strategy Session</li>
+          <li class="feat bonus"><span class="ck">★</span>Bonus: All Templates &amp; Playbooks ($994)</li>
+          <li class="feat bonus"><span class="ck">★</span>Bonus: 6-Month Extended Support</li>
+        </ul>
+        <a class="p-cta" href="#vip">Apply for VIP →</a>
+        <p class="p-note">Best for fastest results</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const plans = document.querySelectorAll('.plan');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...plans].indexOf(e.target) * 100); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  plans.forEach(p => obs.observe(p));
+</script>
+</body>
+</html>

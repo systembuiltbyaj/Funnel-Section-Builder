@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (inline SVG trust badges) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Risk Reversal V4 — Trust Badges Bar + Guarantee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#F0FDF4; --accent:#16A34A; --badge-bg:#FFFFFF; --seal-bg:#DCFCE7; --seal-border:#16A34A;
+    --text:#14532D; --muted:#4B5563; --border:#D1FAE5; --cta-bg:#16A34A;
+    --badge-1:#16A34A; --badge-2:#2563EB; --badge-3:#D97706; --badge-4:#7C3AED;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:420px;padding:88px 24px;}
+  .container{max-width:1080px;margin:0 auto;text-align:center;}
+  .label{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+  h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;line-height:1.12;letter-spacing:-0.01em;margin-bottom:40px;}
+  .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:44px;}
+  .badge{background:var(--badge-bg);border:1px solid var(--border);border-radius:16px;padding:26px 18px;text-align:center;box-shadow:0 8px 24px rgba(20,83,45,0.06);opacity:0;transform:translateY(22px) scale(0.96);transition:opacity .6s ease,transform .6s ease;}
+  .badge.visible{opacity:1;transform:translateY(0) scale(1);}
+  .bicon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin:0 auto 14px;}
+  .bicon svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .b1 .bicon{background:var(--badge-1);}.b2 .bicon{background:var(--badge-2);}.b3 .bicon{background:var(--badge-3);}.b4 .bicon{background:var(--badge-4);}
+  .btitle{font-size:14.5px;font-weight:800;margin-bottom:5px;color:var(--text);}
+  .bbody{font-size:12.5px;line-height:1.5;color:var(--muted);}
+  .guarantee{max-width:600px;margin:0 auto;opacity:0;transform:translateY(18px);transition:opacity .7s .2s ease,transform .7s .2s ease;}
+  .guarantee.visible{opacity:1;transform:translateY(0);}
+  .gtext{font-size:16px;line-height:1.7;color:var(--text);margin-bottom:16px;}
+  .gline{font-size:13.5px;font-style:italic;line-height:1.6;color:var(--muted);margin-bottom:28px;}
+  .cta{display:inline-block;background:var(--cta-bg);color:#fff;border:none;border-radius:999px;padding:16px 38px;font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer;transition:filter .2s,transform .1s;}
+  .cta:hover{filter:brightness(1.08);}.cta:active{transform:scale(0.99);}
+  @media(max-width:768px){.section{padding:56px 18px;}.badges{grid-template-columns:1fr 1fr;gap:14px;}}
+  @media(prefers-reduced-motion:reduce){.badge,.guarantee{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="label">Your Investment Is 100% Protected</div>
+    <h2>Four Layers of Protection — Not Just One.</h2>
+    <div class="badges">
+      <div class="badge b1"><div class="bicon"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div><div class="btitle">30-Day Refund</div><div class="bbody">Full refund, no questions</div></div>
+      <div class="badge b2"><div class="bicon"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><div class="btitle">Secure Checkout</div><div class="bbody">256-bit SSL encryption</div></div>
+      <div class="badge b3"><div class="bicon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div><div class="btitle">Outcome Guarantee</div><div class="bbody">We work until you win</div></div>
+      <div class="badge b4"><div class="bicon"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2.5" y="14" width="4" height="6" rx="1.5"/><rect x="17.5" y="14" width="4" height="6" rx="1.5"/><path d="M20 20a4 4 0 0 1-4 3h-2"/></svg></div><div class="btitle">Dedicated Support</div><div class="bbody">Real humans, real help</div></div>
+    </div>
+    <div class="guarantee">
+      <p class="gtext">Beyond the standard guarantees, we offer something most programs won't: the $20K Revenue Guarantee. Do the work. Follow the system. If you don't hit $20K/mo within 90 days of completing the program, we coach you for free until you do.</p>
+      <p class="gline">Plus a full 14-day no-questions-asked refund. Try everything. If it's not right, you pay nothing.</p>
+      <button class="cta" type="button">Start Risk-Free →</button>
+    </div>
+  </div>
+</section>
+<script>
+  const badges=document.querySelectorAll('.badge');
+  const bObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),[...badges].indexOf(e.target)*110);bObs.unobserve(e.target);}});},{threshold:0.2});
+  badges.forEach(b=>bObs.observe(b));
+  const gObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');gObs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.guarantee').forEach(el=>gObs.observe(el));
+</script>
+</body>
+</html>

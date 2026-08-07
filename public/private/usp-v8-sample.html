@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP V8 — Tabbed USP · Friendly Coaching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF; --accent: #4F46E5; --tab-active: #4F46E5;
+    --text: #0F172A; --muted: #64748B; --border: #E2E8F0; --panel-bg: #F8FAFF;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 32px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 32px; opacity: 0; transform: translateY(-8px); transition: opacity .8s ease, transform .8s ease; }
+  .header.visible { opacity: 1; transform: translateY(0); }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(32px, 4.4vw, 46px); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 660px; margin: 0 auto; }
+  .tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+  .tab { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 999px; background: #F1F5F9; color: var(--muted); border: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; transition: background-color .2s, color .2s; }
+  .tab:hover { color: var(--text); }
+  .tab.active { background: var(--tab-active); color: #fff; }
+  .tab svg { width: 16px; height: 16px; }
+  .panel { background: var(--panel-bg); border-radius: 20px; padding: 48px 40px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: center; opacity: 0; transition: opacity .25s ease; }
+  .panel.active { opacity: 1; }
+  .panel-num { font-family: 'Nunito', sans-serif; font-size: clamp(60px, 7vw, 96px); font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--accent); }
+  .panel-title { font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 10px; }
+  .panel-body { font-size: 16px; line-height: 1.65; color: var(--muted); }
+  .stage { position: relative; }
+  .stage .panel { position: absolute; inset: 0; }
+  .stage .panel.active { position: relative; }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .tabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 4px; }
+    .tab { flex-shrink: 0; }
+    .panel { grid-template-columns: 1fr; gap: 16px; padding: 32px 24px; text-align: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { .header { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">Three Core Advantages</p>
+      <h2>Pick the One That Matters Most to You.</h2>
+      <p class="sub">They all come included — but each one alone is worth the investment.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 10h4a2 2 0 1 1 0 4H9"/></svg>Revenue</button>
+      <button class="tab" data-tab="2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M6 16V8a4 4 0 0 1 4-4h4"/></svg>Clarity</button>
+      <button class="tab" data-tab="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8c5 0 5 8 0 8-5 0-7-8-12-8-5 0-5 8 0 8 5 0 7-8 12-8z"/></svg>Legacy</button>
+    </div>
+    <div class="stage">
+      <div class="panel active" data-panel="1"><div class="panel-num" data-count="50" data-prefix="$" data-suffix="K">$50K</div><div><h3 class="panel-title">Predictable $50K Months</h3><p class="panel-body">We engineer your revenue, not just your mindset. The program is built around one outcome — getting you to $50K/mo — and every module maps to that goal.</p></div></div>
+      <div class="panel" data-panel="2"><div class="panel-num">6 Steps</div><div><h3 class="panel-title">A Process That Removes All Doubt</h3><p class="panel-body">Six steps. Every week. You always know exactly what to do, what to say, and who to talk to. No confusion. No second-guessing.</p></div></div>
+      <div class="panel" data-panel="3"><div class="panel-num">Forever</div><div><h3 class="panel-title">A Business That Outlives the Program</h3><p class="panel-body">When the 12 weeks end, the business doesn't. We build infrastructure, not just skills — so everything keeps growing whether you're working or not.</p></div></div>
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelectorAll('.tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const id = tab.dataset.tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+      document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === id));
+    });
+  });
+  const headerObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); headerObs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  headerObs.observe(document.querySelector('.header'));
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1400;
+      const tick = (t) => { const p = Math.min(1, (t - start) / dur); const val = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = prefix + val + suffix; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.3 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

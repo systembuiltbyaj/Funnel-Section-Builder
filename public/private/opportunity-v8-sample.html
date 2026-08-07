@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Opportunity V8 — Dark Numbered Timeline · High-Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #050505; --bg-card: #111111; --accent: #DC2626; --accent-2: #F5C842;
+    --text: #FFFFFF; --muted: #9A9A9A;
+    --n1: #3B82F6; --n2: #F59E0B; --n3: #22C55E; --n4: #A855F7; --border: #222222;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 100px 32px 0; }
+  .container { max-width: 1280px; margin: 0 auto; }
+  .header { text-align: left; margin-bottom: 56px; max-width: 800px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 18px; }
+  h2 { font-size: clamp(34px, 4.8vw, 52px); font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .cell { padding: 32px 28px; transition: background-color .25s ease; opacity: 0; transform: translateY(16px); border-right: 1px solid var(--border); }
+  .cell:last-child { border-right: none; }
+  .cell.visible { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
+  .cell:hover { background: #0a0a0a; }
+  .cell-num { font-size: clamp(48px, 5.5vw, 68px); font-weight: 700; line-height: 1; letter-spacing: -0.02em; margin-bottom: 18px; }
+  .cell.c1 .cell-num { color: var(--n1); }
+  .cell.c2 .cell-num { color: var(--n2); }
+  .cell.c3 .cell-num { color: var(--n3); }
+  .cell.c4 .cell-num { color: var(--n4); }
+  .cell-title { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+  .cell-body { font-size: 14.5px; line-height: 1.62; color: var(--muted); }
+  .proof { background: var(--bg-card); padding: 40px 32px; margin-top: 64px; border-top: 1px solid var(--border); }
+  .proof-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; gap: 32px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-size: clamp(36px, 4.6vw, 56px); font-weight: 800; color: var(--accent-2); line-height: 1; letter-spacing: -0.02em; }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  @media (max-width: 900px) { .row { grid-template-columns: repeat(2, 1fr); } .cell { border-right: none; border-bottom: 1px solid var(--border); } }
+  @media (max-width: 540px) {
+    .section { padding: 56px 18px 0; }
+    .row { grid-template-columns: 1fr; }
+    .proof { padding: 32px 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .cell { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The System</p>
+      <h2>The Athlete Entrepreneur Method™</h2>
+      <p class="sub">Four phases. One hundred days. Built for high performers who refuse to choose between health and wealth.</p>
+    </div>
+    <div class="row">
+      <div class="cell c1"><div class="cell-num">01</div><h3 class="cell-title">Audit</h3><p class="cell-body">Full performance audit of your body, business, and mindset. No more guessing — pure data.</p></div>
+      <div class="cell c2"><div class="cell-num">02</div><h3 class="cell-title">Install</h3><p class="cell-body">High-performance protocols for energy, focus, and recovery installed alongside your revenue-generating activities.</p></div>
+      <div class="cell c3"><div class="cell-num">03</div><h3 class="cell-title">Execute</h3><p class="cell-body">Weekly sprints with accountability checkpoints. Every action tracked, every win celebrated.</p></div>
+      <div class="cell c4"><div class="cell-num">04</div><h3 class="cell-title">Compound</h3><p class="cell-body">Systems lock in. Results compound. You become the person who operates at this level permanently.</p></div>
+    </div>
+  </div>
+  <div class="proof">
+    <div class="proof-inner">
+      <div class="stat"><div class="stat-num" data-count="1200" data-suffix="+">1,200+</div><div class="stat-label">high performers enrolled</div></div>
+      <div class="stat"><div class="stat-num" data-count="4.2" data-prefix="$" data-suffix="M">$4.2M</div><div class="stat-label">in client revenue added</div></div>
+      <div class="stat"><div class="stat-num" data-count="4.9" data-suffix="★">4.9★</div><div class="stat-label">average program rating</div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const cells = document.querySelectorAll('.cell');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...cells].indexOf(e.target) * 110); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  cells.forEach(c => obs.observe(c));
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1400;
+      const tick = (t) => {
+        const p = Math.min(1, (t - start) / dur);
+        const val = target * (1 - Math.pow(1 - p, 3));
+        let formatted;
+        if (Number.isInteger(target)) formatted = Math.round(val).toLocaleString();
+        else formatted = val.toFixed(1);
+        el.textContent = prefix + formatted + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

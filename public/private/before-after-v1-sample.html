@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Before vs After V1 — Classic 2-Column</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF; --bg-old: rgba(220,38,38,0.03); --bg-new: rgba(22,163,74,0.04);
+    --accent: #2563EB; --old-color: #DC2626; --new-color: #16A34A;
+    --text: #0E1116; --muted: #4A5160; --border: #E4E7EB;
+    --old-border: rgba(220,38,38,0.3); --new-border: rgba(22,163,74,0.3);
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1140px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(30px, 4.4vw, 46px); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; max-width: 760px; margin: 0 auto 16px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 640px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .card { padding: 32px; border-radius: 16px; border: 1px solid; opacity: 0; }
+  .card.visible { opacity: 1; transition: opacity .8s ease, transform .8s ease; transform: translateX(0) !important; }
+  .old { background: var(--bg-old); border-color: var(--old-border); transform: translateX(-24px); }
+  .new { background: var(--bg-new); border-color: var(--new-border); transform: translateX(24px); background-image: linear-gradient(to bottom, transparent 50%, rgba(22,163,74,0.04) 100%); }
+  .card-head { font-size: 16px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px; }
+  .old .card-head { color: var(--old-color); }
+  .new .card-head { color: var(--new-color); }
+  .items { display: flex; flex-direction: column; gap: 14px; }
+  .item { display: flex; align-items: flex-start; gap: 12px; }
+  .icon { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; margin-top: 2px; }
+  .old .icon { background: rgba(220,38,38,0.12); color: var(--old-color); }
+  .new .icon { background: rgba(22,163,74,0.14); color: var(--new-color); }
+  .icon svg { width: 14px; height: 14px; }
+  .item-text { font-size: 15px; line-height: 1.5; color: var(--text); }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .grid { grid-template-columns: 1fr; gap: 16px; }
+    .card { padding: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .card { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Old Way vs The New Way</p>
+      <h2>Stop Fighting Your Business. Start Scaling It.</h2>
+      <p class="sub">Everything you've been taught about growing a coaching business is designed for a different era. Here's what actually works now.</p>
+    </div>
+    <div class="grid">
+      <div class="card old">
+        <div class="card-head">✗ Without a System</div>
+        <div class="items">
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span><span class="item-text">60-hour weeks chasing inconsistent $8K months</span></div>
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span><span class="item-text">Cold outreach to unqualified leads who ghost you</span></div>
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span><span class="item-text">Discounting your prices just to close the deal</span></div>
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span><span class="item-text">Reinventing your offer every time it doesn't sell</span></div>
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span><span class="item-text">Burning out and questioning if this is worth it</span></div>
+        </div>
+      </div>
+      <div class="card new">
+        <div class="card-head">✓ With The Method™</div>
+        <div class="items">
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-text">22-hour weeks running a predictable $50K business</span></div>
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-text">Warm inbound prospects who already want to buy</span></div>
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-text">Premium pricing clients respect and pay in full</span></div>
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-text">One proven offer that sells itself on repeat</span></div>
+          <div class="item"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-text">Energized, focused, and building something real</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const cards = document.querySelectorAll('.card');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.2 });
+  cards.forEach(c => obs.observe(c));
+</script>
+</body>
+</html>

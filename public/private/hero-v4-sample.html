@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero Variation 4 — Sample Layout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Playfair+Display:wght@400;700&family=Caveat:wght@500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:            #050A0F;
+    --accent:        #00E5CC;
+    --text:          #FFFFFF;
+    --muted:         #A0B0C0;
+    --overlay-left:  rgba(0, 0, 0, 0.35);
+    --overlay-right: rgba(0, 0, 0, 0.50);
+    --nav-height:    70px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  /* HERO */
+  .hero { position: relative; height: 100vh; min-height: 700px; overflow: hidden; display: flex; flex-direction: column; }
+  .bg { position: absolute; inset: 0; z-index: 0; display: grid; grid-template-columns: 1fr 1fr; }
+  .bg .half { position: relative; overflow: hidden; }
+  .bg .half-img { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .bg .left .half-img { animation: zoomIn 28s ease-in-out infinite alternate; }
+  .bg .right .half-img { animation: zoomOut 28s ease-in-out infinite alternate; }
+  @keyframes zoomIn  { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
+  @keyframes zoomOut { 0% { transform: scale(1.08); } 100% { transform: scale(1); } }
+  .bg .left::after  { content: ''; position: absolute; inset: 0; background: var(--overlay-left); }
+  .bg .right::after { content: ''; position: absolute; inset: 0; background: var(--overlay-right); }
+  .vignette { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse 90% 70% at 50% 50%, transparent 50%, rgba(0,0,0,0.5) 100%); pointer-events: none; }
+
+  /* NAV */
+  .nav { position: relative; z-index: 5; height: var(--nav-height); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; }
+  .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 0.08em; font-size: 18px; color: var(--text); text-decoration: none; opacity: 0; animation: fadeIn .8s .2s ease forwards; }
+  .nav-burger { background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 44px; height: 44px; display: grid; place-items: center; color: var(--text); cursor: pointer; transition: border-color .2s, background-color .2s; opacity: 0; animation: fadeIn .8s .2s ease forwards; }
+  .nav-burger:hover { border-color: var(--accent); background: rgba(0,229,204,0.1); }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* Headline */
+  .headline-wrap { position: relative; z-index: 3; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px 0; text-align: center; }
+  .pre-word { font-family: 'Caveat', cursive; font-size: clamp(22px, 3vw, 36px); color: var(--accent); margin-bottom: 4px; align-self: center; transform: translateX(-220px) translateY(20px); opacity: 0; animation: rise .8s .3s ease forwards; }
+  .headline { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(56px, 11vw, 144px); line-height: 0.96; letter-spacing: -0.02em; color: var(--text); text-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+  .headline .line { display: block; opacity: 0; transform: translateY(24px); }
+  .headline .l1 { animation: rise .9s .4s ease forwards; }
+  .headline .l2 { animation: rise .9s .5s ease forwards; font-style: italic; }
+  .headline .l3 { animation: rise .9s .6s ease forwards; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  /* Bottom bar */
+  .bottom-bar { position: relative; z-index: 3; padding: 0 32px 32px; display: grid; grid-template-columns: 1fr 2fr 1.2fr; gap: 32px; align-items: end; opacity: 0; animation: rise .8s .8s ease forwards; }
+  .scroll-btn { width: 56px; height: 56px; border: 2px solid var(--accent); border-radius: 50%; background: transparent; display: grid; place-items: center; color: var(--accent); cursor: pointer; animation: bounce 2.2s ease-in-out infinite; transition: background-color .2s; }
+  .scroll-btn:hover { background: rgba(0,229,204,0.12); }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+  .featured-block { text-align: center; }
+  .featured-label { color: var(--muted); font-size: 10.5px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 12px; }
+  .featured-logos { display: flex; gap: clamp(18px, 3vw, 40px); justify-content: center; align-items: center; flex-wrap: wrap; }
+  .featured-logos .logo { font-family: 'Playfair Display', serif; font-size: clamp(15px, 1.8vw, 22px); font-weight: 700; color: rgba(255,255,255,0.78); filter: grayscale(1); transition: opacity .25s ease, filter .25s ease; }
+  .featured-logos .logo:hover { opacity: 1; filter: none; }
+  .featured-logos .logo.sans { font-family: 'Space Grotesk', sans-serif; }
+  .featured-logos .logo.fortune { letter-spacing: 0.30em; text-transform: uppercase; font-size: clamp(12px, 1.4vw, 17px); }
+  .featured-logos .logo.success { letter-spacing: 0.16em; text-transform: uppercase; font-size: clamp(13px, 1.5vw, 18px); }
+
+  .quote { text-align: right; padding-left: 16px; border-left: 2px solid rgba(0,229,204,0.4); }
+  .quote-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; line-height: 1.5; color: var(--muted); margin-bottom: 8px; }
+  .quote-name { font-weight: 700; font-size: 13px; color: var(--text); margin-right: 8px; }
+  .quote-title { font-size: 12px; color: var(--muted); }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .bg { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+    .nav { padding: 0 18px; }
+    .headline-wrap { padding: 20px 16px 0; }
+    .pre-word { transform: translateY(20px); }
+    .bottom-bar { grid-template-columns: 1fr; gap: 18px; padding: 0 18px 22px; text-align: center; }
+    .scroll-btn { justify-self: center; }
+    .quote { text-align: center; padding-left: 0; border-left: none; padding-top: 12px; border-top: 1px solid rgba(0,229,204,0.25); }
+  }
+  @media (max-width: 480px) {
+    .quote { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="bg">
+    <div class="half left"><div class="half-img" id="bg-left"></div></div>
+    <div class="half right"><div class="half-img" id="bg-right"></div></div>
+  </div>
+  <div class="vignette"></div>
+
+  <nav class="nav">
+    <a class="nav-logo" href="#" id="logo">TONY ROBBINS</a>
+    <button class="nav-burger" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+
+  <div class="headline-wrap">
+    <span class="pre-word">the</span>
+    <h1 class="headline">
+      <span class="line l1">Strategist</span>
+      <span class="line l2">the Speaker</span>
+      <span class="line l3">the Author</span>
+    </h1>
+  </div>
+
+  <div class="bottom-bar">
+    <button class="scroll-btn" id="scroll-btn" aria-label="Scroll down">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+    </button>
+
+    <div class="featured-block">
+      <p class="featured-label" id="featured-label">Tony Has Been Featured In:</p>
+      <div class="featured-logos" id="featured-logos"></div>
+    </div>
+
+    <div class="quote">
+      <p class="quote-text" id="quote-text">&ldquo;Tony's work has fundamentally changed how I lead my company and my life.&rdquo;</p>
+      <p>
+        <span class="quote-name" id="quote-name">Marc Benioff</span>
+        <span class="quote-title" id="quote-title">CEO, Salesforce</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const LOGO_TEXT  = "TONY ROBBINS";
+  const BG_LEFT    = "/private/hero-v4-bg-left.webp";
+  const BG_RIGHT   = "/private/hero-v4-bg-right.webp";
+  const FEATURED_LABEL = "Tony Has Been Featured In:";
+  const FEATURED_LOGOS = [
+    { name: "SUCCESS", cls: "success"      },
+    { name: "Inc.",    cls: ""             },
+    { name: "Forbes",  cls: ""             },
+    { name: "FORTUNE", cls: "fortune sans" },
+  ];
+  const QUOTE_TEXT  = "“Tony’s work has fundamentally changed how I lead my company and my life.”";
+  const QUOTE_NAME  = "Marc Benioff";
+  const QUOTE_TITLE = "CEO, Salesforce";
+
+  document.getElementById('bg-left').style.backgroundImage  = `url('${BG_LEFT}')`;
+  document.getElementById('bg-right').style.backgroundImage = `url('${BG_RIGHT}')`;
+  document.getElementById('logo').textContent = LOGO_TEXT;
+  document.getElementById('featured-label').textContent = FEATURED_LABEL;
+  document.getElementById('featured-logos').innerHTML = FEATURED_LOGOS.map(l => `<span class="logo ${l.cls}">${l.name}</span>`).join('');
+  document.getElementById('quote-text').textContent = QUOTE_TEXT;
+  document.getElementById('quote-name').textContent = QUOTE_NAME;
+  document.getElementById('quote-title').textContent = QUOTE_TITLE;
+
+  document.getElementById('scroll-btn').addEventListener('click', () => {
+    window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>

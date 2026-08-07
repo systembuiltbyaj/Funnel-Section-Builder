@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Opportunity V1 — 4-Phase Horizontal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:      #FFFFFF;
+    --bg-alt:  #F7F8FA;
+    --accent:  #2563EB;
+    --text:    #0E1116;
+    --muted:   #4A5160;
+    --phase-1: #2563EB;
+    --phase-2: #D97706;
+    --phase-3: #16A34A;
+    --phase-4: #7C3AED;
+    --border:  #E4E7EB;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(32px, 4.6vw, 52px); font-weight: 800; line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 680px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .card { background: var(--bg); border: 1px solid var(--border); border-left: 4px solid; border-radius: 16px; padding: 28px 24px; opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease, box-shadow .25s ease; }
+  .card.visible { opacity: 1; transform: translateY(0); }
+  .card:hover { box-shadow: 0 16px 40px rgba(15,17,22,0.08); }
+  .card.p1 { border-left-color: var(--phase-1); }
+  .card.p2 { border-left-color: var(--phase-2); }
+  .card.p3 { border-left-color: var(--phase-3); }
+  .card.p4 { border-left-color: var(--phase-4); }
+  .card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 14px; }
+  .card.p1 .card-label { color: var(--phase-1); }
+  .card.p2 .card-label { color: var(--phase-2); }
+  .card.p3 .card-label { color: var(--phase-3); }
+  .card.p4 .card-label { color: var(--phase-4); }
+  .card-title { font-size: 22px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+  .card-body { font-size: 14.5px; line-height: 1.62; color: var(--muted); }
+  .stats { display: flex; justify-content: center; gap: clamp(28px, 6vw, 80px); padding-top: 64px; margin-top: 56px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-size: clamp(36px, 4.5vw, 56px); font-weight: 800; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 10px; max-width: 220px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } .section { padding: 56px 18px; } }
+  @media (prefers-reduced-motion: reduce) { .card { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Proven Framework</p>
+      <h2>The Lean Agency Method™</h2>
+      <p class="sub">A 12-week system built for coaches and consultants ready to hit consistent $50K months — without burnout.</p>
+    </div>
+    <div class="grid">
+      <article class="card p1"><p class="card-label">Phase 1 · Weeks 1–3</p><h3 class="card-title">Foundation</h3><p class="card-body">Audit your current offer, identify your highest-value clients, and install the core infrastructure for scale.</p></article>
+      <article class="card p2"><p class="card-label">Phase 2 · Weeks 4–6</p><h3 class="card-title">Pipeline</h3><p class="card-body">Build a predictable lead engine using our 3-channel outreach system — zero paid ads required.</p></article>
+      <article class="card p3"><p class="card-label">Phase 3 · Weeks 7–9</p><h3 class="card-title">Conversion</h3><p class="card-body">Deploy the 6-step sales framework that converts 1 in 3 discovery calls into high-ticket clients.</p></article>
+      <article class="card p4"><p class="card-label">Phase 4 · Weeks 10–12</p><h3 class="card-title">Scale</h3><p class="card-body">Systemize delivery, hire your first VA, and remove yourself from the day-to-day without losing revenue.</p></article>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" data-count="50" data-prefix="$" data-suffix="K">$50K</div><div class="stat-label">average monthly revenue by week 12</div></div>
+      <div class="stat"><div class="stat-num" data-count="81" data-suffix="%">81%</div><div class="stat-label">of clients hit target within 90 days</div></div>
+      <div class="stat"><div class="stat-num" data-count="90">90</div><div class="stat-label">days to a fully systemized business</div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const cards = document.querySelectorAll('.card');
+  const cardObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...cards].indexOf(e.target) * 100); cardObs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  cards.forEach(c => cardObs.observe(c));
+  // Count-up
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1200;
+      const tick = (t) => { const p = Math.min(1, (t - start) / dur); const val = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = prefix + val + suffix; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (dark CSS countdown) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Urgency V2 — Split Urgency + Mini Offer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#0A0A14; --left-bg:#0D0D1A; --right-bg:#111120; --accent:#F5C842; --timer-num:#F5C842;
+    --timer-bg:rgba(245,200,66,0.08); --timer-border:rgba(245,200,66,0.25); --danger:#EF4444;
+    --text:#FFFFFF; --muted:#9AA0B0; --cta-bg:#F5C842; --cta-text:#0A0A14; --border:rgba(255,255,255,0.06); --check:#22C55E;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:500px;padding:80px 24px;display:flex;align-items:center;justify-content:center;}
+  .wrap{max-width:1080px;width:100%;display:grid;grid-template-columns:55% 45%;border:1px solid var(--border);border-radius:22px;overflow:hidden;}
+  .left{background:var(--left-bg);padding:48px 44px;opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease;}
+  .left.visible{opacity:1;transform:translateY(0);}
+  .label{display:inline-block;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  h2{font-size:clamp(26px,3.2vw,38px);font-weight:700;line-height:1.12;margin-bottom:14px;}
+  .sub{font-size:15px;line-height:1.7;color:var(--muted);margin-bottom:28px;}
+  .timer-label{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+  .timer{display:flex;align-items:center;gap:8px;margin-bottom:22px;}
+  .box{background:var(--timer-bg);border:1px solid var(--timer-border);border-radius:12px;padding:12px 6px;min-width:70px;text-align:center;}
+  .num{display:block;font-size:30px;font-weight:700;line-height:1;color:var(--timer-num);font-variant-numeric:tabular-nums;}
+  .lbl{display:block;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+  .sep{font-size:22px;font-weight:700;color:var(--timer-border);}
+  .closed{display:none;font-size:18px;font-weight:700;color:var(--accent);margin-bottom:22px;}
+  .scarcity{font-size:14px;font-weight:700;color:var(--danger);}
+  .right{background:var(--right-bg);padding:44px 38px;border-left:1px solid var(--border);display:flex;flex-direction:column;opacity:0;transform:translateX(26px);transition:opacity .8s .15s ease,transform .8s .15s ease;}
+  .right.visible{opacity:1;transform:translateX(0);}
+  .r-head{font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
+  .items{list-style:none;margin-bottom:24px;}
+  .items li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.45;padding:8px 0;}
+  .ck{flex-shrink:0;color:var(--check);font-weight:800;margin-top:1px;}
+  .price{font-size:14px;color:var(--muted);margin-bottom:6px;}
+  .price b{display:block;font-size:40px;font-weight:700;color:var(--text);line-height:1;margin-top:4px;}
+  .cta{margin-top:auto;width:100%;background:var(--cta-bg);color:var(--cta-text);border:none;border-radius:999px;padding:16px 24px;font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer;transition:filter .2s,transform .1s;}
+  .cta:hover{filter:brightness(1.06);}.cta:active{transform:scale(0.99);}
+  @media(max-width:768px){.section{padding:52px 16px;}.wrap{grid-template-columns:1fr;}.left,.right{padding:34px 24px;}.right{border-left:none;border-top:1px solid var(--border);}.box{min-width:0;flex:1;}}
+  @media(prefers-reduced-motion:reduce){.left,.right{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="wrap">
+    <div class="left">
+      <div class="label">Enrollment Closes</div>
+      <h2>This Cohort Closes Friday.</h2>
+      <p class="sub">Price increases to $9,997 at midnight. Bonuses expire permanently.</p>
+      <div class="timer-label">Time remaining:</div>
+      <div class="timer" id="timer">
+        <div class="box"><span class="num" id="tD">00</span><span class="lbl">Days</span></div>
+        <span class="sep">:</span>
+        <div class="box"><span class="num" id="tH">00</span><span class="lbl">Hrs</span></div>
+        <span class="sep">:</span>
+        <div class="box"><span class="num" id="tM">00</span><span class="lbl">Min</span></div>
+        <span class="sep">:</span>
+        <div class="box"><span class="num" id="tS">00</span><span class="lbl">Sec</span></div>
+      </div>
+      <div class="closed" id="closed">⚠ Enrollment is now closed.</div>
+      <div class="scarcity">⚠ 8 of 30 seats remaining</div>
+    </div>
+    <div class="right">
+      <div class="r-head">8 Seats Left at This Price</div>
+      <ul class="items">
+        <li><span class="ck">✓</span>12-Week Agency Accelerator Program</li>
+        <li><span class="ck">✓</span>All bonuses included (expires Friday)</li>
+        <li><span class="ck">✓</span>Founding member pricing locked</li>
+      </ul>
+      <div class="price">Price today:<b>$4,997</b></div>
+      <button class="cta" type="button">ENROLL NOW →</button>
+    </div>
+  </div>
+</section>
+<script>
+  const DEADLINE = "2026-08-01T23:59:59";
+  const SEATS_LEFT = 8, SEATS_TOTAL = 30;
+  (function(){
+    const end=new Date(DEADLINE).getTime();
+    const D=document.getElementById('tD'),H=document.getElementById('tH'),M=document.getElementById('tM'),S=document.getElementById('tS');
+    const timer=document.getElementById('timer'),closed=document.getElementById('closed');
+    const p=(n)=>String(n).padStart(2,'0');let iv;
+    function tick(){let diff=end-Date.now();if(diff<=0){timer.style.display='none';closed.style.display='block';clearInterval(iv);return;}
+      const d=Math.floor(diff/86400000);diff-=d*86400000;const h=Math.floor(diff/3600000);diff-=h*3600000;const m=Math.floor(diff/60000);diff-=m*60000;const s=Math.floor(diff/1000);
+      D.textContent=p(d);H.textContent=p(h);M.textContent=p(m);S.textContent=p(s);}
+    tick();iv=setInterval(tick,1000);
+  })();
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.left,.right').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

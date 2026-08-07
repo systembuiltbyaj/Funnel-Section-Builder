@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+  ASSETS USED:
+    Local:    none
+    Unsplash: none (icons rendered via inline SVG)
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Empathy V1 — 3-Column Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:      #FFFFFF;
+    --bg-alt:  #F7F8FA;
+    --accent:  #2563EB;
+    --text:    #0E1116;
+    --muted:   #4A5160;
+    --card-bg: #FFFFFF;
+    --border:  #E4E7EB;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .section { padding: 96px 24px; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); position: relative; overflow: hidden; }
+  .section::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(0,0,0,0.025) 1px, transparent 1px); background-size: 24px 24px; pointer-events: none; opacity: 0.6; }
+  .container { max-width: 1140px; margin: 0 auto; position: relative; z-index: 1; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(30px, 4.5vw, 48px); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; max-width: 760px; margin: 0 auto 16px; color: var(--text); }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 620px; margin: 0 auto; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 32px; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; opacity: 0; transform: translateY(16px); }
+  .card.visible { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(15,17,22,0.08); border-color: #D5D9E0; }
+  .icon-box { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 20px; }
+  .icon-box svg { width: 22px; height: 22px; }
+  .icon-red    { background: #FEE2E2; color: #DC2626; }
+  .icon-blue   { background: #DBEAFE; color: #2563EB; }
+  .icon-green  { background: #D1FAE5; color: #16A34A; }
+  .card-title { font-size: 20px; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: var(--text); }
+  .card-body { font-size: 15px; line-height: 1.62; color: var(--muted); }
+
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .header { margin-bottom: 40px; }
+    .grid { grid-template-columns: 1fr; gap: 16px; }
+    .card { padding: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .card { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">Does This Sound Familiar?</p>
+      <h2>You're Working Hard. But Something Still Feels Off.</h2>
+      <p class="sub">If any of these hit close to home, you're exactly who we built this for.</p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="icon-box icon-red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+        </div>
+        <h3 class="card-title">The Clock Is Running Out</h3>
+        <p class="card-body">Every month you wait is another month of missed revenue, missed opportunities, and watching competitors pull ahead. The cost of staying stuck is higher than you think.</p>
+      </article>
+
+      <article class="card">
+        <div class="icon-box icon-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+        </div>
+        <h3 class="card-title">I Know This Feeling Personally</h3>
+        <p class="card-body">I spent 3 years doing everything "right" and still hitting the same ceiling. Not because I lacked effort — but because I was missing one critical piece of the puzzle.</p>
+      </article>
+
+      <article class="card">
+        <div class="icon-box icon-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </div>
+        <h3 class="card-title">There's a Smarter Path Forward</h3>
+        <p class="card-body">Once I found the right system, everything changed in 90 days. Not overnight — but faster than I ever thought possible. That's exactly what you'll build here.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), [...cards].indexOf(entry.target) * 150);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => observer.observe(c));
+</script>
+
+</body>
+</html>

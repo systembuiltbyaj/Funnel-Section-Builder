@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Offer V6 — Accordion Reveal · Dark Neon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0D0F1A; --core-bg: #131520; --bonus-bg: rgba(245,158,11,0.05); --bonus-border: rgba(245,158,11,0.25);
+    --accent: #7C3AED; --text: #FFFFFF; --muted: #9AA0B0; --check: #22C55E; --bonus: #F59E0B; --price-color: #A855F7; --border: #1E2130;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 100px 24px; }
+  .container { max-width: 760px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 44px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 14px; }
+  h2 { font-size: clamp(32px, 4.6vw, 48px); font-weight: 700; line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .sub { font-size: 16px; line-height: 1.55; color: var(--muted); max-width: 540px; margin: 0 auto; }
+  .acc { display: flex; flex-direction: column; gap: 16px; }
+  .acc-sec { border-radius: 14px; border: 1px solid var(--border); overflow: hidden; opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+  .acc-sec.visible { opacity: 1; transform: translateY(0); }
+  .acc-sec.core { background: var(--core-bg); }
+  .acc-sec.bonus { background: var(--bonus-bg); border-color: var(--bonus-border); }
+  .acc-head { display: flex; align-items: center; justify-content: space-between; padding: 22px 26px; cursor: pointer; user-select: none; }
+  .acc-head-left { font-size: 16px; font-weight: 700; }
+  .acc-sec.bonus .acc-head-left { color: var(--bonus); }
+  .acc-head-right { display: flex; align-items: center; gap: 14px; }
+  .acc-value { font-size: 14px; color: var(--muted); font-weight: 600; }
+  .chev { width: 20px; height: 20px; color: var(--muted); transition: transform .35s ease; }
+  .acc-sec.open .chev { transform: rotate(180deg); }
+  .acc-body { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .25s ease; padding: 0 26px; }
+  .acc-sec.open .acc-body { max-height: 400px; padding: 0 26px 22px; }
+  .item { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px dashed var(--border); }
+  .item:last-child { border-bottom: none; }
+  .ic { color: var(--check); display: grid; place-items: center; }
+  .acc-sec.bonus .ic { color: var(--bonus); font-weight: 800; }
+  .ic svg { width: 16px; height: 16px; }
+  .item-name { font-size: 14.5px; }
+  .acc-sec.bonus .item-name { color: var(--bonus); font-weight: 500; }
+  .item-val { font-size: 14.5px; font-weight: 700; }
+  .acc-sec.bonus .item-val { color: var(--bonus); }
+  .price-block { text-align: center; margin-top: 32px; opacity: 0; transform: translateY(16px); transition: opacity .8s .2s ease, transform .8s .2s ease; }
+  .price-block.visible { opacity: 1; transform: translateY(0); }
+  .strike { color: var(--muted); text-decoration: line-through; font-size: 17px; margin-bottom: 4px; }
+  .your-price { color: var(--muted); font-size: 14px; margin-bottom: 4px; }
+  .today { font-size: clamp(56px, 8vw, 80px); font-weight: 700; color: var(--price-color); line-height: 1; letter-spacing: -0.02em; margin-bottom: 8px; text-shadow: 0 0 40px rgba(168,85,247,0.4); }
+  .plan { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .cta { display: block; padding: 18px 24px; background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%); color: #fff; text-decoration: none; text-align: center; border-radius: 999px; font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: 0.1em; transition: transform .2s, filter .2s; }
+  .cta:hover { transform: translateY(-2px); filter: brightness(1.08); }
+  .trust { color: var(--muted); font-size: 13px; margin-top: 14px; }
+  @media (max-width: 640px) { .section { padding: 56px 18px; } }
+  @media (prefers-reduced-motion: reduce) { .acc-sec, .price-block { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Complete Package</p>
+      <h2>Everything. No Exceptions.</h2>
+      <p class="sub">Every tool, every framework, every call — included.</p>
+    </div>
+    <div class="acc">
+      <div class="acc-sec core open">
+        <div class="acc-head"><span class="acc-head-left">Core Program</span><span class="acc-head-right"><span class="acc-value">$3,285 value</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+        <div class="acc-body">
+          <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-name">The Full 12-Week Curriculum</span><span class="item-val">$1,997</span></div>
+          <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-name">Weekly Live Group Calls</span><span class="item-val">$997</span></div>
+          <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-name">Private Members Community</span><span class="item-val">$297</span></div>
+        </div>
+      </div>
+      <div class="acc-sec bonus open">
+        <div class="acc-head"><span class="acc-head-left">★ Fast-Action Bonuses (expires soon)</span><span class="acc-head-right"><span class="acc-value">$591 value</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+        <div class="acc-body">
+          <div class="item"><span class="ic">★</span><span class="item-name">The Lead Generation Swipe File</span><span class="item-val">$297</span></div>
+          <div class="item"><span class="ic">★</span><span class="item-name">90-Day Content Calendar</span><span class="item-val">$197</span></div>
+          <div class="item"><span class="ic">★</span><span class="item-name">The Pricing &amp; Packaging Guide</span><span class="item-val">$97</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="price-block">
+      <div class="strike">$3,876</div>
+      <div class="your-price">Your price today:</div>
+      <div class="today">$1,997</div>
+      <div class="plan">or 3 × $797</div>
+      <a class="cta" href="#access">Get Instant Access →</a>
+      <p class="trust">30-day full refund · Cancel anytime</p>
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelectorAll('.acc-head').forEach((h) => {
+    h.addEventListener('click', () => h.parentElement.classList.toggle('open'));
+  });
+  const els = document.querySelectorAll('.acc-sec, .price-block');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...els].indexOf(e.target) * 120); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  els.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

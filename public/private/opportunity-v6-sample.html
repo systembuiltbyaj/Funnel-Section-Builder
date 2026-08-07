@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Opportunity V6 — Tabbed Switcher · Corporate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF; --bg-tabs: #F1F5F9; --accent: #0F766E; --accent-h: #115E59;
+    --text: #0F172A; --muted: #64748B; --border: #CBD5E1; --tab-active: #0F766E;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 32px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 40px; opacity: 0; transform: translateY(-10px); }
+  .header.visible { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(32px, 4.4vw, 48px); font-weight: 800; line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 700px; margin: 0 auto; }
+  .tabs { display: flex; justify-content: center; gap: 4px; padding: 6px; background: var(--bg-tabs); border-radius: 999px; margin: 0 auto 48px; max-width: max-content; flex-wrap: wrap; }
+  .tab { background: transparent; border: none; padding: 10px 22px; border-radius: 999px; color: var(--muted); font-family: inherit; font-weight: 600; font-size: 14px; cursor: pointer; transition: background-color .25s, color .25s; }
+  .tab:hover { color: var(--text); }
+  .tab.active { background: var(--tab-active); color: #fff; }
+  .panels { position: relative; min-height: 320px; }
+  .panel { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; opacity: 0; visibility: hidden; transition: opacity .3s ease; position: absolute; inset: 0; }
+  .panel.active { opacity: 1; visibility: visible; position: relative; }
+  .panel-title { font-size: clamp(28px, 3.5vw, 38px); font-weight: 700; line-height: 1.1; margin-bottom: 6px; }
+  .panel-sub { font-size: 14px; font-weight: 600; color: var(--accent); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 18px; }
+  .panel-body { font-size: 16px; line-height: 1.7; color: var(--muted); max-width: 520px; }
+  .panel-visual { aspect-ratio: 1; max-width: 280px; justify-self: end; background: var(--bg-tabs); border-radius: 20px; display: grid; place-items: center; color: var(--accent); }
+  .panel-visual svg { width: 60%; height: 60%; }
+  .stats { display: flex; justify-content: center; gap: clamp(28px, 6vw, 80px); padding-top: 56px; margin-top: 56px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-size: clamp(36px, 4.4vw, 50px); font-weight: 800; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .tabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
+    .panel { grid-template-columns: 1fr; gap: 24px; }
+    .panel-visual { justify-self: center; max-width: 200px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .header { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">How We Work Together</p>
+      <h2>The Executive Presence Blueprint™</h2>
+      <p class="sub">Four distinct phases. Each one builds on the last. Together they create a transformation that lasts.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="1">Phase 1</button>
+      <button class="tab" data-tab="2">Phase 2</button>
+      <button class="tab" data-tab="3">Phase 3</button>
+      <button class="tab" data-tab="4">Phase 4</button>
+    </div>
+    <div class="panels">
+      <div class="panel active" data-panel="1">
+        <div><p class="panel-sub">Weeks 1–2</p><h3 class="panel-title">Awareness</h3><p class="panel-body">A 360° assessment reveals blind spots in how others perceive your leadership — and the specific shifts that create immediate impact.</p></div>
+        <div class="panel-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
+      </div>
+      <div class="panel" data-panel="2">
+        <div><p class="panel-sub">Weeks 3–5</p><h3 class="panel-title">Architecture</h3><p class="panel-body">We rebuild your communication framework — how you speak in meetings, present to boards, and handle conflict under pressure.</p></div>
+        <div class="panel-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+      </div>
+      <div class="panel" data-panel="3">
+        <div><p class="panel-sub">Weeks 6–9</p><h3 class="panel-title">Activation</h3><p class="panel-body">Live scenario practice with real-time coaching. You walk into every room knowing exactly how to command it.</p></div>
+        <div class="panel-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      </div>
+      <div class="panel" data-panel="4">
+        <div><p class="panel-sub">Weeks 10–12</p><h3 class="panel-title">Ascent</h3><p class="panel-body">Strategic positioning for your next promotion, board seat, or speaking opportunity.</p></div>
+        <div class="panel-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" data-count="200" data-suffix="+">200+</div><div class="stat-label">executives coached</div></div>
+      <div class="stat"><div class="stat-num" data-count="94" data-suffix="%">94%</div><div class="stat-label">promotion rate within 12 months</div></div>
+      <div class="stat"><div class="stat-num" data-count="4.9" data-suffix="★">4.9★</div><div class="stat-label">average client rating</div></div>
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelectorAll('.tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const id = tab.dataset.tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+      document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === id));
+    });
+  });
+  const headerObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); headerObs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  headerObs.observe(document.querySelector('.header'));
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1200;
+      const tick = (t) => {
+        const p = Math.min(1, (t - start) / dur);
+        const val = target * (1 - Math.pow(1 - p, 3));
+        const formatted = Number.isInteger(target) ? Math.round(val).toString() : val.toFixed(1);
+        el.textContent = prefix + formatted + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

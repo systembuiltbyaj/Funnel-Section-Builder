@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+  ASSETS USED:
+    Local: none
+    Unsplash: photo-1540575467063 / photo-1475721027785 / photo-1507003211169 → video thumbnails
+  Unsplash avatars (placeholder testimonial headshots): photo-1507003211169 / 1573496359142 / 1472099645785 / 1438761681033 / 1500648767791 / 1544005313 / 1487412720507
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Social Proof V4 — Video Thumbnails</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#0F0F1A; --card-bg:#1A1A2A; --accent:#A855F7; --star:#F59E0B; --text:#FFFFFF; --muted:#9AA0B0; --play-bg:rgba(168,85,247,0.9); --border:#2A2A3A; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{padding:100px 24px;}
+  .container{max-width:1200px;margin:0 auto;}
+  .header{text-align:center;margin-bottom:56px;}
+  .agg{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--muted);margin-bottom:16px;}
+  .agg .stars{color:var(--star);letter-spacing:1px;}
+  h2{font-size:clamp(32px,4.6vw,50px);font-weight:700;line-height:1.08;letter-spacing:-0.01em;margin-bottom:12px;}
+  .sub{font-size:16px;color:var(--muted);}
+  .videos{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px;}
+  .vcard{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;cursor:pointer;opacity:0;transform:scale(0.95);transition:opacity .7s ease,transform .7s ease;}
+  .vcard.visible{opacity:1;transform:scale(1);}
+  .vcard .thumb{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s;}
+  .vcard:hover .thumb{transform:scale(1.05);}
+  .vcard .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,15,26,0.92) 0%,rgba(15,15,26,0.3) 60%,rgba(15,15,26,0.5) 100%);transition:background .3s;}
+  .vcard:hover .overlay{background:linear-gradient(to top,rgba(15,15,26,0.85) 0%,rgba(15,15,26,0.2) 60%,rgba(15,15,26,0.3) 100%);}
+  .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:var(--play-bg);display:grid;place-items:center;transition:transform .3s;}
+  .vcard:hover .play{transform:translate(-50%,-50%) scale(1.12);}
+  .play svg{width:24px;height:24px;fill:#fff;margin-left:3px;}
+  .vmeta{position:absolute;left:0;right:0;bottom:0;padding:20px;z-index:1;}
+  .vtitle{font-size:17px;font-weight:700;line-height:1.25;margin-bottom:4px;}
+  .vname{font-size:13px;color:var(--muted);}
+  .texts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .tcard{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:24px;opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease;}
+  .tcard.visible{opacity:1;transform:translateY(0);}
+  .stars{color:var(--star);letter-spacing:2px;font-size:14px;margin-bottom:10px;}
+  .quote{font-style:italic;font-size:14px;line-height:1.55;margin-bottom:14px;}
+  .who{display:flex;align-items:center;gap:10px;}
+  .avatar{object-fit:cover;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;flex-shrink:0;}
+  .name{font-size:13px;font-weight:700;}.title{font-size:12px;color:var(--muted);}
+  .brand-bar{margin-top:48px;display:flex;gap:clamp(20px,5vw,48px);justify-content:center;flex-wrap:wrap;}
+  .brand-bar span{color:rgba(255,255,255,0.5);font-size:clamp(15px,1.8vw,20px);}
+  .b-serif{font-family:Georgia,serif;font-weight:700;}.b-bold{font-weight:800;}
+  .modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;}
+  .modal.open{display:flex;}
+  .modal-box{width:100%;max-width:900px;aspect-ratio:16/9;background:#000;border-radius:14px;display:grid;place-items:center;color:var(--muted);font-size:15px;border:1px solid var(--border);position:relative;}
+  .modal-close{position:absolute;top:-44px;right:0;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:grid;place-items:center;}
+  @media(max-width:768px){.section{padding:56px 18px;}.videos,.texts{grid-template-columns:1fr;gap:16px;}}
+  @media(prefers-reduced-motion:reduce){.vcard,.tcard{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <div class="agg"><span class="stars">★★★★★</span> 4.9/5 · Watch real client stories</div>
+      <h2>Don't Take Our Word for It.</h2>
+      <p class="sub">Watch what actually happened.</p>
+    </div>
+    <div class="videos">
+      <div class="vcard" data-video="Marcus T. — Full Story"><div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80')"></div><div class="overlay"></div><div class="play"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></div><div class="vmeta"><div class="vtitle">From $8K to $47K in 90 Days</div><div class="vname">Marcus T.</div></div></div>
+      <div class="vcard" data-video="Jennifer K. — Full Story"><div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80')"></div><div class="overlay"></div><div class="play"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></div><div class="vmeta"><div class="vtitle">Lost 24 lbs Without Starving</div><div class="vname">Jennifer K.</div></div></div>
+      <div class="vcard" data-video="David L. — Full Story"><div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80')"></div><div class="overlay"></div><div class="play"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></div><div class="vmeta"><div class="vtitle">Landed $152K Role at Meta</div><div class="vname">David L.</div></div></div>
+    </div>
+    <div class="texts">
+      <div class="tcard"><div class="stars">★★★★★</div><p class="quote">"Crossed $50K/mo in month 4. I was stuck at $12K for 18 months before joining. This is the first program that actually delivered."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="Sarah M." loading="lazy" /><div><div class="name">Sarah M.</div><div class="title">Marketing — Chicago, IL</div></div></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p class="quote">"From zero clients to a fully booked practice in 90 days. The framework is unlike anything I've seen in 12 years of business."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" alt="Rachel B." loading="lazy" /><div><div class="name">Rachel B.</div><div class="title">Coach — New York, NY</div></div></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p class="quote">"My energy levels are back to what they were in my 30s. I lost 31 lbs without ever feeling deprived. Month 3 was the turning point."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80" alt="Patricia W." loading="lazy" /><div><div class="name">Patricia W.</div><div class="title">52 — Seattle, WA</div></div></div></div>
+    </div>
+    <div class="brand-bar"><span class="b-serif">Forbes</span><span class="b-serif">Inc.</span><span class="b-bold">CNN</span><span>Fast Company</span></div>
+  </div>
+</section>
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+    <span id="modalLabel">▶ Video player would embed here</span>
+  </div>
+</div>
+<script>
+  const els=document.querySelectorAll('.vcard,.tcard');
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),[...els].indexOf(e.target)*120);obs.unobserve(e.target);}});},{threshold:0.15});
+  els.forEach(el=>obs.observe(el));
+  const modal=document.getElementById('modal');
+  document.querySelectorAll('.vcard').forEach((v)=>v.addEventListener('click',()=>{document.getElementById('modalLabel').textContent='▶ '+v.dataset.video+' (video player would embed here)';modal.classList.add('open');}));
+  document.getElementById('modalClose').addEventListener('click',()=>modal.classList.remove('open'));
+  modal.addEventListener('click',(e)=>{if(e.target===modal)modal.classList.remove('open');});
+  document.addEventListener('keydown',(e)=>{if(e.key==='Escape')modal.classList.remove('open');});
+</script>
+</body>
+</html>

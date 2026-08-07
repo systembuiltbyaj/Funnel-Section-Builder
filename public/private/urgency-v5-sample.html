@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (dark CSS countdown) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Urgency V5 — Three Urgency Drivers Stacked</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#0A0A10; --driver-1-bg:rgba(239,68,68,0.05); --driver-1-border:rgba(239,68,68,0.2);
+    --driver-2-bg:rgba(245,158,11,0.05); --driver-2-border:rgba(245,158,11,0.2);
+    --driver-3-bg:rgba(37,99,235,0.05); --driver-3-border:rgba(37,99,235,0.2);
+    --timer-bg:rgba(255,255,255,0.04); --timer-border:rgba(255,255,255,0.1); --timer-num:#FFFFFF;
+    --text:#FFFFFF; --muted:#9AA0B0; --cta-bg:#EF4444; --accent:#EF4444;
+    --c1:#EF4444; --c2:#F59E0B; --c3:#2563EB;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:500px;padding:88px 24px;}
+  .container{max-width:820px;margin:0 auto;}
+  .header{text-align:center;margin-bottom:36px;}
+  .label{display:inline-block;font-size:12px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+  h2{font-size:clamp(26px,3.6vw,40px);font-weight:700;line-height:1.12;}
+  .driver{display:flex;align-items:center;gap:18px;border-radius:16px;padding:22px 24px;margin-bottom:14px;opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+  .driver.visible{opacity:1;transform:translateY(0);}
+  .d1{background:var(--driver-1-bg);border:1px solid var(--driver-1-border);}
+  .d2{background:var(--driver-2-bg);border:1px solid var(--driver-2-border);}
+  .d3{background:var(--driver-3-bg);border:1px solid var(--driver-3-border);}
+  .ic{flex-shrink:0;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:24px;}
+  .d1 .ic{background:rgba(239,68,68,0.14);}.d2 .ic{background:rgba(245,158,11,0.14);}.d3 .ic{background:rgba(37,99,235,0.14);}
+  .d-body{flex:1;}
+  .d-title{font-size:17px;font-weight:700;margin-bottom:4px;}
+  .d-text{font-size:14px;line-height:1.55;color:var(--muted);}
+  .badge{flex-shrink:0;font-size:11px;font-weight:800;letter-spacing:0.06em;padding:7px 13px;border-radius:999px;white-space:nowrap;}
+  .d1 .badge{background:rgba(239,68,68,0.14);color:var(--c1);}.d2 .badge{background:rgba(245,158,11,0.14);color:var(--c2);}.d3 .badge{background:rgba(37,99,235,0.16);color:#60A5FA;}
+  .timer-block{text-align:center;margin-top:34px;opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease;}
+  .timer-block.visible{opacity:1;transform:translateY(0);}
+  .timer-label{font-size:12.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+  .timer{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:8px;}
+  .box{background:var(--timer-bg);border:1px solid var(--timer-border);border-radius:12px;padding:14px 6px;min-width:76px;backdrop-filter:blur(4px);}
+  .num{display:block;font-size:clamp(28px,4.4vw,38px);font-weight:700;line-height:1;color:var(--timer-num);font-variant-numeric:tabular-nums;}
+  .lbl{display:block;font-size:10.5px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);margin-top:7px;}
+  .sep{font-size:24px;font-weight:700;color:var(--timer-border);}
+  .closed{display:none;font-size:18px;font-weight:700;color:var(--accent);margin-bottom:10px;}
+  .deadline-static{font-size:12px;color:var(--muted);margin-bottom:26px;}
+  .cta{display:inline-block;background:var(--cta-bg);color:#fff;border:none;border-radius:999px;padding:17px 40px;font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer;transition:filter .2s,transform .1s;}
+  .cta:hover{filter:brightness(1.08);}.cta:active{transform:scale(0.99);}
+  .scarcity{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:14px;}
+  @media(max-width:768px){.section{padding:56px 18px;}.driver{flex-wrap:wrap;gap:14px;padding:18px;}.badge{order:3;}.box{min-width:0;flex:1;}.sep{font-size:18px;}}
+  @media(prefers-reduced-motion:reduce){.driver,.timer-block{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <div class="label">3 Reasons to Decide Right Now</div>
+      <h2>Every Day You Wait Costs You Something.</h2>
+    </div>
+    <div class="driver d1">
+      <div class="ic">⏰</div>
+      <div class="d-body"><div class="d-title">Enrollment Closes Friday</div><div class="d-text">This cohort closes at midnight. After that, you wait 6 months for the next opening.</div></div>
+      <span class="badge">Closes Friday</span>
+    </div>
+    <div class="driver d2">
+      <div class="ic">🎁</div>
+      <div class="d-body"><div class="d-title">Bonuses Expire at Midnight</div><div class="d-text">The $591 fast-action bonus pack disappears permanently when the clock hits zero.</div></div>
+      <span class="badge">Bonus Expires</span>
+    </div>
+    <div class="driver d3">
+      <div class="ic">🪑</div>
+      <div class="d-body"><div class="d-title">Only 8 Seats Remaining</div><div class="d-text">This cohort is capped at 30. 22 people have already enrolled. The last 8 fill fast.</div></div>
+      <span class="badge">8 Seats Left</span>
+    </div>
+    <div class="timer-block" id="tblock">
+      <div class="timer-label">Enrollment closes in:</div>
+      <div class="timer" id="timer">
+        <div class="box"><span class="num" id="tD">00</span><span class="lbl">Days</span></div>
+        <span class="sep">:</span>
+        <div class="box"><span class="num" id="tH">00</span><span class="lbl">Hrs</span></div>
+        <span class="sep">:</span>
+        <div class="box"><span class="num" id="tM">00</span><span class="lbl">Min</span></div>
+        <span class="sep">:</span>
+        <div class="box"><span class="num" id="tS">00</span><span class="lbl">Sec</span></div>
+      </div>
+      <div class="closed" id="closed">⚠ Enrollment is now closed.</div>
+      <div class="deadline-static">Closes August 1, 2026 · 11:59 PM</div>
+      <button class="cta" type="button">ENROLL BEFORE IT'S GONE →</button>
+      <div class="scarcity">⚠ 8 of 30 seats · Price increases Friday</div>
+    </div>
+  </div>
+</section>
+<script>
+  const DEADLINE = "2026-08-01T23:59:59";
+  const SEATS_LEFT = 8, SEATS_TOTAL = 30;
+  (function(){
+    const end=new Date(DEADLINE).getTime();
+    const D=document.getElementById('tD'),H=document.getElementById('tH'),M=document.getElementById('tM'),S=document.getElementById('tS');
+    const timer=document.getElementById('timer'),closed=document.getElementById('closed');
+    const p=(n)=>String(n).padStart(2,'0');let iv;
+    function tick(){let diff=end-Date.now();if(diff<=0){timer.style.display='none';closed.style.display='block';clearInterval(iv);return;}
+      const d=Math.floor(diff/86400000);diff-=d*86400000;const h=Math.floor(diff/3600000);diff-=h*3600000;const m=Math.floor(diff/60000);diff-=m*60000;const s=Math.floor(diff/1000);
+      D.textContent=p(d);H.textContent=p(h);M.textContent=p(m);S.textContent=p(s);}
+    tick();iv=setInterval(tick,1000);
+  })();
+  const drivers=document.querySelectorAll('.driver');
+  const dObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),[...drivers].indexOf(e.target)*150);dObs.unobserve(e.target);}});},{threshold:0.2});
+  drivers.forEach(d=>dObs.observe(d));
+  const tObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),450);tObs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.timer-block').forEach(el=>tObs.observe(el));
+</script>
+</body>
+</html>

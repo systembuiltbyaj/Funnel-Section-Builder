@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash avatars (placeholder testimonial headshots): photo-1507003211169 / 1573496359142 / 1472099645785 / 1438761681033 / 1500648767791 / 1544005313 / 1487412720507 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Social Proof V1 — 2×2 Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#FFFFFF; --bg-alt:#F7F8FA; --accent:#2563EB; --star:#F59E0B; --text:#0E1116; --muted:#4A5160; --card-bg:#F7F8FA; --border:#E4E7EB; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{padding:96px 24px;}
+  .container{max-width:1140px;margin:0 auto;}
+  .header{text-align:center;margin-bottom:48px;}
+  .agg{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted);margin-bottom:18px;}
+  .agg .stars{color:var(--star);letter-spacing:1px;}
+  h2{font-size:clamp(30px,4.4vw,46px);font-weight:800;line-height:1.1;letter-spacing:-0.01em;margin-bottom:14px;}
+  .sub{font-size:17px;line-height:1.6;color:var(--muted);max-width:620px;margin:0 auto;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:28px;opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease,box-shadow .25s;}
+  .card.visible{opacity:1;transform:translateY(0);}
+  .card:hover{box-shadow:0 16px 40px rgba(15,17,22,0.08);transform:translateY(-4px);}
+  .stars{color:var(--star);letter-spacing:2px;font-size:16px;margin-bottom:14px;}
+  .quote{font-style:italic;font-size:16px;line-height:1.6;color:var(--text);margin-bottom:20px;}
+  .who{display:flex;align-items:center;gap:12px;}
+  .avatar{object-fit:cover;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;color:#1e293b;flex-shrink:0;}
+  .name{font-size:14.5px;font-weight:700;}
+  .title{font-size:13px;color:var(--muted);}
+  .brand-bar{margin-top:56px;padding-top:36px;border-top:1px solid var(--border);display:flex;gap:clamp(20px,5vw,48px);justify-content:center;align-items:center;flex-wrap:wrap;}
+  .brand-bar span{color:#94A3B8;font-size:clamp(15px,1.8vw,20px);filter:grayscale(1);opacity:0.75;}
+  .b-serif{font-family:Georgia,serif;font-weight:700;}
+  .b-bold{font-weight:800;}
+  @media(max-width:768px){.section{padding:56px 18px;}.grid{grid-template-columns:1fr;gap:16px;}}
+  @media(prefers-reduced-motion:reduce){.card{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <div class="agg"><span class="stars">★★★★★</span> 4.9/5 across 500+ reviews · 81% client success rate</div>
+      <h2>Real People. Real Results.</h2>
+      <p class="sub">Not actors. Not made-up stories. These are verified clients who followed the system.</p>
+    </div>
+    <div class="grid">
+      <article class="card"><div class="stars">★★★★★</div><p class="quote">"I went from $8K months to $47K in month 3. I genuinely didn't believe this was possible until I saw the deposit hit my account."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Marcus T." loading="lazy" /><div><div class="name">Marcus T.</div><div class="title">Business Coach — Austin, TX</div></div></div></article>
+      <article class="card"><div class="stars">★★★★★</div><p class="quote">"Down 24 lbs in 8 weeks and my doctor took me off 2 medications. I've tried everything for 6 years. This is the only thing that worked."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80" alt="Jennifer K." loading="lazy" /><div><div class="name">Jennifer K.</div><div class="title">47 — Phoenix, AZ</div></div></div></article>
+      <article class="card"><div class="stars">★★★★★</div><p class="quote">"I landed a $152K offer at Meta in 87 days. I had 1,400 rejections before this program. The system is just different."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="David L." loading="lazy" /><div><div class="name">David L.</div><div class="title">Software Engineer — San Francisco, CA</div></div></div></article>
+      <article class="card"><div class="stars">★★★★★</div><p class="quote">"Crossed $50K/mo in month 4. I was stuck at $12K for 18 months before joining. This is the first program that actually delivered."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="Sarah M." loading="lazy" /><div><div class="name">Sarah M.</div><div class="title">Marketing Consultant — Chicago, IL</div></div></div></article>
+    </div>
+    <div class="brand-bar">
+      <span class="b-serif">Forbes</span><span class="b-bold">Entrepreneur</span><span class="b-serif">Inc.</span><span>Business Insider</span>
+    </div>
+  </div>
+</section>
+<script>
+  const cards=document.querySelectorAll('.card');
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),[...cards].indexOf(e.target)*100);obs.unobserve(e.target);}});},{threshold:0.15});
+  cards.forEach(c=>obs.observe(c));
+</script>
+</body>
+</html>

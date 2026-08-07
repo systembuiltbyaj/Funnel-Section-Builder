@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@config "../tailwind.config.ts";
+
+@theme inline {
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-persian: #5e17eb;
+  --color-persian-dark: #4d0fd4;
+  --color-persian-light: #7c3aed;
+  --color-yellow: #f6cb1f;
+  --color-yellow-dark: #d4a800;
+  --color-surface: #0d0d0d;
+}
+
+:root {
+  --background: #0d0b1f;
+  --foreground: #ffffff;
+}
+
+@layer base {
+  body {
+    @apply text-white antialiased;
+    background: var(--background);
+    overflow-x: hidden;
+  }
+  html {
+    @apply font-sans;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0b1f;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

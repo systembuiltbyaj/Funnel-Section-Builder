@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Offer V7 — Us vs Competitors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F0FDF4; --accent: #16A34A; --us-color: #16A34A; --them-color: #DC2626;
+    --text: #14532D; --muted: #4B5563; --border: #D1FAE5; --table-header: #DCFCE7; --price-color: #16A34A;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 980px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 48px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 14px; }
+  h2 { font-size: clamp(30px, 4.4vw, 46px); font-weight: 800; line-height: 1.12; letter-spacing: -0.01em; margin-bottom: 14px; max-width: 760px; margin-left: auto; margin-right: auto; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 680px; margin: 0 auto; }
+  .table { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 16px 50px rgba(20,83,45,0.06); }
+  .row { display: grid; grid-template-columns: 1fr 25% 25%; align-items: center; }
+  .row.head { background: var(--table-header); font-weight: 800; }
+  .row.head .cell { padding: 18px 24px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .row.head .us { color: var(--us-color); text-align: center; }
+  .row.head .them { color: var(--them-color); text-align: center; }
+  .row.data { border-top: 1px solid var(--border); opacity: 0; transform: translateY(8px); }
+  .row.data.visible { opacity: 1; transform: translateY(0); transition: opacity .6s ease, transform .6s ease; }
+  .row.data:nth-of-type(even) { background: #F7FEF9; }
+  .row.price { background: var(--table-header); font-weight: 800; }
+  .cell { padding: 16px 24px; font-size: 15px; }
+  .feature { color: var(--text); font-weight: 600; }
+  .us { text-align: center; color: var(--us-color); font-weight: 700; }
+  .them { text-align: center; color: var(--them-color); }
+  .us svg, .them svg { width: 20px; height: 20px; }
+  .below { text-align: center; padding-top: 48px; }
+  .below h3 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; color: var(--accent); margin-bottom: 10px; }
+  .below .sub2 { font-size: 16px; color: var(--muted); margin-bottom: 28px; }
+  .cta { display: inline-flex; align-items: center; gap: 8px; padding: 16px 36px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 999px; font-weight: 800; font-size: 16px; transition: background-color .2s, transform .2s; box-shadow: 0 10px 28px rgba(22,163,74,0.25); }
+  .cta:hover { background: #15803D; transform: translateY(-2px); }
+  .trust { font-size: 13px; color: var(--muted); margin-top: 14px; }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .table { overflow-x: auto; }
+    .row { grid-template-columns: 1fr 90px 90px; min-width: 520px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .row.data { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">How We Compare</p>
+      <h2>More Value. Better Results. Lower Investment.</h2>
+      <p class="sub">We've done the research so you don't have to. Here's how we stack up against the alternatives.</p>
+    </div>
+    <div class="table">
+      <div class="row head"><div class="cell feature">Feature</div><div class="cell us">Us ✓</div><div class="cell them">Others ✗</div></div>
+      <div class="row data"><div class="cell feature">Personalized protocol (not generic)</div><div class="cell us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></div><div class="cell them"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></div></div>
+      <div class="row data"><div class="cell feature">Weekly live coaching calls</div><div class="cell us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></div><div class="cell them"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></div></div>
+      <div class="row data"><div class="cell feature">Private accountability community</div><div class="cell us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></div><div class="cell them"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></div></div>
+      <div class="row data"><div class="cell feature">Hormone-first nutrition approach</div><div class="cell us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></div><div class="cell them"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></div></div>
+      <div class="row data"><div class="cell feature">90-day results guarantee</div><div class="cell us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></div><div class="cell them"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></div></div>
+      <div class="row data"><div class="cell feature">Ongoing support after program ends</div><div class="cell us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></div><div class="cell them"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></div></div>
+      <div class="row price"><div class="cell feature">Price</div><div class="cell us" style="font-size:16px">$1,997</div><div class="cell them" style="font-size:14px">$3,000–$15,000+</div></div>
+    </div>
+    <div class="below">
+      <h3>The choice is clear.</h3>
+      <p class="sub2">Half the price. Twice the support. Proven results.</p>
+      <a class="cta" href="#choose">Choose Better →</a>
+      <p class="trust">500+ clients transformed</p>
+    </div>
+  </div>
+</section>
+<script>
+  const rows = document.querySelectorAll('.row.data, .row.price');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...rows].indexOf(e.target) * 80); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  rows.forEach(r => { r.classList.add('data'); obs.observe(r); });
+</script>
+</body>
+</html>

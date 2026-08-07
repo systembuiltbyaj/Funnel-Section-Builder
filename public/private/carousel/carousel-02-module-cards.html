@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carousel 02 — Module Cards (Dual Row Infinite Scroll)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #030110;
+    --accent: #6366F1;
+    --text: #FFFFFF;
+    --muted: rgba(255, 255, 255, 0.5);
+    --border: rgba(255, 255, 255, 0.08);
+    --card: rgba(255, 255, 255, 0.03);
+
+    --speed-row-1: 20s;
+    --speed-row-2: 25s;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .section { padding: 80px 0; }
+
+  .header { text-align: center; padding: 0 24px; margin-bottom: 48px; }
+  .label {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: clamp(30px, 4.4vw, 46px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+  h2 .l1 { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--text); display: block; }
+  h2 .accent { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; color: var(--accent); display: block; }
+
+  /* ---- Dual-row carousel ---- */
+  .carousel-track {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  /* edge fade masks on the OUTER container */
+  .carousel-track::before,
+  .carousel-track::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .carousel-track::before { left: 0;  background: linear-gradient(to right, var(--bg) 0%, transparent 100%); }
+  .carousel-track::after  { right: 0; background: linear-gradient(to left,  var(--bg) 0%, transparent 100%); }
+
+  .scroll-row {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    will-change: transform;
+    animation-fill-mode: none;
+  }
+  .scroll-row.row-1 { animation: scrollLeft  var(--speed-row-1) linear infinite; }
+  .scroll-row.row-2 { animation: scrollRight var(--speed-row-2) linear infinite; }
+
+  /* hover pauses both rows */
+  .carousel-wrapper:hover .scroll-row { animation-play-state: paused; }
+
+  @keyframes scrollLeft  { 0% { transform: translateX(0); }    100% { transform: translateX(-50%); } }
+  @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+  /* ---- Module card ---- */
+  .module-card {
+    position: relative;
+    width: 220px;
+    height: 130px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease;
+  }
+  .module-card:hover { transform: scale(1.02); }
+
+  .mc-top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .mc-brand { font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .mc-num {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 3px 7px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .mc-bottom { display: flex; flex-direction: column; }
+  .mc-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 18px; color: #fff; line-height: 1.1; }
+  .mc-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.1; margin-top: 1px; }
+  .mc-category { font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+  @media (max-width: 768px) {
+    .section { padding: 56px 0; }
+    .header { margin-bottom: 36px; }
+    /* show Row 1 only */
+    .scroll-row.row-2 { display: none; }
+    /* card 180x110; slower speed (x1.5) */
+    .module-card { width: 180px; height: 110px; }
+    .scroll-row.row-1 { animation-duration: 30s; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-row { animation: none; }
+  }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="header">
+    <span class="label">CURRICULUM</span>
+    <h2>
+      <span class="l1">Explore the modules,</span>
+      <span class="accent">inside AI Academy</span>
+    </h2>
+  </div>
+
+  <!-- DUAL ROW: row 1 scrolls left, row 2 scrolls right. Cards written out
+       statically and duplicated 2x for a seamless loop (visible without JS). -->
+  <div class="carousel-wrapper">
+    <div class="carousel-track">
+
+      <!-- ROW 1 — scroll LEFT -->
+      <div class="scroll-row row-1">
+        <!-- set 1 -->
+        <article class="module-card" style="background:linear-gradient(135deg,#0D0B3A 0%,#3D1A6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 01</span></div><div class="mc-bottom"><span class="mc-title">Agentic</span><span class="mc-subtitle">Systems</span><span class="mc-category">Freedom Guarantee</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#1A0D0D 0%,#6B3D1A 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 02</span></div><div class="mc-bottom"><span class="mc-title">1-Person</span><span class="mc-subtitle">Business</span><span class="mc-category">Lifestyle Design</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D1A0D 0%,#1A6B3D 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 03</span></div><div class="mc-bottom"><span class="mc-title">AI Copy</span><span class="mc-subtitle">Writing</span><span class="mc-category">Client Acquisition</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D0D1A 0%,#1A3D6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 04</span></div><div class="mc-bottom"><span class="mc-title">Digital</span><span class="mc-subtitle">Products</span><span class="mc-category">Production Yourself</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#1A0D1A 0%,#6B1A6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 05</span></div><div class="mc-bottom"><span class="mc-title">Vibe Code</span><span class="mc-subtitle">Apps &amp; Saas</span><span class="mc-category">Agentic Systems</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D1A1A 0%,#1A6B6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 06</span></div><div class="mc-bottom"><span class="mc-title">Funnel</span><span class="mc-subtitle">Building</span><span class="mc-category">Customer Journeys</span></div></article>
+        <!-- set 2 (duplicate) -->
+        <article class="module-card" style="background:linear-gradient(135deg,#0D0B3A 0%,#3D1A6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 01</span></div><div class="mc-bottom"><span class="mc-title">Agentic</span><span class="mc-subtitle">Systems</span><span class="mc-category">Freedom Guarantee</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#1A0D0D 0%,#6B3D1A 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 02</span></div><div class="mc-bottom"><span class="mc-title">1-Person</span><span class="mc-subtitle">Business</span><span class="mc-category">Lifestyle Design</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D1A0D 0%,#1A6B3D 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 03</span></div><div class="mc-bottom"><span class="mc-title">AI Copy</span><span class="mc-subtitle">Writing</span><span class="mc-category">Client Acquisition</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D0D1A 0%,#1A3D6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 04</span></div><div class="mc-bottom"><span class="mc-title">Digital</span><span class="mc-subtitle">Products</span><span class="mc-category">Production Yourself</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#1A0D1A 0%,#6B1A6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 05</span></div><div class="mc-bottom"><span class="mc-title">Vibe Code</span><span class="mc-subtitle">Apps &amp; Saas</span><span class="mc-category">Agentic Systems</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D1A1A 0%,#1A6B6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 06</span></div><div class="mc-bottom"><span class="mc-title">Funnel</span><span class="mc-subtitle">Building</span><span class="mc-category">Customer Journeys</span></div></article>
+      </div>
+
+      <!-- ROW 2 — scroll RIGHT (staggered order) -->
+      <div class="scroll-row row-2">
+        <!-- set 1 (offset order: starts at Module 04) -->
+        <article class="module-card" style="background:linear-gradient(135deg,#0D0D1A 0%,#1A3D6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 04</span></div><div class="mc-bottom"><span class="mc-title">Digital</span><span class="mc-subtitle">Products</span><span class="mc-category">Production Yourself</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#1A0D1A 0%,#6B1A6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 05</span></div><div class="mc-bottom"><span class="mc-title">Vibe Code</span><span class="mc-subtitle">Apps &amp; Saas</span><span class="mc-category">Agentic Systems</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D1A1A 0%,#1A6B6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 06</span></div><div class="mc-bottom"><span class="mc-title">Funnel</span><span class="mc-subtitle">Building</span><span class="mc-category">Customer Journeys</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D0B3A 0%,#3D1A6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 01</span></div><div class="mc-bottom"><span class="mc-title">Agentic</span><span class="mc-subtitle">Systems</span><span class="mc-category">Freedom Guarantee</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#1A0D0D 0%,#6B3D1A 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 02</span></div><div class="mc-bottom"><span class="mc-title">1-Person</span><span class="mc-subtitle">Business</span><span class="mc-category">Lifestyle Design</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D1A0D 0%,#1A6B3D 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 03</span></div><div class="mc-bottom"><span class="mc-title">AI Copy</span><span class="mc-subtitle">Writing</span><span class="mc-category">Client Acquisition</span></div></article>
+        <!-- set 2 (duplicate) -->
+        <article class="module-card" style="background:linear-gradient(135deg,#0D0D1A 0%,#1A3D6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 04</span></div><div class="mc-bottom"><span class="mc-title">Digital</span><span class="mc-subtitle">Products</span><span class="mc-category">Production Yourself</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#1A0D1A 0%,#6B1A6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 05</span></div><div class="mc-bottom"><span class="mc-title">Vibe Code</span><span class="mc-subtitle">Apps &amp; Saas</span><span class="mc-category">Agentic Systems</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D1A1A 0%,#1A6B6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 06</span></div><div class="mc-bottom"><span class="mc-title">Funnel</span><span class="mc-subtitle">Building</span><span class="mc-category">Customer Journeys</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D0B3A 0%,#3D1A6B 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 01</span></div><div class="mc-bottom"><span class="mc-title">Agentic</span><span class="mc-subtitle">Systems</span><span class="mc-category">Freedom Guarantee</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#1A0D0D 0%,#6B3D1A 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 02</span></div><div class="mc-bottom"><span class="mc-title">1-Person</span><span class="mc-subtitle">Business</span><span class="mc-category">Lifestyle Design</span></div></article>
+        <article class="module-card" style="background:linear-gradient(135deg,#0D1A0D 0%,#1A6B3D 100%)"><div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">Module 03</span></div><div class="mc-bottom"><span class="mc-title">AI Copy</span><span class="mc-subtitle">Writing</span><span class="mc-category">Client Acquisition</span></div></article>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  /* ============================ CLIENT VARIABLES ============================ */
+  /* CSS var overrides applied in :root: --accent, --speed-row-1, --speed-row-2 */
+  const LABEL = "CURRICULUM";
+  const H2_LINE_1 = "Explore the modules,";
+  const H2_ACCENT = "inside AI Academy";
+  const MODULE_CARDS = [
+    { gradient: "linear-gradient(135deg,#0D0B3A 0%,#3D1A6B 100%)", num: "Module 01", title: "Agentic",   subtitle: "Systems",     category: "Freedom Guarantee" },
+    { gradient: "linear-gradient(135deg,#1A0D0D 0%,#6B3D1A 100%)", num: "Module 02", title: "1-Person",  subtitle: "Business",    category: "Lifestyle Design" },
+    { gradient: "linear-gradient(135deg,#0D1A0D 0%,#1A6B3D 100%)", num: "Module 03", title: "AI Copy",   subtitle: "Writing",     category: "Client Acquisition" },
+    { gradient: "linear-gradient(135deg,#0D0D1A 0%,#1A3D6B 100%)", num: "Module 04", title: "Digital",   subtitle: "Products",    category: "Production Yourself" },
+    { gradient: "linear-gradient(135deg,#1A0D1A 0%,#6B1A6B 100%)", num: "Module 05", title: "Vibe Code", subtitle: "Apps & Saas", category: "Agentic Systems" },
+    { gradient: "linear-gradient(135deg,#0D1A1A 0%,#1A6B6B 100%)", num: "Module 06", title: "Funnel",    subtitle: "Building",    category: "Customer Journeys" }
+  ];
+  /* ========================================================================= */
+
+  // The dual rows above are written out statically (visible with JS off).
+  // This optional renderer rebuilds them from the variables, keeping the
+  // duplicate-2x seamless loop intact, so edits to the arrays propagate.
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function cardHtml(c) {
+    return '<article class="module-card" style="background:' + c.gradient + '">' +
+      '<div class="mc-top"><span class="mc-brand">AI Academy</span><span class="mc-num">' + escapeHtml(c.num) + '</span></div>' +
+      '<div class="mc-bottom"><span class="mc-title">' + escapeHtml(c.title) + '</span>' +
+      '<span class="mc-subtitle">' + escapeHtml(c.subtitle) + '</span>' +
+      '<span class="mc-category">' + escapeHtml(c.category) + '</span></div></article>';
+  }
+  (function () {
+    const row1 = document.querySelector('.scroll-row.row-1');
+    const row2 = document.querySelector('.scroll-row.row-2');
+    if (!row1 || !row2) return;
+
+    const single1 = MODULE_CARDS.map(cardHtml).join('');
+    row1.innerHTML = single1 + single1;
+
+    // Row 2 offset: rotate the array by 3 so it feels staggered.
+    const offset = MODULE_CARDS.slice(3).concat(MODULE_CARDS.slice(0, 3));
+    const single2 = offset.map(cardHtml).join('');
+    row2.innerHTML = single2 + single2;
+
+    document.querySelector('.label').textContent = LABEL;
+    document.querySelector('h2 .l1').textContent = H2_LINE_1;
+    document.querySelector('h2 .accent').textContent = H2_ACCENT;
+  })();
+</script>
+</body>
+</html>

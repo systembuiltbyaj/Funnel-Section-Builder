@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP V2 — Dark Numbered Pillars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0D0D0D; --bg-card: #1A1A1A; --accent: #F5C842;
+    --n1: #3B82F6; --n2: #F59E0B; --n3: #22C55E;
+    --text: #FFFFFF; --muted: #9A9A9A; --border: #2A2A2A;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 100px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 18px; }
+  h2 { font-size: clamp(32px, 4.6vw, 50px); font-weight: 700; line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 14px; max-width: 800px; margin-left: auto; margin-right: auto; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 720px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .pillar { background: var(--bg-card); border-top: 2px solid; border-radius: 12px; padding: 36px 28px; display: flex; flex-direction: column; opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+  .pillar.visible { opacity: 1; transform: translateY(0); }
+  .pillar.p1 { border-top-color: var(--n1); }
+  .pillar.p2 { border-top-color: var(--n2); }
+  .pillar.p3 { border-top-color: var(--n3); }
+  .p-num { font-size: clamp(44px, 5vw, 56px); font-weight: 700; line-height: 1; letter-spacing: -0.02em; margin-bottom: 22px; }
+  .pillar.p1 .p-num { color: var(--n1); }
+  .pillar.p2 .p-num { color: var(--n2); }
+  .pillar.p3 .p-num { color: var(--n3); }
+  .p-title { font-size: 22px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; }
+  .p-body { font-size: 15px; line-height: 1.6; color: var(--muted); flex: 1; margin-bottom: 22px; }
+  .proof { display: inline-flex; align-self: flex-start; padding: 8px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700; }
+  .pillar.p1 .proof { background: rgba(59,130,246,0.12); color: var(--n1); }
+  .pillar.p2 .proof { background: rgba(245,158,11,0.14); color: var(--n2); }
+  .pillar.p3 .proof { background: rgba(34,197,94,0.14); color: var(--n3); }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; gap: 16px; } .section { padding: 56px 18px; } }
+  @media (prefers-reduced-motion: reduce) { .pillar { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Three Pillars</p>
+      <h2>Three Reasons Our Clients Win.</h2>
+      <p class="sub">While others are still figuring out the basics, our clients are already cashing the checks.</p>
+    </div>
+    <div class="grid">
+      <article class="pillar p1"><div class="p-num">01</div><h3 class="p-title">Speed to Revenue</h3><p class="p-body">Our onboarding process gets you earning faster than any program on the market. First client closed within 14 days — average.</p><span class="proof">Avg first sale: 14 days</span></article>
+      <article class="pillar p2"><div class="p-num">02</div><h3 class="p-title">Done-With-You Execution</h3><p class="p-body">This isn't a course you watch alone at midnight. We build alongside you — weekly calls, real feedback, real accountability.</p><span class="proof">Weekly live coaching included</span></article>
+      <article class="pillar p3"><div class="p-num">03</div><h3 class="p-title">Permanent Transformation</h3><p class="p-body">By the time you finish, you won't need us anymore — because you'll have internalized a system that works in any market, any economy.</p><span class="proof">Skills last a lifetime</span></article>
+    </div>
+  </div>
+</section>
+<script>
+  const pillars = document.querySelectorAll('.pillar');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...pillars].indexOf(e.target) * 120); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  pillars.forEach(p => obs.observe(p));
+</script>
+</body>
+</html>

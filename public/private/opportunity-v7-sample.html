@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Opportunity V7 — Method + Big Stats · Warm Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFF7ED; --accent: #EA580C; --text: #1C1917; --muted: #78716C;
+    --stat-1: #EA580C; --stat-2: #16A34A; --stat-3: #2563EB; --border: #FED7AA;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 100px 32px; }
+  .container { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 55% 45%; gap: 64px; align-items: center; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 18px; opacity: 0; transform: translateX(-16px); }
+  h2 { font-family: 'Syne', sans-serif; font-size: clamp(34px, 4.8vw, 54px); font-weight: 700; line-height: 1.04; letter-spacing: -0.01em; margin-bottom: 14px; opacity: 0; transform: translateX(-16px); }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); margin-bottom: 36px; opacity: 0; transform: translateX(-16px); }
+  .label.visible, h2.visible, .sub.visible, .step.visible { opacity: 1; transform: translateX(0); transition: opacity .7s ease, transform .7s ease; }
+  .steps { display: flex; flex-direction: column; gap: 28px; }
+  .step { display: grid; grid-template-columns: 80px 1fr; gap: 18px; align-items: start; opacity: 0; transform: translateX(-16px); }
+  .step-num { font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+  .step.s1 .step-num { color: var(--stat-1); }
+  .step.s2 .step-num { color: #F59E0B; }
+  .step.s3 .step-num { color: var(--stat-2); }
+  .step-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
+  .step-body { font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+  .stats-col { display: flex; flex-direction: column; gap: 0; }
+  .big-stat { padding: 32px 0; }
+  .big-stat + .big-stat { border-top: 1px solid var(--border); }
+  .big-stat-num { font-family: 'Syne', sans-serif; font-size: clamp(48px, 6vw, 72px); font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+  .big-stat.s1 .big-stat-num { color: var(--stat-1); }
+  .big-stat.s2 .big-stat-num { color: var(--stat-2); }
+  .big-stat.s3 .big-stat-num { color: var(--stat-3); }
+  .big-stat-label { color: var(--muted); font-size: 15px; margin-top: 10px; line-height: 1.4; }
+  @media (max-width: 900px) {
+    .section { padding: 56px 18px; }
+    .container { grid-template-columns: 1fr; gap: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .label, h2, .sub, .step { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div>
+      <p class="label">The Method</p>
+      <h2>The Brand Authority System™</h2>
+      <p class="sub">Built for personal brands doing $0–$10K/mo who are ready to cross $50K in 90 days.</p>
+      <div class="steps">
+        <div class="step s1"><div class="step-num">01</div><div><h3 class="step-title">Magnetic Positioning</h3><p class="step-body">Define the single message that makes your ideal client say "this is exactly what I need."</p></div></div>
+        <div class="step s2"><div class="step-num">02</div><div><h3 class="step-title">Content That Converts</h3><p class="step-body">A repeatable content system that builds authority and drives DMs from qualified buyers — daily.</p></div></div>
+        <div class="step s3"><div class="step-num">03</div><div><h3 class="step-title">The Closing Machine</h3><p class="step-body">A simple sales process that converts conversations into clients without feeling salesy.</p></div></div>
+      </div>
+    </div>
+    <div class="stats-col">
+      <div class="big-stat s1"><div class="big-stat-num" data-count="50" data-prefix="$" data-suffix="K">$50K</div><div class="big-stat-label">monthly revenue milestone</div></div>
+      <div class="big-stat s2"><div class="big-stat-num" data-count="81" data-suffix="%">81%</div><div class="big-stat-label">hit target in 90 days</div></div>
+      <div class="big-stat s3"><div class="big-stat-num" data-count="3.2" data-suffix="X">3.2X</div><div class="big-stat-label">average revenue multiple</div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const els = document.querySelectorAll('.label, h2, .sub, .step');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...els].indexOf(e.target) * 100); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  els.forEach(el => obs.observe(el));
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1300;
+      const tick = (t) => {
+        const p = Math.min(1, (t - start) / dur);
+        const val = target * (1 - Math.pow(1 - p, 3));
+        const formatted = Number.isInteger(target) ? Math.round(val).toString() : val.toFixed(1);
+        el.textContent = prefix + formatted + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (CSS seal + glow, no imagery needed) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Risk Reversal V3 — Dark Premium Guarantee Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#050510; --card-bg:#0D0D20; --accent:#22C55E; --seal-bg:rgba(34,197,94,0.1);
+    --seal-border:rgba(34,197,94,0.4); --text:#FFFFFF; --muted:#9AA0B0;
+    --border:rgba(34,197,94,0.2); --glow:rgba(34,197,94,0.15); --cta-bg:#16A34A; --l1:#3B82F6;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:420px;padding:96px 24px;display:flex;align-items:center;justify-content:center;}
+  .card{max-width:640px;width:100%;background:var(--card-bg);border:1px solid var(--seal-border);border-radius:24px;padding:48px 44px;text-align:center;box-shadow:0 0 0 1px var(--border),0 0 80px var(--glow),0 30px 70px rgba(0,0,0,0.5);opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
+  .card.visible{opacity:1;transform:translateY(0);}
+  .label{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;}
+  .seal{width:96px;height:96px;border-radius:50%;background:var(--seal-bg);border:2px solid var(--seal-border);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 0 30px var(--glow);}
+  .card.visible .seal{animation:sealpulse 1.4s ease 1;}
+  @keyframes sealpulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,0.5);}70%{box-shadow:0 0 0 22px rgba(34,197,94,0);}100%{box-shadow:0 0 30px var(--glow);}}
+  .seal .a{font-size:26px;font-weight:700;line-height:1;color:var(--accent);}
+  .seal .b{font-size:8.5px;font-weight:700;letter-spacing:0.12em;color:var(--accent);margin-top:4px;}
+  h2{font-size:clamp(26px,3.6vw,34px);font-weight:700;line-height:1.12;letter-spacing:-0.01em;margin-bottom:16px;}
+  .primary{font-size:15.5px;line-height:1.7;color:var(--muted);max-width:520px;margin:0 auto 28px;}
+  .layers{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:30px;text-align:left;}
+  .lcard{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:20px;}
+  .lcard.l1{border-left:3px solid var(--l1);}
+  .lcard.l2{border-left:3px solid var(--accent);}
+  .ltitle{font-size:14px;font-weight:700;margin-bottom:8px;}
+  .l1 .ltitle{color:#93C5FD;}.l2 .ltitle{color:#86EFAC;}
+  .lbody{font-size:12.5px;line-height:1.6;color:var(--muted);}
+  .cta{display:inline-block;background:var(--cta-bg);color:#fff;border:none;border-radius:999px;padding:16px 36px;font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer;animation:ctaglow 2.4s ease-in-out infinite;transition:transform .1s;}
+  .cta:hover{filter:brightness(1.1);}.cta:active{transform:scale(0.99);}
+  @keyframes ctaglow{0%,100%{box-shadow:0 0 20px rgba(22,163,74,0.4);}50%{box-shadow:0 0 36px rgba(22,163,74,0.7);}}
+  @media(max-width:768px){.section{padding:56px 16px;}.card{padding:36px 24px;}.layers{grid-template-columns:1fr;}}
+  @media(prefers-reduced-motion:reduce){.card{opacity:1;transform:none;}.card.visible .seal{animation:none;}.cta{animation:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="card">
+    <div class="label">Zero Risk. Maximum Upside.</div>
+    <div class="seal"><span class="a">$20K</span><span class="b">GUARANTEED</span></div>
+    <h2>The $20K Revenue Guarantee</h2>
+    <p class="primary">We put our money where our mouth is. Complete the 12-week program, do the work, and if you haven't crossed $20K/mo within 90 days of finishing — we coach you for free until you do. Not a "we'll try our best." A contractual guarantee.</p>
+    <div class="layers">
+      <div class="lcard l1"><div class="ltitle">14-Day No-Questions Refund</div><div class="lbody">You have 14 full days to go through the material, attend a live call, and decide. If it's not right — one email and you get every dollar back.</div></div>
+      <div class="lcard l2"><div class="ltitle">The $20K Outcome Guarantee</div><div class="lbody">Show up, do the work, follow the system. If $20K/mo doesn't happen within 90 days of finishing — we keep coaching you at zero cost. No cap. No excuses.</div></div>
+    </div>
+    <button class="cta" type="button">Lock In My Spot →</button>
+  </div>
+</section>
+<script>
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.card').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

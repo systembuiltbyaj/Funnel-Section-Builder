@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero Variation 7 — Sample Layout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:             #050505;
+    --accent:         #C8A84B;
+    --accent-hover:   #E0BF6A;
+    --text:           #FFFFFF;
+    --muted:          #9A9A9A;
+    --overlay:        rgba(0, 0, 0, 0.70);
+    --nav-height:     60px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .hero { position: relative; min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    animation: kenburns 30s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 35%, var(--overlay) 60%, rgba(0,0,0,0.45) 100%),
+      radial-gradient(ellipse 90% 70% at 50% 50%, transparent 35%, rgba(0,0,0,0.55) 100%);
+  }
+
+  /* NAV */
+  .nav { position: relative; z-index: 5; height: var(--nav-height); display: flex; align-items: center; padding: 0 64px; opacity: 0; animation: fadeIn .7s .15s ease forwards; max-width: 1600px; width: 100%; margin: 0 auto; }
+  @keyframes fadeIn { to { opacity: 1; } }
+  .nav-logo { display: inline-flex; align-items: center; gap: 12px; }
+  .nav-logo-mark { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--accent); }
+  .nav-logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 0.18em; font-size: 14px; color: var(--text); }
+
+  /* SPLIT GRID */
+  .hero-grid {
+    position: relative; z-index: 2; flex: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 680px) auto;
+    align-items: end;
+    justify-content: center;
+    gap: 80px;
+    padding: 40px 64px 140px;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  /* LEFT */
+  .copy { max-width: 680px; padding-bottom: 40px; }
+  .eyebrow { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; margin-bottom: 26px; opacity: 0; transform: translateY(12px); animation: rise .8s .2s ease forwards; }
+  .headline { font-family: 'Inter', sans-serif; font-weight: 800; font-size: clamp(42px, 5.6vw, 72px); line-height: 1.04; letter-spacing: -0.01em; color: var(--text); margin-bottom: 38px; }
+  .headline .line { display: block; opacity: 0; transform: translateY(18px); }
+  .headline .l1 { animation: rise .9s .3s ease forwards; }
+  .headline .l2 { animation: rise .9s .4s ease forwards; }
+  .headline .l3 { animation: rise .9s .5s ease forwards; color: var(--accent); font-style: italic; }
+  .headline .l4 { animation: rise .9s .6s ease forwards; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  .cta {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%;
+    background: var(--accent); color: #1A1206;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    padding: 24px 32px; border-radius: 12px;
+    border: none; cursor: pointer; text-decoration: none;
+    box-shadow: 0 12px 32px rgba(200,168,75,0.28);
+    transition: background-color .2s ease, transform .2s ease, box-shadow .25s ease, filter .2s ease;
+    opacity: 0; transform: translateY(12px);
+    animation: rise .9s .7s ease forwards, ctaPulse 2.4s 1.6s ease-in-out infinite;
+  }
+  .cta:hover { background: var(--accent-hover); transform: translateY(-2px) scale(1.01); box-shadow: 0 16px 50px rgba(200,168,75,0.45); filter: brightness(1.03); }
+  @keyframes ctaPulse {
+    0%, 100% { box-shadow: 0 12px 32px rgba(200,168,75,0.28); }
+    50%      { box-shadow: 0 12px 50px rgba(200,168,75,0.45); }
+  }
+
+  .testimonial { display: flex; align-items: center; gap: 16px; margin-top: 32px; opacity: 0; transform: translateY(12px); animation: rise .9s .8s ease forwards; }
+  .testimonial-avatar { width: 58px; height: 58px; border-radius: 50%; background-size: cover; background-position: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.12); }
+  .testimonial-text { display: flex; flex-direction: column; gap: 3px; }
+  .testimonial-quote { font-style: italic; font-size: 15px; color: var(--text); line-height: 1.45; opacity: 0.92; }
+  .testimonial-name { font-size: 13.5px; font-weight: 700; color: var(--text); }
+  .testimonial-title { font-size: 12px; color: var(--muted); }
+
+  /* RIGHT — person */
+  .person-col { position: relative; display: flex; align-items: flex-end; justify-content: center; opacity: 0; transform: translateX(20px); animation: personIn 1s .5s ease forwards; }
+  @keyframes personIn { to { opacity: 1; transform: translateX(0); } }
+  .person-col img { display: block; height: auto; width: clamp(360px, 40vw, 580px); max-height: calc(100vh - 200px); object-fit: contain; object-position: center bottom; }
+  .person-col::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 80px; background: linear-gradient(to top, rgba(5,5,5,0.85), transparent); pointer-events: none; }
+
+  /* FEATURED IN BAR */
+  .featured-bar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; padding: 20px 48px 22px; background: rgba(0,0,0,0.65); backdrop-filter: blur(6px); border-top: 1px solid rgba(255,255,255,0.06); opacity: 0; transform: translateY(10px); animation: rise .9s 1s ease forwards; text-align: center; }
+  .featured-label { color: var(--muted); font-size: 10.5px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 10px; }
+  .featured-names { display: flex; gap: clamp(18px, 3vw, 44px); justify-content: center; align-items: center; flex-wrap: wrap; color: rgba(255,255,255,0.82); }
+  .featured-names span { font-family: 'Inter', sans-serif; font-size: clamp(13px, 1.5vw, 17px); letter-spacing: 0.04em; filter: grayscale(1); opacity: 0.7; transition: opacity .25s, filter .25s; cursor: default; }
+  .featured-names span:hover { opacity: 1; filter: none; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .hero { min-height: 100vh; }
+    .hero-bg { background-position: center top; }
+    .hero-bg::after {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.92) 65%, var(--bg) 100%);
+    }
+    .nav { padding: 0 20px; justify-content: center; }
+    .hero-grid { grid-template-columns: 1fr; padding: 50vh 22px 150px; gap: 22px; text-align: center; }
+    .copy { max-width: 100%; padding-bottom: 0; }
+    .headline { font-size: clamp(28px, 7.6vw, 38px); }
+    .testimonial { justify-content: center; }
+    .person-col { display: none; }
+    .featured-bar { padding: 16px 18px 20px; }
+    .featured-names { gap: 14px 22px; }
+    .featured-names span { font-size: 13px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg" id="hero-bg"></div>
+
+  <nav class="nav">
+    <span class="nav-logo">
+      <span class="nav-logo-mark">A</span>
+      <span class="nav-logo-text" id="logo-text">ALEX MARTIN</span>
+    </span>
+  </nav>
+
+  <div class="hero-grid">
+    <div class="copy">
+      <p class="eyebrow" id="eyebrow">Free Live Masterclass</p>
+      <h1 class="headline">
+        <span class="line l1">Discover The Proven</span>
+        <span class="line l2">Framework To Scale</span>
+        <span class="line l3">Your Business To</span>
+        <span class="line l4">7 Figures (Faster)</span>
+      </h1>
+      <a href="#reserve" class="cta" id="cta">
+        Yes, Reserve My Spot Now
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <div class="testimonial">
+        <div class="testimonial-avatar" id="testimonial-avatar"></div>
+        <div class="testimonial-text">
+          <span class="testimonial-quote" id="test-quote">"Alex's framework added $2.4M to our revenue in 8 months. Period."</span>
+          <span class="testimonial-name" id="test-name">Sarah Johnson</span>
+          <span class="testimonial-title" id="test-title">Founder, Velocity Brands</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="person-col">
+      <img src="/private/hero-v7-person.webp" alt="Alex Martin portrait" />
+    </div>
+  </div>
+
+  <div class="featured-bar">
+    <p class="featured-label" id="featured-label">Also Featured In:</p>
+    <div class="featured-names" id="featured-names"></div>
+  </div>
+</section>
+
+<script>
+  const LOGO_TEXT      = "ALEX MARTIN";
+  const BG_IMAGE       = "/private/hero-v7-bg.webp";
+  const TESTIMONIAL_AVATAR = "/private/hero-v7-testimonial.webp";
+  const FEATURED_LABEL = "Also Featured In:";
+  const FEATURED_NAMES = [
+    { name: "Forbes",       weight: 800, italic: false },
+    { name: "MSNBC",        weight: 400, italic: false },
+    { name: "CBS",          weight: 700, italic: false },
+    { name: "amazon",       weight: 400, italic: true  },
+    { name: "USA TODAY",    weight: 700, italic: false },
+    { name: "FOX",          weight: 800, italic: false },
+    { name: "TEDx",         weight: 400, italic: true  },
+    { name: "YPO",          weight: 700, italic: false },
+    { name: "Entrepreneur", weight: 400, italic: false },
+  ];
+
+  document.documentElement.style.setProperty('--bg-image', `url('${BG_IMAGE}')`);
+  document.getElementById('logo-text').textContent = LOGO_TEXT;
+  document.getElementById('testimonial-avatar').style.backgroundImage = `url('${TESTIMONIAL_AVATAR}')`;
+  document.getElementById('featured-label').textContent = FEATURED_LABEL;
+  document.getElementById('featured-names').innerHTML = FEATURED_NAMES.map(f =>
+    `<span style="font-weight:${f.weight};${f.italic ? 'font-style:italic;' : ''}">${f.name}</span>`
+  ).join('');
+</script>
+
+</body>
+</html>

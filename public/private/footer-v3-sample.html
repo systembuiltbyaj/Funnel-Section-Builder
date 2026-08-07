@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (CSS CTA + 4-col footer) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Footer V3 — Minimal CTA + Rich 4-Col Footer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#FFFFFF; --cta-bg:#F0F7FF; --accent:#4F46E5; --text:#0F172A; --muted:#64748B;
+    --footer-bg:#1E1B4B; --footer-muted:#A5B4FC; --border:#E2E8F0; --cta-btn:#4F46E5;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  .cta-section{background:var(--cta-bg);padding:88px 24px;min-height:300px;}
+  .wrap{max-width:680px;margin:0 auto;text-align:center;opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
+  .wrap.visible{opacity:1;transform:translateY(0);}
+  h2{font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.12;letter-spacing:-0.01em;margin-bottom:28px;}
+  .cta{display:inline-block;background:var(--cta-btn);color:#fff;border:none;border-radius:999px;padding:18px 42px;font-family:inherit;font-size:16.5px;font-weight:700;cursor:pointer;transition:filter .2s,transform .1s;}
+  .cta:hover{filter:brightness(1.08);}.cta:active{transform:scale(0.99);}
+  .wrap.visible .cta{animation:pulse 1.3s ease 1;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(79,70,229,0.45);}70%{box-shadow:0 0 0 18px rgba(79,70,229,0);}100%{box-shadow:0 0 0 0 rgba(79,70,229,0);}}
+  .trust{font-size:13.5px;color:var(--muted);margin-top:18px;}
+  footer{background:var(--footer-bg);color:#fff;padding:56px 24px 0;}
+  .fcols{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px;}
+  .fcol{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease;}
+  .fcol.visible{opacity:1;transform:translateY(0);}
+  .flogo{font-size:20px;font-weight:700;margin-bottom:12px;}
+  .ftag{font-size:14px;line-height:1.6;color:var(--footer-muted);margin-bottom:18px;max-width:240px;}
+  .social{display:flex;gap:10px;}
+  .social a{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);display:grid;place-items:center;color:#fff;text-decoration:none;font-size:13px;font-weight:700;transition:background-color .2s;}
+  .social a:hover{background:var(--accent);}
+  .fhead{font-size:14px;font-weight:700;margin-bottom:14px;}
+  .fcol ul{list-style:none;}
+  .fcol li{margin-bottom:10px;}
+  .fcol a{font-size:14px;color:var(--footer-muted);text-decoration:none;}
+  .fcol a:hover{color:#fff;text-decoration:underline;}
+  .fbar{margin-top:48px;border-top:1px solid rgba(255,255,255,0.08);background:rgba(0,0,0,0.2);padding:20px 24px;text-align:center;font-size:13px;color:var(--footer-muted);}
+  @media(max-width:768px){.cta-section{padding:56px 18px;}.fcols{grid-template-columns:1fr 1fr;gap:28px;}}
+  @media(prefers-reduced-motion:reduce){.wrap,.fcol{opacity:1;transform:none;}.wrap.visible .cta{animation:none;}}
+</style>
+</head>
+<body>
+<section class="cta-section">
+  <div class="wrap">
+    <h2>The Only Thing Between You and $50K/mo Is This Decision.</h2>
+    <button class="cta" type="button">Yes, I'm Ready — $4,997 →</button>
+    <div class="trust">30-day money-back guarantee · $20K Revenue Guarantee · 3 payments of $1,997 available</div>
+  </div>
+</section>
+<footer>
+  <div class="fcols">
+    <div class="fcol">
+      <div class="flogo">Revenue Architecture</div>
+      <p class="ftag">Building the future of professional coaching.</p>
+      <div class="social"><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="YouTube">yt</a><a href="#" aria-label="X">x</a></div>
+    </div>
+    <div class="fcol">
+      <div class="fhead">Program</div>
+      <ul><li><a href="#">About the Method</a></li><li><a href="#">Success Stories</a></li><li><a href="#">The Guarantee</a></li><li><a href="#">Start Here</a></li></ul>
+    </div>
+    <div class="fcol">
+      <div class="fhead">Support</div>
+      <ul><li><a href="#">FAQ</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">Affiliate Program</a></li></ul>
+    </div>
+    <div class="fcol">
+      <div class="fhead">Legal</div>
+      <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Disclaimer</a></li><li><a href="#">Cookie Policy</a></li></ul>
+    </div>
+  </div>
+  <div class="fbar">© 2026 Revenue Architecture. All rights reserved.</div>
+</footer>
+<script>
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.wrap').forEach(el=>obs.observe(el));
+  const cols=document.querySelectorAll('.fcol');
+  const cObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),[...cols].indexOf(e.target)*100);cObs.unobserve(e.target);}});},{threshold:0.15});
+  cols.forEach(c=>cObs.observe(c));
+</script>
+</body>
+</html>

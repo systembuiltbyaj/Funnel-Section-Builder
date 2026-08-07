@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--
+  ASSETS USED:
+    - AB/Background 5.png → hero-v9-bg.webp (BG_IMAGE)
+    - AB/Woman AI.png     → hero-v9-coach-avatar.webp (FLOAT_CARD.avatar, scaled)
+    - Unsplash            → -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero Variation 9 — Sample Layout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:         #0A0008;
+    --accent:     #E8185A;
+    --accent-2:   #FF2D6B;
+    --text:       #FFFFFF;
+    --muted:      #C0A0B0;
+    --neon-glow:  rgba(232,24,90,0.4);
+    --nav-height: 65px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+  .hero { position: relative; min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; background-image: var(--bg-image); background-size: cover; background-position: center; }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(10,0,8,0.92) 0%, rgba(10,0,8,0.78) 30%, rgba(10,0,8,0.45) 55%, rgba(10,0,8,0.4) 100%),
+      linear-gradient(to bottom, rgba(232,24,90,0.04) 0%, transparent 60%);
+  }
+  /* Neon glow behind person */
+  .neon { position: absolute; right: 8%; top: 50%; transform: translateY(-50%); width: 480px; height: 480px; z-index: 1; background: radial-gradient(circle, var(--neon-glow) 0%, transparent 65%); filter: blur(20px); animation: glowPulse 2.4s ease-in-out infinite; pointer-events: none; }
+  @keyframes glowPulse { 0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.85; } 50% { transform: translateY(-50%) scale(1.08); opacity: 1; } }
+
+  /* NAV */
+  .nav { position: relative; z-index: 5; height: var(--nav-height); display: flex; align-items: center; justify-content: space-between; padding: 0 64px; max-width: 1600px; width: 100%; margin: 0 auto; opacity: 0; animation: fadeIn .8s .15s ease forwards; }
+  @keyframes fadeIn { to { opacity: 1; } }
+  .nav-logo { display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.12em; color: var(--text); }
+  .nav-logo-mark { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 12.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; transition: color .2s ease; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-burger { display: none; background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 38px; height: 38px; place-items: center; color: var(--text); cursor: pointer; }
+
+  /* SPLIT — person comes from BG, no overlay needed */
+  .hero-grid { position: relative; z-index: 2; flex: 1; display: grid; grid-template-columns: minmax(0, 720px) 1fr; align-items: end; gap: 80px; padding: 30px 64px 130px; width: 100%; max-width: 1600px; margin: 0 auto; }
+
+  /* LEFT */
+  .copy { max-width: 640px; padding-bottom: 60px; }
+  .headline { font-family: 'Inter', sans-serif; font-weight: 900; font-size: clamp(44px, 6.2vw, 80px); line-height: 1.02; letter-spacing: -0.02em; color: var(--text); margin-bottom: 22px; text-transform: uppercase; }
+  .headline .line { display: block; opacity: 0; transform: translateY(20px); }
+  .headline .l1 { animation: rise .9s .3s ease forwards; }
+  .headline .l2 { animation: rise .9s .4s ease forwards; }
+  .headline .l3 { animation: rise .9s .5s ease forwards; color: var(--accent); }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .sub { color: var(--muted); font-size: clamp(15px, 1.2vw, 17px); line-height: 1.55; font-weight: 400; max-width: 460px; margin-bottom: 32px; opacity: 0; transform: translateY(12px); animation: rise .9s .55s ease forwards; }
+
+  .cta { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--text); border: none; cursor: pointer; padding: 18px 36px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; text-decoration: none; box-shadow: 0 0 40px var(--neon-glow); transition: background-color .2s, transform .2s, box-shadow .25s; opacity: 0; transform: translateY(12px); animation: rise .9s .65s ease forwards; }
+  .cta:hover { background: var(--accent-2); transform: translateY(-2px) scale(1.03); box-shadow: 0 0 60px rgba(232,24,90,0.7); }
+
+  .students { display: inline-flex; align-items: center; gap: 14px; margin-top: 28px; opacity: 0; transform: translateY(12px); animation: rise .9s .75s ease forwards; }
+  .avatars { display: inline-flex; }
+  .avatars span { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--bg); margin-left: -10px; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+  .avatars span:first-child { margin-left: 0; }
+  .avatars span:nth-child(1) { background: linear-gradient(135deg, #FF6B9D 0%, #E8185A 100%); }
+  .avatars span:nth-child(2) { background: linear-gradient(135deg, #FF9776 0%, #C44569 100%); }
+  .avatars span:nth-child(3) { background: linear-gradient(135deg, #A05195 0%, #4C2A85 100%); }
+  .avatars span:nth-child(4) { background: linear-gradient(135deg, #6A2C70 0%, #2D1B5A 100%); }
+  .students-label { color: var(--muted); font-size: 13.5px; font-weight: 500; }
+  .students-label strong { color: var(--text); font-weight: 700; }
+
+  /* RIGHT */
+  .person-col { position: relative; display: flex; align-items: flex-end; justify-content: center; z-index: 2; opacity: 0; animation: fadeInSlow 1s .3s ease forwards; }
+  @keyframes fadeInSlow { to { opacity: 1; } }
+  .person-col img { display: block; height: auto; width: clamp(380px, 42vw, 580px); max-height: calc(100vh - 200px); object-fit: contain; object-position: center bottom; }
+
+  /* FLOAT CARD */
+  .float-card { position: absolute; right: 60px; bottom: 110px; z-index: 4; display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 12px; background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; opacity: 0; transform: translateY(12px); animation: rise .9s .9s ease forwards, floatLoop 4s 1.5s ease-in-out infinite; }
+  @keyframes floatLoop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .float-avatar { width: 44px; height: 44px; border-radius: 50%; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; }
+  .float-name { font-size: 13.5px; font-weight: 700; color: var(--text); line-height: 1.2; }
+  .float-title { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+  /* TICKER */
+  .ticker { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; height: 50px; background: #0A0008; border-top: 1px solid rgba(232,24,90,0.3); overflow: hidden; display: flex; align-items: center; }
+  .ticker-track { display: flex; gap: 0; white-space: nowrap; animation: tickerScroll 30s linear infinite; }
+  .ticker-item { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; padding: 0 32px; display: inline-flex; align-items: center; }
+  .ticker-item::after { content: '·'; margin-left: 32px; color: rgba(232,24,90,0.5); }
+  @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  @media (max-width: 768px) {
+    .nav { padding: 0 18px; }
+    .nav-links { display: none; }
+    .nav-burger { display: grid; }
+    .hero-bg { background-position: right top; }
+    .hero-bg::after { background: linear-gradient(to bottom, rgba(10,0,8,0.35) 0%, rgba(10,0,8,0.55) 35%, rgba(10,0,8,0.92) 65%, var(--bg) 100%); }
+    .neon { width: 320px; height: 320px; right: -10%; }
+    .hero-grid { grid-template-columns: 1fr; padding: 40vh 22px 140px; gap: 22px; text-align: center; }
+    .copy { max-width: 100%; padding-bottom: 0; }
+    .headline { font-size: clamp(34px, 8vw, 48px); }
+    .sub { margin-left: auto; margin-right: auto; }
+    .students { justify-content: center; }
+    .person-col { display: none; }
+    .float-card { right: 18px; bottom: 70px; padding: 10px 14px 10px 10px; }
+    .float-avatar { width: 36px; height: 36px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.001s !important; transition-duration: 0.001s !important; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="neon"></div>
+
+  <nav class="nav">
+    <a class="nav-logo" href="#">
+      <span class="nav-logo-mark">●</span>
+      <span id="logo">EP TRAINING</span>
+    </a>
+    <div class="nav-links" id="nav-links"></div>
+    <button class="nav-burger" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  </nav>
+
+  <div class="hero-grid">
+    <div class="copy">
+      <h1 class="headline">
+        <span class="line l1">Transform Your Body</span>
+        <span class="line l2">And Your Life With The</span>
+        <span class="line l3">EP Training Method.</span>
+      </h1>
+      <p class="sub">A 12-week training system built for results — fueled by science, dialed in for real life, and delivered with a community that holds you accountable.</p>
+      <a href="#join" class="cta">
+        Join the Team
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <div class="students">
+        <div class="avatars">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <span class="students-label"><strong>12k+</strong> students enrolled</span>
+      </div>
+    </div>
+
+    <div class="person-col" aria-hidden="true"></div>
+  </div>
+
+  <div class="float-card">
+    <div class="float-avatar" id="float-avatar"></div>
+    <div>
+      <div class="float-name">Coach Elena Park</div>
+      <div class="float-title">Head Performance Coach</div>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="ticker-track" id="ticker-track"></div>
+  </div>
+</section>
+
+<script>
+  const BG_IMAGE       = "/private/hero-v9-bg.webp";
+  const COACH_AVATAR   = "/private/hero-v9-coach-avatar.webp";
+  const TICKER_TEXT    = "EP TRAINING METHOD";
+  const NAV_LINKS = [
+    { label: "Metodologia", href: "#method"   },
+    { label: "Resultados",  href: "#results"  },
+    { label: "Sobre",       href: "#about"    },
+    { label: "Contato",     href: "#contact"  },
+  ];
+
+  document.documentElement.style.setProperty('--bg-image', `url('${BG_IMAGE}')`);
+  document.getElementById('float-avatar').style.backgroundImage = `url('${COACH_AVATAR}')`;
+  document.getElementById('nav-links').innerHTML = NAV_LINKS.map(l => `<a href="${l.href}">${l.label}</a>`).join('');
+
+  // Build ticker — duplicate enough times so the loop is seamless
+  const tickerItems = Array(16).fill(`<span class="ticker-item">${TICKER_TEXT}</span>`).join('');
+  document.getElementById('ticker-track').innerHTML = tickerItems + tickerItems;
+</script>
+
+</body>
+</html>

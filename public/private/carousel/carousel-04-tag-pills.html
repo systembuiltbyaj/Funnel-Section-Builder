@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carousel 04 — Tag Pills (Dual Row Audience Marquee)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #030110;
+    --accent: #6366F1;
+    --text: #FFFFFF;
+    --muted: rgba(255, 255, 255, 0.5);
+    --border: rgba(255, 255, 255, 0.08);
+    --card: rgba(255, 255, 255, 0.03);
+
+    --speed-row-1: 30s;
+    --speed-row-2: 25s;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .section { padding: 80px 0; }
+
+  .header { text-align: center; padding: 0 24px; margin-bottom: 48px; }
+  .label {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: clamp(30px, 4.4vw, 46px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+  h2 .l1 { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--text); display: block; }
+  h2 .accent { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; color: var(--accent); display: block; }
+
+  /* ---- Dual-row pill marquee — NO edge fades, NO hover pause (full-bleed) ---- */
+  .pill-track {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .scroll-row {
+    display: flex;
+    gap: 8px;
+    width: max-content;
+    will-change: transform;
+    animation-fill-mode: none;
+  }
+  .scroll-row.row-1 { animation: scrollLeft  var(--speed-row-1) linear infinite; }
+  .scroll-row.row-2 { animation: scrollRight var(--speed-row-2) linear infinite; }
+
+  @keyframes scrollLeft  { 0% { transform: translateX(0); }    100% { transform: translateX(-50%); } }
+  @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+  /* ---- Pill ---- */
+  .pill {
+    flex-shrink: 0;
+    padding: 8px 18px;
+    border: 0.5px solid rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.45);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .pill:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  @media (max-width: 768px) {
+    .section { padding: 56px 0; }
+    .header { margin-bottom: 36px; }
+    /* Row 1 only; smaller pills */
+    .scroll-row.row-2 { display: none; }
+    .pill { padding: 6px 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-row { animation: none; }
+  }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="header">
+    <span class="label">WHO IS THIS FOR?</span>
+    <h2>
+      <span class="l1">Great program for</span>
+      <span class="accent">every entrepreneur</span>
+    </h2>
+  </div>
+
+  <!-- Dual-row pill marquee. Pills written out statically and duplicated 2x
+       for a seamless loop (visible without JS). -->
+  <div class="pill-track">
+
+    <!-- ROW 1 — scroll LEFT -->
+    <div class="scroll-row row-1">
+      <!-- set 1 -->
+      <span class="pill">LOCAL BUSINESSES</span>
+      <span class="pill">AGENCIES</span>
+      <span class="pill">COACHES &amp; CONSULTANTS</span>
+      <span class="pill">EXPERTS</span>
+      <span class="pill">SPEAKERS</span>
+      <span class="pill">AUTHORS</span>
+      <span class="pill">COURSE CREATORS</span>
+      <span class="pill">INFLUENCERS</span>
+      <span class="pill">E-COMMERCE BRANDS</span>
+      <!-- set 2 (duplicate) -->
+      <span class="pill">LOCAL BUSINESSES</span>
+      <span class="pill">AGENCIES</span>
+      <span class="pill">COACHES &amp; CONSULTANTS</span>
+      <span class="pill">EXPERTS</span>
+      <span class="pill">SPEAKERS</span>
+      <span class="pill">AUTHORS</span>
+      <span class="pill">COURSE CREATORS</span>
+      <span class="pill">INFLUENCERS</span>
+      <span class="pill">E-COMMERCE BRANDS</span>
+    </div>
+
+    <!-- ROW 2 — scroll RIGHT -->
+    <div class="scroll-row row-2">
+      <!-- set 1 -->
+      <span class="pill">SAAS FOUNDERS</span>
+      <span class="pill">CONTENT CREATORS</span>
+      <span class="pill">SOLOPRENEURS</span>
+      <span class="pill">PODCASTERS</span>
+      <span class="pill">DESIGNERS</span>
+      <span class="pill">DEVELOPERS</span>
+      <span class="pill">MARKETERS</span>
+      <span class="pill">FREELANCERS</span>
+      <span class="pill">SERVICE PROVIDERS</span>
+      <span class="pill">STARTUPS</span>
+      <span class="pill">PHOTOGRAPHERS</span>
+      <span class="pill">FITNESS COACHES</span>
+      <!-- set 2 (duplicate) -->
+      <span class="pill">SAAS FOUNDERS</span>
+      <span class="pill">CONTENT CREATORS</span>
+      <span class="pill">SOLOPRENEURS</span>
+      <span class="pill">PODCASTERS</span>
+      <span class="pill">DESIGNERS</span>
+      <span class="pill">DEVELOPERS</span>
+      <span class="pill">MARKETERS</span>
+      <span class="pill">FREELANCERS</span>
+      <span class="pill">SERVICE PROVIDERS</span>
+      <span class="pill">STARTUPS</span>
+      <span class="pill">PHOTOGRAPHERS</span>
+      <span class="pill">FITNESS COACHES</span>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  /* ============================ CLIENT VARIABLES ============================ */
+  /* CSS var overrides applied in :root: --accent, --speed-row-1, --speed-row-2 */
+  const LABEL = "WHO IS THIS FOR?";
+  const H2_LINE_1 = "Great program for";
+  const H2_ACCENT = "every entrepreneur";
+  const TAG_ROW_1 = ["LOCAL BUSINESSES","AGENCIES","COACHES & CONSULTANTS","EXPERTS","SPEAKERS","AUTHORS","COURSE CREATORS","INFLUENCERS","E-COMMERCE BRANDS"];
+  const TAG_ROW_2 = ["SAAS FOUNDERS","CONTENT CREATORS","SOLOPRENEURS","PODCASTERS","DESIGNERS","DEVELOPERS","MARKETERS","FREELANCERS","SERVICE PROVIDERS","STARTUPS","PHOTOGRAPHERS","FITNESS COACHES"];
+  /* ========================================================================= */
+
+  // The rows above are written out statically (visible with JS off). This
+  // optional renderer rebuilds them from the arrays, keeping the duplicate-2x
+  // seamless loop intact, so edits to the arrays propagate.
+  function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function pillsHtml(arr) {
+    const single = arr.map((t) => '<span class="pill">' + escapeHtml(t) + '</span>').join('');
+    return single + single;
+  }
+  (function () {
+    const row1 = document.querySelector('.scroll-row.row-1');
+    const row2 = document.querySelector('.scroll-row.row-2');
+    if (row1) row1.innerHTML = pillsHtml(TAG_ROW_1);
+    if (row2) row2.innerHTML = pillsHtml(TAG_ROW_2);
+
+    document.querySelector('.label').textContent = LABEL;
+    document.querySelector('h2 .l1').textContent = H2_LINE_1;
+    document.querySelector('h2 .accent').textContent = H2_ACCENT;
+  })();
+</script>
+</body>
+</html>

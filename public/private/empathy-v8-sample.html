@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Empathy V8 — Dark Agency Bars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:        #0F172A;
+    --accent:    #F59E0B;
+    --accent-h:  #D97706;
+    --text:      #F8FAFC;
+    --muted:     #94A3B8;
+    --border:    #1E293B;
+    --bar-1:     #EF4444;
+    --bar-2:     #F59E0B;
+    --bar-3:     #22C55E;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .section { padding: 100px 32px; }
+  .container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 40% 60%; gap: 56px; align-items: start; position: relative; }
+  .container::after { content: ''; position: absolute; left: 38%; top: 0; bottom: 0; border-left: 1px dashed var(--border); }
+
+  .left { padding-right: 16px; }
+  .label { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 20px; opacity: 0; transform: translateY(12px); }
+  h2 { font-family: 'Syne', sans-serif; font-size: clamp(34px, 4.6vw, 56px); font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 18px; opacity: 0; transform: translateY(12px); }
+  h2 .accent { color: var(--accent); font-style: italic; display: block; }
+  .body { font-size: 16px; line-height: 1.65; color: var(--muted); margin-bottom: 32px; max-width: 440px; opacity: 0; transform: translateY(12px); }
+  .cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; background: var(--accent); color: #1A1206; text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.12em; transition: background-color .2s, transform .2s; opacity: 0; transform: translateY(12px); }
+  .cta:hover { background: var(--accent-h); transform: translateY(-2px); }
+  .label.visible, h2.visible, .body.visible, .cta.visible { opacity: 1; transform: translateY(0); transition: opacity .8s ease, transform .8s ease; }
+
+  .bars { display: flex; flex-direction: column; gap: 16px; }
+  .bar { background: rgba(255,255,255,0.03); border-left: 3px solid; padding: 22px 28px; border-radius: 0 12px 12px 0; opacity: 0; transform: translateX(24px); }
+  .bar.visible { opacity: 1; transform: translateX(0); transition: opacity .7s ease, transform .7s ease; }
+  .bar.b1 { border-left-color: var(--bar-1); }
+  .bar.b2 { border-left-color: var(--bar-2); }
+  .bar.b3 { border-left-color: var(--bar-3); }
+  .bar-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; line-height: 1.25; margin-bottom: 10px; color: var(--text); }
+  .bar-body { font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .container { grid-template-columns: 1fr; gap: 32px; }
+    .container::after { display: none; }
+    .left { padding-right: 0; }
+    .cta { width: 100%; justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { .label, h2, .body, .cta, .bar { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<section class="section">
+  <div class="container">
+    <div class="left">
+      <p class="label">Why Most People Fail</p>
+      <h2>It's Not About Working Harder.<span class="accent">It Never Was.</span></h2>
+      <p class="body">The professionals who break through don't outwork everyone else. They out-think everyone else. They use a system. You're about to get that system.</p>
+      <a class="cta" href="#system">Show Me the System
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+    <div class="bars">
+      <div class="bar b1">
+        <h3 class="bar-title">Wrong Foundation</h3>
+        <p class="bar-body">Building on tactics instead of strategy. Every result becomes temporary.</p>
+      </div>
+      <div class="bar b2">
+        <h3 class="bar-title">Isolated Effort</h3>
+        <p class="bar-body">Going it alone with no proven framework to accelerate the learning curve.</p>
+      </div>
+      <div class="bar b3">
+        <h3 class="bar-title">The Pattern Break</h3>
+        <p class="bar-body">One shift in approach creates a compounding effect across every area.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const els = document.querySelectorAll('.label, h2, .body, .cta, .bar');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const idx = [...els].indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), idx * 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(e => observer.observe(e));
+</script>
+
+</body>
+</html>

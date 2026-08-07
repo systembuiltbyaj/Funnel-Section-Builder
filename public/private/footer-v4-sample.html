@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (gradient CSS CTA + minimal footer) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Footer V4 — Gradient Accent CTA + Minimal Footer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#FAFAFA; --gradient-from:#EEF2FF; --gradient-to:#F0FDF4; --accent:#7C3AED; --text:#0F172A;
+    --muted:#64748B; --footer-bg:#FFFFFF; --border:#E5E7EB; --cta-btn:#7C3AED;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;}
+  .cta-section{padding:92px 24px;min-height:300px;background:linear-gradient(120deg,var(--gradient-from),var(--gradient-to),var(--gradient-from));background-size:200% 200%;animation:shimmer 12s ease infinite;}
+  @keyframes shimmer{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+  .wrap{max-width:720px;margin:0 auto;text-align:center;opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
+  .wrap.visible{opacity:1;transform:translateY(0);}
+  .label{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+  h2{font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.1;letter-spacing:-0.01em;margin-bottom:18px;}
+  .sub{font-size:17px;line-height:1.65;color:var(--muted);max-width:560px;margin:0 auto 30px;}
+  .cta{display:inline-block;background:var(--cta-btn);color:#fff;border:none;border-radius:999px;padding:18px 42px;font-family:inherit;font-size:16.5px;font-weight:700;cursor:pointer;transition:filter .2s,transform .1s,box-shadow .3s;}
+  .cta:hover{filter:brightness(1.08);}.cta:active{transform:scale(0.99);}
+  .wrap.visible .cta{animation:glow 1.6s ease 1;}
+  @keyframes glow{0%{box-shadow:0 0 0 0 rgba(124,58,237,0);}40%{box-shadow:0 0 36px 4px rgba(124,58,237,0.45);}100%{box-shadow:0 0 0 0 rgba(124,58,237,0);}}
+  .trust{font-size:13.5px;color:var(--muted);margin-top:18px;}
+  footer{background:var(--footer-bg);border-top:1px solid var(--border);padding:34px 24px;text-align:center;}
+  .logo{font-size:17px;font-weight:800;color:var(--text);margin-bottom:14px;}
+  .nav{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .nav a{font-size:13.5px;color:var(--muted);text-decoration:none;}
+  .nav a:hover{text-decoration:underline;color:var(--accent);}
+  .copy{font-size:13px;color:var(--muted);}
+  @media(max-width:768px){.cta-section{padding:60px 18px;}}
+  @media(prefers-reduced-motion:reduce){.cta-section{animation:none;}.wrap{opacity:1;transform:none;}.wrap.visible .cta{animation:none;}}
+</style>
+</head>
+<body>
+<section class="cta-section">
+  <div class="wrap">
+    <div class="label">One Last Thing</div>
+    <h2>Every Day You Wait Is Another Day Someone Else Gets There First.</h2>
+    <p class="sub">Join 500+ coaches, consultants, and service providers who made the same decision you're about to make. The program works. The guarantee protects you. The only question is whether you're ready.</p>
+    <button class="cta" type="button">Start Today — $4,997 →</button>
+    <div class="trust">30-day money-back guarantee · $20K Revenue Guarantee · 3 payments of $1,997 available</div>
+  </div>
+</section>
+<footer>
+  <div class="logo">Revenue Architecture</div>
+  <nav class="nav"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Disclaimer</a><a href="#">Contact</a></nav>
+  <div class="copy">© 2026 Revenue Architecture. All rights reserved.</div>
+</footer>
+<script>
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.wrap').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

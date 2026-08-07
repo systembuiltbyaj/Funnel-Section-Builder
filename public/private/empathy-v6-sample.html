@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+  ASSETS USED:
+    Local:    none
+    Unsplash: https://images.unsplash.com/photo-1534438327276-14e5300c3a48 → BG_IMAGE
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Empathy V6 — Cinematic Fullscreen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:      #050505;
+    --accent:  #DC2626;
+    --text:    #FFFFFF;
+    --muted:   #A3A3A3;
+    --overlay: rgba(0,0,0,0.72);
+    --card-bg: rgba(255,255,255,0.07);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .section { position: relative; min-height: 100vh; padding: 120px 24px 80px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+  .bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80'); background-size: cover; background-position: center; animation: kenburns 28s ease-in-out infinite alternate; }
+  @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
+  .bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, var(--overlay) 60%, rgba(0,0,0,0.85) 100%), radial-gradient(ellipse 100% 80% at 50% 50%, transparent 30%, rgba(0,0,0,0.6) 100%); }
+
+  .container { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; text-align: center; }
+  .label { color: rgba(255,255,255,0.75); font-size: 12px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; margin-bottom: 22px; opacity: 0; transform: translateY(20px); }
+  h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 9vw, 130px); font-weight: 400; line-height: 0.95; letter-spacing: 0.01em; margin-bottom: 22px; opacity: 0; transform: translateY(20px); }
+  .sub { font-size: 17px; line-height: 1.6; color: rgba(255,255,255,0.82); max-width: 720px; margin: 0 auto 56px; opacity: 0; transform: translateY(20px); }
+  .label.visible, h2.visible, .sub.visible { opacity: 1; transform: translateY(0); transition: opacity .8s ease, transform .8s ease; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 1080px; margin: 0 auto; }
+  .card { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.10); border-radius: 14px; padding: 22px 24px; opacity: 0; transform: translateY(20px); }
+  .card.visible { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
+  .card p { font-size: 15px; line-height: 1.55; color: rgba(255,255,255,0.92); }
+
+  @media (max-width: 768px) {
+    .section { padding: 80px 18px 50px; }
+    h2 { font-size: clamp(46px, 14vw, 64px); }
+    .cards { grid-template-columns: 1fr; gap: 12px; }
+    .sub { margin-bottom: 36px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .label, h2, .sub, .card { opacity: 1; transform: none; } .bg { animation: none; } }
+</style>
+</head>
+<body>
+
+<section class="section">
+  <div class="bg"></div>
+  <div class="container">
+    <p class="label">Does This Sound Like You?</p>
+    <h2>You're Capable<br>of So Much More.</h2>
+    <p class="sub">But something keeps getting in the way.</p>
+
+    <div class="cards">
+      <div class="card"><p>Working hard every day but the scoreboard doesn't reflect it.</p></div>
+      <div class="card"><p>Watching others level up while you feel stuck in neutral.</p></div>
+      <div class="card"><p>Ready to finally close the gap — for good.</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const els = document.querySelectorAll('.label, h2, .sub, .card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const idx = [...els].indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), idx * 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(e => observer.observe(e));
+</script>
+
+</body>
+</html>

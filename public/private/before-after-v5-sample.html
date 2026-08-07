@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Before vs After V5 — Progress Bars · Data-Driven</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F0FDF4; --accent: #16A34A;
+    --old-color: #DC2626; --new-color: #16A34A;
+    --bar-old-track: rgba(220,38,38,0.10); --bar-new-track: rgba(22,163,74,0.10);
+    --bar-old: #DC2626; --bar-new: #16A34A;
+    --text: #14532D; --muted: #4B5563; --border: #D1FAE5;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(32px, 4.5vw, 50px); font-weight: 800; line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 700px; margin: 0 auto; }
+  .bars { display: flex; flex-direction: column; gap: 36px; }
+  .bar-item { display: flex; flex-direction: column; gap: 10px; }
+  .bar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .bar-label { font-size: 16px; font-weight: 700; color: var(--text); }
+  .bar-change { background: rgba(22,163,74,0.12); color: var(--accent); font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 999px; }
+  .bar-row { display: flex; align-items: center; gap: 16px; }
+  .track { flex: 1; height: 14px; border-radius: 999px; position: relative; overflow: hidden; }
+  .track.old { background: var(--bar-old-track); }
+  .track.new { background: var(--bar-new-track); }
+  .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; width: 0; transition: width .9s cubic-bezier(0.2, 0.7, 0.3, 1); }
+  .fill.old { background: var(--bar-old); opacity: 0.85; }
+  .fill.new { background: var(--bar-new); }
+  .bar-val { min-width: 130px; text-align: right; font-size: 13.5px; }
+  .bar-val.old { color: var(--old-color); }
+  .bar-val.new { color: var(--new-color); font-weight: 700; }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .bar-row { flex-wrap: wrap; }
+    .bar-val { min-width: 100%; text-align: left; padding-left: 4px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Numbers Don't Lie</p>
+      <h2>Here's What the Data Shows.</h2>
+      <p class="sub">Across 500+ clients, the difference between those who used a system and those who didn't is staggering.</p>
+    </div>
+    <div class="bars" id="bars">
+      <div class="bar-item" data-old="16" data-new="100"><div class="bar-head"><span class="bar-label">Monthly Revenue</span><span class="bar-change">+525%</span></div><div class="bar-row"><div class="track old"><div class="fill old"></div></div><span class="bar-val old">Before: $8K/mo</span></div><div class="bar-row"><div class="track new"><div class="fill new"></div></div><span class="bar-val new">After: $50K/mo</span></div></div>
+      <div class="bar-item" data-old="100" data-new="37"><div class="bar-head"><span class="bar-label">Weekly Hours Worked</span><span class="bar-change">−63%</span></div><div class="bar-row"><div class="track old"><div class="fill old"></div></div><span class="bar-val old">Before: 60 hrs/wk</span></div><div class="bar-row"><div class="track new"><div class="fill new"></div></div><span class="bar-val new">After: 22 hrs/wk</span></div></div>
+      <div class="bar-item" data-old="10" data-new="33"><div class="bar-head"><span class="bar-label">Sales Close Rate</span><span class="bar-change">+200%</span></div><div class="bar-row"><div class="track old"><div class="fill old"></div></div><span class="bar-val old">Before: 1 in 10</span></div><div class="bar-row"><div class="track new"><div class="fill new"></div></div><span class="bar-val new">After: 1 in 3</span></div></div>
+      <div class="bar-item" data-old="100" data-new="22"><div class="bar-head"><span class="bar-label">Time to First $30K Month</span><span class="bar-change">−78%</span></div><div class="bar-row"><div class="track old"><div class="fill old"></div></div><span class="bar-val old">Before: 18+ months</span></div><div class="bar-row"><div class="track new"><div class="fill new"></div></div><span class="bar-val new">After: 90 days</span></div></div>
+      <div class="bar-item" data-old="62" data-new="98"><div class="bar-head"><span class="bar-label">Client Satisfaction Score</span><span class="bar-change">+94%</span></div><div class="bar-row"><div class="track old"><div class="fill old"></div></div><span class="bar-val old">Before: 3.1 / 5.0</span></div><div class="bar-row"><div class="track new"><div class="fill new"></div></div><span class="bar-val new">After: 4.9 / 5.0</span></div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const items = document.querySelectorAll('.bar-item');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const idx = [...items].indexOf(e.target);
+      setTimeout(() => {
+        const oldFill = e.target.querySelector('.fill.old');
+        const newFill = e.target.querySelector('.fill.new');
+        if (oldFill) oldFill.style.width = e.target.dataset.old + '%';
+        if (newFill) newFill.style.width = e.target.dataset.new + '%';
+      }, idx * 150);
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.2 });
+  items.forEach(i => obs.observe(i));
+</script>
+</body>
+</html>

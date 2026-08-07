@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash avatars (placeholder testimonial headshots): photo-1507003211169 / 1573496359142 / 1472099645785 / 1438761681033 / 1500648767791 / 1544005313 / 1487412720507 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Social Proof V5 — Featured + Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#FFF8F3; --accent:#EA580C; --star:#F59E0B; --text:#1C1917; --muted:#78716C; --card-bg:#FFFFFF; --featured-bg:#FFF1E8; --border:#FED7AA; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{padding:96px 24px;}
+  .container{max-width:1200px;margin:0 auto;}
+  .header{text-align:center;margin-bottom:48px;}
+  .agg{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted);margin-bottom:16px;}
+  .agg .stars{color:var(--star);letter-spacing:1px;}
+  h2{font-size:clamp(30px,4.4vw,46px);font-weight:800;line-height:1.1;letter-spacing:-0.01em;margin-bottom:12px;}
+  .sub{font-size:17px;line-height:1.6;color:var(--muted);max-width:600px;margin:0 auto;}
+  .grid{display:grid;grid-template-columns:45% 55%;gap:32px;align-items:start;}
+  .featured{background:var(--featured-bg);border-left:4px solid var(--accent);border-radius:16px;padding:36px;opacity:0;transform:translateX(-16px);transition:opacity .8s ease,transform .8s ease;}
+  .featured.visible{opacity:1;transform:translateX(0);}
+  .featured .stars{color:var(--star);letter-spacing:2px;font-size:18px;margin-bottom:16px;}
+  .featured .quote{font-style:italic;font-size:19px;line-height:1.55;margin-bottom:24px;}
+  .featured .who{display:flex;align-items:center;gap:14px;}
+  .featured .avatar{object-fit:cover;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:18px;color:#fff;background:var(--accent);flex-shrink:0;}
+  .featured .name{font-size:16px;font-weight:700;}
+  .featured .title{font-size:14px;color:var(--muted);}
+  .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .mini{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:22px;opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease;box-shadow:0 6px 20px rgba(28,25,23,0.04);}
+  .mini.visible{opacity:1;transform:translateY(0);}
+  .mini .stars{color:var(--star);letter-spacing:1.5px;font-size:13px;margin-bottom:10px;}
+  .mini .quote{font-style:italic;font-size:13.5px;line-height:1.5;margin-bottom:14px;}
+  .mini .who{display:flex;align-items:center;gap:10px;}
+  .mini .avatar{object-fit:cover;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;color:#1e293b;flex-shrink:0;}
+  .mini .name{font-size:12.5px;font-weight:700;}
+  .brand-bar{margin-top:48px;padding-top:36px;border-top:1px solid var(--border);display:flex;gap:clamp(20px,5vw,48px);justify-content:center;flex-wrap:wrap;}
+  .brand-bar span{color:#A8A29E;font-size:clamp(15px,1.8vw,20px);filter:grayscale(1);opacity:0.8;}
+  .b-serif{font-family:Georgia,serif;font-weight:700;}.b-bold{font-weight:800;}
+  @media(max-width:900px){.section{padding:56px 18px;}.grid{grid-template-columns:1fr;gap:24px;}.mini-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:540px){.mini-grid{grid-template-columns:1fr;}}
+  @media(prefers-reduced-motion:reduce){.featured,.mini{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <div class="agg"><span class="stars">★★★★★</span> 4.9/5 · 500+ lives changed</div>
+      <h2>Stories That Say It Better Than We Could.</h2>
+      <p class="sub">Every result here is real. Every person verified.</p>
+    </div>
+    <div class="grid">
+      <div class="featured">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"I was the skeptic. I'd bought 4 programs before this one and got nothing. By week 6 I had closed my first $10K client. By month 3 I fired my boss. This program changed my life."</p>
+        <div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="Kevin R." loading="lazy" /><div><div class="name">Kevin R.</div><div class="title">Agency Owner — Miami, FL</div></div></div>
+      </div>
+      <div class="mini-grid">
+        <div class="mini"><div class="stars">★★★★★</div><p class="quote">"I went from $8K months to $47K in month 3. I didn't believe it until the deposit hit my account."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Marcus T." loading="lazy" /><div><div class="name">Marcus T.</div></div></div></div>
+        <div class="mini"><div class="stars">★★★★★</div><p class="quote">"Down 24 lbs in 8 weeks and my doctor took me off 2 medications. The only thing that worked."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80" alt="Jennifer K." loading="lazy" /><div><div class="name">Jennifer K.</div></div></div></div>
+        <div class="mini"><div class="stars">★★★★★</div><p class="quote">"Landed a $152K offer at Meta in 87 days. I had 1,400 rejections before this program."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="David L." loading="lazy" /><div><div class="name">David L.</div></div></div></div>
+        <div class="mini"><div class="stars">★★★★★</div><p class="quote">"Crossed $50K/mo in month 4. Stuck at $12K for 18 months before joining. It delivered."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="Sarah M." loading="lazy" /><div><div class="name">Sarah M.</div></div></div></div>
+      </div>
+    </div>
+    <div class="brand-bar"><span class="b-serif">Forbes</span><span class="b-bold">Entrepreneur</span><span class="b-serif">Inc.</span><span>Business Insider</span></div>
+  </div>
+</section>
+<script>
+  const feat=document.querySelector('.featured');
+  const fObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');fObs.unobserve(e.target);}});},{threshold:0.15});
+  fObs.observe(feat);
+  const minis=document.querySelectorAll('.mini');
+  const mObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),[...minis].indexOf(e.target)*100);mObs.unobserve(e.target);}});},{threshold:0.2});
+  minis.forEach(m=>mObs.observe(m));
+</script>
+</body>
+</html>

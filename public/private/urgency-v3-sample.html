@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (dark CSS countdown) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Urgency V3 — Countdown + What You Lose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#07091A; --accent:#3B82F6; --timer-bg:rgba(59,130,246,0.08); --timer-border:rgba(59,130,246,0.25); --timer-num:#3B82F6;
+    --old-bg:rgba(220,38,38,0.05); --old-border:rgba(220,38,38,0.2); --new-bg:rgba(22,163,74,0.05); --new-border:rgba(22,163,74,0.2);
+    --text:#FFFFFF; --muted:#9AA0B0; --cta-bg:#3B82F6; --danger:#EF4444; --success:#22C55E;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:500px;padding:88px 24px;}
+  .container{max-width:920px;margin:0 auto;text-align:center;}
+  .label{display:inline-block;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  h2{font-size:clamp(26px,3.6vw,40px);font-weight:800;line-height:1.12;margin-bottom:30px;}
+  .timer{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px;opacity:0;transform:scale(0.92);transition:opacity .7s ease,transform .7s ease;}
+  .timer.visible{opacity:1;transform:scale(1);}
+  .box{background:var(--timer-bg);border:1px solid var(--timer-border);border-radius:14px;padding:16px 8px;min-width:84px;}
+  .num{display:block;font-size:clamp(32px,5vw,42px);font-weight:700;line-height:1;color:var(--timer-num);font-variant-numeric:tabular-nums;}
+  .lbl{display:block;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:8px;}
+  .sep{font-size:30px;font-weight:700;color:var(--timer-border);}
+  .closed{display:none;font-size:20px;font-weight:700;color:var(--accent);margin-bottom:10px;}
+  .deadline-static{font-size:12px;color:var(--muted);margin-bottom:40px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:36px;opacity:0;transform:translateY(20px);transition:opacity .7s .4s ease,transform .7s .4s ease;}
+  .grid.visible{opacity:1;transform:translateY(0);}
+  .col{border-radius:16px;padding:26px 24px;text-align:left;}
+  .col.old{background:var(--old-bg);border:1px solid var(--old-border);}
+  .col.new{background:var(--new-bg);border:1px solid var(--new-border);}
+  .c-head{font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px;}
+  .old .c-head{color:var(--danger);}.new .c-head{color:var(--success);}
+  .item{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.5;padding:9px 0;}
+  .mark{flex-shrink:0;font-weight:800;}
+  .old .mark{color:var(--danger);}.new .mark{color:var(--success);}
+  .old .item{color:var(--muted);}.new .item{color:var(--text);}
+  .cta{display:inline-block;background:var(--cta-bg);color:#fff;border:none;border-radius:999px;padding:17px 40px;font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer;transition:filter .2s,transform .1s;}
+  .cta:hover{filter:brightness(1.08);}.cta:active{transform:scale(0.99);}
+  .scarcity{font-size:14px;font-weight:700;color:var(--danger);margin-top:16px;}
+  @media(max-width:768px){.section{padding:56px 18px;}.grid{grid-template-columns:1fr;gap:14px;}.box{min-width:0;flex:1;padding:14px 4px;}.sep{font-size:20px;}}
+  @media(prefers-reduced-motion:reduce){.timer,.grid{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="label">The Clock Is Running</div>
+    <h2>What Changes When the Timer Hits Zero.</h2>
+    <div class="timer" id="timer">
+      <div class="box"><span class="num" id="tD">00</span><span class="lbl">Days</span></div>
+      <span class="sep">:</span>
+      <div class="box"><span class="num" id="tH">00</span><span class="lbl">Hrs</span></div>
+      <span class="sep">:</span>
+      <div class="box"><span class="num" id="tM">00</span><span class="lbl">Min</span></div>
+      <span class="sep">:</span>
+      <div class="box"><span class="num" id="tS">00</span><span class="lbl">Sec</span></div>
+    </div>
+    <div class="closed" id="closed">⚠ Enrollment is now closed.</div>
+    <div class="deadline-static">Closes August 1, 2026 · 11:59 PM</div>
+    <div class="grid" id="grid">
+      <div class="col old">
+        <div class="c-head">After Friday you lose:</div>
+        <div class="item"><span class="mark">✗</span>The $4,997 founding member price</div>
+        <div class="item"><span class="mark">✗</span>Fast-action bonus pack ($591 value)</div>
+        <div class="item"><span class="mark">✗</span>Access to the current cohort</div>
+      </div>
+      <div class="col new">
+        <div class="c-head">Enroll now and keep:</div>
+        <div class="item"><span class="mark">✓</span>Locked-in price — never increases</div>
+        <div class="item"><span class="mark">✓</span>All fast-action bonuses included</div>
+        <div class="item"><span class="mark">✓</span>Immediate access to onboarding</div>
+      </div>
+    </div>
+    <button class="cta" type="button">LOCK IN MY SPOT →</button>
+    <div class="scarcity">⚠ 8 of 30 seats remaining</div>
+  </div>
+</section>
+<script>
+  const DEADLINE = "2026-08-01T23:59:59";
+  const SEATS_LEFT = 8, SEATS_TOTAL = 30;
+  (function(){
+    const end=new Date(DEADLINE).getTime();
+    const D=document.getElementById('tD'),H=document.getElementById('tH'),M=document.getElementById('tM'),S=document.getElementById('tS');
+    const timer=document.getElementById('timer'),closed=document.getElementById('closed');
+    const p=(n)=>String(n).padStart(2,'0');let iv;
+    function tick(){let diff=end-Date.now();if(diff<=0){timer.style.display='none';closed.style.display='block';clearInterval(iv);return;}
+      const d=Math.floor(diff/86400000);diff-=d*86400000;const h=Math.floor(diff/3600000);diff-=h*3600000;const m=Math.floor(diff/60000);diff-=m*60000;const s=Math.floor(diff/1000);
+      D.textContent=p(d);H.textContent=p(h);M.textContent=p(m);S.textContent=p(s);}
+    tick();iv=setInterval(tick,1000);
+  })();
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.timer,.grid').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

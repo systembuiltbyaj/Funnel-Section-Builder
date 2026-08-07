@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Opportunity V4 — Accordion · Modern SaaS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F8FAFC; --bg-active: #EEF2FF; --accent: #4F46E5; --accent-h: #4338CA;
+    --text: #0F172A; --muted: #64748B; --border: #E2E8F0;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 40% 60%; gap: 56px; align-items: start; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(32px, 4.4vw, 46px); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); margin-bottom: 22px; }
+  .body { font-size: 16px; line-height: 1.7; color: var(--text); margin-bottom: 28px; }
+  .cta { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 999px; border: 1.5px solid var(--accent); color: var(--accent); background: transparent; font-weight: 700; font-size: 15px; cursor: pointer; text-decoration: none; transition: background-color .2s, color .2s, transform .2s; }
+  .cta:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+  .acc { display: flex; flex-direction: column; gap: 12px; }
+  .acc-item { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease, background-color .25s; }
+  .acc-item.visible { opacity: 1; transform: translateY(0); }
+  .acc-item.open { background: var(--bg-active); }
+  .acc-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; cursor: pointer; user-select: none; }
+  .acc-title { font-size: 18px; font-weight: 700; color: var(--text); }
+  .chev { width: 22px; height: 22px; color: var(--muted); transition: transform .35s ease; }
+  .acc-item.open .chev { transform: rotate(180deg); color: var(--accent); }
+  .acc-body { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .25s ease; padding: 0 24px; }
+  .acc-item.open .acc-body { max-height: 240px; padding: 0 24px 22px; }
+  .acc-body p { color: var(--muted); font-size: 15px; line-height: 1.65; }
+  .stats { grid-column: 1 / -1; display: flex; justify-content: center; gap: clamp(28px, 6vw, 80px); padding-top: 48px; margin-top: 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-size: clamp(34px, 4.4vw, 50px); font-weight: 800; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .container { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .acc-item { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div>
+      <p class="label">The Methodology</p>
+      <h2>The Reverse-Engineered Interview System™</h2>
+      <p class="sub">The exact process used to move 400+ professionals into $150K+ roles in under 90 days.</p>
+      <p class="body">Stop sending applications into the void. Our system works backwards from the offer letter — mapping every step with surgical precision so you know exactly what to do, and when.</p>
+      <a class="cta" href="#curriculum">See Full Curriculum
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="acc">
+      <div class="acc-item open">
+        <div class="acc-head"><span class="acc-title">Phase 1 · Target &amp; Position</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="acc-body"><p>Identify your highest-leverage opportunities and reposition your profile to attract inbound recruiter interest. Most clients see 3x more profile views within the first week.</p></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head"><span class="acc-title">Phase 2 · Activate &amp; Outreach</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="acc-body"><p>Deploy our 5-touch outreach sequence to hiring managers and internal champions — bypassing the ATS entirely.</p></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head"><span class="acc-title">Phase 3 · Interview &amp; Convert</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="acc-body"><p>Use the STAR+ framework to ace every interview round and generate competing offers to maximize leverage.</p></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" data-count="400" data-suffix="+">400+</div><div class="stat-label">placed</div></div>
+      <div class="stat"><div class="stat-num" data-count="150" data-prefix="$" data-suffix="K+">$150K+</div><div class="stat-label">avg offer</div></div>
+      <div class="stat"><div class="stat-num" data-count="87">87</div><div class="stat-label">days avg</div></div>
+    </div>
+  </div>
+</section>
+<script>
+  // Accordion toggle
+  document.querySelectorAll('.acc-head').forEach((h) => {
+    h.addEventListener('click', () => {
+      const item = h.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach((i) => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+  const items = document.querySelectorAll('.acc-item');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...items].indexOf(e.target) * 120); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  items.forEach(i => obs.observe(i));
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1200;
+      const tick = (t) => { const p = Math.min(1, (t - start) / dur); const val = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = prefix + val + suffix; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

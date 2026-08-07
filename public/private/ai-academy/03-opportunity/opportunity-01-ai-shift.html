@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Academy — The AI Shift (Stats + Matrix)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:     #030110;
+    --accent: #6366F1;
+    --text:   #FFFFFF;
+    --muted:  rgba(255,255,255,0.5);
+    --border: rgba(255,255,255,0.08);
+    --card:   rgba(255,255,255,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 24px;
+  }
+
+  .section {
+    width: 100%;
+    max-width: 1160px;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    gap: 64px;
+    align-items: center;
+    min-height: 500px;
+  }
+
+  /* ---- LEFT: stats ---- */
+  .stats-col { display: flex; flex-direction: column; }
+
+  .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 44px;
+  }
+  h2 .line-1 { color: var(--text); display: block; }
+  h2 .accent {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent);
+    font-size: clamp(34px, 4.8vw, 52px);
+    letter-spacing: 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 32px;
+  }
+  .stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(40px, 5vw, 54px);
+    line-height: 1;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .stat .stat-label {
+    margin-top: 10px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .down-arrow {
+    margin-top: 40px;
+    color: var(--accent);
+    opacity: 0.85;
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  .down-arrow svg { width: 30px; height: 30px; }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ---- RIGHT: matrix ---- */
+  .matrix-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .matrix {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: rgba(255,255,255,0.02);
+    border: 0.5px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(20, 1fr);
+    gap: 0;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -40px rgba(99,102,241,0.35);
+  }
+  .cell {
+    display: grid;
+    place-items: center;
+    font-family: 'SFMono-Regular', ui-monospace, 'Menlo', 'Consolas', monospace;
+    font-size: 11px;
+    line-height: 1;
+    color: rgba(255,255,255,0.22);
+    transition: color 0.12s linear, text-shadow 0.12s linear;
+    user-select: none;
+  }
+  .cell.hot {
+    color: var(--accent);
+    text-shadow: 0 0 8px rgba(99,102,241,0.8);
+  }
+  .matrix-label {
+    margin-top: 18px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 500;
+    text-align: center;
+  }
+
+  /* ---- scroll reveal ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+  .reveal.delay-3 { transition-delay: 0.3s; }
+  .reveal.delay-4 { transition-delay: 0.4s; }
+
+  /* ---- MOBILE ---- */
+  @media (max-width: 768px) {
+    body { padding: 44px 18px; }
+    .split {
+      grid-template-columns: 1fr;
+      gap: 44px;
+      min-height: 0;
+    }
+    .matrix {
+      grid-template-columns: repeat(15, 1fr);
+      grid-template-rows: repeat(15, 1fr);
+      max-width: 360px;
+      margin: 0 auto;
+    }
+    .matrix-col { width: 100%; }
+  }
+</style>
+</head>
+<body>
+  <section class="section">
+    <div class="split">
+      <!-- LEFT: stats -->
+      <div class="stats-col">
+        <p class="label reveal" id="label"></p>
+        <h2 class="reveal delay-1">
+          <span class="line-1" id="h2Line1"></span>
+          <span class="accent" id="h2Accent"></span>
+        </h2>
+        <div class="stats-grid" id="statsGrid"></div>
+        <div class="down-arrow reveal delay-4" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </div>
+      </div>
+
+      <!-- RIGHT: matrix -->
+      <div class="matrix-col reveal delay-2">
+        <div class="matrix" id="matrix" aria-hidden="true"></div>
+        <p class="matrix-label" id="matrixLabel"></p>
+      </div>
+    </div>
+  </section>
+
+<script>
+  /* === CLIENT VARIABLES — EDIT HERE === */
+  const LABEL       = "IT'S ALREADY HAPPENING";
+  const H2_LINE_1   = "The AI shift.";
+  const H2_ACCENT   = "A massive opportunity.";
+  const STATS = [
+    { num:"10x",    label:"PRODUCTIVITY INCREASE" },
+    { num:"$15.7T", label:"AI IMPACT BY 2030" },
+    { num:"80%",    label:"TASKS AUTOMATED" },
+    { num:"24/7",   label:"OUTPUT WITHOUT BURNOUT" }
+  ];
+  const MATRIX_LABEL = "AGENTS WORKING FOR YOU 24/7";
+
+  /* ---- render copy ---- */
+  document.getElementById('label').textContent = LABEL;
+  document.getElementById('h2Line1').textContent = H2_LINE_1;
+  document.getElementById('h2Accent').textContent = H2_ACCENT;
+  document.getElementById('matrixLabel').textContent = MATRIX_LABEL;
+
+  const statsGrid = document.getElementById('statsGrid');
+  STATS.forEach((s, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'stat reveal delay-' + Math.min(i + 1, 4);
+    cell.innerHTML = `<div class="num">${s.num}</div><div class="stat-label">${s.label}</div>`;
+    statsGrid.appendChild(cell);
+  });
+
+  /* ---- build matrix grid (size depends on viewport) ---- */
+  const matrixEl = document.getElementById('matrix');
+  const GRID = window.matchMedia('(max-width: 768px)').matches ? 15 : 20;
+  const TOTAL = GRID * GRID;
+  const CHARS = ['0', '1', '·'];
+  const cells = [];
+  for (let i = 0; i < TOTAL; i++) {
+    const c = document.createElement('span');
+    c.className = 'cell';
+    c.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
+    matrixEl.appendChild(c);
+    cells.push(c);
+  }
+
+  /* ---- animation: flip random chars + flash accent cells every ~80ms ---- */
+  let matrixTimer = null;
+  function tickMatrix() {
+    // flip ~12% of the cells each tick
+    const flips = Math.floor(TOTAL * 0.12);
+    for (let i = 0; i < flips; i++) {
+      const idx = Math.floor(Math.random() * TOTAL);
+      cells[idx].textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
+    }
+    // clear last hot cells, then light up a few new ones
+    cells.forEach(c => { if (c.classList.contains('hot')) c.classList.remove('hot'); });
+    const hots = Math.max(3, Math.floor(TOTAL * 0.025));
+    for (let i = 0; i < hots; i++) {
+      cells[Math.floor(Math.random() * TOTAL)].classList.add('hot');
+    }
+  }
+
+  function startMatrix() {
+    if (matrixTimer) return;
+    matrixTimer = setInterval(tickMatrix, 80);
+  }
+
+  /* ---- scroll reveal + matrix start on entry ---- */
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    }), { threshold: 0.15 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const matrixObserver = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) { startMatrix(); }
+    }), { threshold: 0.2 }
+  );
+  matrixObserver.observe(matrixEl);
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP V6 — Neon Glow Cards · High-Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #050510; --accent: #A855F7;
+    --g1: rgba(59,130,246,0.25); --g2: rgba(245,158,11,0.25); --g3: rgba(34,197,94,0.25);
+    --n1: #3B82F6; --n2: #F59E0B; --n3: #22C55E;
+    --text: #FFFFFF; --muted: #8B8BA0;
+    --b1: rgba(59,130,246,0.3); --b2: rgba(245,158,11,0.3); --b3: rgba(34,197,94,0.3);
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 100px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 64px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 18px; }
+  h2 { font-family: 'Syne', sans-serif; font-size: clamp(34px, 4.8vw, 52px); font-weight: 700; line-height: 1.06; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 640px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .card { background: rgba(255,255,255,0.02); border: 1px solid; border-radius: 18px; padding: 40px 32px; text-align: center; opacity: 0; transform: scale(0.95); transition: opacity .8s ease, transform .8s ease, box-shadow 1s .25s ease; }
+  .card.visible { opacity: 1; transform: scale(1); }
+  .card.c1 { border-color: var(--b1); } .card.c1.visible { box-shadow: 0 24px 80px var(--g1); }
+  .card.c2 { border-color: var(--b2); } .card.c2.visible { box-shadow: 0 24px 80px var(--g2); }
+  .card.c3 { border-color: var(--b3); } .card.c3.visible { box-shadow: 0 24px 80px var(--g3); }
+  .big-num { font-family: 'Syne', sans-serif; font-size: clamp(52px, 5.8vw, 72px); font-weight: 700; line-height: 1; letter-spacing: -0.02em; margin-bottom: 16px; }
+  .card.c1 .big-num { color: var(--n1); }
+  .card.c2 .big-num { color: var(--n2); }
+  .card.c3 .big-num { color: var(--n3); }
+  .c-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+  .c-body { font-size: 15px; line-height: 1.6; color: var(--muted); }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; gap: 18px; } .section { padding: 56px 18px; } }
+  @media (prefers-reduced-motion: reduce) { .card { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Advantage</p>
+      <h2>Three Numbers That Say Everything.</h2>
+      <p class="sub">We don't ask you to trust us. We show you the receipts.</p>
+    </div>
+    <div class="grid">
+      <article class="card c1"><div class="big-num" data-count="50" data-prefix="$" data-suffix="K">$50K</div><h3 class="c-title">Average Monthly Revenue</h3><p class="c-body">By the end of week 12, the average client in this program is earning $50K/mo or more. Not a projection. An average.</p></article>
+      <article class="card c2"><div class="big-num" data-count="81" data-suffix="%">81%</div><h3 class="c-title">Client Success Rate</h3><p class="c-body">8 in 10 clients who complete the program hit their stated income goal within 90 days. We track every single one.</p></article>
+      <article class="card c3"><div class="big-num" data-count="90">90</div><h3 class="c-title">Days to Full Results</h3><p class="c-body">Not 6 months. Not a year. 90 days from onboarding to a business that runs itself and pays you like one.</p></article>
+    </div>
+  </div>
+</section>
+<script>
+  const cards = document.querySelectorAll('.card');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...cards].indexOf(e.target) * 150); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1400;
+      const tick = (t) => { const p = Math.min(1, (t - start) / dur); const val = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = prefix + val + suffix; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

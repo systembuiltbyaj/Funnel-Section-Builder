@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Before vs After V6 — Transform Timeline · Warm Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFF7ED; --accent: #EA580C;
+    --old-color: #DC2626; --new-color: #16A34A; --arrow-color: #EA580C;
+    --text: #1C1917; --muted: #78716C; --border: #FED7AA;
+    --old-bg: rgba(220,38,38,0.05); --new-bg: rgba(22,163,74,0.05);
+    --old-border: rgba(220,38,38,0.25); --new-border: rgba(22,163,74,0.25);
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1240px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 18px; }
+  h2 { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4.6vw, 50px); font-weight: 700; line-height: 1.06; letter-spacing: -0.01em; max-width: 800px; margin: 0 auto 16px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 640px; margin: 0 auto; }
+  .pairs { display: flex; flex-direction: column; gap: 28px; }
+  .pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: stretch; opacity: 0; }
+  .pair.visible { opacity: 1; transition: opacity .8s ease; }
+  .card { padding: 24px 26px; border-radius: 14px; border: 1px solid; line-height: 1.55; font-size: 16px; display: flex; align-items: center; transform: translateX(-20px); opacity: 0; }
+  .card.right { transform: translateX(20px); }
+  .pair.visible .card { opacity: 1; transform: translateX(0); transition: opacity .8s ease, transform .8s ease; }
+  .old { background: var(--old-bg); border-color: var(--old-border); color: var(--muted); }
+  .new { background: var(--new-bg); border-color: var(--new-border); color: var(--text); font-weight: 500; }
+  .arrow { display: grid; place-items: center; opacity: 0; }
+  .pair.visible .arrow { opacity: 1; transition: opacity .8s .3s ease; }
+  .arrow svg { width: 32px; height: 32px; color: var(--arrow-color); }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .pair { grid-template-columns: 1fr; gap: 12px; }
+    .arrow svg { transform: rotate(90deg); }
+    .card { padding: 18px 22px; font-size: 15px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .pair, .card, .arrow { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Transformation</p>
+      <h2>Every Single Point of Pain Has a Flip Side.</h2>
+      <p class="sub">This is what the shift looks like in practice.</p>
+    </div>
+    <div class="pairs">
+      <div class="pair"><div class="card old">Waking up dreading your inbox full of client demands</div><div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div><div class="card new right">Waking up excited to work with people you actually chose</div></div>
+      <div class="pair"><div class="card old">Saying yes to low-ticket clients because you need the money</div><div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div><div class="card new right">Turning down bad-fit clients because your pipeline is full</div></div>
+      <div class="pair"><div class="card old">Your revenue depending entirely on how hard you hustle</div><div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div><div class="card new right">Your revenue tied to a system that works whether you do or not</div></div>
+      <div class="pair"><div class="card old">Feeling like a fraud charging more than $2K for anything</div><div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div><div class="card new right">Confidently charging $10K–$25K and getting paid in full</div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const pairs = document.querySelectorAll('.pair');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...pairs].indexOf(e.target) * 150); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  pairs.forEach(p => obs.observe(p));
+</script>
+</body>
+</html>

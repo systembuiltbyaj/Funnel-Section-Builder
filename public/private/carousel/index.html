@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Animated Carousel — Section Previews</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+<style>
+  :root{ --bg:#030110; --accent:#6366F1; --text:#fff; --muted:rgba(255,255,255,0.5); --border:rgba(255,255,255,0.08); --card:rgba(255,255,255,0.03); }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding:64px 24px;}
+  .wrap{max-width:1040px;margin:0 auto;}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  h1{font-size:clamp(30px,5vw,48px);font-weight:700;line-height:1.1;margin-bottom:8px;}
+  h1 em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;color:var(--accent);}
+  .sub{color:var(--muted);font-size:15px;line-height:1.6;max-width:600px;margin-bottom:48px;}
+  .links{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
+  a.card{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;transition:border-color .2s,transform .15s,background .2s;}
+  a.card:hover{border-color:rgba(99,102,241,0.5);transform:translateY(-2px);background:rgba(99,102,241,0.06);}
+  a.card .name{font-size:15px;font-weight:600;}
+  a.card .path{font-size:11.5px;color:var(--muted);font-family:ui-monospace,monospace;}
+  .tip{margin-top:40px;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;line-height:1.6;}
+  .tip b{color:var(--text);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Internal · Screenshot Source</div>
+  <h1>Animated Carousel — <em>Section Previews</em></h1>
+  <p class="sub">4 pure-CSS infinite-scroll marquees. Open each, screenshot the section, and the thumbnails get wired into the Carousels tab of the Funnel Section Builder.</p>
+
+  <div class="links">
+    <a class="card" href="/private/carousel/carousel-01-marquee-ticker.html"><span class="name">Marquee Ticker Bar (A + B)</span><span class="path">carousel/carousel-01-marquee-ticker.html</span></a>
+    <a class="card" href="/private/carousel/carousel-02-module-cards.html"><span class="name">Module Cards — Dual Row</span><span class="path">carousel/carousel-02-module-cards.html</span></a>
+    <a class="card" href="/private/carousel/carousel-03-templates-scroll.html"><span class="name">Templates Scroll — Device Frames</span><span class="path">carousel/carousel-03-templates-scroll.html</span></a>
+    <a class="card" href="/private/carousel/carousel-04-tag-pills.html"><span class="name">Tag Pills — Audience Marquee</span><span class="path">carousel/carousel-04-tag-pills.html</span></a>
+  </div>
+
+  <div class="tip"><b>Tip:</b> these 4 match the new <b>Carousels</b> tab variations in the Funnel Section Builder. Screenshot each at a wide 2:1-ish crop for the cleanest card thumbnail.</div>
+</div>
+</body>
+</html>

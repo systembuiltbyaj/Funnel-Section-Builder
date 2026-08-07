@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carousel 01 — Marquee Ticker Bar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #030110;
+    --accent: #6366F1;
+    --text: #FFFFFF;
+    --muted: rgba(255, 255, 255, 0.5);
+    --border: rgba(255, 255, 255, 0.08);
+    --card: rgba(255, 255, 255, 0.03);
+
+    /* VARIANT A */
+    --ticker-a-bg: #0D0B3A;
+    --ticker-a-color: #8B9FFF;
+    --speed-a: 22s;
+
+    /* VARIANT B */
+    --ticker-b-bg: #030110;
+    --ticker-b-color: rgba(255, 255, 255, 0.4);
+    --ticker-b-border: rgba(255, 255, 255, 0.06);
+    --speed-b: 30s;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body { padding: 64px 0; display: flex; flex-direction: column; gap: 48px; }
+
+  .stage-label {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 24px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  /* Shared ticker mechanics */
+  .ticker {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+  }
+
+  .ticker-row {
+    display: flex;
+    flex-shrink: 0;
+    width: max-content;
+    will-change: transform;
+    animation-fill-mode: none;
+    /* duplicated 2x => animate 0 -> -50% for a seamless loop */
+    animation: scrollLeft var(--this-speed, 22s) linear infinite;
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  @keyframes scrollLeft  { 0% { transform: translateX(0); }    100% { transform: translateX(-50%); } }
+  @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+  /* VARIANT A — dark announcement */
+  .ticker-a { background: var(--ticker-a-bg); padding: 16px 0; }
+  .ticker-a .ticker-row { --this-speed: var(--speed-a); }
+  .ticker-a .ticker-item { color: var(--ticker-a-color); padding: 0 26px; }
+  .ticker-a .sep { color: rgba(139, 159, 255, 0.45); padding: 0 26px; font-size: 11px; }
+
+  /* VARIANT B — subtle dark */
+  .ticker-b {
+    background: var(--ticker-b-bg);
+    padding: 14px 0;
+    border-top: 1px solid var(--ticker-b-border);
+    border-bottom: 1px solid var(--ticker-b-border);
+  }
+  .ticker-b .ticker-row { --this-speed: var(--speed-b); }
+  .ticker-b .ticker-item { color: var(--ticker-b-color); padding: 0 30px; }
+  .ticker-b .num { color: var(--accent); font-weight: 700; margin-right: 10px; }
+  .ticker-b .sep { color: rgba(255, 255, 255, 0.15); padding: 0 30px; }
+
+  @media (max-width: 768px) {
+    body { padding: 40px 0; gap: 36px; }
+    .ticker-a .ticker-item, .ticker-b .ticker-item { padding: 0 18px; font-size: 10px; }
+    .ticker-a .sep, .ticker-b .sep { padding: 0 18px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- VARIANT A — Dark announcement ticker.
+       Content written out statically AND duplicated 2x (visible without JS). -->
+  <div>
+    <p class="stage-label">Variant A — Announcement</p>
+    <div class="ticker ticker-a">
+      <div class="ticker-row">
+        <!-- set 1 -->
+        <span class="ticker-item">✦ AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span><span class="sep">•</span>
+        <span class="ticker-item">✦ PRICE GOING UP JUNE 7TH</span><span class="sep">•</span>
+        <span class="ticker-item">✦ JOIN 7,231+ STUDENTS TODAY</span><span class="sep">•</span>
+        <!-- set 2 (duplicate) -->
+        <span class="ticker-item">✦ AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span><span class="sep">•</span>
+        <span class="ticker-item">✦ PRICE GOING UP JUNE 7TH</span><span class="sep">•</span>
+        <span class="ticker-item">✦ JOIN 7,231+ STUDENTS TODAY</span><span class="sep">•</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIANT B — Subtle numbered ticker.
+       Content written out statically AND duplicated 2x (visible without JS). -->
+  <div>
+    <p class="stage-label">Variant B — Numbered features</p>
+    <div class="ticker ticker-b">
+      <div class="ticker-row">
+        <!-- set 1 -->
+        <span class="ticker-item"><span class="num">01</span>Full AI Academy library</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">02</span>Live Vibe Coding sessions</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">03</span>Every Remix AI Template</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">04</span>Daily Prompt Flows</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">05</span>10+ years of Skills MD files</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">06</span>Private VIP Community</span><span class="sep">·</span>
+        <!-- set 2 (duplicate) -->
+        <span class="ticker-item"><span class="num">01</span>Full AI Academy library</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">02</span>Live Vibe Coding sessions</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">03</span>Every Remix AI Template</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">04</span>Daily Prompt Flows</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">05</span>10+ years of Skills MD files</span><span class="sep">·</span>
+        <span class="ticker-item"><span class="num">06</span>Private VIP Community</span><span class="sep">·</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ============================ CLIENT VARIABLES ============================ */
+  /* These mirror the static markup above; edit both to re-skin the tickers. */
+  /* VARIANT A */
+  const TICKER_A_ITEMS = [
+    "✦ AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH",
+    "✦ PRICE GOING UP JUNE 7TH",
+    "✦ JOIN 7,231+ STUDENTS TODAY"
+  ];
+  /* VARIANT B */
+  const TICKER_B_ITEMS = [
+    { num: "01", text: "Full AI Academy library" },
+    { num: "02", text: "Live Vibe Coding sessions" },
+    { num: "03", text: "Every Remix AI Template" },
+    { num: "04", text: "Daily Prompt Flows" },
+    { num: "05", text: "10+ years of Skills MD files" },
+    { num: "06", text: "Private VIP Community" }
+  ];
+  /* ========================================================================= */
+
+  // Optional re-render from the arrays. The static markup above already shows
+  // the content (works with JS off); this keeps page + variables in sync.
+  function renderTicker(rowEl, html) { if (rowEl) rowEl.innerHTML = html + html; }
+
+  (function () {
+    const rows = document.querySelectorAll('.ticker-row');
+    if (rows.length < 2) return;
+
+    let aSingle = "";
+    TICKER_A_ITEMS.forEach((item) => {
+      aSingle += '<span class="ticker-item">' + item + '</span><span class="sep">•</span>';
+    });
+    renderTicker(rows[0], aSingle);
+
+    let bSingle = "";
+    TICKER_B_ITEMS.forEach((item) => {
+      bSingle += '<span class="ticker-item"><span class="num">' + item.num + '</span>' + item.text + '</span><span class="sep">·</span>';
+    });
+    renderTicker(rows[1], bSingle);
+  })();
+</script>
+</body>
+</html>

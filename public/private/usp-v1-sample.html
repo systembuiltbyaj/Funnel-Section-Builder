@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP V1 — 3-Column Icon Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF; --bg-alt: #F7F8FA; --accent: #2563EB;
+    --c1: #2563EB; --c2: #D97706; --c3: #16A34A;
+    --text: #0E1116; --muted: #4A5160; --border: #E4E7EB;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1180px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(30px, 4.4vw, 48px); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 14px; max-width: 760px; margin-left: auto; margin-right: auto; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 620px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease, box-shadow .25s ease; }
+  .card.visible { opacity: 1; transform: translateY(0); }
+  .card:hover { box-shadow: 0 16px 40px rgba(15,17,22,0.08); transform: translateY(-4px); }
+  .icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 20px; }
+  .icon svg { width: 22px; height: 22px; color: #fff; }
+  .card.c1 .icon { background: var(--c1); }
+  .card.c2 .icon { background: var(--c2); }
+  .card.c3 .icon { background: var(--c3); }
+  .c-title { font-size: 20px; font-weight: 700; line-height: 1.25; margin-bottom: 10px; }
+  .c-body { font-size: 15px; line-height: 1.62; color: var(--muted); margin-bottom: 20px; flex: 1; }
+  .stat { display: inline-flex; align-self: flex-start; padding: 8px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700; }
+  .card.c1 .stat { background: rgba(37,99,235,0.10); color: var(--c1); }
+  .card.c2 .stat { background: rgba(217,119,6,0.12); color: var(--c2); }
+  .card.c3 .stat { background: rgba(22,163,74,0.12); color: var(--c3); }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; gap: 16px; } .section { padding: 56px 18px; } }
+  @media (prefers-reduced-motion: reduce) { .card { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">Why Clients Choose Us</p>
+      <h2>Not Another Coach. A Proven System.</h2>
+      <p class="sub">We don't sell hope. We deliver a repeatable framework backed by 500+ success stories.</p>
+    </div>
+    <div class="grid">
+      <article class="card c1"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 10h4a2 2 0 1 1 0 4H9"/></svg></div><h3 class="c-title">Guaranteed Revenue Growth</h3><p class="c-body">81% of our clients cross $30K/mo within their first 90 days — or we keep working with them until they do. No exceptions. No fine print.</p><span class="stat">$50K avg/mo by week 12</span></article>
+      <article class="card c2"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M6 16V8a4 4 0 0 1 4-4h4"/><path d="M18 8v8a4 4 0 0 1-4 4h-4"/></svg></div><h3 class="c-title">A System, Not Just Advice</h3><p class="c-body">Every week you follow a proven playbook — not guesswork. You'll always know exactly what to do next, and why it works.</p><span class="stat">6-step framework, zero confusion</span></article>
+      <article class="card c3"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.005-8-12.1-8-5.097 0-5.097 8 0 8 5.095 0 7.005-8 12.1-8z"/></svg></div><h3 class="c-title">Skills That Compound Forever</h3><p class="c-body">What you build here doesn't stop when the program ends. The system, the clients, the confidence — they're yours to keep and scale.</p><span class="stat">Clients still growing 2 years later</span></article>
+    </div>
+  </div>
+</section>
+<script>
+  const cards = document.querySelectorAll('.card');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...cards].indexOf(e.target) * 100); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+</script>
+</body>
+</html>

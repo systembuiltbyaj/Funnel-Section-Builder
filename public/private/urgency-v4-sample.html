@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (dark CSS countdown) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Urgency V4 — Seat Scarcity Progress Bar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#050505; --accent:#16A34A; --bar-from:#16A34A; --bar-to:#EF4444;
+    --timer-bg:rgba(22,163,74,0.08); --timer-border:rgba(22,163,74,0.25); --timer-num:#22C55E;
+    --text:#FFFFFF; --muted:#9AA0B0; --cta-bg:#16A34A; --danger:#EF4444;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:500px;padding:88px 24px;display:flex;align-items:center;justify-content:center;}
+  .wrap{max-width:700px;width:100%;text-align:center;opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease;}
+  .wrap.visible{opacity:1;transform:translateY(0);}
+  .label{display:inline-block;font-size:12px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  h2{font-size:clamp(26px,3.6vw,40px);font-weight:800;line-height:1.12;margin-bottom:14px;}
+  .sub{font-size:15.5px;line-height:1.7;color:var(--muted);max-width:540px;margin:0 auto 34px;}
+  .barwrap{margin-bottom:8px;}
+  .barlabels{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:10px;}
+  .bar{height:12px;border-radius:999px;background:rgba(255,255,255,0.08);overflow:hidden;}
+  .fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--bar-from),var(--bar-to));transition:width 1.4s cubic-bezier(.4,0,.2,1);}
+  .wrap.visible .fill{width:73.3%;}
+  .warn{font-size:14px;font-weight:700;color:var(--danger);margin:12px 0 34px;}
+  .timer-label{font-size:12.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+  .timer{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:8px;}
+  .box{background:var(--timer-bg);border:1px solid var(--timer-border);border-radius:12px;padding:13px 6px;min-width:74px;}
+  .num{display:block;font-size:clamp(28px,4.4vw,36px);font-weight:700;line-height:1;color:var(--timer-num);font-variant-numeric:tabular-nums;}
+  .lbl{display:block;font-size:10.5px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);margin-top:7px;}
+  .sep{font-size:24px;font-weight:700;color:var(--timer-border);}
+  .closed{display:none;font-size:18px;font-weight:700;color:var(--accent);margin-bottom:10px;}
+  .deadline-static{font-size:12px;color:var(--muted);margin-bottom:32px;}
+  .cta{display:block;width:100%;max-width:520px;margin:0 auto 14px;background:var(--cta-bg);color:#fff;border:none;border-radius:999px;padding:18px 26px;font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer;transition:filter .2s,transform .1s;}
+  .cta:hover{filter:brightness(1.1);}.cta:active{transform:scale(0.99);}
+  .note{font-size:13px;color:var(--muted);}
+  @media(max-width:768px){.section{padding:56px 18px;}.box{min-width:0;flex:1;}.sep{font-size:18px;}}
+  @media(prefers-reduced-motion:reduce){.wrap{opacity:1;transform:none;}.wrap.visible .fill{transition:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="wrap">
+    <div class="label">Limited Enrollment — Closing Soon</div>
+    <h2>22 of 30 Seats Have Been Claimed.</h2>
+    <p class="sub">Once the final 8 spots are gone, enrollment closes until the next cohort — in 6 months.</p>
+    <div class="barwrap">
+      <div class="barlabels"><span>Seats taken</span><span>22 of 30 filled</span></div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="warn">⚠ 8 seats remaining</div>
+    </div>
+    <div class="timer-label">Plus — price resets Friday:</div>
+    <div class="timer" id="timer">
+      <div class="box"><span class="num" id="tD">00</span><span class="lbl">Days</span></div>
+      <span class="sep">:</span>
+      <div class="box"><span class="num" id="tH">00</span><span class="lbl">Hrs</span></div>
+      <span class="sep">:</span>
+      <div class="box"><span class="num" id="tM">00</span><span class="lbl">Min</span></div>
+      <span class="sep">:</span>
+      <div class="box"><span class="num" id="tS">00</span><span class="lbl">Sec</span></div>
+    </div>
+    <div class="closed" id="closed">⚠ Enrollment is now closed.</div>
+    <div class="deadline-static">Price resets August 1, 2026 · 11:59 PM</div>
+    <button class="cta" type="button">CLAIM ONE OF THE 8 REMAINING SPOTS →</button>
+    <div class="note">Next cohort opens in 6 months at $9,997</div>
+  </div>
+</section>
+<script>
+  const DEADLINE = "2026-08-01T23:59:59";
+  const SEATS_TAKEN = 22, SEATS_TOTAL = 30, SEATS_LEFT = 8;
+  (function(){
+    const end=new Date(DEADLINE).getTime();
+    const D=document.getElementById('tD'),H=document.getElementById('tH'),M=document.getElementById('tM'),S=document.getElementById('tS');
+    const timer=document.getElementById('timer'),closed=document.getElementById('closed');
+    const p=(n)=>String(n).padStart(2,'0');let iv;
+    function tick(){let diff=end-Date.now();if(diff<=0){timer.style.display='none';closed.style.display='block';clearInterval(iv);return;}
+      const d=Math.floor(diff/86400000);diff-=d*86400000;const h=Math.floor(diff/3600000);diff-=h*3600000;const m=Math.floor(diff/60000);diff-=m*60000;const s=Math.floor(diff/1000);
+      D.textContent=p(d);H.textContent=p(h);M.textContent=p(m);S.textContent=p(s);}
+    tick();iv=setInterval(tick,1000);
+  })();
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.25});
+  document.querySelectorAll('.wrap').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

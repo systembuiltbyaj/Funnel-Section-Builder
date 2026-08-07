@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Before vs After V8 — Alternating Rows · Corporate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF; --header-bg: #F8FAFC;
+    --old-row-bg: rgba(220,38,38,0.02); --new-row-bg: rgba(22,163,74,0.02);
+    --old-color: #DC2626; --new-color: #16A34A; --accent: #0F766E;
+    --text: #0F172A; --muted: #64748B; --border: #E2E8F0;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1180px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(30px, 4.4vw, 46px); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; max-width: 800px; margin: 0 auto 16px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 720px; margin: 0 auto; }
+  .table { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; transition: background-color .2s; }
+  .row.head { background: var(--header-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; }
+  .row.head .cell { padding: 20px 26px; font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+  .row.head .cell.l { color: var(--old-color); }
+  .row.head .cell.r { color: var(--new-color); border-left: 1px solid var(--border); }
+  .row.data { opacity: 0; transform: translateY(10px); }
+  .row.data.visible { opacity: 1; transform: translateY(0); transition: opacity .6s ease, transform .6s ease; }
+  .row.data:nth-of-type(odd-data) { background: rgba(0,0,0,0.015); }
+  .cell { padding: 22px 26px; font-size: 16px; line-height: 1.5; }
+  .cell.l { border-left: 3px solid var(--old-color); background: var(--old-row-bg); color: var(--text); }
+  .cell.r { border-left: 3px solid var(--new-color); background: var(--new-row-bg); color: var(--text); font-weight: 500; }
+  .row.data:hover { background: rgba(15,118,110,0.025); }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .row.head { display: none; }
+    .row { grid-template-columns: 1fr; gap: 0; }
+    .cell.l, .cell.r { padding: 18px 22px; }
+    .cell.l { border-bottom: 1px dashed var(--border); }
+  }
+  @media (prefers-reduced-motion: reduce) { .row.data { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">A Tale of Two Approaches</p>
+      <h2>The Gap Between Average and Exceptional Is Smaller Than You Think.</h2>
+      <p class="sub">It's not talent. It's not luck. It's not even hard work. It's the system underneath.</p>
+    </div>
+    <div class="table">
+      <div class="row head"><div class="cell l">✗ Without the System</div><div class="cell r">✓ With the System</div></div>
+      <div class="row data"><div class="cell l">Winging your sales calls and hoping for the best</div><div class="cell r">6-step process that converts 1 in 3 prospects</div></div>
+      <div class="row data"><div class="cell l">Revenue fluctuates wildly month to month</div><div class="cell r">Predictable pipeline with 90-day revenue visibility</div></div>
+      <div class="row data"><div class="cell l">Undercharging because you fear losing the client</div><div class="cell r">Premium pricing backed by bulletproof positioning</div></div>
+      <div class="row data"><div class="cell l">Working IN your business 60 hours a week</div><div class="cell r">Working ON your business 20 hours a week</div></div>
+      <div class="row data"><div class="cell l">No clear path to your next revenue milestone</div><div class="cell r">Step-by-step roadmap with weekly accountability</div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const rows = document.querySelectorAll('.row.data');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...rows].indexOf(e.target) * 80); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  rows.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

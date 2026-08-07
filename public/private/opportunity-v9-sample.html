@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Opportunity V9 — Roadmap Milestones · Warm Coaching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F0F9FF; --accent: #0891B2; --accent-warm: #F59E0B;
+    --text: #0C4A6E; --muted: #64748B; --border: #BAE6FD;
+    --m1: #3B82F6; --m2: #F59E0B; --m3: #22C55E; --outcome: #0891B2;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 38% 62%; gap: 64px; align-items: start; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(32px, 4.4vw, 46px); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); margin-bottom: 18px; }
+  .body { font-size: 16px; line-height: 1.7; color: var(--text); margin-bottom: 28px; opacity: 0.85; }
+  .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .mini-stat { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+  .mini-stat-num { font-size: 32px; font-weight: 800; line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
+  .mini-stat-label { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .timeline { position: relative; padding-left: 48px; }
+  .timeline::before { content: ''; position: absolute; left: 18px; top: 18px; bottom: 18px; border-left: 2px dashed var(--border); transform-origin: top; transform: scaleY(0); }
+  .timeline.visible::before { transform: scaleY(1); transition: transform 1.5s ease; }
+  .node { position: relative; margin-bottom: 26px; opacity: 0; transform: scale(0.7); }
+  .node.visible { opacity: 1; transform: scale(1); transition: opacity .6s ease, transform .6s ease; }
+  .node-dot { position: absolute; left: -48px; top: 6px; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 16px; border: 4px solid var(--bg); }
+  .node.n1 .node-dot { background: var(--m1); }
+  .node.n2 .node-dot { background: var(--m2); }
+  .node.n3 .node-dot { background: var(--m3); }
+  .node.n4 .node-dot { background: var(--outcome); }
+  .node-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+  .node.n4 .node-card { background: var(--outcome); color: #fff; border-color: var(--outcome); }
+  .node-period { font-size: 11px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 8px; color: var(--muted); }
+  .node.n4 .node-period { color: rgba(255,255,255,0.85); }
+  .node-title { font-size: 20px; font-weight: 800; line-height: 1.2; margin-bottom: 6px; }
+  .node-body { font-size: 15px; line-height: 1.6; color: var(--muted); }
+  .node.n4 .node-body { color: rgba(255,255,255,0.92); }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .container { grid-template-columns: 1fr; gap: 40px; }
+    .timeline { padding-left: 40px; }
+    .timeline::before { left: 14px; }
+    .node-dot { left: -40px; width: 28px; height: 28px; font-size: 13px; border-width: 3px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .timeline::before { transform: scaleY(1) !important; } .node { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div>
+      <p class="label">Your Transformation Roadmap</p>
+      <h2>The Life by Design Method™</h2>
+      <p class="sub">A 90-day guided journey from where you are — to where you've always known you could be.</p>
+      <p class="body">Every person who walks this path starts in a different place. But the destination is always the same: a life that feels like yours.</p>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="mini-stat-num" data-count="90">90</div><div class="mini-stat-label">days</div></div>
+        <div class="mini-stat"><div class="mini-stat-num" data-count="50" data-prefix="$" data-suffix="K">$50K</div><div class="mini-stat-label">avg income gain</div></div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="node n1"><div class="node-dot">1</div><div class="node-card"><p class="node-period">Day 1–30</p><h3 class="node-title">Clarity</h3><p class="node-body">Define your version of success — not someone else's.</p></div></div>
+      <div class="node n2"><div class="node-dot">2</div><div class="node-card"><p class="node-period">Day 31–60</p><h3 class="node-title">Momentum</h3><p class="node-body">First real wins compound into unshakeable belief in your path.</p></div></div>
+      <div class="node n3"><div class="node-dot">3</div><div class="node-card"><p class="node-period">Day 61–90</p><h3 class="node-title">Breakthrough</h3><p class="node-body">The results you've been working toward become your new normal.</p></div></div>
+      <div class="node n4">
+        <div class="node-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 22V4a2 2 0 0 1 2-2h11l-3 5 3 5H6"/></svg></div>
+        <div class="node-card"><p class="node-period">Outcome</p><h3 class="node-title">Life by Design</h3><p class="node-body">Freedom. Purpose. Financial independence. All three.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const tlObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  tlObs.observe(document.querySelector('.timeline'));
+  const nodes = document.querySelectorAll('.node');
+  const nodeObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...nodes].indexOf(e.target) * 250); nodeObs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  nodes.forEach(n => nodeObs.observe(n));
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1200;
+      const tick = (t) => { const p = Math.min(1, (t - start) / dur); const val = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = prefix + val + suffix; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

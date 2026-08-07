@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (CSS comparison columns) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Risk Reversal V5 — With vs Without Guarantee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#FAFAFA; --accent:#4F46E5; --old-bg:rgba(220,38,38,0.03); --new-bg:rgba(22,163,74,0.03);
+    --old-border:rgba(220,38,38,0.25); --new-border:rgba(22,163,74,0.25);
+    --text:#0F172A; --muted:#64748B; --border:#E2E8F0; --cta-bg:#4F46E5;
+    --red:#DC2626; --green:#16A34A;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:420px;padding:88px 24px;}
+  .container{max-width:1080px;margin:0 auto;}
+  .header{text-align:center;margin-bottom:44px;}
+  .label{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+  h2{font-size:clamp(25px,3.4vw,36px);font-weight:700;line-height:1.14;letter-spacing:-0.01em;margin-bottom:10px;max-width:680px;margin-left:auto;margin-right:auto;}
+  .sub{font-size:16px;line-height:1.6;color:var(--muted);max-width:520px;margin:0 auto;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:40px;}
+  .col{border-radius:18px;padding:30px 28px;}
+  .col.old{background:var(--old-bg);border:1.5px solid var(--old-border);opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease;}
+  .col.new{background:var(--new-bg);border:1.5px solid var(--new-border);opacity:0;transform:translateX(28px);transition:opacity .7s ease,transform .7s ease;}
+  .col.visible{opacity:1;transform:translateX(0);}
+  .ctitle{font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:20px;}
+  .old .ctitle{color:var(--red);}.new .ctitle{color:var(--green);}
+  .item{display:flex;gap:12px;align-items:flex-start;padding:11px 0;font-size:14.5px;line-height:1.5;}
+  .item:not(:last-child){border-bottom:1px solid rgba(0,0,0,0.05);}
+  .mark{flex-shrink:0;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:1px;}
+  .old .mark{background:rgba(220,38,38,0.12);color:var(--red);}
+  .new .mark{background:rgba(22,163,74,0.14);color:var(--green);}
+  .old .item{color:var(--muted);}.new .item{color:var(--text);font-weight:500;}
+  .cta-wrap{text-align:center;}
+  .cta{display:inline-block;background:var(--cta-bg);color:#fff;border:none;border-radius:999px;padding:16px 40px;font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer;transition:filter .2s,transform .1s;}
+  .cta:hover{filter:brightness(1.08);}.cta:active{transform:scale(0.99);}
+  @media(max-width:768px){.section{padding:56px 18px;}.grid{grid-template-columns:1fr;gap:16px;}}
+  @media(prefers-reduced-motion:reduce){.col{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <div class="label">Why This Is Different</div>
+      <h2>Most Programs Hope You Don't Ask for Your Money Back.</h2>
+      <p class="sub">We built our guarantee to make asking unnecessary.</p>
+    </div>
+    <div class="grid">
+      <div class="col old">
+        <div class="ctitle">Typical Program</div>
+        <div class="item"><span class="mark">✗</span>Vague "satisfaction guarantee" buried in fine print</div>
+        <div class="item"><span class="mark">✗</span>Refund requires jumping through hoops</div>
+        <div class="item"><span class="mark">✗</span>No outcome guarantee — just vibes</div>
+        <div class="item"><span class="mark">✗</span>You're on your own after purchase</div>
+        <div class="item"><span class="mark">✗</span>Results not guaranteed in any way</div>
+      </div>
+      <div class="col new">
+        <div class="ctitle">Our Program</div>
+        <div class="item"><span class="mark">✓</span>14-day full refund — one email, done</div>
+        <div class="item"><span class="mark">✓</span>The $20K Revenue Guarantee in writing</div>
+        <div class="item"><span class="mark">✓</span>We coach you free until you hit $20K/mo</div>
+        <div class="item"><span class="mark">✓</span>Dedicated support for every student</div>
+        <div class="item"><span class="mark">✓</span>Results contractually backed</div>
+      </div>
+    </div>
+    <div class="cta-wrap"><button class="cta" type="button">Enroll Under the Guarantee →</button></div>
+  </div>
+</section>
+<script>
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.col').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

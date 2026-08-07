@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero Variation 3 — Sample Layout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:           #050A0F;
+    --accent:       #00E5CC;
+    --text:         #FFFFFF;
+    --muted:        #A0B0C0;
+    --card-overlay: rgba(0, 0, 0, 0.4);
+    --nav-height:   65px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .bg-glow {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(ellipse 800px 600px at 70% 50%, rgba(0,229,204,0.10), transparent 60%);
+  }
+
+  /* NAV */
+  .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height); display: flex; align-items: center; padding: 0 32px; z-index: 100; transition: background-color .3s ease, backdrop-filter .3s ease, border-color .3s ease; border-bottom: 1px solid transparent; opacity: 0; animation: fadeIn .6s .1s ease forwards; }
+  .nav.scrolled { background: rgba(5,10,15,0.85); backdrop-filter: blur(14px); border-bottom-color: rgba(255,255,255,0.06); }
+  .nav-inner { width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+  .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 0.08em; font-size: 18px; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 28px; justify-self: center; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s ease; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-search { justify-self: end; width: 36px; height: 36px; display: grid; place-items: center; color: var(--muted); background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; cursor: pointer; transition: color .2s, border-color .2s; }
+  .nav-search:hover { color: var(--accent); border-color: var(--accent); }
+  .nav-burger { display: none; }
+
+  /* HERO */
+  .hero { position: relative; z-index: 1; padding: calc(var(--nav-height) + 50px) 32px 60px; max-width: 1400px; margin: 0 auto; }
+  .hero-grid { display: grid; grid-template-columns: 55fr 45fr; gap: 28px; }
+
+  /* Left */
+  .left { position: relative; min-height: 540px; border-radius: 20px; overflow: hidden; opacity: 0; transform: scale(0.985); animation: rise .8s .3s ease forwards; }
+  .left-img { position: absolute; inset: 0; background-image: var(--bg-image); background-size: cover; background-position: center; }
+  .left-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 65%, transparent 100%); }
+  .left-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 36px 36px 32px; z-index: 1; }
+  .eyebrow { color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 16px; opacity: 0; animation: rise .8s .4s ease forwards; }
+  .left h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(32px, 4.5vw, 56px); line-height: 1.05; color: var(--text); margin-bottom: 28px; }
+  .left h1 .line { display: block; opacity: 0; transform: translateY(16px); }
+  .left h1 .line.l1 { animation: rise .8s .5s ease forwards; }
+  .left h1 .line.l2 { animation: rise .8s .6s ease forwards; }
+  .left h1 .line.l3 { animation: rise .8s .7s ease forwards; }
+  .buttons { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; animation: rise .8s .8s ease forwards; }
+  .cta-primary, .cta-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; text-decoration: none; cursor: pointer; border: none; transition: transform .2s ease, filter .2s ease, background-color .2s ease, color .2s ease; }
+  .cta-primary { background: var(--accent); color: #0A1A18; box-shadow: 0 8px 26px rgba(0,229,204,0.2); }
+  .cta-primary:hover { transform: translateY(-2px) scale(1.02); filter: brightness(1.05); }
+  .cta-ghost { background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(8px); }
+  .cta-ghost:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+  /* Right cards */
+  .right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 18px; min-height: 540px; }
+  .card { position: relative; min-height: 260px; border-radius: 16px; overflow: hidden; cursor: pointer; opacity: 0; transform: translateY(14px); transition: transform .3s ease, box-shadow .3s ease; }
+  .card.c1 { animation: rise .7s .5s ease forwards; }
+  .card.c2 { animation: rise .7s .65s ease forwards; }
+  .card.c3 { animation: rise .7s .8s ease forwards; }
+  .card.c4 { animation: rise .7s .95s ease forwards; }
+  .card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 50px rgba(0,229,204,0.15); }
+  .card-img { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform .6s ease; }
+  .card:hover .card-img { transform: scale(1.06); }
+  .card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 100%); transition: background .3s ease; }
+  .card:hover .card-overlay { background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%); }
+  .card-category { position: absolute; top: 18px; left: 18px; color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .card-title { position: absolute; bottom: 18px; left: 18px; right: 18px; color: var(--text); font-family: 'Space Grotesk', sans-serif; font-size: clamp(15px, 1.6vw, 19px); font-weight: 700; line-height: 1.2; }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes rise { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .nav { padding: 0 18px; }
+    .nav-links, .nav-search { display: none; }
+    .nav-burger { display: grid; place-items: center; width: 36px; height: 36px; background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text); justify-self: end; cursor: pointer; }
+    .nav-inner { grid-template-columns: 1fr auto; }
+    .hero { padding: calc(var(--nav-height) + 24px) 16px 40px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 18px; }
+    .left, .right { min-height: auto; }
+    .left { min-height: 480px; }
+    .left-content { padding: 24px 22px 22px; }
+    .right { grid-template-rows: auto auto; }
+    .card { min-height: 200px; }
+  }
+  @media (max-width: 480px) {
+    .right { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#" id="logo">TONY ROBBINS</a>
+    <div class="nav-links" id="nav-links"></div>
+    <button class="nav-search" aria-label="Search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+    <button class="nav-burger" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div class="left">
+      <div class="left-img"></div>
+      <div class="left-overlay"></div>
+      <div class="left-content">
+        <p class="eyebrow">Welcome to Your Journey</p>
+        <h1>
+          <span class="line l1">Build a Life of</span>
+          <span class="line l2">Purpose, Power,</span>
+          <span class="line l3">and Possibility</span>
+        </h1>
+        <div class="buttons">
+          <a href="#" class="cta-primary">Get Started
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#" class="cta-ghost" id="watch-video">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 21,12 5,21"/></svg>
+            Watch Video
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="right" id="cards"></div>
+  </div>
+</section>
+
+<script>
+  const LOGO_TEXT = "TONY ROBBINS";
+  const BG_IMAGE  = "/private/hero-v3-thumb.webp";
+  const VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  const NAV_LINKS = [
+    { label: "About",    href: "#about"    },
+    { label: "Mission",  href: "#mission"  },
+    { label: "Events",   href: "#events"   },
+    { label: "Programs", href: "#programs" },
+    { label: "Coaching", href: "#coaching" },
+    { label: "Shop",     href: "#shop"     },
+    { label: "Blog",     href: "#blog"     },
+  ];
+  const CARDS = [
+    { image: "/private/hero-v3-card-1.webp", category: "Mindset",  title: "Unleash The Power Within", url: "#program-1", cls: "c1" },
+    { image: "/private/hero-v3-card-2.webp", category: "Wealth",   title: "Money Mastery",            url: "#program-2", cls: "c2" },
+    { image: "/private/hero-v3-card-3.webp", category: "Health",   title: "Lifestyle by Tony",        url: "#program-3", cls: "c3" },
+    { image: "/private/hero-v3-card-4.webp", category: "Business", title: "Business Mastery",         url: "#program-4", cls: "c4" },
+  ];
+
+  document.documentElement.style.setProperty('--bg-image', `url('${BG_IMAGE}')`);
+  document.getElementById('logo').textContent = LOGO_TEXT;
+  document.getElementById('nav-links').innerHTML = NAV_LINKS.map(l => `<a href="${l.href}">${l.label}</a>`).join('');
+  document.getElementById('cards').innerHTML = CARDS.map(c => `
+    <a href="${c.url}" class="card ${c.cls}">
+      <div class="card-img" style="background-image:url('${c.image}')"></div>
+      <div class="card-overlay"></div>
+      <span class="card-category">${c.category}</span>
+      <span class="card-title">${c.title}</span>
+    </a>
+  `).join('');
+
+  const navEl = document.getElementById('nav');
+  const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 12);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  document.getElementById('watch-video').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (VIDEO_URL) window.open(VIDEO_URL, '_blank', 'noopener,noreferrer');
+  });
+</script>
+
+</body>
+</html>

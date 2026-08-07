@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Empathy V2 — Big Numbers · Dark Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:      #0D0D0D;
+    --bg-card: #1A1A1A;
+    --accent:  #F5C842;
+    --text:    #FFFFFF;
+    --muted:   #9A9A9A;
+    --border:  #2A2A2A;
+    --c-red:   #EF4444;
+    --c-amber: #F59E0B;
+    --c-green: #22C55E;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .section { padding: 100px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header { margin-bottom: 48px; max-width: 800px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 18px; }
+  h2 { font-size: clamp(34px, 4.8vw, 52px); font-weight: 700; line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 640px; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(245,200,66,0.3) 50%, transparent 100%); margin: 36px 0; }
+
+  .rows { display: flex; flex-direction: column; gap: 16px; }
+  .row { display: grid; grid-template-columns: 100px 1fr 1fr; align-items: center; gap: 32px; padding: 32px 36px; background: var(--bg-card); border-radius: 12px; border-left: 3px solid; opacity: 0; transform: translateX(-24px); }
+  .row.visible { opacity: 1; transform: translateX(0); transition: opacity .7s ease, transform .7s ease; }
+  .row.r1 { border-left-color: var(--c-red); }
+  .row.r2 { border-left-color: var(--c-amber); }
+  .row.r3 { border-left-color: var(--c-green); }
+  .row-num { font-size: 48px; font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+  .row-title { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .row-body { font-size: 15px; color: var(--muted); line-height: 1.6; }
+  .row::after { content: ''; position: absolute; }
+
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .row { grid-template-columns: 1fr; gap: 8px; padding: 24px 22px; }
+    .row-num { font-size: 36px; }
+    .row-title { font-size: 19px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .row { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Hard Truth</p>
+      <h2>Most People Stay Stuck for Years.</h2>
+      <p class="sub">Not because they lack talent. Because no one showed them how to play the game differently.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="rows">
+      <div class="row r1">
+        <span class="row-num">01</span>
+        <h3 class="row-title">You're Solving the Wrong Problems</h3>
+        <p class="row-body">Working harder on tactics that don't move the needle. Busy calendar, flat results.</p>
+      </div>
+      <div class="row r2">
+        <span class="row-num">02</span>
+        <h3 class="row-title">You've Tried Everything. Nothing Sticks.</h3>
+        <p class="row-body">Courses, coaches, YouTube rabbit holes. Each one promised results. You're still here.</p>
+      </div>
+      <div class="row r3">
+        <span class="row-num">03</span>
+        <h3 class="row-title">The Right System Changes Everything</h3>
+        <p class="row-body">One framework. Proven results. People just like you crossing $50k months within 90 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const rows = document.querySelectorAll('.row');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), [...rows].indexOf(entry.target) * 200);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  rows.forEach(r => observer.observe(r));
+</script>
+
+</body>
+</html>

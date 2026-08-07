@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Academy — Pain Bullets + Photo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:     #030110;
+    --accent: #6366F1;
+    --danger: #EF4444;
+    --text:   #FFFFFF;
+    --muted:  rgba(255,255,255,0.5);
+    --border: rgba(255,255,255,0.08);
+    --card:   rgba(255,255,255,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 24px;
+  }
+
+  .section {
+    width: 100%;
+    max-width: 1160px;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 56px;
+    align-items: stretch;
+    min-height: 600px;
+  }
+
+  /* ---- LEFT: photo ---- */
+  .photo-col {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 600px;
+  }
+  .photo-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+  .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(0,0,50,0.15) 0%, rgba(3,1,16,0.85) 100%),
+      rgba(0,0,50,0.30);
+    border-radius: 12px;
+  }
+  .photo-border {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+
+  /* slide in from left */
+  .slide-left {
+    opacity: 0;
+    transform: translateX(-32px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .slide-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ---- RIGHT: content ---- */
+  .content-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  h2 .line-1 { color: var(--text); display: block; }
+  h2 .accent {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent);
+    font-size: clamp(34px, 4.6vw, 50px);
+    letter-spacing: 0;
+  }
+
+  .pain-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pain-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  }
+  .pain-card:hover {
+    border-color: rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.045);
+    transform: translateX(4px);
+  }
+  .pain-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    background: rgba(239,68,68,0.12);
+    color: var(--danger);
+    margin-top: 1px;
+  }
+  .pain-icon svg { width: 16px; height: 16px; }
+  .pain-text {
+    font-size: 15px;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.55;
+  }
+
+  /* stagger from right */
+  .stagger {
+    opacity: 0;
+    transform: translateX(28px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .stagger.visible { opacity: 1; transform: translateX(0); }
+
+  .closing {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 56px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(22px, 3vw, 30px);
+    line-height: 1.45;
+    color: rgba(255,255,255,0.92);
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .closing .brand { color: var(--accent); }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.delay-4 { transition-delay: 0.45s; }
+
+  /* ---- MOBILE ---- */
+  @media (max-width: 768px) {
+    body { padding: 40px 18px; }
+    .split {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      min-height: 0;
+    }
+    .photo-col {
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+    }
+    .closing { margin-top: 36px; }
+  }
+</style>
+</head>
+<body>
+  <section class="section">
+    <div class="split">
+      <!-- LEFT: photo -->
+      <div class="photo-col slide-left" id="photoCol">
+        <img id="coachPhoto" alt="AI Academy instructor" />
+        <div class="photo-overlay"></div>
+        <div class="photo-border"></div>
+      </div>
+
+      <!-- RIGHT: content -->
+      <div class="content-col">
+        <p class="label" id="label"></p>
+        <h2>
+          <span class="line-1" id="h2Line1"></span>
+          <span class="accent" id="h2Accent"></span>
+        </h2>
+        <div class="pain-list" id="painList"></div>
+      </div>
+
+      <!-- closing line spans full width -->
+      <p class="closing reveal delay-4" id="closing"></p>
+    </div>
+  </section>
+
+<script>
+  /* === CLIENT VARIABLES — EDIT HERE === */
+  const COACH_PHOTO  = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80";
+  const BRAND_NAME   = "AI Academy";
+  const LABEL        = "TRYING TO KEEP UP WITH AI IS TIRING...";
+  const H2_LINE_1    = "Any of this sound";
+  const H2_ACCENT    = "familiar to you?";
+  const PAIN_ITEMS   = [
+    "You're trying to piece together AI tools and strategies from random YouTube videos...",
+    "You're always feeling 'behind' overwhelmed by new AI tools launching every single day...",
+    "You're still trading time for money feeling stuck, instead of building scalable products...",
+    "You know there's so many things AI can help you with, but you don't know where to start.",
+    "You're still just consuming and 'learning', instead of monetizing the AI revolution."
+  ];
+  const CLOSING_LINE = "Don't worry, we'll fix that with you in [BRAND_NAME] so you are up and running within days instead of months.";
+
+  /* ---- inline SVG icon (red X mark) ---- */
+  const X_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+
+  /* ---- render copy ---- */
+  document.getElementById('coachPhoto').src = COACH_PHOTO;
+  document.getElementById('label').textContent = LABEL;
+  document.getElementById('h2Line1').textContent = H2_LINE_1;
+  document.getElementById('h2Accent').textContent = H2_ACCENT;
+
+  const painList = document.getElementById('painList');
+  PAIN_ITEMS.forEach((text, i) => {
+    const card = document.createElement('div');
+    card.className = 'pain-card stagger';
+    card.style.transitionDelay = (0.1 * i) + 's';
+    card.innerHTML = `<span class="pain-icon">${X_ICON}</span><span class="pain-text">${text}</span>`;
+    painList.appendChild(card);
+  });
+
+  /* closing line with brand highlighted in accent */
+  const closingEl = document.getElementById('closing');
+  const closingHtml = CLOSING_LINE.replace('[BRAND_NAME]', `<span class="brand">${BRAND_NAME}</span>`);
+  closingEl.innerHTML = closingHtml;
+
+  /* ---- scroll reveal ---- */
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    }), { threshold: 0.15 }
+  );
+  document.querySelectorAll('.reveal, .slide-left, .stagger').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+  ASSETS USED:
+    Local: none (checked C:\Users\AMD\Desktop\AB — using portable client-swappable coach slot)
+    Unsplash: photo-1507003211169-0a1dd7228f2d → coach photo
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Authority V9 — Bio + As-Seen-In Media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#FFFFFF; --accent:#16A34A; --text:#0E1116; --muted:#4A5160; --border:#E4E7EB;
+    --check:#16A34A; --media-bg:#F7F8FA; --cta-bg:#16A34A; --photo-bg:#F0FDF4;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:500px;}
+  .top{padding:84px 24px;}
+  .container{max-width:1140px;margin:0 auto;}
+  .grid{display:grid;grid-template-columns:38% 62%;gap:48px;align-items:center;}
+  .photo{position:relative;background:var(--photo-bg);border-radius:20px;overflow:hidden;aspect-ratio:1/1.24;opacity:0;transform:translateX(-26px);transition:opacity .8s ease,transform .8s ease;}
+  .photo.visible{opacity:1;transform:translateX(0);}
+  .photo img{width:100%;height:100%;object-fit:cover;}
+  .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(22,163,74,0.2),transparent 55%);}
+  .bio{opacity:0;transform:translateY(20px);transition:opacity .8s .1s ease,transform .8s .1s ease;}
+  .bio.visible{opacity:1;transform:translateY(0);}
+  .label{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;line-height:1.16;letter-spacing:-0.01em;margin-bottom:18px;}
+  h2 .arc{color:var(--accent);}
+  .epiphany{font-size:15.5px;line-height:1.75;color:var(--muted);margin-bottom:24px;}
+  .creds{list-style:none;margin-bottom:30px;}
+  .creds li{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.5;padding:8px 0;}
+  .ck{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:rgba(22,163,74,0.12);color:var(--check);display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:1px;}
+  .cta{display:inline-block;background:var(--cta-bg);color:#fff;border:none;border-radius:999px;padding:16px 34px;font-family:inherit;font-size:15.5px;font-weight:800;cursor:pointer;transition:filter .2s,transform .1s;}
+  .cta:hover{filter:brightness(1.08);}.cta:active{transform:scale(0.99);}
+  .media{background:var(--media-bg);border-top:1px solid var(--border);padding:40px 24px;}
+  .m-label{text-align:center;font-size:11.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
+  .logos{display:flex;gap:clamp(20px,5vw,52px);justify-content:center;flex-wrap:wrap;align-items:center;}
+  .logos span{color:#94A3B8;font-size:clamp(16px,1.9vw,22px);filter:grayscale(1);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
+  .logos.visible span{opacity:0.85;transform:translateY(0);}
+  .logos.visible span:nth-child(2){transition-delay:.1s;}
+  .logos.visible span:nth-child(3){transition-delay:.2s;}
+  .logos.visible span:nth-child(4){transition-delay:.3s;}
+  .logos.visible span:nth-child(5){transition-delay:.4s;}
+  .b-serif{font-family:Georgia,serif;font-weight:700;}.b-bold{font-weight:800;}
+  @media(max-width:768px){.top{padding:52px 18px;}.grid{grid-template-columns:1fr;gap:26px;}.photo{aspect-ratio:16/11;order:-1;}}
+  @media(prefers-reduced-motion:reduce){.photo,.bio,.logos span{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="top">
+    <div class="container">
+      <div class="grid">
+        <figure class="photo"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Alex Rivera, coach" /></figure>
+        <div class="bio">
+          <div class="label">Meet Your Coach</div>
+          <h2>From $97K and 1,400 Rejected Applications <span class="arc">→ $248K TC at Meta in 87 Days</span></h2>
+          <p class="epiphany">I wasn't the smartest person in the room. I wasn't the most connected. I wasn't even the most experienced. What I had was a willingness to reverse-engineer every part of the system everyone else was guessing at. Three years of failures. One breakthrough. Everything you'll learn in this program is exactly what I wish I'd had at the start.</p>
+          <ul class="creds">
+            <li><span class="ck">✓</span>Grew from $0 to $2M in client results inside 36 months</li>
+            <li><span class="ck">✓</span>Coached 500+ professionals and business owners to their income goals</li>
+            <li><span class="ck">✓</span>Featured in Forbes, Entrepreneur, and Inc. Magazine</li>
+            <li><span class="ck">✓</span>Creator of The Revenue Architecture Framework™ — used in 12 countries</li>
+          </ul>
+          <button class="cta" type="button">Start My Journey →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="media">
+    <div class="m-label">As Seen In</div>
+    <div class="logos"><span class="b-serif">Forbes</span><span class="b-bold">Entrepreneur</span><span class="b-serif">Inc.</span><span>Business Insider</span><span>Fast Company</span></div>
+  </div>
+</section>
+<script>
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.photo,.bio,.logos').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

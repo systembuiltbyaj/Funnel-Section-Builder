@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Offer V5 — Offer + Social Proof</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF; --accent: #0F766E; --box-border: #0F766E;
+    --text: #0F172A; --muted: #64748B; --check: #0F766E; --bonus: #D97706;
+    --price-color: #0F766E; --star-color: #F59E0B; --border: #E2E8F0;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 96px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 48px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 14px; }
+  h2 { font-size: clamp(30px, 4.4vw, 44px); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 660px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: 58% 42%; gap: 40px; align-items: start; }
+  .box { background: #fff; border: 2px solid var(--box-border); border-radius: 16px; padding: 32px; opacity: 0; transform: translateX(-16px); transition: opacity .8s ease, transform .8s ease; }
+  .box.visible { opacity: 1; transform: translateX(0); }
+  .box-title { font-size: 19px; font-weight: 700; margin-bottom: 22px; }
+  .items { list-style: none; margin-bottom: 22px; }
+  .item { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px dashed var(--border); }
+  .ic { color: var(--check); display: grid; place-items: center; }
+  .row-bonus .ic { color: var(--bonus); font-weight: 800; }
+  .row-bonus .item-name { color: var(--bonus); font-weight: 600; }
+  .ic svg { width: 16px; height: 16px; }
+  .item-name { font-size: 14.5px; }
+  .item-val { font-size: 14.5px; font-weight: 700; }
+  .row-bonus .item-val { color: var(--bonus); }
+  .total { font-size: 14px; color: var(--muted); text-align: center; margin-bottom: 6px; }
+  .today { font-size: clamp(44px, 5.5vw, 60px); font-weight: 800; color: var(--price-color); line-height: 1; text-align: center; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .plan { font-size: 14px; color: var(--muted); text-align: center; margin-bottom: 22px; }
+  .cta { display: block; padding: 16px; background: var(--accent); color: #fff; text-decoration: none; text-align: center; border-radius: 999px; font-weight: 800; font-size: 16px; transition: background-color .2s, transform .2s; }
+  .cta:hover { background: #115E59; transform: translateY(-2px); }
+  .reviews { display: flex; flex-direction: column; gap: 16px; }
+  .review { background: #F8FAFC; border-radius: 14px; padding: 24px; opacity: 0; transform: translateX(20px); transition: opacity .7s ease, transform .7s ease; box-shadow: 0 6px 20px rgba(15,23,42,0.04); }
+  .review.visible { opacity: 1; transform: translateX(0); }
+  .stars { color: var(--star-color); font-size: 16px; letter-spacing: 2px; margin-bottom: 10px; }
+  .quote { font-style: italic; font-size: 15px; line-height: 1.55; color: var(--text); margin-bottom: 14px; }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+  .r-name { font-size: 13.5px; font-weight: 700; }
+  @media (max-width: 900px) {
+    .section { padding: 56px 18px; }
+    .grid { grid-template-columns: 1fr; gap: 28px; }
+    .box { padding: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .box, .review { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">Enroll Today</p>
+      <h2>Join 500+ Clients Who Made This Decision.</h2>
+      <p class="sub">Here's exactly what you're getting — and what others say about it.</p>
+    </div>
+    <div class="grid">
+      <div class="box">
+        <div class="box-title">The Complete Transformation Package</div>
+        <ul class="items">
+          <li class="item row-check"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-name">12-Week Hormone Reset Protocol</span><span class="item-val">$2,997</span></li>
+          <li class="item row-check"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-name">Personalized Nutrition Framework</span><span class="item-val">$997</span></li>
+          <li class="item row-check"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-name">Weekly Live Q&amp;A with Coach</span><span class="item-val">$1,997</span></li>
+          <li class="item row-check"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-name">The Supplement &amp; Lab Guide</span><span class="item-val">$297</span></li>
+          <li class="item row-check"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-name">Progress Tracking Dashboard</span><span class="item-val">$197</span></li>
+          <li class="item row-bonus"><span class="ic">★</span><span class="item-name">Bonus: The Recipe &amp; Meal Prep Bundle</span><span class="item-val">$197</span></li>
+          <li class="item row-bonus"><span class="ic">★</span><span class="item-name">Bonus: Stress &amp; Sleep Reset Guide</span><span class="item-val">$97</span></li>
+        </ul>
+        <div class="total">Total Value: <strong>$6,779</strong></div>
+        <div class="today">$1,997</div>
+        <div class="plan">or 2 × $1,097</div>
+        <a class="cta" href="#start">Start My Transformation →</a>
+      </div>
+      <div class="reviews">
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Down 24 lbs in 8 weeks. My doctor took me off 2 medications."</p>
+          <div class="reviewer"><span class="avatar" style="background:#0F766E">SM</span><span class="r-name">Sarah M., 47 — Phoenix, AZ</span></div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"I've tried everything. This is the first thing that actually worked for my hormones."</p>
+          <div class="reviewer"><span class="avatar" style="background:#D97706">JK</span><span class="r-name">Jennifer K., 52 — Austin, TX</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const box = document.querySelector('.box');
+  const boxObs = new IntersectionObserver((entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); boxObs.unobserve(e.target); } }); }, { threshold: 0.15 });
+  boxObs.observe(box);
+  const reviews = document.querySelectorAll('.review');
+  const rObs = new IntersectionObserver((entries) => { entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...reviews].indexOf(e.target) * 150); rObs.unobserve(e.target); } }); }, { threshold: 0.2 });
+  reviews.forEach(r => rObs.observe(r));
+</script>
+</body>
+</html>

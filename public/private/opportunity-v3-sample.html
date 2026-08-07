@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Opportunity V3 — Dark Neon Glow Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #07020F; --bg-card: #110D1F; --accent: #A855F7; --text: #FFFFFF; --muted: #8B8BA0;
+    --p1: #3B82F6; --p2: #F59E0B; --p3: #22C55E;
+    --glow-1: rgba(59,130,246,0.35); --glow-2: rgba(245,158,11,0.35); --glow-3: rgba(34,197,94,0.35);
+    --border: #1E1A2E;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  .section { padding: 100px 24px; position: relative; }
+  .container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .header { text-align: center; margin-bottom: 64px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: clamp(32px, 4.8vw, 52px); font-weight: 700; line-height: 1.08; letter-spacing: -0.01em; max-width: 800px; margin: 0 auto 16px; }
+  .sub { font-size: 16.5px; line-height: 1.65; color: var(--muted); max-width: 680px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 64px; }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-top: 4px solid; border-radius: 16px; padding: 32px 28px; opacity: 0; transform: translateY(20px) scale(0.96); }
+  .card.visible { opacity: 1; transform: translateY(0) scale(1); transition: opacity .7s ease, transform .7s ease, box-shadow 1s .3s ease; }
+  .card.c1 { border-top-color: var(--p1); }
+  .card.c2 { border-top-color: var(--p2); }
+  .card.c3 { border-top-color: var(--p3); }
+  .card.c1.visible { box-shadow: 0 24px 80px var(--glow-1), 0 0 0 1px var(--border); }
+  .card.c2.visible { box-shadow: 0 24px 80px var(--glow-2), 0 0 0 1px var(--border); }
+  .card.c3.visible { box-shadow: 0 24px 80px var(--glow-3), 0 0 0 1px var(--border); }
+  .period { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; }
+  .card.c1 .period { color: var(--p1); }
+  .card.c2 .period { color: var(--p2); }
+  .card.c3 .period { color: var(--p3); }
+  .card-title { font-size: 26px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+  .card-body { font-size: 15px; line-height: 1.65; color: var(--muted); }
+  .stats { display: flex; justify-content: center; gap: clamp(28px, 6vw, 80px); padding-top: 56px; margin-top: 56px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-size: clamp(36px, 4.6vw, 56px); font-weight: 800; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; gap: 20px; } }
+  @media (max-width: 540px) { .section { padding: 56px 18px; } }
+  @media (prefers-reduced-motion: reduce) { .card { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The System</p>
+      <h2>The Hormone-First Transformation™</h2>
+      <p class="sub">Built specifically for women 40+ who've been told "just eat less and move more" — and watched it fail.</p>
+    </div>
+    <div class="grid">
+      <article class="card c1"><p class="period">Week 1–2</p><h3 class="card-title">Reset</h3><p class="card-body">Eliminate the hidden inflammation triggers sabotaging your metabolism. Most clients feel different within the first 10 days.</p></article>
+      <article class="card c2"><p class="period">Week 3–6</p><h3 class="card-title">Rebuild</h3><p class="card-body">Rebalance cortisol, estrogen, and insulin through targeted nutrition and movement protocols.</p></article>
+      <article class="card c3"><p class="period">Week 7–12</p><h3 class="card-title">Results</h3><p class="card-body">Sustainable fat loss, restored energy, and a body that works with your hormones — not against them.</p></article>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" data-count="500" data-suffix="+">500+</div><div class="stat-label">women transformed</div></div>
+      <div class="stat"><div class="stat-num" data-count="0" data-prefix="$">$0</div><div class="stat-label">in gym equipment required</div></div>
+      <div class="stat"><div class="stat-num" data-count="12" data-suffix="wk">12wk</div><div class="stat-label">average to full results</div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const cards = document.querySelectorAll('.card');
+  const cardObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...cards].indexOf(e.target) * 150); cardObs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  cards.forEach(c => cardObs.observe(c));
+  const stats = document.querySelectorAll('[data-count]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; const target = parseFloat(el.dataset.count); const prefix = el.dataset.prefix || ''; const suffix = el.dataset.suffix || '';
+      const start = performance.now(); const dur = 1200;
+      const tick = (t) => { const p = Math.min(1, (t - start) / dur); const val = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = prefix + val + suffix; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); statObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  stats.forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

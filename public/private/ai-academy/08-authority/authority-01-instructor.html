@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Academy — Meet Your Instructor</title>
+
+<!-- Google Fonts: Inter + Cormorant Garamond (the ONLY external resource) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+
+<style>
+  :root {
+    --bg:     #030110;
+    --accent: #6366F1;
+    --text:   #FFFFFF;
+    --muted:  rgba(255, 255, 255, 0.5);
+    --border: rgba(255, 255, 255, 0.08);
+    --card:   rgba(255, 255, 255, 0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .section {
+    position: relative;
+    width: 100%;
+    padding: 96px 24px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  /* Subtle radial glow behind content */
+  .section::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 600px;
+    background: radial-gradient(closest-side, rgba(99, 102, 241, 0.10), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header ---------- */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1.12;
+    letter-spacing: -0.5px;
+  }
+
+  h2 .accent {
+    display: block;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent);
+    font-size: clamp(34px, 5.6vw, 56px);
+    line-height: 1.05;
+    margin-top: 4px;
+  }
+
+  /* ---------- Split layout ---------- */
+  .split {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 48px;
+    align-items: stretch;
+  }
+
+  /* LEFT — photo */
+  .photo-col {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    min-height: 480px;
+    background: #0a0820;
+  }
+
+  .photo-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.05) contrast(1.02);
+  }
+
+  .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(3, 1, 16, 0) 35%,
+      rgba(3, 1, 16, 0.55) 70%,
+      rgba(3, 1, 16, 0.94) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+  }
+
+  .photo-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 1;
+    color: var(--text);
+  }
+
+  .photo-role {
+    margin-top: 8px;
+    font-size: 10.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+
+  /* RIGHT — bio */
+  .bio-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .bio-greeting {
+    font-size: 18px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .bio-meet {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent);
+    font-size: clamp(38px, 5vw, 52px);
+    line-height: 1.05;
+    margin-bottom: 28px;
+  }
+
+  .bio-col p.para {
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.72);
+    margin-bottom: 18px;
+  }
+
+  .bio-col p.para:last-child { margin-bottom: 0; }
+
+  /* ---------- Logos bar ---------- */
+  .logos {
+    margin-top: 72px;
+    text-align: center;
+  }
+
+  .logos-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--muted);
+    margin-bottom: 26px;
+  }
+
+  .logos-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 24px 36px;
+  }
+
+  .logo-name {
+    font-size: clamp(15px, 2vw, 19px);
+    color: rgba(255, 255, 255, 0.45);
+    white-space: nowrap;
+    transition: color 0.3s ease, opacity 0.3s ease;
+  }
+
+  .logo-name:hover { color: rgba(255, 255, 255, 0.75); }
+
+  /* ---------- Reveal animations ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+  .reveal.delay-3 { transition-delay: 0.3s; }
+  .reveal.delay-4 { transition-delay: 0.4s; }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-32px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 768px) {
+    .section { padding: 64px 20px; }
+    .header { margin-bottom: 40px; }
+    .split {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .photo-col {
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+    }
+    .photo-overlay { padding: 20px; }
+    .photo-name { font-size: 28px; }
+    .bio-col { justify-content: flex-start; }
+    .logos { margin-top: 52px; }
+    .logos-row { gap: 16px 24px; }
+  }
+</style>
+</head>
+<body>
+  <section class="section">
+    <div class="wrap">
+
+      <!-- Header -->
+      <div class="header">
+        <div class="label reveal" id="label"></div>
+        <h2 class="reveal delay-1">
+          <span id="h2-line1"></span>
+          <span class="accent" id="h2-accent"></span>
+        </h2>
+      </div>
+
+      <!-- Split -->
+      <div class="split">
+        <!-- Photo -->
+        <div class="photo-col reveal-left" id="photo-col">
+          <img id="coach-photo" alt="Instructor portrait" loading="lazy" />
+          <div class="photo-overlay">
+            <div class="photo-name" id="instructor-name"></div>
+            <div class="photo-role" id="instructor-role"></div>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="bio-col">
+          <div class="bio-greeting reveal delay-1" id="bio-greeting">Hey, nice to</div>
+          <div class="bio-meet reveal delay-1" id="bio-meet"></div>
+          <div id="bio-paras"></div>
+        </div>
+      </div>
+
+      <!-- Logos -->
+      <div class="logos">
+        <div class="logos-label reveal" id="logos-label"></div>
+        <div class="logos-row" id="logos-row"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    /* === CLIENT VARIABLES — EDIT HERE === */
+    const COACH_PHOTO     = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80";
+    const LABEL           = "BEHIND THE SCENES";
+    const H2_LINE_1       = "Meet your instructor,";
+    const H2_ACCENT       = "Gusten Sun";
+    const INSTRUCTOR_NAME = "Gusten Sun";
+    const INSTRUCTOR_ROLE = "FOUNDER OF AI ACADEMY";
+    const MEET_PHRASE     = "meet ya!";
+    const BIO_PARAGRAPHS  = [
+      "I've been called both the 'celebrity funnel builder' and the go-to AI Solopreneur for building a simple, lean, profitable 6-7 figure online business that lets you work from anywhere, part-time.",
+      "After making multiple 7 figures in sales myself, and going through multiple burnouts, I've learned it's not about how much you make, but HOW you make it.",
+      "In AI Academy, for the first time ever, you too can now get the same systems, AI prompts, templates and behind-the-scenes strategies that made this possible."
+    ];
+    const LOGOS_LABEL = "PREVIOUS CLIENTS INCLUDE";
+    const LOGO_NAMES  = ["ClickFunnels", "Tony Robbins", "Mastermind", "Russell Brunson", "Rich Dad", "Magnetic Marketing", "Steve J Larsen"];
+
+    /* === RENDER === */
+    document.getElementById('label').textContent          = LABEL;
+    document.getElementById('h2-line1').textContent       = H2_LINE_1;
+    document.getElementById('h2-accent').textContent      = H2_ACCENT;
+    document.getElementById('coach-photo').src            = COACH_PHOTO;
+    document.getElementById('coach-photo').alt            = INSTRUCTOR_NAME;
+    document.getElementById('instructor-name').textContent = INSTRUCTOR_NAME;
+    document.getElementById('instructor-role').textContent = INSTRUCTOR_ROLE;
+    document.getElementById('bio-meet').textContent       = MEET_PHRASE;
+    document.getElementById('logos-label').textContent    = LOGOS_LABEL;
+
+    // Bio paragraphs (staggered reveal)
+    const bioWrap = document.getElementById('bio-paras');
+    BIO_PARAGRAPHS.forEach((text, i) => {
+      const p = document.createElement('p');
+      p.className = 'para reveal delay-' + Math.min(i + 1, 4);
+      p.textContent = text;
+      bioWrap.appendChild(p);
+    });
+
+    // Logos (alternating weights, staggered fade-in left→right)
+    const weights = [700, 400, 600];
+    const logosRow = document.getElementById('logos-row');
+    LOGO_NAMES.forEach((name, i) => {
+      const span = document.createElement('span');
+      span.className = 'logo-name reveal';
+      span.style.fontWeight = weights[i % weights.length];
+      span.style.transitionDelay = (0.06 * i) + 's';
+      span.textContent = name;
+      logosRow.appendChild(span);
+    });
+
+    /* === REUSABLE SCROLL REVEAL === */
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      }), { threshold: 0.15 }
+    );
+    document.querySelectorAll('.reveal, .reveal-left').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP V7 — Manifesto + Pills · Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAFAFA; --accent: #16A34A;
+    --p1-bg: #EFF6FF; --p1-bd: #BFDBFE; --p1-co: #1D4ED8;
+    --p2-bg: #FFFBEB; --p2-bd: #FDE68A; --p2-co: #B45309;
+    --p3-bg: #F0FDF4; --p3-bd: #BBF7D0; --p3-co: #15803D;
+    --text: #111827; --muted: #6B7280; --border: #E5E7EB;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 100px 24px; }
+  .container { max-width: 880px; margin: 0 auto; text-align: center; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 22px; opacity: 0; transform: translateY(8px); transition: opacity .8s ease, transform .8s ease; }
+  .label.visible { opacity: 1; transform: translateY(0); }
+  h2 { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 5vw, 56px); line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 6px; opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s ease; }
+  h2 .accent { display: block; color: var(--accent); font-style: italic; }
+  h2.visible { opacity: 1; transform: translateY(0); }
+  .body { font-size: 17px; line-height: 1.75; color: var(--muted); max-width: 640px; margin: 24px auto 36px; opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s ease; }
+  .body.visible { opacity: 1; transform: translateY(0); }
+  .pills { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border: 1px solid; border-radius: 999px; font-weight: 600; font-size: 14px; opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+  .pill.visible { opacity: 1; transform: translateY(0); }
+  .pill svg { width: 16px; height: 16px; }
+  .pill.p1 { background: var(--p1-bg); border-color: var(--p1-bd); color: var(--p1-co); }
+  .pill.p2 { background: var(--p2-bg); border-color: var(--p2-bd); color: var(--p2-co); }
+  .pill.p3 { background: var(--p3-bg); border-color: var(--p3-bd); color: var(--p3-co); }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .pills { flex-direction: column; gap: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .label, h2, .body, .pill { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <p class="label">The Real Difference</p>
+    <h2>We Built the Thing We Wished Existed.<span class="accent">Now It's Yours.</span></h2>
+    <p class="body">After years of buying programs that promised everything and delivered templates, we rebuilt the entire experience from the ground up. No fluff. No filler. Just the exact moves that create real results — mapped to your specific situation.</p>
+    <div class="pills">
+      <div class="pill p1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 10h4a2 2 0 1 1 0 4H9"/></svg>Revenue you can predict</div>
+      <div class="pill p2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M6 16V8a4 4 0 0 1 4-4h4"/></svg>A process that actually fits</div>
+      <div class="pill p3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8c5 0 5 8 0 8-5 0-7-8-12-8-5 0-5 8 0 8 5 0 7-8 12-8z"/></svg>Skills that compound for life</div>
+    </div>
+  </div>
+</section>
+<script>
+  const els = document.querySelectorAll('.label, h2, .body, .pill');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...els].indexOf(e.target) * 120); obs.unobserve(e.target); } });
+  }, { threshold: 0.2 });
+  els.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

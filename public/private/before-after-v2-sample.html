@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Before vs After V2 — Mirrored Table · Dark Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0D0D0D; --bg-table: #111111; --bg-header: #1A1A1A; --accent: #F5C842;
+    --old-color: #EF4444; --new-color: #22C55E; --text: #FFFFFF; --muted: #9A9A9A; --border: #222222;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+  .section { padding: 100px 24px; }
+  .container { max-width: 1180px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 18px; }
+  h2 { font-size: clamp(32px, 4.6vw, 50px); font-weight: 700; line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 700px; margin: 0 auto; }
+  .table { background: var(--bg-table); border-radius: 14px; border: 1px solid var(--border); overflow: hidden; }
+  .row { display: grid; grid-template-columns: 1fr 200px 1fr; gap: 24px; padding: 22px 28px; align-items: center; border-bottom: 1px solid var(--border); transition: background-color .2s; }
+  .row:last-child { border-bottom: none; }
+  .row:nth-child(even) { background: rgba(255,255,255,0.015); }
+  .row:hover { background: rgba(245,200,66,0.04); }
+  .row.head { background: var(--bg-header); padding: 20px 28px; font-weight: 700; }
+  .row.head .h-old { color: var(--old-color); }
+  .row.head .h-new { color: var(--new-color); }
+  .row.head .h-axis { color: var(--muted); text-align: center; }
+  .head-text { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .old-text { color: var(--old-color); font-size: 15.5px; opacity: 0.92; }
+  .new-text { color: var(--new-color); font-size: 15.5px; opacity: 0.92; text-align: right; }
+  .axis { background: rgba(245,200,66,0.08); border: 1px solid rgba(245,200,66,0.18); color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px; text-align: center; justify-self: center; }
+  .data-row { opacity: 0; transform: translateY(10px); }
+  .data-row.visible { opacity: 1; transform: translateY(0); transition: opacity .6s ease, transform .6s ease; }
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .row { grid-template-columns: 1fr; gap: 10px; padding: 18px 22px; text-align: center; }
+    .row.head { display: none; }
+    .new-text { text-align: center; }
+    .row::before { content: ''; display: block; height: 1px; background: var(--border); margin: 4px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .data-row { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Honest Comparison</p>
+      <h2>Two Paths. Same Starting Point.</h2>
+      <p class="sub">The only difference between where you are and where you want to be is the system you're using.</p>
+    </div>
+    <div class="table">
+      <div class="row head"><div class="h-old head-text">Old Way ✗</div><div class="h-axis head-text">The Axis</div><div class="h-new head-text" style="text-align:right">✓ New Way</div></div>
+      <div class="row data-row"><div class="old-text">Inconsistent $5K–$12K months</div><div class="axis">Monthly Income</div><div class="new-text">Predictable $30K–$50K months</div></div>
+      <div class="row data-row"><div class="old-text">55–65 hours a week, always on</div><div class="axis">Work Hours</div><div class="new-text">20–25 hours with clear boundaries</div></div>
+      <div class="row data-row"><div class="old-text">Cold DMs, referrals, hope</div><div class="axis">Lead Source</div><div class="new-text">Evergreen content + warm pipeline</div></div>
+      <div class="row data-row"><div class="old-text">Winging it on every discovery call</div><div class="axis">Sales Process</div><div class="new-text">6-step framework, 1-in-3 close rate</div></div>
+      <div class="row data-row"><div class="old-text">Solo operator doing everything</div><div class="axis">Team</div><div class="new-text">Lean VA team handling operations</div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const rows = document.querySelectorAll('.data-row');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), [...rows].indexOf(e.target) * 80); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  rows.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Academy — Announcement Ticker Bar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* === GLOBAL BRAND TOKENS === */
+    --bg:     #030110;
+    --accent: #6366F1;
+    --text:   #FFFFFF;
+    --muted:  rgba(255,255,255,0.5);
+    --border: rgba(255,255,255,0.08);
+    --card:   rgba(255,255,255,0.03);
+
+    /* === CLIENT VARIABLES — EDIT HERE === */
+    --ticker-bg:    #0D0B3A;
+    --ticker-color: #8B9FFF;
+    --speed:        25s;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Preview page: give the ticker some breathing room near the top so it screenshots well */
+  .preview-page {
+    min-height: 100vh;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  /* ============ TICKER BAR (CSS-only infinite marquee) ============ */
+  .ticker {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: var(--ticker-bg);
+    border-top: 0.5px solid rgba(139,159,255,0.18);
+    border-bottom: 0.5px solid rgba(139,159,255,0.18);
+    box-shadow: inset 0 0 40px rgba(99,102,241,0.12);
+  }
+
+  /* Soft edge fades so the loop seam is invisible */
+  .ticker::before,
+  .ticker::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .ticker::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--ticker-bg), rgba(13,11,58,0));
+  }
+  .ticker::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--ticker-bg), rgba(13,11,58,0));
+  }
+
+  .ticker__track {
+    display: flex;
+    width: max-content;
+    /* The track holds the content duplicated 2x; translating -50% loops seamlessly */
+    animation: marquee var(--speed) linear infinite;
+  }
+
+  .ticker__group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .ticker__item {
+    display: inline-flex;
+    align-items: center;
+    padding: 13px 0;
+    color: var(--ticker-color);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  .ticker__sep {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 28px;
+    color: var(--accent);
+    font-size: 11px;
+    line-height: 1;
+    opacity: 0.85;
+  }
+
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 768px) {
+    .preview-page { padding-top: 40px; padding-bottom: 40px; }
+    .ticker__item { font-size: 10px; letter-spacing: 1.6px; }
+    .ticker__sep  { margin: 0 18px; }
+    .ticker::before, .ticker::after { width: 48px; }
+  }
+</style>
+</head>
+<body>
+  <main class="preview-page">
+    <div class="ticker" role="marquee" aria-label="Announcement">
+      <div class="ticker__track">
+        <!-- Group A -->
+        <div class="ticker__group" aria-hidden="false">
+          <span class="ticker__item">AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span>
+          <span class="ticker__sep">&#10022;</span>
+          <span class="ticker__item">AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span>
+          <span class="ticker__sep">&#10022;</span>
+          <span class="ticker__item">AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span>
+          <span class="ticker__sep">&#10022;</span>
+          <span class="ticker__item">AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span>
+          <span class="ticker__sep">&#10022;</span>
+        </div>
+        <!-- Group B (exact duplicate of Group A for the seamless -50% loop) -->
+        <div class="ticker__group" aria-hidden="true">
+          <span class="ticker__item">AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span>
+          <span class="ticker__sep">&#10022;</span>
+          <span class="ticker__item">AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span>
+          <span class="ticker__sep">&#10022;</span>
+          <span class="ticker__item">AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span>
+          <span class="ticker__sep">&#10022;</span>
+          <span class="ticker__item">AI ACADEMY IS LIVE — GET 40% OFF DURING LAUNCH</span>
+          <span class="ticker__sep">&#10022;</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

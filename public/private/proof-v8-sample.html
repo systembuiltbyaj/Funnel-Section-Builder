@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash avatars (placeholder testimonial headshots): photo-1507003211169 / 1573496359142 / 1472099645785 / 1438761681033 / 1500648767791 / 1544005313 / 1487412720507 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Social Proof V8 — Single Hero Rotating</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#0A0A14; --accent:#F5C842; --star:#F59E0B; --text:#FFFFFF; --muted:#9AA0B0; --quote-color:#F5C842; --border:rgba(255,255,255,0.08); --dot-active:#F5C842; --dot-inactive:#2A2A3A; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{padding:100px 24px;}
+  .container{max-width:760px;margin:0 auto;text-align:center;}
+  .agg{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--muted);margin-bottom:16px;}
+  .agg .stars{color:var(--star);letter-spacing:1px;}
+  h2{font-family:'Syne',sans-serif;font-size:clamp(32px,4.6vw,50px);font-weight:700;line-height:1.06;letter-spacing:-0.01em;margin-bottom:8px;}
+  .sub{font-size:16px;color:var(--muted);margin-bottom:48px;}
+  .quote-mark{font-family:Georgia,serif;font-size:90px;line-height:0.6;color:var(--quote-color);opacity:0.4;margin-bottom:10px;height:48px;}
+  .rotator{min-height:280px;position:relative;}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;pointer-events:none;}
+  .slide.active{opacity:1;position:relative;pointer-events:auto;}
+  .stars{color:var(--star);letter-spacing:3px;font-size:18px;margin-bottom:18px;}
+  .quote{font-style:italic;font-size:20px;line-height:1.55;margin-bottom:28px;}
+  .who{display:flex;align-items:center;justify-content:center;gap:14px;}
+  .avatar{object-fit:cover;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:18px;color:#1A1206;background:var(--accent);flex-shrink:0;}
+  .name{font-size:16px;font-weight:700;text-align:left;}
+  .title{font-size:13.5px;color:var(--muted);text-align:left;}
+  .nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:36px;}
+  .arrow{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;display:grid;place-items:center;transition:border-color .2s,background-color .2s;}
+  .arrow:hover{border-color:var(--accent);background:rgba(245,200,66,0.1);}
+  .arrow svg{width:18px;height:18px;}
+  .dots{display:flex;gap:8px;}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--dot-inactive);cursor:pointer;transition:background-color .2s,width .2s;}
+  .dot.active{background:var(--dot-active);width:24px;border-radius:999px;}
+  .brand-bar{margin-top:56px;padding-top:36px;border-top:1px solid var(--border);display:flex;gap:clamp(20px,5vw,48px);justify-content:center;flex-wrap:wrap;}
+  .brand-bar span{color:rgba(255,255,255,0.5);font-size:clamp(15px,1.8vw,20px);}
+  .b-serif{font-family:Georgia,serif;font-weight:700;}.b-bold{font-weight:800;}
+  @media(max-width:768px){.section{padding:56px 18px;}.quote{font-size:17px;}}
+  @media(prefers-reduced-motion:reduce){.slide{transition:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="agg"><span class="stars">★★★★★</span> 4.9/5 · 500+ clients · $2M+ generated</div>
+    <h2>One Story at a Time.</h2>
+    <p class="sub">Every week, another life changed.</p>
+    <div class="quote-mark">&ldquo;</div>
+    <div class="rotator" id="rotator">
+      <div class="slide active"><div class="stars">★★★★★</div><p class="quote">"I was the skeptic. I'd bought 4 programs before this one and got nothing. By week 6 I had closed my first $10K client. By month 3 I fired my boss. This program changed my life."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="Kevin R." loading="lazy" /><div><div class="name">Kevin R.</div><div class="title">Agency Owner — Miami, FL</div></div></div></div>
+      <div class="slide"><div class="stars">★★★★★</div><p class="quote">"I went from $8K months to $47K in month 3. I genuinely didn't believe this was possible until I saw the deposit hit my account."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Marcus T." loading="lazy" /><div><div class="name">Marcus T.</div><div class="title">Business Coach — Austin, TX</div></div></div></div>
+      <div class="slide"><div class="stars">★★★★★</div><p class="quote">"Down 24 lbs in 8 weeks and my doctor took me off 2 medications. I've tried everything for 6 years. This is the only thing that worked."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80" alt="Jennifer K." loading="lazy" /><div><div class="name">Jennifer K.</div><div class="title">47 — Phoenix, AZ</div></div></div></div>
+      <div class="slide"><div class="stars">★★★★★</div><p class="quote">"I landed a $152K offer at Meta in 87 days. I had 1,400 rejections before this program. The system is just different."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="David L." loading="lazy" /><div><div class="name">David L.</div><div class="title">Software Engineer — San Francisco, CA</div></div></div></div>
+      <div class="slide"><div class="stars">★★★★★</div><p class="quote">"Crossed $50K/mo in month 4. I was stuck at $12K for 18 months before joining. This is the first program that actually delivered."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="Sarah M." loading="lazy" /><div><div class="name">Sarah M.</div><div class="title">Marketing Consultant — Chicago, IL</div></div></div></div>
+    </div>
+    <div class="nav">
+      <button class="arrow" id="prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div class="dots" id="dots"></div>
+      <button class="arrow" id="next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+    <div class="brand-bar"><span class="b-serif">Forbes</span><span class="b-bold">CNN</span><span class="b-serif">Inc.</span><span>Fast Company</span></div>
+  </div>
+</section>
+<script>
+  const slides=document.querySelectorAll('.slide');
+  const dotsWrap=document.getElementById('dots');
+  let idx=0;
+  slides.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.addEventListener('click',()=>{idx=i;show();});dotsWrap.appendChild(d);});
+  function show(){slides.forEach((s,i)=>s.classList.toggle('active',i===idx));[...dotsWrap.children].forEach((d,i)=>d.classList.toggle('active',i===idx));}
+  document.getElementById('next').addEventListener('click',()=>{idx=(idx+1)%slides.length;show();});
+  document.getElementById('prev').addEventListener('click',()=>{idx=(idx-1+slides.length)%slides.length;show();});
+  let timer=setInterval(()=>{idx=(idx+1)%slides.length;show();},5000);
+  document.getElementById('rotator').addEventListener('mouseenter',()=>clearInterval(timer));
+  document.getElementById('rotator').addEventListener('mouseleave',()=>{timer=setInterval(()=>{idx=(idx+1)%slides.length;show();},5000);});
+</script>
+</body>
+</html>

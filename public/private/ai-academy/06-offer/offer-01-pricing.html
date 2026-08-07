@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Academy — Pricing Offer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #030110;
+    --accent: #6366F1;
+    --check-color: #6366F1;
+    --text: #FFFFFF;
+    --muted: rgba(255, 255, 255, 0.5);
+    --border: rgba(255, 255, 255, 0.08);
+    --card: rgba(255, 255, 255, 0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .section {
+    position: relative;
+    width: 100%;
+    padding: 96px 24px;
+    background:
+      radial-gradient(900px 500px at 50% -10%, rgba(99, 102, 241, 0.12), transparent 70%),
+      var(--bg);
+    overflow: hidden;
+  }
+
+  .wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Header */
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+  }
+  .label .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .heading {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+  .heading .l1 {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .heading .l2 {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(32px, 5.5vw, 48px);
+    line-height: 1.1;
+    color: var(--accent);
+  }
+
+  /* Offer card */
+  .offer-card {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    background: rgba(99, 102, 241, 0.08);
+    border: 0.5px solid rgba(99, 102, 241, 0.25);
+    border-radius: 16px;
+    padding: 40px 36px;
+    box-shadow: 0 0 0 rgba(99, 102, 241, 0);
+    transition: box-shadow 0.8s ease;
+  }
+  .offer-card.glow {
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.5),
+      0 0 60px rgba(99, 102, 241, 0.22);
+  }
+
+  .card-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 19px;
+    text-align: center;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 13px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .ck {
+    flex: 0 0 auto;
+    color: var(--check-color);
+    margin-top: 1px;
+  }
+
+  /* Price block */
+  .price-block {
+    text-align: center;
+    margin: 30px 0 26px;
+    padding: 24px 0 0;
+    border-top: 1px solid var(--border);
+  }
+  .price-was {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: line-through;
+    margin-bottom: 8px;
+  }
+  .price-now-row {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .price-now {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: clamp(44px, 9vw, 56px);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text);
+  }
+  .discount-pill {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    border-radius: 999px;
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+  .price-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  /* CTA */
+  .cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text);
+    background: #1A1835;
+    border: 1px solid rgba(99, 102, 241, 0.5);
+    border-radius: 999px;
+    padding: 17px 24px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.15s ease, background 0.3s ease;
+  }
+  .cta:hover {
+    background: #211e44;
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+    transform: translateY(-1px);
+  }
+  @keyframes ctaPulse {
+    0% { box-shadow: 0 0 0 rgba(99, 102, 241, 0); }
+    50% { box-shadow: 0 0 36px rgba(99, 102, 241, 0.65); }
+    100% { box-shadow: 0 0 0 rgba(99, 102, 241, 0); }
+  }
+  .cta.pulse { animation: ctaPulse 1.6s ease-out 1; }
+
+  /* Countdown */
+  .countdown-wrap { text-align: center; margin-top: 26px; }
+  .urgency {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .timer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .timer .box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 0 8px;
+    min-width: 64px;
+  }
+  .timer .num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+    color: var(--text);
+  }
+  .timer .unit {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+  .reveal.delay-3 { transition-delay: 0.3s; }
+  .reveal.delay-4 { transition-delay: 0.4s; }
+
+  .scale-in { opacity: 0; transform: scale(0.97); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .scale-in.visible { opacity: 1; transform: scale(1); }
+
+  @media (max-width: 768px) {
+    .section { padding: 64px 18px; }
+    .offer-card { padding: 30px 22px; }
+    .timer .box { min-width: 0; flex: 1; }
+  }
+</style>
+</head>
+<body>
+  <section class="section">
+    <div class="wrap">
+      <span class="label reveal"><span class="dot"></span><span id="labelText"></span></span>
+
+      <h2 class="heading reveal delay-1">
+        <span class="l1" id="h2l1"></span>
+        <span class="l2" id="h2accent"></span>
+      </h2>
+
+      <div class="offer-card scale-in" id="offerCard">
+        <h3 class="card-title" id="cardTitle"></h3>
+        <ul class="checklist" id="checklist"></ul>
+
+        <div class="price-block">
+          <div class="price-was" id="priceWas"></div>
+          <div class="price-now-row">
+            <span class="price-now" id="priceNow"></span>
+            <span class="discount-pill" id="discount"></span>
+          </div>
+          <div class="price-note" id="priceNote"></div>
+        </div>
+
+        <a class="cta" id="cta" href="#join"></a>
+
+        <div class="countdown-wrap">
+          <div class="urgency" id="urgency"></div>
+          <div class="timer">
+            <div class="box"><span class="num" id="o1d">00</span><span class="unit">Days</span></div>
+            <div class="box"><span class="num" id="o1h">00</span><span class="unit">Hrs</span></div>
+            <div class="box"><span class="num" id="o1m">00</span><span class="unit">Min</span></div>
+            <div class="box"><span class="num" id="o1s">00</span><span class="unit">Sec</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  /* === CLIENT VARIABLES — EDIT HERE === */
+  const LABEL       = "LIMITED TIME OFFER";
+  const H2_LINE_1   = "Everything you need,";
+  const H2_ACCENT   = "in one place";
+  const CARD_TITLE  = "What's included:";
+  const OFFER_ITEMS = [
+    "Full AI Academy library + monthly updates",
+    "Live Vibe Coding sessions",
+    "Every Remix AI Template (clone & ship)",
+    "Vibe Coding Blueprint + Prompt Flows",
+    "Premium VIP-only Funnel templates",
+    "10+ years of Skills MD files",
+    "Private community + weekly group calls",
+    "My current AI tool stack",
+    "2 day event recordings",
+    "And much more"
+  ];
+  const PRICE_WAS   = "$997 lifetime access";
+  const PRICE_NOW   = "$597";
+  const DISCOUNT    = "— 40% OFF";
+  const PRICE_NOTE  = "Price going up to full price soon.";
+  const CTA_TEXT    = "Join AI Academy — 40% OFF";
+  const URGENCY     = "PRICE GOING UP JUNE 7TH";
+  const DEADLINE    = "2026-08-01T23:59:59";
+
+  /* Inline check icon (matches a checkmark / ti-check) */
+  const CHECK_SVG = `<svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg>`;
+
+  /* Render copy */
+  document.getElementById('labelText').textContent = LABEL;
+  document.getElementById('h2l1').textContent      = H2_LINE_1;
+  document.getElementById('h2accent').textContent  = H2_ACCENT;
+  document.getElementById('cardTitle').textContent = CARD_TITLE;
+  document.getElementById('priceWas').textContent  = PRICE_WAS;
+  document.getElementById('priceNow').textContent  = PRICE_NOW;
+  document.getElementById('discount').textContent  = DISCOUNT;
+  document.getElementById('priceNote').textContent = PRICE_NOTE;
+  document.getElementById('cta').textContent       = CTA_TEXT;
+  document.getElementById('urgency').textContent   = URGENCY;
+
+  const list = document.getElementById('checklist');
+  OFFER_ITEMS.forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = CHECK_SVG + '<span>' + item + '</span>';
+    list.appendChild(li);
+  });
+
+  /* Reusable countdown */
+  function initCountdown(deadline, ids) {
+    const pad = n => String(n).padStart(2, '0');
+    const tick = () => {
+      const diff = new Date(deadline) - new Date();
+      if (diff <= 0) return;
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor(diff % 86400000 / 3600000);
+      const m = Math.floor(diff % 3600000 / 60000);
+      const s = Math.floor(diff % 60000 / 1000);
+      const el = id => document.getElementById(id);
+      if (el(ids.d)) el(ids.d).textContent = pad(d);
+      if (el(ids.h)) el(ids.h).textContent = pad(h);
+      if (el(ids.m)) el(ids.m).textContent = pad(m);
+      if (el(ids.s)) el(ids.s).textContent = pad(s);
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+  initCountdown(DEADLINE, { d: 'o1d', h: 'o1h', m: 'o1m', s: 'o1s' });
+
+  /* Reusable scroll reveal */
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        if (e.target.id === 'offerCard') {
+          e.target.classList.add('glow');
+          const ctaBtn = document.getElementById('cta');
+          ctaBtn.classList.add('pulse');
+        }
+        observer.unobserve(e.target);
+      }
+    }), { threshold: 0.15 }
+  );
+  document.querySelectorAll('.reveal, .scale-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

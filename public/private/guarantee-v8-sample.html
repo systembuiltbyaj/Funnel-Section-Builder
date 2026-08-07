@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (inline SVG seal + FAQ icons) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Risk Reversal V8 — Guarantee + Mini FAQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#F8FAFC; --accent:#7C3AED; --accent-2:#16A34A; --seal-bg:#EDE9FE; --seal-border:#7C3AED;
+    --text:#0F172A; --muted:#64748B; --border:#E2E8F0; --faq-border:#E2E8F0; --cta-bg:#7C3AED;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:420px;padding:88px 24px;}
+  .container{max-width:1060px;margin:0 auto;}
+  .header{text-align:center;margin-bottom:40px;}
+  .label{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .label svg{width:15px;height:15px;}
+  h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;line-height:1.12;letter-spacing:-0.01em;}
+  .grid{display:grid;grid-template-columns:55% 45%;gap:28px;align-items:start;}
+
+  /* ---- guarantee card ---- */
+  .gcard{background:#fff;border:2px solid var(--seal-border);border-radius:20px;padding:36px 34px;box-shadow:0 20px 50px rgba(124,58,237,0.1);opacity:0;transform:translateX(-26px);transition:opacity .7s ease,transform .7s ease;}
+  .gcard.visible{opacity:1;transform:translateX(0);}
+  .seal-block{display:flex;align-items:center;gap:16px;margin-bottom:22px;}
+  .seal-wrap{position:relative;width:96px;height:96px;flex-shrink:0;}
+  .seal{position:relative;z-index:1;width:96px;height:96px;border-radius:50%;background:var(--seal-bg);border:3px solid var(--seal-border);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(124,58,237,0.07);transform:scale(0.65);opacity:0;transition:transform .6s .1s cubic-bezier(.34,1.56,.64,1),opacity .5s .1s ease;}
+  .gcard.visible .seal{transform:scale(1);opacity:1;}
+  .seal .shield{width:48px;height:48px;}
+  .seal .shield .body{fill:var(--accent);}
+  .seal .shield .chk{fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;transition:stroke-dashoffset .6s .5s ease;}
+  .gcard.visible .seal .shield .chk{stroke-dashoffset:0;}
+  .seal-ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--accent);opacity:0;}
+  .gcard.visible .seal-ring{animation:ringpulse 1.7s ease .35s 1;}
+  @keyframes ringpulse{0%{transform:scale(0.9);opacity:0.55;}100%{transform:scale(1.55);opacity:0;}}
+  .seal-meta .chip{display:inline-block;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);background:var(--seal-bg);border:1px solid #DDD6FE;border-radius:999px;padding:5px 11px;margin-bottom:7px;}
+  .seal-meta .stars{color:#F59E0B;font-size:13px;letter-spacing:2px;}
+  .gtitle{font-size:22px;font-weight:800;margin-bottom:12px;line-height:1.2;}
+  .gbody{font-size:15px;line-height:1.7;color:var(--muted);margin-bottom:20px;}
+  .glist{list-style:none;margin-bottom:26px;}
+  .glist li{display:flex;align-items:flex-start;gap:10px;font-size:14px;font-weight:500;line-height:1.45;padding:7px 0;opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease;}
+  .gcard.visible .glist li{opacity:1;transform:translateY(0);}
+  .gcard.visible .glist li:nth-child(1){transition-delay:.45s;}
+  .gcard.visible .glist li:nth-child(2){transition-delay:.6s;}
+  .glist svg{width:20px;height:20px;flex-shrink:0;margin-top:1px;}
+  .glist .ic-circle{fill:rgba(22,163,74,0.12);}
+  .glist .ic-chk{fill:none;stroke:var(--accent-2);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:var(--cta-bg);color:#fff;border:none;border-radius:999px;padding:15px 32px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:filter .2s,transform .1s;}
+  .cta svg{width:17px;height:17px;transition:transform .25s ease;}
+  .cta:hover{filter:brightness(1.08);}
+  .cta:hover svg{transform:translateX(5px);}
+  .cta:active{transform:scale(0.99);}
+
+  /* ---- FAQ accordion ---- */
+  .faq{padding-top:6px;}
+  .faq-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .qitem{border-bottom:1px solid var(--faq-border);opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+  .qitem.in{opacity:1;transform:translateY(0);}
+  .qhead{width:100%;display:flex;align-items:center;gap:12px;background:none;border:none;cursor:pointer;text-align:left;padding:18px 0;font-family:inherit;color:var(--text);}
+  .qicon{flex-shrink:0;width:34px;height:34px;border-radius:10px;background:var(--seal-bg);display:grid;place-items:center;transition:background .25s;}
+  .qicon svg{width:18px;height:18px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .q{flex:1;font-size:15px;font-weight:700;line-height:1.35;}
+  .chev{flex-shrink:0;width:20px;height:20px;color:var(--muted);transition:transform .3s ease,color .25s;}
+  .chev svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+  .qpanel{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .a{font-size:13.5px;line-height:1.6;color:var(--muted);padding:0 0 18px 46px;}
+  .qitem.open .qpanel{max-height:220px;}
+  .qitem.open .chev{transform:rotate(180deg);color:var(--accent);}
+  .qitem.open .qicon{background:var(--accent);}
+  .qitem.open .qicon svg{stroke:#fff;}
+
+  @media(max-width:768px){.section{padding:56px 18px;}.grid{grid-template-columns:1fr;gap:24px;}.gcard{padding:30px 24px;}.seal-block{gap:14px;}}
+  @media(prefers-reduced-motion:reduce){
+    .gcard,.qitem{opacity:1;transform:none;}
+    .seal{opacity:1;transform:none;}
+    .glist li{opacity:1;transform:none;}
+    .seal .shield .chk{stroke-dashoffset:0;}
+    .gcard.visible .seal-ring{animation:none;}
+    .qpanel{transition:none;}
+  }
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <div class="label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        Everything Covered
+      </div>
+      <h2>The Risk-Free Guarantee.</h2>
+    </div>
+    <div class="grid">
+      <div class="gcard">
+        <div class="seal-block">
+          <div class="seal-wrap">
+            <span class="seal-ring" aria-hidden="true"></span>
+            <div class="seal">
+              <svg class="shield" viewBox="0 0 24 24" aria-hidden="true"><path class="body" d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z"/><path class="chk" d="M8.3 12l2.6 2.6 4.8-4.9"/></svg>
+            </div>
+          </div>
+          <div class="seal-meta">
+            <span class="chip">30-Day Refund Window</span>
+            <div class="stars" aria-label="5 out of 5">★★★★★</div>
+          </div>
+        </div>
+        <div class="gtitle">The $20K Revenue Guarantee</div>
+        <p class="gbody">Complete the program, implement the framework, and if you don't hit $20K/mo within 90 days — we coach you free until you do. Plus a full 14-day refund window from day one.</p>
+        <ul class="glist">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="ic-circle" cx="12" cy="12" r="11"/><path class="ic-chk" d="M7.5 12.5l3 3 6-6.5"/></svg><span><strong>Layer 1 —</strong> Full 14-day refund window. One email, every dollar back.</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="ic-circle" cx="12" cy="12" r="11"/><path class="ic-chk" d="M7.5 12.5l3 3 6-6.5"/></svg><span><strong>Layer 2 —</strong> Free coaching until you cross $20K/mo. No cap, no time limit.</span></li>
+        </ul>
+        <button class="cta" type="button">Enroll Risk-Free
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+        </button>
+      </div>
+      <div class="faq">
+        <div class="faq-label">Common Questions</div>
+        <div class="qitem open">
+          <button class="qhead" type="button" aria-expanded="true">
+            <span class="qicon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></span>
+            <span class="q">What if I change my mind in week 1?</span>
+            <span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="qpanel"><p class="a">Email us within 14 days for a full no-questions-asked refund.</p></div>
+        </div>
+        <div class="qitem">
+          <button class="qhead" type="button" aria-expanded="false">
+            <span class="qicon"><svg viewBox="0 0 24 24"><path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1z"/><polyline points="9 13 11 15 15 11"/></svg></span>
+            <span class="q">What counts as "completing the program"?</span>
+            <span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="qpanel"><p class="a">Attending 80%+ of calls, submitting weekly assignments, and implementing the core frameworks.</p></div>
+        </div>
+        <div class="qitem">
+          <button class="qhead" type="button" aria-expanded="false">
+            <span class="qicon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="9" y1="3" x2="9" y2="6"/><line x1="15" y1="3" x2="15" y2="6"/><polyline points="9 14 11 16 15 12"/></svg></span>
+            <span class="q">How does the free coaching work?</span>
+            <span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="qpanel"><p class="a">We schedule weekly calls until you hit $20K/mo. No time limits. No additional cost.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  /* entrance animations */
+  const cardObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');cardObs.unobserve(e.target);}});},{threshold:0.2});
+  document.querySelectorAll('.gcard').forEach(el=>cardObs.observe(el));
+  const qs=document.querySelectorAll('.qitem');
+  const qObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),[...qs].indexOf(e.target)*120);qObs.unobserve(e.target);}});},{threshold:0.2});
+  qs.forEach(q=>qObs.observe(q));
+
+  /* accordion (single-open) */
+  qs.forEach((item)=>{
+    const head=item.querySelector('.qhead');
+    head.addEventListener('click',()=>{
+      const isOpen=item.classList.contains('open');
+      qs.forEach((o)=>{o.classList.remove('open');o.querySelector('.qhead').setAttribute('aria-expanded','false');});
+      if(!isOpen){item.classList.add('open');head.setAttribute('aria-expanded','true');}
+    });
+  });
+</script>
+</body>
+</html>

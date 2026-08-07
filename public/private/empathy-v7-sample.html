@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Empathy V7 — Pain vs Solution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:        #F8FAFC;
+    --bg-left:   #FEF2F2;
+    --bg-right:  #F0FDF4;
+    --accent:    #16A34A;
+    --accent-h:  #15803D;
+    --danger:    #DC2626;
+    --text:      #111827;
+    --muted:     #6B7280;
+    --border:    #E5E7EB;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .section { padding: 96px 24px; }
+  .container { max-width: 1180px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 56px; }
+  .label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 18px; }
+  h2 { font-size: clamp(32px, 4.6vw, 48px); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .sub { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 600px; margin: 0 auto; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 60px rgba(15,23,42,0.08); }
+  .col { padding: 40px; opacity: 0; }
+  .col.left  { background: var(--bg-left); transform: translateX(-24px); }
+  .col.right { background: var(--bg-right); transform: translateX(24px); }
+  .col.visible { opacity: 1; transform: translateX(0); transition: opacity .8s ease, transform .8s ease; }
+  .col-header { font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 24px; }
+  .col.left .col-header  { color: var(--danger); }
+  .col.right .col-header { color: var(--accent); }
+  .items { display: flex; flex-direction: column; gap: 16px; }
+  .item { display: flex; align-items: flex-start; gap: 14px; }
+  .item-icon { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; margin-top: 2px; }
+  .col.left  .item-icon { background: rgba(220,38,38,0.12); color: var(--danger); }
+  .col.right .item-icon { background: rgba(22,163,74,0.15); color: var(--accent); }
+  .item-icon svg { width: 14px; height: 14px; }
+  .item-text { font-size: 16px; line-height: 1.5; color: var(--text); }
+
+  .divider { position: absolute; left: 50%; top: 32px; bottom: 32px; width: 1px; border-left: 1px dashed var(--border); transform: translateX(-50%); z-index: 1; }
+
+  .cta-wrap { text-align: center; margin-top: 48px; opacity: 0; transform: translateY(12px); }
+  .cta-wrap.visible { opacity: 1; transform: translateY(0); transition: opacity .8s .3s ease, transform .8s .3s ease; }
+  .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; text-decoration: none; padding: 16px 32px; border-radius: 999px; font-weight: 700; font-size: 16px; transition: background-color .2s, transform .2s; box-shadow: 0 10px 28px rgba(22,163,74,0.25); }
+  .cta:hover { background: var(--accent-h); transform: translateY(-2px); }
+
+  @media (max-width: 768px) {
+    .section { padding: 56px 18px; }
+    .split { grid-template-columns: 1fr; gap: 12px; border-radius: 16px; }
+    .col { padding: 28px; border-radius: 14px; }
+    .divider { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .col, .cta-wrap { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <p class="label">The Fork In The Road</p>
+      <h2>Two Paths. One Decision.</h2>
+      <p class="sub">Where you end up depends entirely on the choice you make today.</p>
+    </div>
+
+    <div class="split">
+      <div class="col left">
+        <div class="col-header">Without the right system</div>
+        <div class="items">
+          <div class="item"><span class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span><span class="item-text">Still trading time for inconsistent money.</span></div>
+          <div class="item"><span class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span><span class="item-text">Chasing clients who don't value your work.</span></div>
+          <div class="item"><span class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span><span class="item-text">Copying strategies built for someone else.</span></div>
+          <div class="item"><span class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span><span class="item-text">6 months from now — same spot, more tired.</span></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="col right">
+        <div class="col-header">With the right system</div>
+        <div class="items">
+          <div class="item"><span class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-text">A predictable pipeline that works while you sleep.</span></div>
+          <div class="item"><span class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-text">Premium clients who seek YOU out.</span></div>
+          <div class="item"><span class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-text">A method built around your unique strengths.</span></div>
+          <div class="item"><span class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg></span><span class="item-text">6 months from now — transformed business.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <a class="cta" href="#system">I Want the Right System
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const els = document.querySelectorAll('.col, .cta-wrap');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.2 });
+  els.forEach(e => observer.observe(e));
+</script>
+
+</body>
+</html>

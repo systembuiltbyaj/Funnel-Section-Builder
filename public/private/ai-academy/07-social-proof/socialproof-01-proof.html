@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proof of Concept — App Screenshots | AI Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:     #030110;
+    --accent: #6366F1;
+    --text:   #FFFFFF;
+    --muted:  rgba(255,255,255,0.5);
+    --border: rgba(255,255,255,0.08);
+    --card:   rgba(255,255,255,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .section {
+    position: relative;
+    padding: 110px 24px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .section::before {
+    content: "";
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 600px;
+    max-width: 100%;
+    background: radial-gradient(ellipse at center, rgba(99,102,241,0.13) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header ---------- */
+  .header { text-align: center; margin-bottom: 60px; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: rgba(99,102,241,0.08);
+    border: 0.5px solid rgba(99,102,241,0.28);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 22px;
+  }
+  .pill .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .h2 {
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+  .h2 .line1 { color: var(--text); display: block; }
+  .h2 .accent {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent);
+    font-size: clamp(34px, 5.6vw, 52px);
+    margin-top: 4px;
+  }
+
+  .sub {
+    margin: 24px auto 0;
+    max-width: 600px;
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ---------- Screenshot cluster ---------- */
+  .cluster {
+    position: relative;
+    height: 420px;
+    margin-top: 30px;
+  }
+
+  .shot {
+    position: absolute;
+    top: 50%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: #0a0820;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55);
+    opacity: 0;                         /* reveal layer; final opacity set by JS-driven class */
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  /* fake browser chrome on each shot */
+  .shot .chrome {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 10px;
+    background: rgba(10,8,30,0.92);
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  }
+  .shot .chrome span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+
+  /* Positioning per spec.
+     Base transforms include scale + the float keyframe via animation.
+     We keep translate(-?, -50%) for vertical centering and use animation transform layered through a wrapper-free approach:
+     instead, the float animation animates translateY on top, so we bake horizontal centering into 'left' (already absolute) and use translateY in keyframes that ALSO carries the -50% + scale. */
+
+  /* CENTER */
+  .shot.center {
+    z-index: 5;
+    width: 480px;
+    left: calc(50% - 240px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 70px rgba(99,102,241,0.28);
+    border-color: rgba(99,102,241,0.35);
+  }
+  /* LEFT-1 */
+  .shot.left1  { z-index: 4; width: 380px; left: calc(50% - 420px); }
+  /* LEFT-2 */
+  .shot.left2  { z-index: 3; width: 320px; left: calc(50% - 580px); }
+  /* RIGHT-1 */
+  .shot.right1 { z-index: 4; width: 380px; left: calc(50% + 80px); }
+  /* RIGHT-2 */
+  .shot.right2 { z-index: 3; width: 320px; left: calc(50% + 280px); }
+
+  /* Final resting transform per shot (scale + vertical centering).
+     Applied once visible; the continuous float layers on via a child? -> simpler: combine in keyframes. */
+
+  /* Reveal start state: scale 0.92 of target scale, slightly lower opacity */
+  .shot.center { transform: translateY(-50%) scale(0.92); }
+  .shot.left1, .shot.right1 { transform: translateY(-50%) scale(calc(0.88 * 0.92)); }
+  .shot.left2, .shot.right2 { transform: translateY(-50%) scale(calc(0.75 * 0.92)); }
+
+  /* When visible, run the float keyframe (which encodes full scale + -50% centering) */
+  .cluster.visible .shot.center {
+    opacity: 1.0;
+    animation: floatCenter 3s ease-in-out infinite;
+  }
+  .cluster.visible .shot.left1 {
+    opacity: 0.85;
+    animation: floatSide1L 3s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+  .cluster.visible .shot.right1 {
+    opacity: 0.85;
+    animation: floatSide1R 3s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+  .cluster.visible .shot.left2 {
+    opacity: 0.65;
+    animation: floatSide2L 3s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  .cluster.visible .shot.right2 {
+    opacity: 0.65;
+    animation: floatSide2R 3s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  /* Float keyframes — each encodes its target scale + vertical center, floats -8px at 50% */
+  @keyframes floatCenter {
+    0%, 100% { transform: translateY(-50%) scale(1.0); }
+    50%      { transform: translateY(calc(-50% - 8px)) scale(1.0); }
+  }
+  @keyframes floatSide1L {
+    0%, 100% { transform: translateY(-50%) scale(0.88); }
+    50%      { transform: translateY(calc(-50% - 8px)) scale(0.88); }
+  }
+  @keyframes floatSide1R {
+    0%, 100% { transform: translateY(-50%) scale(0.88); }
+    50%      { transform: translateY(calc(-50% - 8px)) scale(0.88); }
+  }
+  @keyframes floatSide2L {
+    0%, 100% { transform: translateY(-50%) scale(0.75); }
+    50%      { transform: translateY(calc(-50% - 8px)) scale(0.75); }
+  }
+  @keyframes floatSide2R {
+    0%, 100% { transform: translateY(-50%) scale(0.75); }
+    50%      { transform: translateY(calc(-50% - 8px)) scale(0.75); }
+  }
+
+  /* ---------- reveals (header) ---------- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 768px) {
+    .section { padding: 72px 16px; }
+    .cluster { height: 300px; }
+
+    .shot.center { width: 260px; left: calc(50% - 130px); }
+    .shot.left1  { width: 180px; left: calc(50% - 200px); }
+    .shot.right1 { width: 180px; left: calc(50% + 20px); }
+    /* hide far sides on mobile per spec */
+    .shot.left2, .shot.right2 { display: none; }
+  }
+</style>
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <div class="header">
+        <span class="pill reveal"><span class="dot"></span><span id="js-label"></span></span>
+        <h2 class="h2 reveal delay-1">
+          <span class="line1" id="js-line1"></span>
+          <span class="accent" id="js-accent"></span>
+        </h2>
+        <p class="sub reveal delay-2" id="js-sub"></p>
+      </div>
+
+      <div class="cluster" id="cluster">
+        <div class="shot left2"  id="shot-left2"><div class="chrome"><span></span><span></span><span></span></div></div>
+        <div class="shot right2" id="shot-right2"><div class="chrome"><span></span><span></span><span></span></div></div>
+        <div class="shot left1"  id="shot-left1"><div class="chrome"><span></span><span></span><span></span></div></div>
+        <div class="shot right1" id="shot-right1"><div class="chrome"><span></span><span></span><span></span></div></div>
+        <div class="shot center" id="shot-center"><div class="chrome"><span></span><span></span><span></span></div></div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  /* === CLIENT VARIABLES — EDIT HERE === */
+  const SC_CENTER  = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80"; // Screenshot1
+  const SC_LEFT_1  = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80"; // Screenshot2
+  const SC_LEFT_2  = "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=600&q=80"; // Screenshot3
+  const SC_RIGHT_1 = "https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?w=600&q=80"; // Screenshot4
+  const SC_RIGHT_2 = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80";   // Dashboard
+  const LABEL      = "PROOF OF CONCEPT";
+  const H2_LINE_1  = "I actually do this";
+  const H2_ACCENT  = "for a living too";
+  const SUB        = "Most people build stuff that collects dust. I built a new offer, vibe coded an app and grew it to $10,000 MRR in 30 days as a 1-person business. Now I'll show you how.";
+
+  /* === Render copy === */
+  document.getElementById('js-label').textContent  = LABEL;
+  document.getElementById('js-line1').textContent  = H2_LINE_1;
+  document.getElementById('js-accent').textContent = H2_ACCENT;
+  document.getElementById('js-sub').textContent    = SUB;
+
+  /* === Inject screenshot images (after the chrome bar) === */
+  function setShot(id, url, alt) {
+    const el = document.getElementById(id);
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = alt;
+    img.loading = 'lazy';
+    el.appendChild(img);
+  }
+  setShot('shot-center', SC_CENTER, 'App screenshot — center');
+  setShot('shot-left1',  SC_LEFT_1, 'App screenshot — left');
+  setShot('shot-left2',  SC_LEFT_2, 'App screenshot — far left');
+  setShot('shot-right1', SC_RIGHT_1, 'App screenshot — right');
+  setShot('shot-right2', SC_RIGHT_2, 'App screenshot — far right');
+
+  /* === Scroll reveal === */
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    }), { threshold: 0.15 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* cluster reveals + starts continuous float on entry */
+  const clusterObserver = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    }), { threshold: 0.2 }
+  );
+  clusterObserver.observe(document.getElementById('cluster'));
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (searchable text accordion) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ V5 — Search-Style FAQ with Filter</title>
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#F0FDF4; --accent:#16A34A; --search-bg:#FFFFFF; --text:#14532D; --muted:#4B5563;
+    --border:#D1FAE5; --open-bg:#DCFCE7; --open-border:#16A34A; --toggle-bg:#BBFFD2; --toggle-color:#16A34A;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:400px;padding:88px 24px;}
+  .container{max-width:740px;margin:0 auto;}
+  .header{text-align:center;margin-bottom:24px;opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+  .header.reveal{opacity:1;transform:translateY(0);}
+  .label{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+  h2{font-size:clamp(27px,3.4vw,38px);font-weight:800;line-height:1.12;}
+  .search{display:none;align-items:center;gap:10px;background:var(--search-bg);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:24px;box-shadow:0 6px 20px rgba(20,83,45,0.05);}
+  html.js .search{display:flex;}
+  .search svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:2.2;flex-shrink:0;}
+  .search input{flex:1;border:none;outline:none;background:none;font-family:inherit;font-size:15px;color:var(--text);}
+  .search input::placeholder{color:#9CA3AF;}
+  .faq{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff;}
+  .item{border-bottom:1px solid var(--border);border-left:3px solid transparent;opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease,background-color .25s,border-color .25s;}
+  .item.reveal{opacity:1;transform:translateY(0);}
+  .item:last-child{border-bottom:none;}
+  .item.open{background:var(--open-bg);border-left-color:var(--open-border);}
+  .item.hidden{display:none;}
+  .q-row{width:100%;display:flex;align-items:center;gap:14px;background:none;border:none;cursor:pointer;text-align:left;padding:20px 22px;font-family:inherit;color:var(--text);}
+  .q{flex:1;font-size:16.5px;font-weight:700;line-height:1.35;}
+  .tog{position:relative;width:28px;height:28px;border-radius:50%;background:var(--toggle-bg);flex-shrink:0;}
+  .tog .bar{position:absolute;background:var(--toggle-color);border-radius:2px;}
+  .tog .bar.h{width:12px;height:2px;top:13px;left:8px;}
+  .tog .bar.v{width:2px;height:12px;top:8px;left:13px;transition:opacity .3s,transform .3s;}
+  .item.open .tog .bar.v{opacity:0;transform:rotate(90deg);}
+  .answer{overflow:hidden;}
+  .answer p{padding:0 22px 20px 22px;font-size:15px;line-height:1.7;color:var(--muted);}
+  html.js .answer{max-height:0;transition:max-height .35s ease;}
+  html.js .item.open .answer{max-height:600px;}
+  .noresult{display:none;text-align:center;padding:32px;color:var(--muted);font-size:15px;}
+  .noresult.show{display:block;}
+  @media(max-width:768px){.section{padding:56px 18px;}.q-row{padding:18px;}}
+  @media(prefers-reduced-motion:reduce){.header,.item{opacity:1;transform:none;}html.js .answer{transition:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header" id="header">
+      <div class="label">Before You Enroll</div>
+      <h2>Questions Before You Enroll</h2>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input type="text" id="search" placeholder="Search questions..." aria-label="Search questions" />
+    </div>
+    <div class="faq" id="faq">
+      <div class="item open"><button class="q-row" aria-expanded="true"><span class="q">Who is this perfect for?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>This is for coaches, consultants, and service providers doing $0–$15K/mo who are ready to build a predictable system to $30K–$50K/mo. If you're already above $50K/mo, this likely isn't the right fit — our advanced program would serve you better.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">What if I don't have a big audience or following?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>You don't need one. Our entire system is built around direct outreach and referral-based lead generation — not content creation or social media. Our highest-earning clients have under 500 followers on any platform.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">I've invested in programs before and got nothing. Why is this different?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>Most programs sell information. We sell implementation. Every week you have a live call where we work through YOUR specific situation — not a recording, not a template answer. Plus our $20K Revenue Guarantee means we keep working with you until results happen. No other program in this space offers that.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">How much time does this require per week?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>Plan for 4–6 hours per week. This includes two hours for the core curriculum, one weekly group call, and implementation time. We've designed the program around people who already have a full schedule — because the system works within your current hours, not on top of them.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">Is there a money-back guarantee?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>Yes — two layers. First, a full 14-day no-questions-asked refund. If within 14 days you decide it's not right for you, email us and receive a complete refund. Second, our $20K Revenue Guarantee: complete the program, implement the system, and if you don't hit $20K/mo within 90 days of finishing — we coach you for free until you do.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">When does it start and how does access work?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>You get immediate access to the full portal upon enrollment. The next live cohort begins the first Monday of next month. You'll receive a welcome email with your login, onboarding call schedule, and community access within 15 minutes of enrolling.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">Are there payment plan options?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>Yes. You can pay in full at $4,997 or choose our 3-payment plan at $1,997/month. Both options include identical access to everything in the program.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">Do I need any specific tools or software?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>No specialized tools required. We use a simple tech stack that you likely already have: email, a calendar, and a basic CRM (we recommend free options). We walk you through setup on the onboarding call.</p></div></div>
+    </div>
+    <div class="noresult" id="noresult">No results found. Try a different keyword.</div>
+  </div>
+</section>
+<script>
+  const faq=document.getElementById('faq');
+  const items=[...faq.querySelectorAll('.item')];
+  const noresult=document.getElementById('noresult');
+  items.forEach((it,i)=>{
+    const row=it.querySelector('.q-row');
+    if(i!==0){it.classList.remove('open');row.setAttribute('aria-expanded','false');}
+    row.addEventListener('click',()=>{
+      const open=it.classList.contains('open');
+      items.forEach(o=>{o.classList.remove('open');o.querySelector('.q-row').setAttribute('aria-expanded','false');});
+      if(!open){it.classList.add('open');row.setAttribute('aria-expanded','true');}
+    });
+  });
+  document.getElementById('search').addEventListener('input',(e)=>{
+    const q=e.target.value.trim().toLowerCase();
+    let shown=0;
+    items.forEach(it=>{
+      const txt=it.querySelector('.q').textContent.toLowerCase()+' '+it.querySelector('.answer').textContent.toLowerCase();
+      const match=txt.includes(q);
+      it.classList.toggle('hidden',!match);
+      if(match)shown++;
+    });
+    noresult.classList.toggle('show',shown===0);
+  });
+  const obs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('reveal');obs.unobserve(e.target);}});},{threshold:0.1});
+  document.getElementById('header').classList && obs.observe(document.getElementById('header'));
+  items.forEach((it,i)=>{setTimeout(()=>obs.observe(it),i*60);});
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash: none (tabbed text accordion) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ V4 — Categorized FAQ with Tabs</title>
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ===== CLIENT VARIABLES ===== */
+  :root{
+    --bg:#FFFFFF; --accent:#4F46E5; --tab-active:#4F46E5; --text:#0F172A; --muted:#64748B;
+    --border:#E2E8F0; --open-bg:#F8FAFF; --open-border:#4F46E5; --toggle-bg:#EEF2FF; --toggle-color:#4F46E5; --tab-bg:#F1F5F9;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{min-height:400px;padding:88px 24px;}
+  .container{max-width:780px;margin:0 auto;}
+  .header{text-align:center;margin-bottom:28px;}
+  .label{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+  h2{font-size:clamp(27px,3.4vw,38px);font-weight:700;line-height:1.12;}
+  .tabs{display:none;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+  html.js .tabs{display:flex;}
+  .tab{background:var(--tab-bg);color:var(--muted);border:none;border-radius:999px;padding:10px 20px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;transition:background-color .2s,color .2s;}
+  .tab.active{background:var(--tab-active);color:#fff;}
+  .panel{border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:14px;}
+  html.js .panel{display:none;margin-bottom:0;}
+  html.js .panel.active{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .item{border-bottom:1px solid var(--border);border-left:3px solid transparent;transition:background-color .25s,border-color .25s;}
+  .item:last-child{border-bottom:none;}
+  .item.open{background:var(--open-bg);border-left-color:var(--open-border);}
+  .q-row{width:100%;display:flex;align-items:center;gap:14px;background:none;border:none;cursor:pointer;text-align:left;padding:20px 22px;font-family:inherit;color:var(--text);}
+  .q{flex:1;font-size:16.5px;font-weight:700;line-height:1.35;}
+  .tog{position:relative;width:28px;height:28px;border-radius:50%;background:var(--toggle-bg);flex-shrink:0;}
+  .tog .bar{position:absolute;background:var(--toggle-color);border-radius:2px;}
+  .tog .bar.h{width:12px;height:2px;top:13px;left:8px;}
+  .tog .bar.v{width:2px;height:12px;top:8px;left:13px;transition:opacity .3s,transform .3s;}
+  .item.open .tog .bar.v{opacity:0;transform:rotate(90deg);}
+  .answer{overflow:hidden;}
+  .answer p{padding:0 22px 20px 22px;font-size:15px;line-height:1.7;color:var(--muted);}
+  html.js .answer{max-height:0;transition:max-height .35s ease;}
+  html.js .item.open .answer{max-height:600px;}
+  @media(max-width:768px){.section{padding:56px 18px;}.tabs{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;}.tab{white-space:nowrap;}}
+  @media(prefers-reduced-motion:reduce){html.js .answer{transition:none;}html.js .panel.active{animation:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <div class="label">Before You Enroll</div>
+      <h2>Questions Before You Enroll</h2>
+    </div>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="program">Program</button>
+      <button class="tab" data-tab="results">Results</button>
+      <button class="tab" data-tab="payment">Payment</button>
+      <button class="tab" data-tab="guarantee">Guarantee</button>
+    </div>
+
+    <div class="panel active" data-panel="program">
+      <div class="item open"><button class="q-row" aria-expanded="true"><span class="q">Who is this perfect for?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>This is for coaches, consultants, and service providers doing $0–$15K/mo who are ready to build a predictable system to $30K–$50K/mo. If you're already above $50K/mo, this likely isn't the right fit — our advanced program would serve you better.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">How much time does this require per week?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>Plan for 4–6 hours per week. This includes two hours for the core curriculum, one weekly group call, and implementation time. We've designed the program around people who already have a full schedule — because the system works within your current hours, not on top of them.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">When does it start and how does access work?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>You get immediate access to the full portal upon enrollment. The next live cohort begins the first Monday of next month. You'll receive a welcome email with your login, onboarding call schedule, and community access within 15 minutes of enrolling.</p></div></div>
+    </div>
+
+    <div class="panel" data-panel="results">
+      <div class="item open"><button class="q-row" aria-expanded="true"><span class="q">What if I don't have a big audience or following?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>You don't need one. Our entire system is built around direct outreach and referral-based lead generation — not content creation or social media. Our highest-earning clients have under 500 followers on any platform.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">I've invested in programs before and got nothing. Why is this different?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>Most programs sell information. We sell implementation. Every week you have a live call where we work through YOUR specific situation — not a recording, not a template answer. Plus our $20K Revenue Guarantee means we keep working with you until results happen. No other program in this space offers that.</p></div></div>
+    </div>
+
+    <div class="panel" data-panel="payment">
+      <div class="item open"><button class="q-row" aria-expanded="true"><span class="q">Are there payment plan options?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>Yes. You can pay in full at $4,997 or choose our 3-payment plan at $1,997/month. Both options include identical access to everything in the program.</p></div></div>
+      <div class="item"><button class="q-row" aria-expanded="false"><span class="q">Do I need any specific tools or software?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>No specialized tools required. We use a simple tech stack that you likely already have: email, a calendar, and a basic CRM (we recommend free options). We walk you through setup on the onboarding call.</p></div></div>
+    </div>
+
+    <div class="panel" data-panel="guarantee">
+      <div class="item open"><button class="q-row" aria-expanded="true"><span class="q">Is there a money-back guarantee?</span><span class="tog"><span class="bar h"></span><span class="bar v"></span></span></button><div class="answer"><p>Yes — two layers. First, a full 14-day no-questions-asked refund. If within 14 days you decide it's not right for you, email us and receive a complete refund. Second, our $20K Revenue Guarantee: complete the program, implement the system, and if you don't hit $20K/mo within 90 days of finishing — we coach you for free until you do.</p></div></div>
+    </div>
+  </div>
+</section>
+<script>
+  const tabs=[...document.querySelectorAll('.tab')];
+  const panels=[...document.querySelectorAll('.panel')];
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector('.panel[data-panel="'+tab.dataset.tab+'"]').classList.add('active');
+    });
+  });
+  document.querySelectorAll('.panel').forEach((panel)=>{
+    const items=[...panel.querySelectorAll('.item')];
+    items.forEach((it,i)=>{
+      const row=it.querySelector('.q-row');
+      if(i!==0){it.classList.remove('open');row.setAttribute('aria-expanded','false');}
+      row.addEventListener('click',()=>{
+        const open=it.classList.contains('open');
+        items.forEach(o=>{o.classList.remove('open');o.querySelector('.q-row').setAttribute('aria-expanded','false');});
+        if(!open){it.classList.add('open');row.setAttribute('aria-expanded','true');}
+      });
+    });
+  });
+</script>
+</body>
+</html>

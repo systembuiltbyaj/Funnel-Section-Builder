@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- ASSETS USED: Local: none | Unsplash avatars (placeholder testimonial headshots): photo-1507003211169 / 1573496359142 / 1472099645785 / 1438761681033 / 1500648767791 / 1544005313 / 1487412720507 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Social Proof V6 — Stats Bar + Row</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#FFFFFF; --stats-bg:#F0FDF4; --accent:#16A34A; --star:#F59E0B; --text:#0F172A; --muted:#64748B; --card-bg:#F8FAFC; --border:#E2E8F0; --s1:#16A34A; --s2:#2563EB; --s3:#D97706; --s4:#7C3AED; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased;}
+  .section{padding:96px 24px;}
+  .container{max-width:1180px;margin:0 auto;}
+  .header{text-align:center;margin-bottom:40px;}
+  .agg{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted);margin-bottom:16px;}
+  .agg .stars{color:var(--star);letter-spacing:1px;}
+  h2{font-size:clamp(30px,4.4vw,46px);font-weight:800;line-height:1.1;letter-spacing:-0.01em;}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;background:var(--stats-bg);border-radius:18px;padding:36px 24px;margin-bottom:48px;opacity:0;transform:translateY(-10px);transition:opacity .8s ease,transform .8s ease;}
+  .stats.visible{opacity:1;transform:translateY(0);}
+  .stat{text-align:center;}
+  .stat-num{font-size:clamp(32px,4vw,44px);font-weight:800;line-height:1;letter-spacing:-0.02em;}
+  .stat.s1 .stat-num{color:var(--s1);}.stat.s2 .stat-num{color:var(--s2);}.stat.s3 .stat-num{color:var(--s3);}.stat.s4 .stat-num{color:var(--s4);}
+  .stat-label{font-size:13.5px;color:var(--muted);margin-top:8px;font-weight:600;}
+  .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .tcard{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:26px;opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease;}
+  .tcard.visible{opacity:1;transform:translateY(0);}
+  .stars{color:var(--star);letter-spacing:2px;font-size:15px;margin-bottom:12px;}
+  .quote{font-style:italic;font-size:14.5px;line-height:1.55;margin-bottom:16px;}
+  .who{display:flex;align-items:center;gap:10px;}
+  .avatar{object-fit:cover;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;color:#1e293b;flex-shrink:0;}
+  .name{font-size:13.5px;font-weight:700;}.title{font-size:12.5px;color:var(--muted);}
+  .brand-bar{margin-top:48px;display:flex;gap:clamp(20px,5vw,48px);justify-content:center;flex-wrap:wrap;}
+  .brand-bar span{color:#94A3B8;font-size:clamp(15px,1.8vw,20px);filter:grayscale(1);opacity:0.8;}
+  .b-serif{font-family:Georgia,serif;font-weight:700;}.b-bold{font-weight:800;}
+  @media(max-width:768px){.section{padding:56px 18px;}.stats{grid-template-columns:1fr 1fr;gap:24px;}.testimonials{grid-template-columns:1fr;gap:16px;}}
+  @media(prefers-reduced-motion:reduce){.stats,.tcard{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <div class="agg"><span class="stars">★★★★★</span> 4.9/5 · Verified by 500+ clients</div>
+      <h2>The Numbers Back the Stories.</h2>
+    </div>
+    <div class="stats">
+      <div class="stat s1"><div class="stat-num" data-count="500" data-suffix="+">500+</div><div class="stat-label">Clients Transformed</div></div>
+      <div class="stat s2"><div class="stat-num" data-count="81" data-suffix="%">81%</div><div class="stat-label">Hit Revenue Target</div></div>
+      <div class="stat s3"><div class="stat-num" data-count="4.9" data-suffix="★">4.9★</div><div class="stat-label">Average Rating</div></div>
+      <div class="stat s4"><div class="stat-num" data-count="90" data-suffix="d">90d</div><div class="stat-label">Average to Results</div></div>
+    </div>
+    <div class="testimonials">
+      <div class="tcard"><div class="stars">★★★★★</div><p class="quote">"I went from $8K months to $47K in month 3. I genuinely didn't believe this was possible until I saw the deposit hit my account."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Marcus T." loading="lazy" /><div><div class="name">Marcus T.</div><div class="title">Business Coach — Austin, TX</div></div></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p class="quote">"I landed a $152K offer at Meta in 87 days. I had 1,400 rejections before this program. The system is just different."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="David L." loading="lazy" /><div><div class="name">David L.</div><div class="title">Engineer — San Francisco, CA</div></div></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p class="quote">"Crossed $50K/mo in month 4. I was stuck at $12K for 18 months before joining. This is the first program that actually delivered."</p><div class="who"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="Sarah M." loading="lazy" /><div><div class="name">Sarah M.</div><div class="title">Marketing — Chicago, IL</div></div></div></div>
+    </div>
+    <div class="brand-bar"><span class="b-serif">Forbes</span><span class="b-bold">Entrepreneur</span><span class="b-serif">Inc.</span><span>Business Insider</span><span>Fast Company</span></div>
+  </div>
+</section>
+<script>
+  const stats=document.querySelector('.stats');
+  const sObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('visible');sObs.unobserve(e.target);}});},{threshold:0.2});
+  sObs.observe(stats);
+  const tcards=document.querySelectorAll('.tcard');
+  const tObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),[...tcards].indexOf(e.target)*100);tObs.unobserve(e.target);}});},{threshold:0.2});
+  tcards.forEach(t=>tObs.observe(t));
+  const nums=document.querySelectorAll('[data-count]');
+  const nObs=new IntersectionObserver((es)=>{es.forEach((e)=>{if(!e.isIntersecting)return;const el=e.target;const tg=parseFloat(el.dataset.count);const sf=el.dataset.suffix||'';const st=performance.now();const dur=1400;const tick=(t)=>{const p=Math.min(1,(t-st)/dur);const v=tg*(1-Math.pow(1-p,3));el.textContent=(Number.isInteger(tg)?Math.round(v):v.toFixed(1))+sf;if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);nObs.unobserve(el);});},{threshold:0.5});
+  nums.forEach(n=>nObs.observe(n));
+</script>
+</body>
+</html>
