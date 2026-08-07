@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment, useCallback, useEffect, useState, type ReactNode } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { lock } from "./actions";
+import { LivePreview, type PreviewItem } from "./live-preview";
+import { sampleForPreview } from "@/lib/samples";
 
 type SectionId =
   | "hero"
@@ -1257,7 +1259,7 @@ Build the complete file now.`,
 — ASSETS (local first, Unsplash fallback) —
 const LOGO_IMG   = "______";
 const LOGO_TEXT  = "______";
-const PERSON_IMG = "/private/hero-v9-person.webp";   ← Unsplash fitness (no local match)
+const PERSON_IMG = "______";                         ← cut-out athlete/coach photo (no local asset — supply the client's)
 const BG_IMAGE   = "/private/hero-v9-bg.webp";       ← AB/Background 5.png
 
 — NAVIGATION —
@@ -12012,10 +12014,6 @@ function FunnelBuilder() {
   const [images, setImages] = useState("");
   const [includeRef, setIncludeRef] = useState(true);
   const [sel, setSel] = useState<Record<string, BuilderSelection>>(freshSelections);
-  const [results, setResults] = useState<
-    { id: string; heading: string; sub: string; text: string }[] | null
-  >(null);
-  const [fullPrompt, setFullPrompt] = useState<string | null>(null);
   const [generated, setGenerated] = useState(false);
   const [mode, setMode] = useState<"analyze" | "manual" | "check">("analyze");
   const [fullCopy, setFullCopy] = useState("");
@@ -12024,6 +12022,7 @@ function FunnelBuilder() {
   const [reasons, setReasons] = useState<Record<string, string>>({});
   const [meta, setMeta] = useState<{ niche: string; vibe: string } | null>(null);
   const [vPreview, setVPreview] = useState<{ src: string; alt: string } | null>(null);
+  const [live, setLive] = useState<{ heading: string; items: PreviewItem[] } | null>(null);
   const [htmlIn, setHtmlIn] = useState("");
   const [check, setCheck] = useState<{
     offColors: { hex: string; count: number; to: string }[];
@@ -12039,6 +12038,33 @@ function FunnelBuilder() {
   const labelCls = "block text-[11px] font-semibold uppercase tracking-[0.1em] text-[#A09AB8] mb-1.5";
 
   const enabledCount = builderGroups.filter((g) => sel[g.id]?.enabled).length;
+
+  // Brand kit fed to the live preview, so previews render in the client's
+  // palette rather than each template's illustrative one. Memoised because the
+  // preview frames refetch and re-skin whenever this identity changes.
+  const previewKit = useMemo(
+    () => ({
+      primary: primary.trim(),
+      background: background.trim(),
+      fontHead: fontHead.trim(),
+      fontSub: fontSub.trim(),
+      fontBody: fontBody.trim(),
+    }),
+    [primary, background, fontHead, fontSub, fontBody]
+  );
+
+  /** Selected variations, in funnel order, that have a rendered sample. */
+  const funnelPreviewItems = (): PreviewItem[] => {
+    const items: PreviewItem[] = [];
+    for (const g of builderGroups) {
+      const s = sel[g.id];
+      if (!s?.enabled) continue;
+      const v = g.variations.find((x) => x.number === s.variation) ?? g.variations[0];
+      const sampleSrc = sampleForPreview(v.previewSrc);
+      if (sampleSrc) items.push({ id: `${g.id}-${v.number}`, title: v.title, sampleSrc });
+    }
+    return items;
+  };
 
   // --- Saved projects (Supabase full-stack layer) ---
   const supabaseOn = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
@@ -12058,9 +12084,26 @@ function FunnelBuilder() {
     }
   }, []);
 
+  // Initial load. Inlined rather than calling refreshProjects() so the state
+  // update is visibly post-await and can be abandoned if the builder unmounts
+  // mid-flight; refreshProjects stays for the imperative save/delete refresh.
   useEffect(() => {
-    if (supabaseOn) refreshProjects();
-  }, [supabaseOn, refreshProjects]);
+    if (!supabaseOn) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/projects");
+        if (!res.ok) return;
+        const d = await res.json();
+        if (!cancelled) setProjects(d.projects || []);
+      } catch {
+        /* ignore */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [supabaseOn]);
 
   const saveProject = async () => {
     const name = window.prompt("Save funnel as:", "My funnel");
@@ -12108,8 +12151,6 @@ function FunnelBuilder() {
       setImages(d.images || "");
       setIncludeRef(d.includeRef ?? true);
       setSel(d.sel || freshSelections());
-      setResults(null);
-      setFullPrompt(null);
       setGenerated(false);
       setProjStatus(`Loaded "${project.name}"`);
     } catch {
@@ -12250,20 +12291,13 @@ function FunnelBuilder() {
     return { blocks, full: full as string | null };
   }, [sel, primary, background, fontHead, fontSub, fontBody, images, includeRef]);
 
-  const generate = () => {
-    const { blocks, full } = buildOutputs();
-    setResults(blocks);
-    setFullPrompt(full);
-    setGenerated(true);
-  };
+  const generate = () => setGenerated(true);
 
-  // Live-update the generated prompts whenever a variation, copy or the brand kit changes.
-  useEffect(() => {
-    if (!generated) return;
-    const { blocks, full } = buildOutputs();
-    setResults(blocks);
-    setFullPrompt(full);
-  }, [generated, buildOutputs]);
+  // Derived, not stored: the prompts are always a pure function of the current
+  // selections and brand kit, so they stay live as either changes.
+  const derived = useMemo(() => (generated ? buildOutputs() : null), [generated, buildOutputs]);
+  const results = derived?.blocks ?? null;
+  const fullPrompt = derived?.full ?? null;
 
   const analyze = async () => {
     setAnalyzing(true);
@@ -12305,8 +12339,6 @@ function FunnelBuilder() {
       setSel(next);
       setReasons(nextReasons);
       setMeta({ niche: data.niche || "", vibe: data.vibe || "" });
-      setResults(null);
-      setFullPrompt(null);
       setGenerated(false);
     } catch (e) {
       setAnalyzeErr(e instanceof Error ? e.message : "Analysis failed.");
@@ -12373,8 +12405,6 @@ function FunnelBuilder() {
     setFontBody("");
     setImages("");
     setSel(freshSelections());
-    setResults(null);
-    setFullPrompt(null);
     setGenerated(false);
     setFullCopy("");
     setReasons({});
@@ -12656,24 +12686,46 @@ function FunnelBuilder() {
                   </div>
                 )}
                 {s.enabled && v.previewSrc && (
-                  <button
-                    type="button"
-                    onClick={() => setVPreview({ src: v.previewSrc!, alt: v.title })}
-                    aria-label={`Preview ${v.title}`}
-                    className="group relative mt-3 block w-full max-w-[460px] aspect-[2/1] overflow-hidden rounded-md border border-[#2A2250] bg-[#0B091A] cursor-zoom-in hover:border-[#7C5CFC] transition"
-                  >
-                    <Image
-                      src={v.previewSrc}
-                      alt={`${v.title} preview`}
-                      fill
-                      sizes="460px"
-                      className="object-cover"
-                      unoptimized
-                    />
-                    <span className="pointer-events-none absolute top-1.5 right-1.5 rounded bg-black/60 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                      ⤢ Expand
-                    </span>
-                  </button>
+                  <div className="mt-3 w-full max-w-[460px]">
+                    <button
+                      type="button"
+                      onClick={() => setVPreview({ src: v.previewSrc!, alt: v.title })}
+                      aria-label={`Preview ${v.title}`}
+                      className="group relative block w-full aspect-[2/1] overflow-hidden rounded-md border border-[#2A2250] bg-[#0B091A] cursor-zoom-in hover:border-[#7C5CFC] transition"
+                    >
+                      <Image
+                        src={v.previewSrc}
+                        alt={`${v.title} preview`}
+                        fill
+                        sizes="460px"
+                        className="object-cover"
+                        unoptimized
+                      />
+                      <span className="pointer-events-none absolute top-1.5 right-1.5 rounded bg-black/60 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                        ⤢ Expand
+                      </span>
+                    </button>
+                    {sampleForPreview(v.previewSrc) && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setLive({
+                            heading: v.title,
+                            items: [
+                              {
+                                id: `${g.id}-${v.number}`,
+                                title: v.title,
+                                sampleSrc: sampleForPreview(v.previewSrc)!,
+                              },
+                            ],
+                          })
+                        }
+                        className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-[#2A2250] px-2.5 py-1.5 text-[11px] font-semibold text-[#A09AB8] transition hover:border-[#7C5CFC] hover:text-[#E8E4F5]"
+                      >
+                        ▶ Live preview
+                      </button>
+                    )}
+                  </div>
                 )}
                 {s.enabled && (
                   <textarea
@@ -12708,6 +12760,18 @@ function FunnelBuilder() {
             className="rounded-md border border-[#2A2250] text-[#A09AB8] text-[12.5px] px-4 py-2.5 transition hover:border-[#F87171] hover:text-[#F87171]"
           >
             Reset
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              const items = funnelPreviewItems();
+              if (items.length) setLive({ heading: "Full funnel preview", items });
+            }}
+            disabled={enabledCount === 0}
+            title="Render the selected sections as one continuous page"
+            className="rounded-md border border-[#2A2250] text-[#A09AB8] text-[12.5px] px-4 py-2.5 transition hover:border-[#7C5CFC] hover:text-[#E8E4F5] disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            ▶ Preview Funnel
           </button>
           <button
             type="button"
@@ -12916,6 +12980,14 @@ function FunnelBuilder() {
       {vPreview && (
         <Lightbox src={vPreview.src} alt={vPreview.alt} onClose={() => setVPreview(null)} />
       )}
+      {live && (
+        <LivePreview
+          heading={live.heading}
+          items={live.items}
+          kit={previewKit}
+          onClose={() => setLive(null)}
+        />
+      )}
     </div>
   );
 }
@@ -12923,6 +12995,7 @@ function FunnelBuilder() {
 export function PrivateContent() {
   const [tab, setTab] = useState<TabId>("builder");
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+  const [live, setLive] = useState<{ heading: string; items: PreviewItem[] } | null>(null);
 
   const showBuilder = tab === "builder";
   const visibleSections = [...sections, ...gptImageCards, ...carouselCards, ...localWebsiteCards].filter((s) => tab === s.id);
@@ -12999,31 +13072,53 @@ export function PrivateContent() {
               {(s.preview || s.previewSrc) && (
                 <div className="border-b border-[#2A2250] bg-[#0B091A] p-[18px_20px]">
                   {s.previewSrc ? (
-                    <button
-                      type="button"
-                      onClick={() => setLightbox({ src: s.previewSrc!, alt: s.title })}
-                      aria-label={`Open ${s.title} preview full screen`}
-                      className={`group relative block w-full ${s.id === "gptimage" ? "aspect-[4/3]" : "aspect-[2/1]"} overflow-hidden rounded-md cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFC]`}
-                    >
-                      <Image
-                        src={s.previewSrc}
-                        alt={`${s.title} thumbnail`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 380px"
-                        className={`${s.id === "gptimage" ? "object-contain" : "object-cover"} transition-transform duration-300 group-hover:scale-[1.03]`}
-                        unoptimized
-                      />
-                      <span className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/20" />
-                      <span className="pointer-events-none absolute top-2 right-2 inline-flex items-center gap-1 rounded-md bg-black/55 backdrop-blur px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                          <polyline points="15 3 21 3 21 9" />
-                          <polyline points="9 21 3 21 3 15" />
-                          <line x1="21" y1="3" x2="14" y2="10" />
-                          <line x1="3" y1="21" x2="10" y2="14" />
-                        </svg>
-                        Expand
-                      </span>
-                    </button>
+                    <div className={`relative w-full ${s.id === "gptimage" ? "aspect-[4/3]" : "aspect-[2/1]"}`}>
+                      <button
+                        type="button"
+                        onClick={() => setLightbox({ src: s.previewSrc!, alt: s.title })}
+                        aria-label={`Open ${s.title} preview full screen`}
+                        className="group absolute inset-0 block overflow-hidden rounded-md cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFC]"
+                      >
+                        <Image
+                          src={s.previewSrc}
+                          alt={`${s.title} thumbnail`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 380px"
+                          className={`${s.id === "gptimage" ? "object-contain" : "object-cover"} transition-transform duration-300 group-hover:scale-[1.03]`}
+                          unoptimized
+                        />
+                        <span className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/20" />
+                        <span className="pointer-events-none absolute top-2 right-2 inline-flex items-center gap-1 rounded-md bg-black/55 backdrop-blur px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                            <polyline points="15 3 21 3 21 9" />
+                            <polyline points="9 21 3 21 3 15" />
+                            <line x1="21" y1="3" x2="14" y2="10" />
+                            <line x1="3" y1="21" x2="10" y2="14" />
+                          </svg>
+                          Expand
+                        </span>
+                      </button>
+                      {sampleForPreview(s.previewSrc) && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setLive({
+                              heading: s.title,
+                              items: [
+                                {
+                                  id: `${s.id}-${s.number}`,
+                                  title: s.title,
+                                  sampleSrc: sampleForPreview(s.previewSrc)!,
+                                },
+                              ],
+                            })
+                          }
+                          className="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 rounded-md bg-black/65 backdrop-blur px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#7C5CFC]"
+                        >
+                          ▶ Live
+                        </button>
+                      )}
+                    </div>
                   ) : (
                     <div className="[&_svg]:w-full [&_svg]:h-auto [&_svg]:block [&_svg]:rounded-md">
                       {s.preview}
@@ -13068,6 +13163,14 @@ export function PrivateContent() {
         </footer>
       </div>
 
+      {live && (
+        <LivePreview
+          heading={live.heading}
+          items={live.items}
+          kit={{}}
+          onClose={() => setLive(null)}
+        />
+      )}
       {lightbox && (
         <Lightbox src={lightbox.src} alt={lightbox.alt} onClose={() => setLightbox(null)} />
       )}
