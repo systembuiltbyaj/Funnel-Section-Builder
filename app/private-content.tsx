@@ -6,7 +6,7 @@ import { lock } from "./actions";
 import { LivePreview, type PreviewItem } from "./live-preview";
 import { sampleForPreview } from "@/lib/samples";
 import {
-  labelClasses, sections, gptImageCards, carouselCards, localWebsiteCards,
+  sections, gptImageCards, carouselCards, localWebsiteCards,
   type Section, type SectionId,
 } from "@/lib/section-catalogue";
 
