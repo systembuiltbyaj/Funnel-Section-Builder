@@ -503,6 +503,39 @@ function FunnelBuilder() {
 
   return (
     <div className="max-w-[920px] mx-auto px-6 pb-16">
+      {/* Mode toggle */}
+      <div className="flex justify-center mb-5">
+        <div className="inline-flex rounded-lg border border-[#2A2250] bg-[#0B091A] p-1">
+          <button
+            type="button"
+            onClick={() => setMode("analyze")}
+            className={`px-4 py-1.5 text-[12.5px] font-semibold rounded-md transition ${
+              mode === "analyze" ? "bg-[#7C5CFC] text-white" : "text-[#A09AB8] hover:text-white"
+            }`}
+          >
+            ✨ Analyze Copy (AI)
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode("manual")}
+            className={`px-4 py-1.5 text-[12.5px] font-semibold rounded-md transition ${
+              mode === "manual" ? "bg-[#7C5CFC] text-white" : "text-[#A09AB8] hover:text-white"
+            }`}
+          >
+            ✍️ Manual
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode("check")}
+            className={`px-4 py-1.5 text-[12.5px] font-semibold rounded-md transition ${
+              mode === "check" ? "bg-[#7C5CFC] text-white" : "text-[#A09AB8] hover:text-white"
+            }`}
+          >
+            🎨 Brand Check
+          </button>
+        </div>
+      </div>
+
       {/* Saved projects bar (Supabase full-stack layer) */}
       {supabaseOn && (
         <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
@@ -555,39 +588,6 @@ function FunnelBuilder() {
           {projStatus && <span className="text-[12px] text-[#4ade80]">{projStatus}</span>}
         </div>
       )}
-
-      {/* Mode toggle */}
-      <div className="flex justify-center mb-5">
-        <div className="inline-flex rounded-lg border border-[#2A2250] bg-[#0B091A] p-1">
-          <button
-            type="button"
-            onClick={() => setMode("analyze")}
-            className={`px-4 py-1.5 text-[12.5px] font-semibold rounded-md transition ${
-              mode === "analyze" ? "bg-[#7C5CFC] text-white" : "text-[#A09AB8] hover:text-white"
-            }`}
-          >
-            ✨ Analyze Copy (AI)
-          </button>
-          <button
-            type="button"
-            onClick={() => setMode("manual")}
-            className={`px-4 py-1.5 text-[12.5px] font-semibold rounded-md transition ${
-              mode === "manual" ? "bg-[#7C5CFC] text-white" : "text-[#A09AB8] hover:text-white"
-            }`}
-          >
-            ✍️ Manual
-          </button>
-          <button
-            type="button"
-            onClick={() => setMode("check")}
-            className={`px-4 py-1.5 text-[12.5px] font-semibold rounded-md transition ${
-              mode === "check" ? "bg-[#7C5CFC] text-white" : "text-[#A09AB8] hover:text-white"
-            }`}
-          >
-            🎨 Brand Check
-          </button>
-        </div>
-      </div>
 
       <p className="text-[13px] text-[#A09AB8] leading-[1.6] mb-6 text-center">
         {mode === "analyze"
@@ -770,7 +770,7 @@ function FunnelBuilder() {
                   </div>
                 )}
                 {s.enabled && v.previewSrc && (
-                  <div className="mt-3 w-full max-w-[460px]">
+                  <div className="mt-3 w-full max-w-[460px] mx-auto">
                     <button
                       type="button"
                       onClick={() => setVPreview({ src: v.previewSrc!, alt: v.title })}
@@ -804,7 +804,7 @@ function FunnelBuilder() {
                             ],
                           })
                         }
-                        className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-[#2A2250] px-2.5 py-1.5 text-[11px] font-semibold text-[#A09AB8] transition hover:border-[#7C5CFC] hover:text-[#E8E4F5]"
+                        className="mt-2 mx-auto flex w-fit items-center gap-1.5 rounded-md border border-[#2A2250] px-2.5 py-1.5 text-[11px] font-semibold text-[#A09AB8] transition hover:border-[#7C5CFC] hover:text-[#E8E4F5]"
                       >
                         ▶ Live preview
                       </button>
