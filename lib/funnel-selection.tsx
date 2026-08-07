@@ -39,26 +39,28 @@ export function FunnelSelectionProvider({
   const [hydrated, setHydrated] = useState(false);
 
   // Hydrate after mount, never during render: localStorage does not exist on the
-  // server and reading it in render causes a hydration mismatch. Wrapped in an
-  // async IIFE (matches the pattern already used in app/private-content.tsx) so
-  // the setState calls aren't direct children of the effect body, which is what
-  // react-hooks/set-state-in-effect checks for.
+  // server and reading it in render causes a hydration mismatch. localStorage is
+  // read synchronously here — there is no async gap and so no unmount race — so
+  // the setState calls below are deliberately direct, not deferred to a
+  // callback; react-hooks/set-state-in-effect is silenced narrowly rather than
+  // worked around, since the "avoid setState in an effect" rationale (cascading
+  // renders from an avoidable derived-state effect) doesn't apply to a one-time
+  // post-mount hydration read.
   useEffect(() => {
-    (async () => {
-      try {
-        const stored = window.localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          const parsed = validatePersisted(JSON.parse(stored), catalogue);
-          if (parsed) {
-            setSel((prev) => ({ ...prev, ...parsed.sel }));
-            setKitState(parsed.kit);
-          }
+    try {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = validatePersisted(JSON.parse(stored), catalogue);
+        if (parsed) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect -- see comment above
+          setSel((prev) => ({ ...prev, ...parsed.sel }));
+          setKitState(parsed.kit);
         }
-      } catch {
-        // Corrupt or unavailable storage is not worth failing the app over.
       }
-      setHydrated(true);
-    })();
+    } catch {
+      // Corrupt or unavailable storage is not worth failing the app over.
+    }
+    setHydrated(true);
   }, [catalogue]);
 
   useEffect(() => {

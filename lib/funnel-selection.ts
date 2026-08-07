@@ -27,7 +27,11 @@ export function validatePersisted(raw: unknown, catalogue: CatalogueShape): Pers
   const obj = raw as Record<string, unknown>;
   if (typeof obj.sel !== "object" || obj.sel === null) return null;
 
-  const sel: Record<string, BuilderSelection> = {};
+  // Object.create(null): `id` comes straight from untrusted persisted JSON, and
+  // "__proto__" survives JSON.parse as an own enumerable key. A plain `{}` would
+  // let sel["__proto__"] = ... hit the prototype setter instead of storing inert
+  // data. A null-prototype object has no such setter to hit.
+  const sel: Record<string, BuilderSelection> = Object.create(null);
   for (const [id, value] of Object.entries(obj.sel as Record<string, unknown>)) {
     const valid = catalogue[id];
     if (!valid || valid.length === 0) continue;
@@ -43,7 +47,11 @@ export function validatePersisted(raw: unknown, catalogue: CatalogueShape): Pers
 
   const rawKit = (typeof obj.kit === "object" && obj.kit !== null ? obj.kit : {}) as Record<string, unknown>;
   return {
-    sel,
+    // Spread (not Object.assign) to convert back to a normal, Object.prototype-
+    // rooted object: object-literal spread copies own keys via a data-property
+    // definition, so a "__proto__" entry survives as an ordinary key instead of
+    // re-triggering the setter Object.create(null) was used to avoid above.
+    sel: { ...sel },
     kit: {
       primary: str(rawKit.primary), background: str(rawKit.background),
       fontHead: str(rawKit.fontHead), fontSub: str(rawKit.fontSub),
