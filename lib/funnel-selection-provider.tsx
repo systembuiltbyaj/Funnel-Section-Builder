@@ -3,8 +3,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode, ReactElement } from "react";
 import type { FunnelBrandKit, BuilderSelection } from "./prompt-assembly.ts";
-import { STORAGE_KEY, validatePersisted } from "./funnel-selection.ts";
-import type { PersistedState, CatalogueShape } from "./funnel-selection.ts";
+import { STORAGE_KEY, EMPTY_ANALYSIS, validatePersisted } from "./funnel-selection.ts";
+import type { PersistedState, CatalogueShape, AnalysisState } from "./funnel-selection.ts";
 
 const EMPTY_KIT: FunnelBrandKit = {
   primary: "", background: "", fontHead: "", fontSub: "", fontBody: "", images: "",
@@ -21,6 +21,8 @@ interface ContextValue {
   setSection: (id: string, patch: Partial<BuilderSelection>) => void;
   toggleSection: (id: string, variation: string) => void;
   setKit: (patch: Partial<FunnelBrandKit>) => void;
+  analysis: AnalysisState;
+  setAnalysis: (next: AnalysisState) => void;
   replaceAll: (next: PersistedState) => void;
   reset: () => void;
 }
@@ -36,6 +38,7 @@ export function FunnelSelectionProvider({
 }): ReactElement {
   const [sel, setSel] = useState(initialSel);
   const [kit, setKitState] = useState<FunnelBrandKit>(EMPTY_KIT);
+  const [analysis, setAnalysisState] = useState<AnalysisState>(EMPTY_ANALYSIS);
   const [hydrated, setHydrated] = useState(false);
 
   // Hydrate after mount, never during render: localStorage does not exist on the
@@ -55,6 +58,7 @@ export function FunnelSelectionProvider({
           // eslint-disable-next-line react-hooks/set-state-in-effect -- see comment above
           setSel((prev) => ({ ...prev, ...parsed.sel }));
           setKitState(parsed.kit);
+          setAnalysisState(parsed.analysis);
         }
       }
     } catch {
@@ -66,11 +70,11 @@ export function FunnelSelectionProvider({
   useEffect(() => {
     if (!hydrated) return;
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ sel, kit }));
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ sel, kit, analysis }));
     } catch {
       // Quota or private-mode failures are non-fatal.
     }
-  }, [sel, kit, hydrated]);
+  }, [sel, kit, analysis, hydrated]);
 
   const setSection = useCallback((id: string, patch: Partial<BuilderSelection>) => {
     setSel((prev) => ({ ...prev, [id]: { ...prev[id], ...patch } }));
@@ -88,14 +92,18 @@ export function FunnelSelectionProvider({
     setKitState((prev) => ({ ...prev, ...patch }));
   }, []);
 
+  const setAnalysis = useCallback((next: AnalysisState) => setAnalysisState(next), []);
+
   const replaceAll = useCallback((next: PersistedState) => {
     setSel(next.sel);
     setKitState(next.kit);
+    setAnalysisState(next.analysis);
   }, []);
 
   const reset = useCallback(() => {
     setSel(initialSel);
     setKitState(EMPTY_KIT);
+    setAnalysisState(EMPTY_ANALYSIS);
   }, [initialSel]);
 
   const enabledIds = useMemo(
@@ -104,8 +112,8 @@ export function FunnelSelectionProvider({
   );
 
   const value = useMemo<ContextValue>(
-    () => ({ sel, kit, hydrated, enabledIds, setSection, toggleSection, setKit, replaceAll, reset }),
-    [sel, kit, hydrated, enabledIds, setSection, toggleSection, setKit, replaceAll, reset]
+    () => ({ sel, kit, hydrated, enabledIds, analysis, setAnalysis, setSection, toggleSection, setKit, replaceAll, reset }),
+    [sel, kit, hydrated, enabledIds, analysis, setAnalysis, setSection, toggleSection, setKit, replaceAll, reset]
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

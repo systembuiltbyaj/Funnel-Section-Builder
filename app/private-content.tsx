@@ -9,6 +9,7 @@ import { sampleForPreview } from "@/lib/samples";
 import { PROMPT_GROUPS as builderGroups } from "@/lib/prompt-groups";
 import { useFunnelSelection } from "@/lib/funnel-selection-provider";
 import { INITIAL_SEL } from "@/lib/catalogue";
+import { EMPTY_ANALYSIS } from "@/lib/funnel-selection";
 import {
   buildOutputs as assemblePrompts,
   variationShortName,
@@ -350,6 +351,7 @@ function FunnelBuilder() {
           fontBody: d.fontBody || "",
           images: d.images || "",
         },
+        analysis: EMPTY_ANALYSIS,
       });
       setGenerated(false);
       setProjStatus(`Loaded "${project.name}"`);
@@ -426,7 +428,15 @@ function FunnelBuilder() {
         next[s.sectionId] = { enabled: true, variation, copy: s.copy || "" };
         nextReasons[s.sectionId] = s.reason || "";
       }
-      replaceAll({ sel: next, kit });
+      replaceAll({
+        sel: next,
+        kit,
+        analysis: {
+          reasons: nextReasons,
+          meta: { niche: data.niche || "", vibe: data.vibe || "" },
+          sourceCopy: fullCopy,
+        },
+      });
       setReasons(nextReasons);
       setMeta({ niche: data.niche || "", vibe: data.vibe || "" });
       setGenerated(false);

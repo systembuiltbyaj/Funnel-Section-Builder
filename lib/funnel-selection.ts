@@ -5,9 +5,24 @@
 import type { FunnelBrandKit, BuilderSelection } from "./prompt-assembly.ts";
 
 /** Bumped whenever PersistedState's shape changes, so stale state is ignored. */
-export const STORAGE_KEY = "fsb.selection.v1";
+export const STORAGE_KEY = "fsb.selection.v2";
 
-export type PersistedState = { sel: Record<string, BuilderSelection>; kit: FunnelBrandKit };
+export type AnalysisMeta = { niche: string; vibe: string };
+
+/** What the analyzer concluded, kept so the review screen survives a refresh. */
+export type AnalysisState = {
+  reasons: Record<string, string>;
+  meta: AnalysisMeta | null;
+  sourceCopy: string;
+};
+
+export const EMPTY_ANALYSIS: AnalysisState = { reasons: {}, meta: null, sourceCopy: "" };
+
+export type PersistedState = {
+  sel: Record<string, BuilderSelection>;
+  kit: FunnelBrandKit;
+  analysis: AnalysisState;
+};
 export type CatalogueShape = Record<string, string[]>; // group id -> valid variation numbers
 
 function str(v: unknown): string {
@@ -46,6 +61,16 @@ export function validatePersisted(raw: unknown, catalogue: CatalogueShape): Pers
   }
 
   const rawKit = (typeof obj.kit === "object" && obj.kit !== null ? obj.kit : {}) as Record<string, unknown>;
+
+  // Reasons are keyed by group id too, so the same untrusted-key care applies.
+  const rawAnalysis = (typeof obj.analysis === "object" && obj.analysis !== null ? obj.analysis : {}) as Record<string, unknown>;
+  const rawReasons = (typeof rawAnalysis.reasons === "object" && rawAnalysis.reasons !== null ? rawAnalysis.reasons : {}) as Record<string, unknown>;
+  const reasons: Record<string, string> = Object.create(null);
+  for (const [id, why] of Object.entries(rawReasons)) {
+    if (catalogue[id]) reasons[id] = str(why);
+  }
+  const rawMeta = (typeof rawAnalysis.meta === "object" && rawAnalysis.meta !== null ? rawAnalysis.meta : null) as Record<string, unknown> | null;
+
   return {
     // Spread (not Object.assign) to convert back to a normal, Object.prototype-
     // rooted object: object-literal spread copies own keys via a data-property
@@ -56,6 +81,11 @@ export function validatePersisted(raw: unknown, catalogue: CatalogueShape): Pers
       primary: str(rawKit.primary), background: str(rawKit.background),
       fontHead: str(rawKit.fontHead), fontSub: str(rawKit.fontSub),
       fontBody: str(rawKit.fontBody), images: str(rawKit.images),
+    },
+    analysis: {
+      reasons: { ...reasons },
+      meta: rawMeta ? { niche: str(rawMeta.niche), vibe: str(rawMeta.vibe) } : null,
+      sourceCopy: str(rawAnalysis.sourceCopy),
     },
   };
 }
