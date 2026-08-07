@@ -11,7 +11,8 @@
 ## Global Constraints
 
 - **No new dependencies.** No test framework, no state library, no UI kit. Tests run on `node --test` with `--experimental-strip-types`.
-- Test files import with an explicit `.ts`/`.tsx` extension (`allowImportingTsExtensions` is enabled; `noEmit` is on).
+- Test files import with an explicit `.ts` extension (`allowImportingTsExtensions` is enabled; `noEmit` is on).
+- **Node's type stripping handles `.ts` only — never `.tsx`.** Verified: importing a `.tsx` file fails with `Unknown file extension ".tsx"`. Therefore **any logic that needs a unit test must live in a `.ts` file with no JSX.** When a module needs both testable logic and React, split it: `name.ts` for the logic and types, `name.tsx` for the component that imports it. This constraint drives the file layout in Tasks 0, 1 and 2.
 - ES modules, `async/await` (never `.then()` chains), 2-space indent.
 - Comment the *why*, not the *what*. No dead code, no leftover `console.log`.
 - Every gate must pass before a task is complete: `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`.
@@ -44,6 +45,158 @@ const freshSelections: () => Record<string, BuilderSelection>;
 ```
 
 `gptImageCards`, `carouselCards`, and `localWebsiteCards` are **separate** arrays, not part of `builderGroups`. They are browse-only collections and are **not addable to a funnel**.
+
+---
+
+### Task 0: Move the section catalogue into a testable module
+
+The catalogue currently lives in `app/private-content.tsx`, which Node cannot import (JSX). Until it moves, no test can see the real variations, and the regression net in Task 1 would only ever check synthetic data.
+
+This is a **pure data move**. Verified before planning: the `sections` array contains no JSX — the `Section.preview?: ReactNode` field is used zero times across the whole catalogue. Every entry is strings and string arrays.
+
+**Files:**
+- Create: `lib/section-catalogue.ts`
+- Modify: `app/private-content.tsx` (delete the moved declarations, import them back)
+
+**Interfaces:**
+- Consumes: nothing.
+- Produces:
+```ts
+export type SectionId =
+  | "hero" | "empathy" | "opportunity" | "compare" | "usp" | "offer"
+  | "social" | "risk" | "authority" | "urgency" | "faq" | "footer"
+  | "gptimage" | "carousel" | "local";
+
+export type Section = {
+  id: SectionId;
+  number: string;
+  label: string;
+  title: string;
+  description: string;
+  labelClass: string;
+  category?: string;
+  group?: string;
+  previewSrc?: string;
+  funnelTypes?: string[];
+  basePrompt: string;
+  varsPrompt: string;
+};
+
+export const labelClasses: Record<SectionId, string>;
+export const sections: Section[];
+export const gptImageCards: Section[];
+export const carouselCards: Section[];
+export const localWebsiteCards: Section[];
+```
+
+**The `preview?: ReactNode` field is dropped** from the `Section` type. It is declared today but never populated, and keeping it would force a React import into a `.ts` file — the exact thing this task exists to avoid. Removing an unused optional field changes no behaviour; the `s.preview` render branch in `private-content.tsx` becomes dead and is deleted with it.
+
+- [ ] **Step 1: Move the declarations verbatim**
+
+Cut from `app/private-content.tsx` and paste into `lib/section-catalogue.ts`, in this order, **without editing any content**:
+1. the `SectionId` type
+2. the `Section` type — minus the `preview?: ReactNode` field
+3. `const labelClasses`
+4. `const sections`
+5. `const gptImageCards`
+6. `const carouselCards`
+7. `const localWebsiteCards`
+
+Add `export` to each. The file needs **no imports at all** — if you find yourself adding one, something non-data came along by mistake; put it back.
+
+Head the file with a comment explaining that it is data only, and that it must stay JSX-free so the test runner can import it.
+
+- [ ] **Step 2: Import them back**
+
+In `app/private-content.tsx`, replace the deleted declarations with:
+
+```tsx
+import {
+  labelClasses, sections, gptImageCards, carouselCards, localWebsiteCards,
+  type Section, type SectionId,
+} from "@/lib/section-catalogue";
+```
+
+`type TabId = SectionId | "builder";` stays in `private-content.tsx` — it is a UI concern, not catalogue data.
+
+Delete the now-dead `s.preview` branch in the card renderer (the `) : (` fallback that renders `{s.preview}`), keeping the `s.previewSrc` branch.
+
+- [ ] **Step 3: Prove the catalogue is importable and intact**
+
+Create `lib/section-catalogue.test.ts`:
+
+```ts
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { sections, gptImageCards, carouselCards, localWebsiteCards, labelClasses } from "./section-catalogue.ts";
+
+test("the catalogue is importable by the test runner", () => {
+  assert.ok(sections.length > 0, "sections is empty — the move lost data");
+});
+
+test("the catalogue still holds every funnel section group", () => {
+  const ids = [...new Set(sections.map((s) => s.id))];
+  assert.deepEqual(ids, [
+    "hero", "empathy", "opportunity", "compare", "usp", "offer",
+    "social", "risk", "authority", "urgency", "faq", "footer",
+  ], "group set or 10P ordering changed");
+});
+
+test("variation counts per group are unchanged", () => {
+  const counts: Record<string, number> = {};
+  for (const s of sections) counts[s.id] = (counts[s.id] ?? 0) + 1;
+  assert.deepEqual(counts, {
+    hero: 9, empathy: 10, opportunity: 11, compare: 7, usp: 10, offer: 12,
+    social: 9, risk: 8, authority: 10, urgency: 8, faq: 8, footer: 8,
+  }, "a variation was lost or duplicated in the move");
+});
+
+test("the browse-only collections survived", () => {
+  assert.ok(gptImageCards.length > 0);
+  assert.ok(carouselCards.length > 0);
+  assert.ok(localWebsiteCards.length > 0);
+});
+
+test("every variation carries the fields the builder and prompts rely on", () => {
+  for (const s of sections) {
+    assert.ok(s.number, `${s.title}: missing number`);
+    assert.ok(s.label, `${s.title}: missing label`);
+    assert.ok(s.basePrompt, `${s.title}: missing basePrompt`);
+    assert.ok(s.varsPrompt, `${s.title}: missing varsPrompt`);
+    assert.ok(labelClasses[s.id], `${s.id}: missing label class`);
+  }
+});
+
+test("variation numbers are unique within a group", () => {
+  const seen = new Set<string>();
+  for (const s of sections) {
+    const key = `${s.id}/${s.number}`;
+    assert.ok(!seen.has(key), `duplicate variation number ${key}`);
+    seen.add(key);
+  }
+});
+```
+
+The exact counts above were measured on `main` before the move. **If a count assertion fails, the move lost data — do not edit the expected numbers to match.**
+
+- [ ] **Step 4: Run the tests**
+
+Run: `npm test`
+Expected: PASS — 6 new tests plus the existing 12 in `lib/samples.test.ts`.
+
+- [ ] **Step 5: Confirm the app is unchanged**
+
+```bash
+npm run typecheck && npm run lint && npm run build
+```
+All must pass. Then `npm run dev`, log in, and confirm the builder and every section-library tab render exactly as before. This move touches the largest file in the repo; the visual check is the one that catches a mis-paste.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add lib/section-catalogue.ts lib/section-catalogue.test.ts app/private-content.tsx
+git commit -m "refactor(catalogue): move the section catalogue into a JSX-free module"
+```
 
 ---
 
@@ -298,19 +451,39 @@ test("generated prompt output is unchanged", () => {
 
 The variation numbers in `CASES` are illustrative. **Before running, open the app and read the real `number` values** for the first variation of `hero`, `empathy`, `offer` and `faq` from `app/private-content.tsx`, and substitute them. A wrong number silently falls back to the first variation and weakens the fixture.
 
-- [ ] **Step 7: Expose the catalogue to tests**
+- [ ] **Step 7: Derive the groups from the catalogue**
 
-Create `lib/prompt-groups.ts` exporting the real `builderGroups` so the fixture uses the actual catalogue:
+Task 0 moved the catalogue into `lib/section-catalogue.ts`, so the grouping can be derived there — importable by tests and by the app alike.
+
+Create `lib/prompt-groups.ts`:
 
 ```ts
-import { builderGroups } from "@/app/private-content";
+import { sections } from "./section-catalogue.ts";
 import type { PromptGroup } from "./prompt-assembly.ts";
 
-/** The live catalogue, exposed for snapshot testing. */
-export const PROMPT_GROUPS: PromptGroup[] = builderGroups;
+/**
+ * The catalogue grouped by section id, preserving the order the sections
+ * array declares — which is 10P funnel order. Both the builder and the hub
+ * library render from this, so they cannot drift apart.
+ */
+export const PROMPT_GROUPS: PromptGroup[] = (() => {
+  const order: string[] = [];
+  const byId = new Map<string, typeof sections>();
+  for (const s of sections) {
+    if (s.basePrompt.trim().toLowerCase().startsWith("coming soon")) continue;
+    if (!byId.has(s.id)) {
+      byId.set(s.id, []);
+      order.push(s.id);
+    }
+    byId.get(s.id)!.push(s);
+  }
+  return order.map((id) => ({ id, label: byId.get(id)![0].label, variations: byId.get(id)! }));
+})();
 ```
 
-This requires exporting `builderGroups` from `app/private-content.tsx` (add `export` to its declaration). If importing a `"use client"` module into the Node test runner fails, instead move the `builderGroups` derivation into `lib/prompt-groups.ts` and import it back into `private-content.tsx` — that is the more robust arrangement and is acceptable here.
+This is the existing `builderGroups` derivation moved verbatim — including the `coming soon` filter, which currently matches nothing but must be preserved.
+
+In `app/private-content.tsx`, delete the local `builderGroups` IIFE and `import { PROMPT_GROUPS as builderGroups } from "@/lib/prompt-groups";` so the rest of the file needs no changes.
 
 - [ ] **Step 8: Generate and verify the snapshot**
 
@@ -337,8 +510,11 @@ git commit -m "refactor(prompts): extract prompt assembly into a pure, snapshot-
 
 ### Task 2: Selection provider with validated hydration
 
+**Split across two files by necessity, not preference:** `validatePersisted` must be unit-tested, and Node cannot import `.tsx`. The pure logic and types go in `lib/funnel-selection.ts`; the React provider goes in `lib/funnel-selection.tsx` and imports from it.
+
 **Files:**
-- Create: `lib/funnel-selection.tsx`
+- Create: `lib/funnel-selection.ts` (types, `STORAGE_KEY`, `validatePersisted` — no JSX, no React import)
+- Create: `lib/funnel-selection.tsx` (`FunnelSelectionProvider`, `useFunnelSelection`)
 - Create: `lib/funnel-selection.test.ts`
 
 **Interfaces:**
@@ -375,7 +551,7 @@ Create `lib/funnel-selection.test.ts`:
 ```ts
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { validatePersisted, STORAGE_KEY } from "./funnel-selection.tsx";
+import { validatePersisted, STORAGE_KEY } from "./funnel-selection.ts";
 
 const CATALOGUE = { hero: ["01a", "01b"], faq: ["11a"] };
 const KIT = { primary: "#7C5CFC", background: "", fontHead: "", fontSub: "", fontBody: "", images: "" };
@@ -616,7 +792,7 @@ The riskiest task. The fixture from Task 1 is what proves it worked.
 ```ts
 // lib/catalogue.ts
 import { PROMPT_GROUPS } from "./prompt-groups.ts";
-import type { CatalogueShape } from "./funnel-selection.tsx";
+import type { CatalogueShape } from "./funnel-selection.ts";
 
 /** group id -> the variation numbers that currently exist for it. */
 export const CATALOGUE: CatalogueShape = Object.fromEntries(
