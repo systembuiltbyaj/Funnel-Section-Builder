@@ -55,3 +55,16 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Login panel: each funnel section slots into place on load, so the stack
+   reads as a page being assembled rather than a static graphic. */
+@keyframes slot-in {
+  from {
+    opacity: 0;
+    transform: translateY(9px) scaleX(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

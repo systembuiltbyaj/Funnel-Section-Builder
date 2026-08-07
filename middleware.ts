@@ -57,5 +57,5 @@ export async function middleware(req: NextRequest) {
 // /build must be matched too, or the Supabase session never refreshes while a
 // user is editing and a long session expires mid-work with no visible cause.
 export const config = {
-  matcher: ["/", "/build", "/private/:path*"],
+  matcher: ["/", "/build", "/reset", "/private/:path*"],
 };
