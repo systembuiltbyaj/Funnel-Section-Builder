@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { isSupabaseConfigured, createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
@@ -13,7 +14,19 @@ const MAX_CATALOG = 14000;
 type CatalogVariation = { number: string; title: string; description: string; funnelTypes?: string[] };
 type CatalogGroup = { id: string; label: string; variations: CatalogVariation[] };
 
-function isAuthed(req: NextRequest): boolean {
+async function isAuthed(req: NextRequest): Promise<boolean> {
+  // Primary: a logged-in Supabase user.
+  if (isSupabaseConfigured()) {
+    const supabase = await createClient();
+    if (supabase) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) return true;
+    }
+  }
+
+  // Fallback: the passcode HMAC cookie (when Supabase is not configured).
   const secret = process.env.PRIVATE_TOOL_COOKIE_SECRET;
   const passcode = process.env.PRIVATE_TOOL_PASSCODE;
   if (!secret || !passcode) return false;
@@ -49,7 +62,7 @@ function extractJson(text: string): unknown {
 }
 
 export async function POST(req: NextRequest) {
-  if (!isAuthed(req)) {
+  if (!(await isAuthed(req))) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
