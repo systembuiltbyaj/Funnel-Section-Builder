@@ -1,12 +1,10 @@
 import { NextRequest } from "next/server";
-import { createHmac, timingSafeEqual } from "node:crypto";
-import { isSupabaseConfigured, createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 const MODEL = "llama-3.3-70b-versatile";
-const COOKIE_NAME = "private_tool_auth";
 
 const MAX_COPY = 9000;
 const MAX_CATALOG = 14000;
@@ -14,38 +12,13 @@ const MAX_CATALOG = 14000;
 type CatalogVariation = { number: string; title: string; description: string; funnelTypes?: string[] };
 type CatalogGroup = { id: string; label: string; variations: CatalogVariation[] };
 
-async function isAuthed(req: NextRequest): Promise<boolean> {
-  // Primary: a logged-in Supabase user.
-  if (isSupabaseConfigured()) {
-    const supabase = await createClient();
-    if (supabase) {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (user) return true;
-    }
-  }
-
-  // Fallback: the passcode HMAC cookie (when Supabase is not configured).
-  const secret = process.env.PRIVATE_TOOL_COOKIE_SECRET;
-  const passcode = process.env.PRIVATE_TOOL_PASSCODE;
-  if (!secret || !passcode) return false;
-  const got = req.cookies.get(COOKIE_NAME)?.value;
-  if (!got) return false;
-  const expected = createHmac("sha256", secret).update(passcode).digest("hex");
-  const a = Buffer.from(expected, "hex");
-  let b: Buffer;
-  try {
-    b = Buffer.from(got, "hex");
-  } catch {
-    return false;
-  }
-  if (a.length !== b.length) return false;
-  try {
-    return timingSafeEqual(a, b);
-  } catch {
-    return false;
-  }
+async function isAuthed(): Promise<boolean> {
+  const supabase = await createClient();
+  if (!supabase) return false;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return Boolean(user);
 }
 
 function extractJson(text: string): unknown {
@@ -62,7 +35,7 @@ function extractJson(text: string): unknown {
 }
 
 export async function POST(req: NextRequest) {
-  if (!(await isAuthed(req))) {
+  if (!(await isAuthed())) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 

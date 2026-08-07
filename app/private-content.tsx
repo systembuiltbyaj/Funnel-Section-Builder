@@ -12942,7 +12942,7 @@ export function PrivateContent() {
         {/* Header */}
         <section className="pt-16 pb-9 px-6 text-center">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(124,92,252,0.22)] bg-[rgba(124,92,252,0.1)] px-3.5 py-1.5 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[#9B82FF] mb-5">
-            🔒 PRIVATE · INTERNAL TOOL · AJ ONLY
+            ⚡ 10P FUNNEL FRAMEWORK · AI PROMPT BUILDER
           </span>
           <h1
             className="font-bold leading-[1.1] mb-3.5"
