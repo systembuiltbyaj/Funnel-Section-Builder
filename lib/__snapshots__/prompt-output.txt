@@ -1,0 +1,1037 @@
+### hero only, no kit, no ref
+--- blocks ---
+SECTION 01 · HERO — Variation 1
+============================================================
+SECTION 01 · HERO — Variation 1
+Tony Robbins-inspired full-width centered hero. BG image + headline + CTA + video block. Built as a GHL custom code block.
+============================================================
+
+You are an expert frontend developer and funnel designer.
+
+Build a reusable hero section component inspired by TonyRobbins.com for use inside GoHighLevel (GHL) as a custom code block.
+
+=== OUTPUT ===
+Single file: 02-hero.html
+All CSS in <style> tags
+All JS in <script> tags
+Google Fonts only — no other dependencies
+GHL-ready standalone custom code block
+
+=== LAYOUT ===
+Full-width centered layout (NOT split)
+
+=== NAVIGATION ===
+- Logo text left (or swap to img)
+- Nav links center: About | Mission | Events | Programs | Coaching | Shop | Blog
+- Search icon right
+- Sticky, transparent → dark blur on scroll
+- Height: var(--nav-height) (70px)
+- Mobile: hamburger menu
+
+=== HERO CONTENT (centered, above video) ===
+1. Headline
+   - Large bold centered
+   - 2 lines
+   - Pure white
+2. Subheadline
+   - Centered, muted color
+   - 1 line
+3. CTA Button
+   - Background: var(--accent) (teal/cyan)
+   - Dark bold uppercase text
+   - Hover: glow + scale up
+
+=== VIDEO BLOCK (below CTA) ===
+- Rounded rectangle container
+- Video thumbnail image as background
+- Centered play button (teal circle + white triangle)
+- On click: open VIDEO_URL in lightbox or new tab
+- Subtle border: 1px rgba(255,255,255,0.1)
+- Box shadow: soft glow
+
+=== BACKGROUND ===
+- Full-width BG_IMAGE behind everything
+- Dark overlay: rgba(0,0,0,0.6) on top of image
+- Subtle blue/teal gradient overlay for mood
+
+=== ANIMATIONS ===
+- Headline + sub: fade in + slide up on load
+- CTA button: fade in delayed
+- Video block: fade in + scale up delayed
+- Background: very subtle slow zoom (Ken Burns)
+- Play button: pulse animation
+
+=== MOBILE RESPONSIVE ===
+- Breakpoint: 768px
+- Nav collapses to hamburger
+- Text scales down
+- Video block full width on mobile
+- Padding adjusts for small screens
+
+=== OUTPUT RULES ===
+- All colors, fonts, copy, and asset paths driven by the CLIENT VARIABLES block at the top of the file
+- Comment block at top with numbered steps so client knows exactly what to edit
+- One file, no frameworks, no build step
+
+Build the complete file now.
+
+=== CLIENT VARIABLES — USE THESE (override any example values in the spec above) ===
+
+— BRAND COLORS —
+______
+
+— FONTS —
+______
+
+— IMAGES —
+Use placeholder images first, then swap for the real assets.
+(no image notes — keep the section's built-in placeholder images)
+
+— COPY —
+A
+--- full ---
+You are an expert frontend developer and funnel designer.
+
+Build ONE complete, production-ready, single-file HTML landing page — the FULL funnel — by stacking the 1 sections below IN THE GIVEN ORDER.
+
+=== GLOBAL OUTPUT RULES ===
+- Output ONE standalone HTML file. ALL CSS in a single <style>; ALL JS in a single <script>.
+- No frameworks. Load every Google Font used once via <link>.
+- ONE cohesive design system across every section: shared CSS variables (the brand kit), consistent buttons, spacing scale and section padding.
+- Each section is a full-width <section> stacked top → bottom in order; the page must read as one continuous funnel.
+- Fully responsive (breakpoint 768px), accessible, smooth-scrolling. Use IntersectionObserver for scroll animations.
+- The section specs below were each originally written as standalone blocks — IGNORE any "output one file", "standalone", "File: …" or "Build the complete file now" wording inside them. They are section requirements only.
+
+=== BRAND KIT — AUTHORITATIVE · applies to EVERY section ===
+Render the ENTIRE page in this kit. Treat any colors/fonts named inside the section specs as illustrative placeholders and replace them with this kit:
+
+— BRAND COLORS —
+(choose one clean, conversion-friendly palette and use it throughout)
+
+— FONTS —
+(choose 1–2 Google Fonts and use them throughout)
+
+=== SECTIONS (build in this exact order) ===
+
+----------------------------------------------------------
+SECTION 1 — HERO · Variation 1 (Tony Robbins-inspired full-width centered hero. BG image + headline + CTA + video block. Built as a GHL custom code block.)
+----------------------------------------------------------
+
+=== LAYOUT ===
+Full-width centered layout (NOT split)
+
+=== NAVIGATION ===
+- Logo text left (or swap to img)
+- Nav links center: About | Mission | Events | Programs | Coaching | Shop | Blog
+- Search icon right
+- Sticky, transparent → dark blur on scroll
+- Height: var(--nav-height) (70px)
+- Mobile: hamburger menu
+
+=== HERO CONTENT (centered, above video) ===
+1. Headline
+   - Large bold centered
+   - 2 lines
+   - Pure white
+2. Subheadline
+   - Centered, muted color
+   - 1 line
+3. CTA Button
+   - Background: var(--accent) (teal/cyan)
+   - Dark bold uppercase text
+   - Hover: glow + scale up
+
+=== VIDEO BLOCK (below CTA) ===
+- Rounded rectangle container
+- Video thumbnail image as background
+- Centered play button (teal circle + white triangle)
+- On click: open VIDEO_URL in lightbox or new tab
+- Subtle border: 1px rgba(255,255,255,0.1)
+- Box shadow: soft glow
+
+=== BACKGROUND ===
+- Full-width BG_IMAGE behind everything
+- Dark overlay: rgba(0,0,0,0.6) on top of image
+- Subtle blue/teal gradient overlay for mood
+
+=== ANIMATIONS ===
+- Headline + sub: fade in + slide up on load
+- CTA button: fade in delayed
+- Video block: fade in + scale up delayed
+- Background: very subtle slow zoom (Ken Burns)
+- Play button: pulse animation
+
+=== MOBILE RESPONSIVE ===
+- Breakpoint: 768px
+- Nav collapses to hamburger
+- Text scales down
+- Video block full width on mobile
+- Padding adjusts for small screens
+
+=== OUTPUT RULES ===
+- All colors, fonts, copy, and asset paths driven by the CLIENT VARIABLES block at the top of the file
+- Comment block at top with numbered steps so client knows exactly what to edit
+- One file, no frameworks, no build step
+
+— COPY FOR THIS SECTION (use verbatim) —
+A
+
+=== ASSEMBLY ===
+Output the complete single HTML file now: all 1 sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.
+
+========
+
+### hero only, kit, ref
+--- blocks ---
+SECTION 01 · HERO — Variation 1
+╔══ BRAND KIT — AUTHORITATIVE · OVERRIDES EVERY COLOR & FONT BELOW ══╗
+RULE: The spec below names specific colors and fonts (e.g. Inter, Playfair Display,
+Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — treat EVERY one of
+them as an illustrative placeholder ONLY. IGNORE those font names entirely and use the
+BRAND KIT fonts below for ALL text. Re-skin the ENTIRE section in this brand kit:
+backgrounds, text, accents, buttons, borders, gradients, hovers — every color and font.
+Keep the spec's LAYOUT, STRUCTURE and ANIMATIONS exactly; change only palette + typography to this:
+
+— BRAND COLORS (2-color kit — derive every supporting shade from these) —
+Primary / accent: #7C5CFC
+Background / base: #101020
+Derive on-brand from the two colors above: text, muted text, cards/surfaces, borders, hovers and gradients (use tints/shades of the brand colors + neutral white/black/grey). Use the primary for CTAs, links and highlights; the background as the page base. Do NOT introduce any unrelated hue.
+
+— FONTS · MANDATORY (load via a Google Fonts <link>; set as CSS variables and apply to EVERY text element) —
+Headline font: Syne  → ALL H1/H2 and section titles
+Subheadline font: Inter  → eyebrows, sub-headings, labels
+Body font: Inter  → paragraphs, lists, buttons, nav, all UI text
+Use ONLY these fonts. IGNORE every other font named anywhere in the spec (e.g. Inter, Playfair Display, Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — those are placeholders.
+
+— IMAGES / LOGO —
+Logo: /brand/logo.svg
+╚══════════════════════════════════════════════════════════════════╝
+
+============================================================
+SECTION 01 · HERO — Variation 1
+Tony Robbins-inspired full-width centered hero. BG image + headline + CTA + video block. Built as a GHL custom code block.
+============================================================
+
+You are an expert frontend developer and funnel designer.
+
+Build a reusable hero section component inspired by TonyRobbins.com for use inside GoHighLevel (GHL) as a custom code block.
+
+=== OUTPUT ===
+Single file: 02-hero.html
+All CSS in <style> tags
+All JS in <script> tags
+Google Fonts only — no other dependencies
+GHL-ready standalone custom code block
+
+=== LAYOUT ===
+Full-width centered layout (NOT split)
+
+=== NAVIGATION ===
+- Logo text left (or swap to img)
+- Nav links center: About | Mission | Events | Programs | Coaching | Shop | Blog
+- Search icon right
+- Sticky, transparent → dark blur on scroll
+- Height: var(--nav-height) (70px)
+- Mobile: hamburger menu
+
+=== HERO CONTENT (centered, above video) ===
+1. Headline
+   - Large bold centered
+   - 2 lines
+   - Pure white
+2. Subheadline
+   - Centered, muted color
+   - 1 line
+3. CTA Button
+   - Background: var(--accent) (teal/cyan)
+   - Dark bold uppercase text
+   - Hover: glow + scale up
+
+=== VIDEO BLOCK (below CTA) ===
+- Rounded rectangle container
+- Video thumbnail image as background
+- Centered play button (teal circle + white triangle)
+- On click: open VIDEO_URL in lightbox or new tab
+- Subtle border: 1px rgba(255,255,255,0.1)
+- Box shadow: soft glow
+
+=== BACKGROUND ===
+- Full-width BG_IMAGE behind everything
+- Dark overlay: rgba(0,0,0,0.6) on top of image
+- Subtle blue/teal gradient overlay for mood
+
+=== ANIMATIONS ===
+- Headline + sub: fade in + slide up on load
+- CTA button: fade in delayed
+- Video block: fade in + scale up delayed
+- Background: very subtle slow zoom (Ken Burns)
+- Play button: pulse animation
+
+=== MOBILE RESPONSIVE ===
+- Breakpoint: 768px
+- Nav collapses to hamburger
+- Text scales down
+- Video block full width on mobile
+- Padding adjusts for small screens
+
+=== OUTPUT RULES ===
+- All colors, fonts, copy, and asset paths driven by the CLIENT VARIABLES block at the top of the file
+- Comment block at top with numbered steps so client knows exactly what to edit
+- One file, no frameworks, no build step
+
+Build the complete file now.
+
+=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
+A
+
+──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
+Apply these client values to the Hero Variation 1 (Tony Robbins-style) base component.
+
+/* ============================================
+   CLIENT VARIABLES — EDIT BEFORE LAUNCH
+   ============================================
+   STEP 1: Replace background image URL
+   STEP 2: Replace video thumbnail URL
+   STEP 3: Set countdown date
+   STEP 4: Update all copy below
+   STEP 5: Replace logo text or image
+   ============================================ */
+
+— COLORS (CSS custom properties at top of <style>) —
+--bg:           #0A0A0F
+--accent:       #00E5CC
+--text:         #FFFFFF
+--muted:        #A0A0B0
+--nav-height:   70px
+
+— JS CONSTS (top of <script>) —
+const LOGO            = "TONY ROBBINS";
+const COUNTDOWN_DATE  = "2026-08-01T00:00:00";
+const BG_IMAGE        = "/private/hero-v1-bg.webp";          ← swap for client image
+const VIDEO_THUMB     = "/private/hero-v1-video-thumb.webp"; ← swap for client thumbnail
+const VIDEO_URL       = "______";                            ← YouTube / Vimeo / Wistia URL
+
+— COPY —
+Headline Line 1:     Unlock The Power Within
+Headline Line 2:     And Achieve Your Dreams
+Subheadline:         Proven Techniques For Personal And Professional Growth
+CTA Button Text:     GET STARTED
+CTA Button URL:      ______
+
+— NAVIGATION LINKS —
+About | Mission | Events | Programs | Coaching | Shop | Blog
+(Edit array at top of <script>)
+--- full ---
+You are an expert frontend developer and funnel designer.
+
+Build ONE complete, production-ready, single-file HTML landing page — the FULL funnel — by stacking the 1 sections below IN THE GIVEN ORDER.
+
+=== GLOBAL OUTPUT RULES ===
+- Output ONE standalone HTML file. ALL CSS in a single <style>; ALL JS in a single <script>.
+- No frameworks. Load every Google Font used once via <link>.
+- ONE cohesive design system across every section: shared CSS variables (the brand kit), consistent buttons, spacing scale and section padding.
+- Each section is a full-width <section> stacked top → bottom in order; the page must read as one continuous funnel.
+- Fully responsive (breakpoint 768px), accessible, smooth-scrolling. Use IntersectionObserver for scroll animations.
+- The section specs below were each originally written as standalone blocks — IGNORE any "output one file", "standalone", "File: …" or "Build the complete file now" wording inside them. They are section requirements only.
+
+=== BRAND KIT — AUTHORITATIVE · applies to EVERY section ===
+Render the ENTIRE page in this kit. Treat any colors/fonts named inside the section specs as illustrative placeholders and replace them with this kit:
+
+— BRAND COLORS (2-color kit — derive every supporting shade from these) —
+Primary / accent: #7C5CFC
+Background / base: #101020
+Derive on-brand from the two colors above: text, muted text, cards/surfaces, borders, hovers and gradients (use tints/shades of the brand colors + neutral white/black/grey). Use the primary for CTAs, links and highlights; the background as the page base. Do NOT introduce any unrelated hue.
+
+— FONTS · MANDATORY (load via a Google Fonts <link>; set as CSS variables and apply to EVERY text element) —
+Headline font: Syne  → ALL H1/H2 and section titles
+Subheadline font: Inter  → eyebrows, sub-headings, labels
+Body font: Inter  → paragraphs, lists, buttons, nav, all UI text
+Use ONLY these fonts. IGNORE every other font named anywhere in the spec (e.g. Inter, Playfair Display, Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — those are placeholders.
+
+— IMAGES / LOGO —
+Logo: /brand/logo.svg
+
+=== SECTIONS (build in this exact order) ===
+
+----------------------------------------------------------
+SECTION 1 — HERO · Variation 1 (Tony Robbins-inspired full-width centered hero. BG image + headline + CTA + video block. Built as a GHL custom code block.)
+----------------------------------------------------------
+
+=== LAYOUT ===
+Full-width centered layout (NOT split)
+
+=== NAVIGATION ===
+- Logo text left (or swap to img)
+- Nav links center: About | Mission | Events | Programs | Coaching | Shop | Blog
+- Search icon right
+- Sticky, transparent → dark blur on scroll
+- Height: var(--nav-height) (70px)
+- Mobile: hamburger menu
+
+=== HERO CONTENT (centered, above video) ===
+1. Headline
+   - Large bold centered
+   - 2 lines
+   - Pure white
+2. Subheadline
+   - Centered, muted color
+   - 1 line
+3. CTA Button
+   - Background: var(--accent) (teal/cyan)
+   - Dark bold uppercase text
+   - Hover: glow + scale up
+
+=== VIDEO BLOCK (below CTA) ===
+- Rounded rectangle container
+- Video thumbnail image as background
+- Centered play button (teal circle + white triangle)
+- On click: open VIDEO_URL in lightbox or new tab
+- Subtle border: 1px rgba(255,255,255,0.1)
+- Box shadow: soft glow
+
+=== BACKGROUND ===
+- Full-width BG_IMAGE behind everything
+- Dark overlay: rgba(0,0,0,0.6) on top of image
+- Subtle blue/teal gradient overlay for mood
+
+=== ANIMATIONS ===
+- Headline + sub: fade in + slide up on load
+- CTA button: fade in delayed
+- Video block: fade in + scale up delayed
+- Background: very subtle slow zoom (Ken Burns)
+- Play button: pulse animation
+
+=== MOBILE RESPONSIVE ===
+- Breakpoint: 768px
+- Nav collapses to hamburger
+- Text scales down
+- Video block full width on mobile
+- Padding adjusts for small screens
+
+=== OUTPUT RULES ===
+- All colors, fonts, copy, and asset paths driven by the CLIENT VARIABLES block at the top of the file
+- Comment block at top with numbered steps so client knows exactly what to edit
+- One file, no frameworks, no build step
+
+— COPY FOR THIS SECTION (use verbatim) —
+A
+
+=== ASSEMBLY ===
+Output the complete single HTML file now: all 1 sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.
+
+========
+
+### four sections, kit, ref
+--- blocks ---
+SECTION 01 · HERO — Variation 1
+╔══ BRAND KIT — AUTHORITATIVE · OVERRIDES EVERY COLOR & FONT BELOW ══╗
+RULE: The spec below names specific colors and fonts (e.g. Inter, Playfair Display,
+Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — treat EVERY one of
+them as an illustrative placeholder ONLY. IGNORE those font names entirely and use the
+BRAND KIT fonts below for ALL text. Re-skin the ENTIRE section in this brand kit:
+backgrounds, text, accents, buttons, borders, gradients, hovers — every color and font.
+Keep the spec's LAYOUT, STRUCTURE and ANIMATIONS exactly; change only palette + typography to this:
+
+— BRAND COLORS (2-color kit — derive every supporting shade from these) —
+Primary / accent: #7C5CFC
+Background / base: #101020
+Derive on-brand from the two colors above: text, muted text, cards/surfaces, borders, hovers and gradients (use tints/shades of the brand colors + neutral white/black/grey). Use the primary for CTAs, links and highlights; the background as the page base. Do NOT introduce any unrelated hue.
+
+— FONTS · MANDATORY (load via a Google Fonts <link>; set as CSS variables and apply to EVERY text element) —
+Headline font: Syne  → ALL H1/H2 and section titles
+Subheadline font: Inter  → eyebrows, sub-headings, labels
+Body font: Inter  → paragraphs, lists, buttons, nav, all UI text
+Use ONLY these fonts. IGNORE every other font named anywhere in the spec (e.g. Inter, Playfair Display, Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — those are placeholders.
+
+— IMAGES / LOGO —
+Logo: /brand/logo.svg
+╚══════════════════════════════════════════════════════════════════╝
+
+============================================================
+SECTION 01 · HERO — Variation 1
+Tony Robbins-inspired full-width centered hero. BG image + headline + CTA + video block. Built as a GHL custom code block.
+============================================================
+
+You are an expert frontend developer and funnel designer.
+
+Build a reusable hero section component inspired by TonyRobbins.com for use inside GoHighLevel (GHL) as a custom code block.
+
+=== OUTPUT ===
+Single file: 02-hero.html
+All CSS in <style> tags
+All JS in <script> tags
+Google Fonts only — no other dependencies
+GHL-ready standalone custom code block
+
+=== LAYOUT ===
+Full-width centered layout (NOT split)
+
+=== NAVIGATION ===
+- Logo text left (or swap to img)
+- Nav links center: About | Mission | Events | Programs | Coaching | Shop | Blog
+- Search icon right
+- Sticky, transparent → dark blur on scroll
+- Height: var(--nav-height) (70px)
+- Mobile: hamburger menu
+
+=== HERO CONTENT (centered, above video) ===
+1. Headline
+   - Large bold centered
+   - 2 lines
+   - Pure white
+2. Subheadline
+   - Centered, muted color
+   - 1 line
+3. CTA Button
+   - Background: var(--accent) (teal/cyan)
+   - Dark bold uppercase text
+   - Hover: glow + scale up
+
+=== VIDEO BLOCK (below CTA) ===
+- Rounded rectangle container
+- Video thumbnail image as background
+- Centered play button (teal circle + white triangle)
+- On click: open VIDEO_URL in lightbox or new tab
+- Subtle border: 1px rgba(255,255,255,0.1)
+- Box shadow: soft glow
+
+=== BACKGROUND ===
+- Full-width BG_IMAGE behind everything
+- Dark overlay: rgba(0,0,0,0.6) on top of image
+- Subtle blue/teal gradient overlay for mood
+
+=== ANIMATIONS ===
+- Headline + sub: fade in + slide up on load
+- CTA button: fade in delayed
+- Video block: fade in + scale up delayed
+- Background: very subtle slow zoom (Ken Burns)
+- Play button: pulse animation
+
+=== MOBILE RESPONSIVE ===
+- Breakpoint: 768px
+- Nav collapses to hamburger
+- Text scales down
+- Video block full width on mobile
+- Padding adjusts for small screens
+
+=== OUTPUT RULES ===
+- All colors, fonts, copy, and asset paths driven by the CLIENT VARIABLES block at the top of the file
+- Comment block at top with numbered steps so client knows exactly what to edit
+- One file, no frameworks, no build step
+
+Build the complete file now.
+
+=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
+A
+
+──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
+Apply these client values to the Hero Variation 1 (Tony Robbins-style) base component.
+
+/* ============================================
+   CLIENT VARIABLES — EDIT BEFORE LAUNCH
+   ============================================
+   STEP 1: Replace background image URL
+   STEP 2: Replace video thumbnail URL
+   STEP 3: Set countdown date
+   STEP 4: Update all copy below
+   STEP 5: Replace logo text or image
+   ============================================ */
+
+— COLORS (CSS custom properties at top of <style>) —
+--bg:           #0A0A0F
+--accent:       #00E5CC
+--text:         #FFFFFF
+--muted:        #A0A0B0
+--nav-height:   70px
+
+— JS CONSTS (top of <script>) —
+const LOGO            = "TONY ROBBINS";
+const COUNTDOWN_DATE  = "2026-08-01T00:00:00";
+const BG_IMAGE        = "/private/hero-v1-bg.webp";          ← swap for client image
+const VIDEO_THUMB     = "/private/hero-v1-video-thumb.webp"; ← swap for client thumbnail
+const VIDEO_URL       = "______";                            ← YouTube / Vimeo / Wistia URL
+
+— COPY —
+Headline Line 1:     Unlock The Power Within
+Headline Line 2:     And Achieve Your Dreams
+Subheadline:         Proven Techniques For Personal And Professional Growth
+CTA Button Text:     GET STARTED
+CTA Button URL:      ______
+
+— NAVIGATION LINKS —
+About | Mission | Events | Programs | Coaching | Shop | Blog
+(Edit array at top of <script>)
+
+SECTION 02 · EMPATHY — Variation 1
+╔══ BRAND KIT — AUTHORITATIVE · OVERRIDES EVERY COLOR & FONT BELOW ══╗
+RULE: The spec below names specific colors and fonts (e.g. Inter, Playfair Display,
+Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — treat EVERY one of
+them as an illustrative placeholder ONLY. IGNORE those font names entirely and use the
+BRAND KIT fonts below for ALL text. Re-skin the ENTIRE section in this brand kit:
+backgrounds, text, accents, buttons, borders, gradients, hovers — every color and font.
+Keep the spec's LAYOUT, STRUCTURE and ANIMATIONS exactly; change only palette + typography to this:
+
+— BRAND COLORS (2-color kit — derive every supporting shade from these) —
+Primary / accent: #7C5CFC
+Background / base: #101020
+Derive on-brand from the two colors above: text, muted text, cards/surfaces, borders, hovers and gradients (use tints/shades of the brand colors + neutral white/black/grey). Use the primary for CTAs, links and highlights; the background as the page base. Do NOT introduce any unrelated hue.
+
+— FONTS · MANDATORY (load via a Google Fonts <link>; set as CSS variables and apply to EVERY text element) —
+Headline font: Syne  → ALL H1/H2 and section titles
+Subheadline font: Inter  → eyebrows, sub-headings, labels
+Body font: Inter  → paragraphs, lists, buttons, nav, all UI text
+Use ONLY these fonts. IGNORE every other font named anywhere in the spec (e.g. Inter, Playfair Display, Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — those are placeholders.
+
+— IMAGES / LOGO —
+Logo: /brand/logo.svg
+╚══════════════════════════════════════════════════════════════════╝
+
+============================================================
+SECTION 02 · EMPATHY — Variation 1
+3-column horizontal cards (clean corporate). Stakes · Connection · Way Out. Light bg, Inter, scroll-triggered staggered fade-up.
+============================================================
+
+You are an expert frontend developer and funnel designer.
+
+Build a premium Empathy section variation (Section 02 of the 10P Sales Page Framework). Production-ready, GHL-ready custom code block.
+
+ANSWERS: "Do you actually understand me?" via three structured cards:
+  - Stakes: what happens if nothing changes
+  - Connection: "I've been there" moment
+  - Way Out: relief and solution teaser
+
+=== OUTPUT ===
+File: 03-empathy-01.html
+All CSS in <style> | All JS in <script>
+Google Fonts only | GHL standalone custom code block
+
+=== LAYOUT ===
+- Light section bg (white) with subtle gray pattern
+- Container: max-width 1140px centered, padding 96px 24px
+- Header (centered): small uppercase label · H2 · sub
+- 3 equal cards in a row (grid-template-columns: repeat(3, 1fr), gap 24px)
+- Each card: padding 32px, border 1px var(--border), border-radius 16px, bg white
+- Card content: 44px rounded icon block (12px radius) at top + title + body paragraph
+- Card 1 — Stakes: red accent icon block
+- Card 2 — Connection: blue accent icon block
+- Card 3 — Way Out: green accent icon block
+
+=== ANIMATIONS (IntersectionObserver) ===
+- Cards fade up + translate-y 16px → 0
+- Staggered 0.15s per card
+- Triggers when section enters viewport
+- prefers-reduced-motion: animations skipped, content visible
+
+=== MOBILE (≤768px) ===
+- Cards stack to single column
+- Padding reduces to 48px 18px
+- Font sizes scale down gracefully
+
+Build the complete file now.
+
+=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
+B
+
+──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
+Apply these client values to the Empathy V1 (3-Column Clean Corporate) base component.
+
+— COPY —
+Label:    DOES THIS SOUND FAMILIAR?
+H2:       You're Working Hard. But Something Still Feels Off.
+Sub:      If any of these hit close to home, you're exactly who we built this for.
+
+— CARD 1 (Stakes — red accent) —
+Icon:  flame
+Title: The Clock Is Running Out
+Body:  Every month you wait is another month of missed revenue, missed opportunities, and watching competitors pull ahead. The cost of staying stuck is higher than you think.
+
+— CARD 2 (Connection — blue accent) —
+Icon:  heart
+Title: I Know This Feeling Personally
+Body:  I spent 3 years doing everything "right" and still hitting the same ceiling. Not because I lacked effort — but because I was missing one critical piece of the puzzle.
+
+— CARD 3 (Way Out — green accent) —
+Icon:  arrow-up-right
+Title: There's a Smarter Path Forward
+Body:  Once I found the right system, everything changed in 90 days. Not overnight — but faster than I ever thought possible. That's exactly what you'll build here.
+
+SECTION 06 · OFFER POSITIONING — Variation 1
+╔══ BRAND KIT — AUTHORITATIVE · OVERRIDES EVERY COLOR & FONT BELOW ══╗
+RULE: The spec below names specific colors and fonts (e.g. Inter, Playfair Display,
+Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — treat EVERY one of
+them as an illustrative placeholder ONLY. IGNORE those font names entirely and use the
+BRAND KIT fonts below for ALL text. Re-skin the ENTIRE section in this brand kit:
+backgrounds, text, accents, buttons, borders, gradients, hovers — every color and font.
+Keep the spec's LAYOUT, STRUCTURE and ANIMATIONS exactly; change only palette + typography to this:
+
+— BRAND COLORS (2-color kit — derive every supporting shade from these) —
+Primary / accent: #7C5CFC
+Background / base: #101020
+Derive on-brand from the two colors above: text, muted text, cards/surfaces, borders, hovers and gradients (use tints/shades of the brand colors + neutral white/black/grey). Use the primary for CTAs, links and highlights; the background as the page base. Do NOT introduce any unrelated hue.
+
+— FONTS · MANDATORY (load via a Google Fonts <link>; set as CSS variables and apply to EVERY text element) —
+Headline font: Syne  → ALL H1/H2 and section titles
+Subheadline font: Inter  → eyebrows, sub-headings, labels
+Body font: Inter  → paragraphs, lists, buttons, nav, all UI text
+Use ONLY these fonts. IGNORE every other font named anywhere in the spec (e.g. Inter, Playfair Display, Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — those are placeholders.
+
+— IMAGES / LOGO —
+Logo: /brand/logo.svg
+╚══════════════════════════════════════════════════════════════════╝
+
+============================================================
+SECTION 06 · OFFER POSITIONING — Variation 1
+Classic centered offer box (clean corporate). 6 ✓ items + 2 ★ bonuses + total value + strikethrough + price + CTA. Inter, light bg.
+============================================================
+
+You are an expert frontend developer and funnel designer.
+
+Build a premium Offer Positioning section (Section 06 of the 10P Framework). Production-ready, GHL-ready custom code block.
+
+ANSWERS: "What exactly do I get and is it worth it?"
+
+=== OUTPUT ===
+File: 07-offer-01.html
+All CSS in <style> | All JS in <script>
+Google Fonts only | GHL standalone custom code block
+
+=== FIXED LAYOUT STRUCTURE ===
+- Light gray section bg
+- Container: max-width 760px centered, padding 96px 24px
+- Header (centered): uppercase accent label · H2 · sub
+- Offer box: white bg, 2px solid accent border, rounded 16px, padding 40px 36px, large drop shadow
+- Box title (top of box, centered, bold)
+- Offer stack items (6, with ✓):
+  - Each row: ✓ icon left + name middle + value right (right-aligned)
+  - Dashed border-bottom between items, padding 12px 0
+- Bonus items (2, with ★):
+  - Same row layout, bonus accent color
+- Total value row: solid top border, bold, accent color value
+- Price block (centered):
+  - Strikethrough regular price (muted, line-through)
+  - Today's price: massive number (clamp 48-72px bold, accent)
+  - Payment plan text below
+- CTA button: full width, accent pill, white bold uppercase
+- Trust line: small muted center below CTA
+
+=== ANIMATIONS ===
+- Box: fade + scale 0.97 → 1 on entry
+- Price count-up on scroll
+- prefers-reduced-motion: skip
+
+=== MOBILE (≤768px) ===
+- Box padding reduces
+- Item rows wrap (name top, value below right-aligned)
+
+Total value must be 3–5x the price. Build the complete file now.
+
+=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
+C
+
+──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
+Apply these client values to the Offer V1 (Classic Centered Box · Clean Corporate) base component.
+
+— COPY —
+Label: YOUR COMPLETE INVESTMENT
+H2:    Everything You Need to Hit $50K/mo — In One Place.
+Sub:   No upsells. No hidden fees. Everything listed below is included the moment you enroll.
+
+— BOX TITLE —
+Here's everything you get when you enroll today:
+
+— OFFER STACK (✓) —
+✓ 12-Week Live Coaching Program — $4,997
+✓ The Revenue Engine Playbook™ (PDF) — $997
+✓ 6-Step Sales Framework (Video Series) — $797
+✓ Weekly Group Accountability Calls — $1,997
+✓ Private Slack Community Access — $497
+✓ 90-Day Action Plan Template — $297
+
+— BONUSES (★) —
+★ Fast-Action Bonus: DFY Email Scripts — $297
+★ Fast-Action Bonus: Client Avatar Workbook — $197
+
+— PRICING —
+Total Value:    $10,076
+Strikethrough:  $9,997
+Today's Price:  $4,997
+Plan:           or 3 payments of $1,997
+
+— CTA & TRUST —
+CTA:   YES — Enroll Me Now →
+Trust: Join 500+ clients already inside the program
+
+SECTION 11 · FAQ — Variation 1
+╔══ BRAND KIT — AUTHORITATIVE · OVERRIDES EVERY COLOR & FONT BELOW ══╗
+RULE: The spec below names specific colors and fonts (e.g. Inter, Playfair Display,
+Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — treat EVERY one of
+them as an illustrative placeholder ONLY. IGNORE those font names entirely and use the
+BRAND KIT fonts below for ALL text. Re-skin the ENTIRE section in this brand kit:
+backgrounds, text, accents, buttons, borders, gradients, hovers — every color and font.
+Keep the spec's LAYOUT, STRUCTURE and ANIMATIONS exactly; change only palette + typography to this:
+
+— BRAND COLORS (2-color kit — derive every supporting shade from these) —
+Primary / accent: #7C5CFC
+Background / base: #101020
+Derive on-brand from the two colors above: text, muted text, cards/surfaces, borders, hovers and gradients (use tints/shades of the brand colors + neutral white/black/grey). Use the primary for CTAs, links and highlights; the background as the page base. Do NOT introduce any unrelated hue.
+
+— FONTS · MANDATORY (load via a Google Fonts <link>; set as CSS variables and apply to EVERY text element) —
+Headline font: Syne  → ALL H1/H2 and section titles
+Subheadline font: Inter  → eyebrows, sub-headings, labels
+Body font: Inter  → paragraphs, lists, buttons, nav, all UI text
+Use ONLY these fonts. IGNORE every other font named anywhere in the spec (e.g. Inter, Playfair Display, Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — those are placeholders.
+
+— IMAGES / LOGO —
+Logo: /brand/logo.svg
+╚══════════════════════════════════════════════════════════════════╝
+
+============================================================
+SECTION 11 · FAQ — Variation 1
+Classic single-column accordion (8 items, first open). Inter, clean corporate · blue open-state + circle toggles.
+============================================================
+
+You are an expert frontend developer and funnel designer.
+
+Build a premium FAQ section (Section 11 of the 10P Framework). Production-ready, GHL-ready custom code block.
+
+ANSWERS: pre-empts the final objections before enrollment.
+
+=== OUTPUT ===
+File: 12-faq-01.html
+All CSS in <style> | All JS in <script>
+Google Fonts only | GHL standalone custom code block
+
+=== 10P REQUIREMENTS ===
+- Section head: label + H2 ("Questions Before You Enroll")
+- 6–8 FAQ items (first item OPEN by default)
+- Each item: bold question (17px) + 28px circle toggle + muted answer (15px); border-bottom between items
+- 6 MANDATORY topics present: who it's for · #1 audience objection · what's different · time/week · guarantee (restated) · start date
+- Only ONE item open at a time; smooth max-height transition (not display)
+- Works without JS: all answers show expanded · min section height 400px
+
+=== LAYOUT ===
+- White bg, centered column (max-width 760px), header (label + H2 + sub)
+- Bordered accordion container; open item = light-blue tint bg + blue left border; toggle = blue circle (+ → −)
+
+=== ANIMATIONS (IntersectionObserver) ===
+- Items fade up staggered on entry · prefers-reduced-motion: skip
+
+=== MOBILE (≤768px) ===
+- Full width
+
+Build the complete file now.
+
+=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
+D
+
+──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
+Apply these client values to FAQ V1 (Classic Single-Column · Clean Corporate).
+
+— HEADER —
+Label: BEFORE YOU ENROLL · H2: Questions Before You Enroll · Sub: Everything you need to know before joining — answered straight.
+
+— FAQ COPY BANK (order Q1→Q8, Q1 open) —
+Q1 — Who is this perfect for? — "This is for coaches, consultants, and service providers doing $0–$15K/mo who are ready to build a predictable system to $30K–$50K/mo. If you're already above $50K/mo, this likely isn't the right fit — our advanced program would serve you better."
+Q2 — What if I don't have a big audience or following? — "You don't need one. Our entire system is built around direct outreach and referral-based lead generation — not content creation or social media. Our highest-earning clients have under 500 followers on any platform."
+Q3 — I've invested in programs before and got nothing. Why is this different? — "Most programs sell information. We sell implementation. Every week you have a live call where we work through YOUR specific situation — not a recording, not a template answer. Plus our $20K Revenue Guarantee means we keep working with you until results happen. No other program in this space offers that."
+Q4 — How much time does this require per week? — "Plan for 4–6 hours per week. This includes two hours for the core curriculum, one weekly group call, and implementation time. We've designed the program around people who already have a full schedule — because the system works within your current hours, not on top of them."
+Q5 — Is there a money-back guarantee? — "Yes — two layers. First, a full 14-day no-questions-asked refund. If within 14 days you decide it's not right for you, email us and receive a complete refund. Second, our $20K Revenue Guarantee: complete the program, implement the system, and if you don't hit $20K/mo within 90 days of finishing — we coach you for free until you do."
+Q6 — When does it start and how does access work? — "You get immediate access to the full portal upon enrollment. The next live cohort begins the first Monday of next month. You'll receive a welcome email with your login, onboarding call schedule, and community access within 15 minutes of enrolling."
+Q7 — Are there payment plan options? — "Yes. You can pay in full at $4,997 or choose our 3-payment plan at $1,997/month. Both options include identical access to everything in the program."
+Q8 — Do I need any specific tools or software? — "No specialized tools required. We use a simple tech stack that you likely already have: email, a calendar, and a basic CRM (we recommend free options). We walk you through setup on the onboarding call."
+--- full ---
+You are an expert frontend developer and funnel designer.
+
+Build ONE complete, production-ready, single-file HTML landing page — the FULL funnel — by stacking the 4 sections below IN THE GIVEN ORDER.
+
+=== GLOBAL OUTPUT RULES ===
+- Output ONE standalone HTML file. ALL CSS in a single <style>; ALL JS in a single <script>.
+- No frameworks. Load every Google Font used once via <link>.
+- ONE cohesive design system across every section: shared CSS variables (the brand kit), consistent buttons, spacing scale and section padding.
+- Each section is a full-width <section> stacked top → bottom in order; the page must read as one continuous funnel.
+- Fully responsive (breakpoint 768px), accessible, smooth-scrolling. Use IntersectionObserver for scroll animations.
+- The section specs below were each originally written as standalone blocks — IGNORE any "output one file", "standalone", "File: …" or "Build the complete file now" wording inside them. They are section requirements only.
+
+=== BRAND KIT — AUTHORITATIVE · applies to EVERY section ===
+Render the ENTIRE page in this kit. Treat any colors/fonts named inside the section specs as illustrative placeholders and replace them with this kit:
+
+— BRAND COLORS (2-color kit — derive every supporting shade from these) —
+Primary / accent: #7C5CFC
+Background / base: #101020
+Derive on-brand from the two colors above: text, muted text, cards/surfaces, borders, hovers and gradients (use tints/shades of the brand colors + neutral white/black/grey). Use the primary for CTAs, links and highlights; the background as the page base. Do NOT introduce any unrelated hue.
+
+— FONTS · MANDATORY (load via a Google Fonts <link>; set as CSS variables and apply to EVERY text element) —
+Headline font: Syne  → ALL H1/H2 and section titles
+Subheadline font: Inter  → eyebrows, sub-headings, labels
+Body font: Inter  → paragraphs, lists, buttons, nav, all UI text
+Use ONLY these fonts. IGNORE every other font named anywhere in the spec (e.g. Inter, Playfair Display, Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — those are placeholders.
+
+— IMAGES / LOGO —
+Logo: /brand/logo.svg
+
+=== SECTIONS (build in this exact order) ===
+
+----------------------------------------------------------
+SECTION 1 — HERO · Variation 1 (Tony Robbins-inspired full-width centered hero. BG image + headline + CTA + video block. Built as a GHL custom code block.)
+----------------------------------------------------------
+
+=== LAYOUT ===
+Full-width centered layout (NOT split)
+
+=== NAVIGATION ===
+- Logo text left (or swap to img)
+- Nav links center: About | Mission | Events | Programs | Coaching | Shop | Blog
+- Search icon right
+- Sticky, transparent → dark blur on scroll
+- Height: var(--nav-height) (70px)
+- Mobile: hamburger menu
+
+=== HERO CONTENT (centered, above video) ===
+1. Headline
+   - Large bold centered
+   - 2 lines
+   - Pure white
+2. Subheadline
+   - Centered, muted color
+   - 1 line
+3. CTA Button
+   - Background: var(--accent) (teal/cyan)
+   - Dark bold uppercase text
+   - Hover: glow + scale up
+
+=== VIDEO BLOCK (below CTA) ===
+- Rounded rectangle container
+- Video thumbnail image as background
+- Centered play button (teal circle + white triangle)
+- On click: open VIDEO_URL in lightbox or new tab
+- Subtle border: 1px rgba(255,255,255,0.1)
+- Box shadow: soft glow
+
+=== BACKGROUND ===
+- Full-width BG_IMAGE behind everything
+- Dark overlay: rgba(0,0,0,0.6) on top of image
+- Subtle blue/teal gradient overlay for mood
+
+=== ANIMATIONS ===
+- Headline + sub: fade in + slide up on load
+- CTA button: fade in delayed
+- Video block: fade in + scale up delayed
+- Background: very subtle slow zoom (Ken Burns)
+- Play button: pulse animation
+
+=== MOBILE RESPONSIVE ===
+- Breakpoint: 768px
+- Nav collapses to hamburger
+- Text scales down
+- Video block full width on mobile
+- Padding adjusts for small screens
+
+=== OUTPUT RULES ===
+- All colors, fonts, copy, and asset paths driven by the CLIENT VARIABLES block at the top of the file
+- Comment block at top with numbered steps so client knows exactly what to edit
+- One file, no frameworks, no build step
+
+— COPY FOR THIS SECTION (use verbatim) —
+A
+
+----------------------------------------------------------
+SECTION 2 — EMPATHY · Variation 1 (3-column horizontal cards (clean corporate). Stakes · Connection · Way Out. Light bg, Inter, scroll-triggered staggered fade-up.)
+----------------------------------------------------------
+
+=== LAYOUT ===
+- Light section bg (white) with subtle gray pattern
+- Container: max-width 1140px centered, padding 96px 24px
+- Header (centered): small uppercase label · H2 · sub
+- 3 equal cards in a row (grid-template-columns: repeat(3, 1fr), gap 24px)
+- Each card: padding 32px, border 1px var(--border), border-radius 16px, bg white
+- Card content: 44px rounded icon block (12px radius) at top + title + body paragraph
+- Card 1 — Stakes: red accent icon block
+- Card 2 — Connection: blue accent icon block
+- Card 3 — Way Out: green accent icon block
+
+=== ANIMATIONS (IntersectionObserver) ===
+- Cards fade up + translate-y 16px → 0
+- Staggered 0.15s per card
+- Triggers when section enters viewport
+- prefers-reduced-motion: animations skipped, content visible
+
+=== MOBILE (≤768px) ===
+- Cards stack to single column
+- Padding reduces to 48px 18px
+- Font sizes scale down gracefully
+
+— COPY FOR THIS SECTION (use verbatim) —
+B
+
+----------------------------------------------------------
+SECTION 3 — OFFER POSITIONING · Variation 1 (Classic centered offer box (clean corporate). 6 ✓ items + 2 ★ bonuses + total value + strikethrough + price + CTA. Inter, light bg.)
+----------------------------------------------------------
+
+=== FIXED LAYOUT STRUCTURE ===
+- Light gray section bg
+- Container: max-width 760px centered, padding 96px 24px
+- Header (centered): uppercase accent label · H2 · sub
+- Offer box: white bg, 2px solid accent border, rounded 16px, padding 40px 36px, large drop shadow
+- Box title (top of box, centered, bold)
+- Offer stack items (6, with ✓):
+  - Each row: ✓ icon left + name middle + value right (right-aligned)
+  - Dashed border-bottom between items, padding 12px 0
+- Bonus items (2, with ★):
+  - Same row layout, bonus accent color
+- Total value row: solid top border, bold, accent color value
+- Price block (centered):
+  - Strikethrough regular price (muted, line-through)
+  - Today's price: massive number (clamp 48-72px bold, accent)
+  - Payment plan text below
+- CTA button: full width, accent pill, white bold uppercase
+- Trust line: small muted center below CTA
+
+=== ANIMATIONS ===
+- Box: fade + scale 0.97 → 1 on entry
+- Price count-up on scroll
+- prefers-reduced-motion: skip
+
+=== MOBILE (≤768px) ===
+- Box padding reduces
+- Item rows wrap (name top, value below right-aligned)
+
+Total value must be 3–5x the price.
+
+— COPY FOR THIS SECTION (use verbatim) —
+C
+
+----------------------------------------------------------
+SECTION 4 — FAQ · Variation 1 (Classic single-column accordion (8 items, first open). Inter, clean corporate · blue open-state + circle toggles.)
+----------------------------------------------------------
+
+=== 10P REQUIREMENTS ===
+- Section head: label + H2 ("Questions Before You Enroll")
+- 6–8 FAQ items (first item OPEN by default)
+- Each item: bold question (17px) + 28px circle toggle + muted answer (15px); border-bottom between items
+- 6 MANDATORY topics present: who it's for · #1 audience objection · what's different · time/week · guarantee (restated) · start date
+- Only ONE item open at a time; smooth max-height transition (not display)
+- Works without JS: all answers show expanded · min section height 400px
+
+=== LAYOUT ===
+- White bg, centered column (max-width 760px), header (label + H2 + sub)
+- Bordered accordion container; open item = light-blue tint bg + blue left border; toggle = blue circle (+ → −)
+
+=== ANIMATIONS (IntersectionObserver) ===
+- Items fade up staggered on entry · prefers-reduced-motion: skip
+
+=== MOBILE (≤768px) ===
+- Full width
+
+— COPY FOR THIS SECTION (use verbatim) —
+D
+
+=== ASSEMBLY ===
+Output the complete single HTML file now: all 4 sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.
+
+========
+
+### nothing enabled
+--- blocks ---
+
+--- full ---
+(null)
