@@ -47,3 +47,15 @@ test("variation numbers are unique within a group", () => {
     seen.add(key);
   }
 });
+
+test("the compare group keeps its 04g hole", () => {
+  const numbers = sections.filter((s) => s.id === "compare").map((s) => s.number);
+  assert.deepEqual(
+    numbers,
+    ["04a", "04b", "04c", "04d", "04e", "04f", "04h"],
+    "compare skips 04g on purpose (before-after-v7 was never authored). Do NOT " +
+      "renumber 04h to close the gap: variation numbers are persisted inside saved " +
+      "funnels, and validatePersisted silently repairs an unrecognised number to the " +
+      "group's first — so renumbering resets every saved funnel using 04h back to 04a."
+  );
+});

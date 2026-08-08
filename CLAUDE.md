@@ -84,14 +84,23 @@ thumbnail. That is by design — don't "fix" them by inventing sample HTML:
 - `layout-3-kampo`, `layout-muni-1-san-antonio`, `layout-muni-2-san-antonio`
   (layout screenshots; `layout-1-lunara` and `layout-2-isla-serena` do have samples)
 
-### Known catalogue gaps — unresolved
+### Two catalogue holes that are deliberately left alone
 
-These are real gaps, not conventions. Fill them or delete the entries; don't
-leave them ambiguous a third time:
+Both were audited and closed as "leave it" — closing either one destroys
+something. Do not "tidy" these:
 
-- `empathy-v9` and `empathy-v10` have thumbnails and catalogue entries but no
-  `-sample.html`, so their preview silently degrades with nothing explaining why.
-- `before-after-v7` is absent entirely (v1–v6 and v8 exist).
+- **`empathy-v9` (`02i`) and `empathy-v10` (`02j`) have no `-sample.html`.** They
+  are otherwise complete: thumbnail, prompt, the lot. The prompt is the product
+  and it works; only the live preview degrades to the thumbnail. Deleting the
+  entries to close the gap would throw away two working variations. Add the
+  sample HTML if you ever want the preview — don't remove the variations.
+- **`before-after` skips `v7`/`04g`** (it runs `04a`–`04f`, then `04h`). Slug and
+  number skip together, so nothing is broken — the sequence just has a hole.
+  **Do not renumber `04h` to `04g` to close it.** Variation numbers are persisted
+  inside saved funnels, and `validatePersisted` silently repairs an unrecognised
+  number to the group's first (`lib/funnel-selection.ts`). Renumbering would
+  reset every saved funnel using `04h` back to `04a`, with no error. A test in
+  `lib/section-catalogue.test.ts` locks this.
 
 ## Conventions
 
