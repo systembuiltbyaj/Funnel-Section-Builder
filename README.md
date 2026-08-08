@@ -11,35 +11,48 @@ prompts for building GoHighLevel custom-code funnel sections. Three modes:
 - **Brand Check** — client-side linter that parses hex colors / `font-family` out
   of pasted HTML and flags/fixes off-brand values against your brand kit.
 
+Every variation ships a rendered HTML sample, so any section — or the whole
+selected funnel — can be previewed live and re-skinned in the client's brand kit
+before a prompt is generated (`app/live-preview.tsx`, `lib/samples.ts`).
+
 Extracted from the System Built by AJ portfolio into its own app.
 
 ## Stack
-Next.js 16 (App Router) · React 19 · Tailwind v4 · Groq (LLM) · Supabase (Phase 2:
-Postgres + Auth + RLS for user accounts and saved projects).
+Next.js 16 (App Router) · React 19 · Tailwind v4 · Groq (LLM) · Supabase
+(Postgres + Auth + RLS for user accounts and saved projects).
 
 ## Run locally
 ```bash
 npm install
 # copy .env.example -> .env.local and fill values
-npm run dev            # http://localhost:3100 (or 3000)
+npm run dev            # http://localhost:3100
+npm run typecheck      # tsc --noEmit
+npm run lint
+npm test               # node --test, no extra dependencies
 ```
 
 ## Environment
+`.env.example` is the source of truth for what the app reads — this table only
+describes it. Never commit `.env.local`.
+
 | Var | Purpose |
 |-----|---------|
-| `PRIVATE_TOOL_PASSCODE` | passcode for the gate |
-| `PRIVATE_TOOL_COOKIE_SECRET` | HMAC secret for the auth cookie |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL — enables auth + saved projects |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key |
 | `GROQ_API_KEY` | Groq API key for AI Analyze |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (Phase 2) |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key (Phase 2) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role, server-only (Phase 2) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Optional, server-only. Not read by any code path today |
 
 ## Auth
-- **Phase 1 (now):** shared passcode → HMAC httpOnly cookie; `middleware.ts` gates
-  the `/private/*` static previews.
-- **Phase 2 (Supabase):** real user accounts + saved funnels with Row-Level Security.
-  See `SUPABASE_SETUP.md`.
+Supabase email/password with open signup. `middleware.ts` refreshes the session on
+page loads and gates the `/private/*` asset tree (thumbnails and preview HTML) to
+requests carrying a Supabase auth cookie. API routes authorize per-request with
+`getUser()`, and Postgres Row-Level Security scopes every row to its owner.
+
+With no Supabase env vars present the app degrades gracefully: the middleware
+passes everything through and the project API returns `503`. See
+`SUPABASE_SETUP.md` for provisioning.
 
 ## Deploy (Vercel)
-Push to a GitHub repo, import in Vercel, add the env vars above. Set the same
-passcode/secret/Groq key; add the Supabase keys once the project exists.
+Push to a GitHub repo, import in Vercel, add the env vars above. Add the same
+Supabase URL/anon key and Groq key, then add the deployed URL to Supabase →
+Authentication → URL Configuration.

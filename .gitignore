@@ -27,6 +27,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# brainstorming mockups (local working files)
+.superpowers/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

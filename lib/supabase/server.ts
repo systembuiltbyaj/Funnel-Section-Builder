@@ -9,8 +9,8 @@ export function isSupabaseConfigured(): boolean {
 
 /**
  * Server-side Supabase client bound to the request cookies.
- * Returns null when Supabase env vars are absent, so the app still runs on the
- * passcode gate alone (Phase 1) until the full-stack layer is configured.
+ * Returns null when Supabase env vars are absent, so the app still boots
+ * unconfigured — callers degrade to 503 rather than crashing.
  */
 export async function createClient() {
   if (!isSupabaseConfigured()) return null;
