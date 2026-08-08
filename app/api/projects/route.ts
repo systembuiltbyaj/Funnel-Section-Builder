@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { insertPayload } from "@/lib/projects-payload";
 
 export const runtime = "nodejs";
 
@@ -32,19 +33,16 @@ export async function POST(req: NextRequest) {
   } = await supabase.auth.getUser();
   if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
-  let body: { name?: string; data?: unknown };
+  let body: unknown;
   try {
     body = await req.json();
   } catch {
     return Response.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const name =
-    (typeof body.name === "string" && body.name.trim()) || "Untitled funnel";
-
   const { data, error } = await supabase
     .from("funnel_projects")
-    .insert({ user_id: user.id, name: name.slice(0, 120), data: body.data ?? {} })
+    .insert(insertPayload(user.id, body))
     .select("id, name, updated_at")
     .single();
   if (error) return Response.json({ error: error.message }, { status: 500 });

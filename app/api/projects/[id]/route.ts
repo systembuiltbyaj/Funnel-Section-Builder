@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { patchPayload } from "@/lib/projects-payload";
 
 export const runtime = "nodejs";
 
@@ -37,17 +38,15 @@ export async function PATCH(req: NextRequest, { params }: Ctx) {
   } = await supabase.auth.getUser();
   if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
-  let body: { name?: string; data?: unknown };
+  let body: unknown;
   try {
     body = await req.json();
   } catch {
     return Response.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const patch: Record<string, unknown> = {};
-  if (typeof body.name === "string") patch.name = body.name.slice(0, 120);
-  if (body.data !== undefined) patch.data = body.data;
-  if (Object.keys(patch).length === 0) {
+  const patch = patchPayload(body);
+  if (!patch) {
     return Response.json({ error: "Nothing to update" }, { status: 400 });
   }
 

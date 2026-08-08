@@ -1,19 +1,65 @@
 import Link from "next/link";
 import { lock } from "../actions";
 
-type Step = 1 | 2 | 3;
+export type Step = 1 | 2 | 3;
 
+/**
+ * Step 2 has two doors — `/review` (what the analyzer proposed) and `/sections`
+ * (pick by hand) — so its label names the stage, not either page. Both write to
+ * the same selection store, which is why `/review` is the safe back-link target
+ * from step 3 regardless of which door the user came through.
+ */
 const STEPS: { n: Step; label: string; href: string }[] = [
   { n: 1, label: "Copy & brand", href: "/" },
-  { n: 2, label: "Review picks", href: "/review" },
+  { n: 2, label: "Sections", href: "/review" },
   { n: 3, label: "Build", href: "/build" },
 ];
 
 /**
- * Page chrome for the three-step flow.
+ * The stepper on its own, so step 3 (`/build`) can show progress too — it
+ * carries its own app bar and can't be wrapped in `HubShell` without stacking
+ * two headers.
  *
- * The stepper is a progress indicator, not navigation into work that hasn't
- * happened yet: only steps at or before the current one are links.
+ * A progress indicator, not navigation into work that hasn't happened yet:
+ * only steps at or before the current one are links.
+ */
+export function FlowSteps({ step, className }: { step: Step; className?: string }) {
+  return (
+    <nav
+      aria-label="Progress"
+      className={className ?? "mx-auto max-w-[880px] px-4 pt-6"}
+    >
+      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11.5px]">
+        {STEPS.map((s, i) => {
+          const state = s.n === step ? "current" : s.n < step ? "done" : "todo";
+          const chip = (
+            <span
+              className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 transition ${
+                state === "current"
+                  ? "bg-[#1A1540] font-semibold text-[#E8E4F5]"
+                  : state === "done"
+                  ? "text-[#9B82FF] hover:text-[#c3b4ff]"
+                  : "text-[#4A4468]"
+              }`}
+            >
+              <span className="tabular-nums opacity-70">{s.n}</span>
+              {s.label}
+            </span>
+          );
+          return (
+            <li key={s.n} className="flex items-center gap-2">
+              {state === "done" ? <Link href={s.href}>{chip}</Link> : chip}
+              {i < STEPS.length - 1 && <span className="text-[#2A2250]">→</span>}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
+/**
+ * Page chrome for steps 1 and 2.
  */
 export function HubShell({
   step,
@@ -63,33 +109,7 @@ export function HubShell({
           </div>
         </header>
 
-        <nav aria-label="Progress" className="mx-auto max-w-[880px] px-4 pt-6">
-          <ol className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11.5px]">
-            {STEPS.map((s, i) => {
-              const state = s.n === step ? "current" : s.n < step ? "done" : "todo";
-              const chip = (
-                <span
-                  className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 transition ${
-                    state === "current"
-                      ? "bg-[#1A1540] font-semibold text-[#E8E4F5]"
-                      : state === "done"
-                      ? "text-[#9B82FF] hover:text-[#c3b4ff]"
-                      : "text-[#4A4468]"
-                  }`}
-                >
-                  <span className="tabular-nums opacity-70">{s.n}</span>
-                  {s.label}
-                </span>
-              );
-              return (
-                <li key={s.n} className="flex items-center gap-2">
-                  {state === "done" ? <Link href={s.href}>{chip}</Link> : chip}
-                  {i < STEPS.length - 1 && <span className="text-[#2A2250]">→</span>}
-                </li>
-              );
-            })}
-          </ol>
-        </nav>
+        <FlowSteps step={step} />
 
         <div className="mx-auto max-w-[880px] px-4 pb-5 pt-4">
           <h1

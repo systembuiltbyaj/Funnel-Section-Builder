@@ -1,19 +1,26 @@
 # Funnel Section Builder
 
 Internal tool that turns the **10P Sales Page Framework** into copy-ready AI
-prompts for building GoHighLevel custom-code funnel sections. Three modes:
+prompts for building GoHighLevel custom-code funnel sections. It runs as a
+guided three-step flow:
 
-- **Analyze Copy (AI)** — paste a client's full funnel copy; a Groq LLM maps it
-  onto the 10P sections, recommends the best-fit variation for each, and pre-fills
-  the copy (`app/api/funnel-analyze`).
-- **Manual** — toggle sections, pick variations, enter brand kit + copy; the tool
-  assembles per-section and one combined "full funnel" master prompt.
-- **Brand Check** — client-side linter that parses hex colors / `font-family` out
-  of pasted HTML and flags/fixes off-brand values against your brand kit.
+1. **Copy & brand** (`/`) — paste the client's funnel copy and set the brand kit,
+   or reopen a saved funnel. Running the analyzer sends the copy to a Groq LLM,
+   which maps it onto the 10P sections and recommends a variation for each
+   (`app/api/funnel-analyze`).
+2. **Sections** — review what the analyzer proposed with its reasoning
+   (`/review`), or browse the full library and pick by hand (`/sections`). Both
+   doors write to the same selection, so you can mix them.
+3. **Build** (`/build`) — assembles per-section prompts plus one combined "full
+   funnel" master prompt. **Brand Check** lives here too: a client-side linter
+   that parses hex colors / `font-family` out of pasted HTML and flags off-brand
+   values against your brand kit.
 
-Every variation ships a rendered HTML sample, so any section — or the whole
-selected funnel — can be previewed live and re-skinned in the client's brand kit
-before a prompt is generated (`app/live-preview.tsx`, `lib/samples.ts`).
+Most variations ship a rendered HTML sample, so a section — or the whole selected
+funnel — can be previewed live and re-skinned in the client's brand kit before a
+prompt is generated (`app/live-preview.tsx`, `lib/samples.ts`). Entries with no
+sample (the image-prompt library, layout screenshots) fall back to their static
+thumbnail; see `CLAUDE.md` for which and why.
 
 Extracted from the System Built by AJ portfolio into its own app.
 

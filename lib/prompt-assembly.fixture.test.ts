@@ -34,6 +34,13 @@ function render(): string {
   }).join("\n\n========\n\n");
 }
 
+/**
+ * `.gitattributes` pins the snapshot to LF, but a working tree that predates it
+ * (or a clone with a different autocrlf setting) can still carry CRLF. Compare
+ * on normalized text so the assertion tests the prompts, not the checkout.
+ */
+const lf = (s: string) => s.replace(/\r\n/g, "\n");
+
 test("generated prompt output is unchanged", () => {
   const current = render();
   if (!existsSync(SNAPSHOT) || process.env.UPDATE_SNAPSHOT === "1") {
@@ -41,5 +48,5 @@ test("generated prompt output is unchanged", () => {
     console.log("snapshot written — re-run without UPDATE_SNAPSHOT to assert");
     return;
   }
-  assert.equal(current, readFileSync(SNAPSHOT, "utf8"), "prompt output changed");
+  assert.equal(lf(current), lf(readFileSync(SNAPSHOT, "utf8")), "prompt output changed");
 });

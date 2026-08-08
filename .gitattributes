@@ -1,0 +1,9 @@
+# Snapshot fixtures are compared byte-for-byte against strings generated at test
+# time, which always use LF. With core.autocrlf=true (the Windows default) a
+# checkout would otherwise rewrite them to CRLF and fail the comparison on every
+# line — see lib/prompt-assembly.fixture.test.ts.
+lib/__snapshots__/*.txt text eol=lf
+
+# Rendered samples are served to the browser and diffed by the re-skin logic;
+# keep them stable across platforms too.
+public/private/**/*.html text eol=lf
