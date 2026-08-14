@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { lock } from "./actions";
-import { FlowSteps } from "./hub/shell";
 import { LivePreview, type PreviewItem } from "./live-preview";
 import { sampleForPreview } from "@/lib/samples";
 import { PROMPT_GROUPS as builderGroups } from "@/lib/prompt-groups";
@@ -1128,7 +1127,6 @@ export function PrivateContent() {
       </header>
 
       <div className="relative z-10">
-        <FlowSteps step={3} className="mx-auto max-w-[1200px] px-4 pt-4" />
         <FunnelBuilder />
       </div>
     </div>
