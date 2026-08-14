@@ -7,6 +7,20 @@ const KIT = { primary: "#7C5CFC", background: "", fontHead: "", fontSub: "", fon
 
 test("storage key is versioned so a shape change cannot resurrect old state", () => {
   assert.match(STORAGE_KEY, /\.v\d+$/);
+  assert.equal(STORAGE_KEY, "fsb.selection.v3");
+});
+
+test("v2 state with an analysis block still validates, ignoring the dead field", () => {
+  const out = validatePersisted(
+    {
+      sel: { hero: { enabled: true, variation: "01b", copy: "hi" } },
+      kit: KIT,
+      analysis: { reasons: { hero: "why" }, meta: { niche: "n", vibe: "v" }, sourceCopy: "c" },
+    },
+    CATALOGUE
+  );
+  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b", copy: "hi" });
+  assert.equal("analysis" in (out ?? {}), false);
 });
 
 test("validatePersisted keeps entries that match the catalogue", () => {
