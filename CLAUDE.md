@@ -37,6 +37,7 @@ lives in `localStorage` under `fsb.selection.v3`.
 | Initial/empty selection shape | `lib/catalogue.ts`, `lib/funnel-selection.ts` |
 | Selection + brand kit shared across the flow | `lib/funnel-selection-provider.tsx` |
 | Prompt assembly (per-section + full-funnel master) | `lib/prompt-assembly.ts` |
+| Single-section prompt (one gallery card's "Copy prompt") — takes both `PROMPT_GROUPS` and `EXTRA_GROUPS` so Extras cards resolve too | `lib/single-section-prompt.ts` |
 | Builder UI, brand kit inputs, Brand Check linter | `app/private-content.tsx`, `FunnelBuilder()` |
 | Live preview modal (single section + full funnel) | `app/live-preview.tsx` |
 | Sample resolution + brand re-skin logic | `lib/samples.ts` |

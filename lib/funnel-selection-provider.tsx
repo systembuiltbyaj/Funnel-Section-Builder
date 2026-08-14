@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import type { ReactNode, ReactElement } from "react";
 import type { FunnelBrandKit, BuilderSelection } from "./prompt-assembly.ts";
 import { STORAGE_KEY, validatePersisted } from "./funnel-selection.ts";
-import type { PersistedState, CatalogueShape } from "./funnel-selection.ts";
+import type { CatalogueShape } from "./funnel-selection.ts";
 
 const EMPTY_KIT: FunnelBrandKit = {
   primary: "", background: "", fontHead: "", fontSub: "", fontBody: "", images: "",
@@ -17,11 +17,9 @@ interface ContextValue {
   sel: Record<string, BuilderSelection>;
   kit: FunnelBrandKit;
   hydrated: boolean;
-  enabledIds: string[];
   setSection: (id: string, patch: Partial<BuilderSelection>) => void;
   toggleSection: (id: string, variation: string) => void;
   setKit: (patch: Partial<FunnelBrandKit>) => void;
-  replaceAll: (next: PersistedState) => void;
   reset: () => void;
 }
 
@@ -88,24 +86,14 @@ export function FunnelSelectionProvider({
     setKitState((prev) => ({ ...prev, ...patch }));
   }, []);
 
-  const replaceAll = useCallback((next: PersistedState) => {
-    setSel(next.sel);
-    setKitState(next.kit);
-  }, []);
-
   const reset = useCallback(() => {
     setSel(initialSel);
     setKitState(EMPTY_KIT);
   }, [initialSel]);
 
-  const enabledIds = useMemo(
-    () => Object.entries(sel).filter(([, v]) => v?.enabled).map(([id]) => id),
-    [sel]
-  );
-
   const value = useMemo<ContextValue>(
-    () => ({ sel, kit, hydrated, enabledIds, setSection, toggleSection, setKit, replaceAll, reset }),
-    [sel, kit, hydrated, enabledIds, setSection, toggleSection, setKit, replaceAll, reset]
+    () => ({ sel, kit, hydrated, setSection, toggleSection, setKit, reset }),
+    [sel, kit, hydrated, setSection, toggleSection, setKit, reset]
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

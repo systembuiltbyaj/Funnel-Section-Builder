@@ -36,8 +36,14 @@ export function validatePersisted(raw: unknown, catalogue: CatalogueShape): Pers
   // data. A null-prototype object has no such setter to hit.
   const sel: Record<string, BuilderSelection> = Object.create(null);
   for (const [id, value] of Object.entries(obj.sel as Record<string, unknown>)) {
+    // Array.isArray, not just a truthiness check: a plain `catalogue[id]`
+    // lookup for id === "__proto__" or "constructor" returns Object.prototype
+    // (a truthy, non-array object) instead of undefined, since `catalogue` is
+    // an ordinary object. That would pass a bare `!valid` check and then blow
+    // up on `valid.includes(...)` below, and the provider's try/catch would
+    // silently discard the visitor's whole saved funnel.
     const valid = catalogue[id];
-    if (!valid || valid.length === 0) continue;
+    if (!Array.isArray(valid) || valid.length === 0) continue;
     if (typeof value !== "object" || value === null) continue;
     const entry = value as Record<string, unknown>;
     const variation = str(entry.variation);

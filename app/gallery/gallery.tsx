@@ -5,7 +5,7 @@ import { useFunnelSelection } from "@/lib/funnel-selection-provider";
 import { PROMPT_GROUPS } from "@/lib/prompt-groups";
 import { flattenGroups, filterGallery } from "@/lib/gallery-filter";
 import { EXTRA_GROUPS, isExtraGroup } from "@/lib/gallery-extras";
-import { buildOutputs } from "@/lib/prompt-assembly";
+import { singleSectionPrompt } from "@/lib/single-section-prompt";
 import { sampleForPreview } from "@/lib/samples";
 import { LivePreview, type PreviewItem } from "../live-preview";
 import { GalleryRail } from "./rail";
@@ -40,15 +40,12 @@ export function Gallery() {
    * Returns the text rather than writing it to the clipboard: the write is
    * async and can fail (insecure origin, denied permission), and only the
    * card knows how to surface that failure in its own button state.
+   *
+   * Both group lists are passed because a card's groupId can be an Extras id
+   * (gptimage/carousel/local), which does not exist in PROMPT_GROUPS.
    */
   function copyPrompt(groupId: string, variationNumber: string): string {
-    const { blocks } = buildOutputs({
-      groups: PROMPT_GROUPS,
-      sel: { [groupId]: { enabled: true, variation: variationNumber, copy: "" } },
-      kit,
-      includeRef: true,
-    });
-    return blocks.map((b) => `${b.heading}\n${b.text}`).join("\n\n");
+    return singleSectionPrompt([...PROMPT_GROUPS, ...EXTRA_GROUPS], groupId, variationNumber, kit);
   }
 
   return (
@@ -74,8 +71,9 @@ export function Gallery() {
             Funnel Section <span className="text-[#F5C842]">Templates</span>
           </h1>
           <p className="mx-auto mt-2.5 max-w-[520px] text-[13px] leading-[1.6] text-[#A09AB8]">
-            110 ready-made funnel sections across the 12 groups of the 10P framework. Preview any
-            section live, recolour it to your brand, and take away a copy-ready prompt.
+            110 ready-made funnel sections across the 12 groups of the 10P framework, plus 64
+            browse-only extras (image prompts, carousel, full layouts). Preview any section live,
+            recolour it to your brand, and take away a copy-ready prompt.
           </p>
         </header>
 

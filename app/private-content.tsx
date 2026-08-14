@@ -169,9 +169,9 @@ function usedFonts(html: string): string[] {
 }
 
 function FunnelBuilder() {
-  // Selections and the brand kit live in the shared provider so the hub's
-  // library can add sections that this builder then reads. Local aliases keep
-  // the rest of this component unchanged.
+  // Selections and the brand kit live in the shared provider so the gallery
+  // (app/gallery/gallery.tsx) can add sections that this builder then reads.
+  // Local aliases keep the rest of this component unchanged.
   const {
     sel,
     kit,
@@ -185,9 +185,9 @@ function FunnelBuilder() {
   const setFontHead = (v: string) => setKit({ fontHead: v });
   const setFontSub = (v: string) => setKit({ fontSub: v });
   const setFontBody = (v: string) => setKit({ fontBody: v });
-  // No setter for `images`: it has no input in the UI today — it is only read
-  // for prompts and round-tripped through saved projects. Add one via
-  // setKit({ images }) if an editor is ever introduced.
+  // No local setter for `images` here: its input lives in
+  // app/gallery/brand-kit-panel.tsx (`setKit({ images })`), which this
+  // component's shared provider state already reflects.
 
   const [includeRef, setIncludeRef] = useState(true);
   const [generated, setGenerated] = useState(false);

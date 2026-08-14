@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { GalleryItem } from "@/lib/gallery-filter";
 import { variationShortName } from "@/lib/prompt-assembly";
 
@@ -29,21 +29,49 @@ export function GalleryCard({
   onCopy: () => string;
 }) {
   const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
+  // Explicit `number`, not `ReturnType<typeof window.setTimeout>`: with
+  // @types/node in scope, that alias resolves to NodeJS.Timeout even for the
+  // browser's `window.setTimeout`, which actually returns a number.
+  const resetTimer = useRef<number | null>(null);
   const v = item.variation;
+
+  // Clear the pending reset on unmount so it cannot call setState on an
+  // unmounted card (the gallery re-filters on every keystroke, which unmounts
+  // cards freely).
+  useEffect(() => {
+    return () => {
+      if (resetTimer.current !== null) window.clearTimeout(resetTimer.current);
+    };
+  }, []);
+
+  function scheduleReset() {
+    if (resetTimer.current !== null) window.clearTimeout(resetTimer.current);
+    resetTimer.current = window.setTimeout(() => setCopyState("idle"), 1600);
+  }
 
   // Mirrors CopyButton in app/private-content.tsx: await the write and only
   // claim success once the browser confirms it. writeText rejects on insecure
   // origins and denied permission, so an unconditional setCopied(true) would
   // report "Copied ✓" while the clipboard stayed untouched.
+  //
+  // The empty-string guard is cheap insurance against the same failure mode
+  // by a different route: writeText("") resolves successfully, so a bug that
+  // hands us empty text (e.g. a groupId that doesn't resolve against the
+  // group lists onCopy searches) would otherwise still report "Copied ✓".
   async function copy() {
     const text = onCopy();
+    if (text === "") {
+      setCopyState("failed");
+      scheduleReset();
+      return;
+    }
     try {
       await navigator.clipboard.writeText(text);
       setCopyState("copied");
     } catch {
       setCopyState("failed");
     }
-    window.setTimeout(() => setCopyState("idle"), 1600);
+    scheduleReset();
   }
 
   return (

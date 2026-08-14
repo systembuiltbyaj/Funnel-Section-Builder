@@ -5,6 +5,10 @@ groups of the 10P framework, preview any of them live re-skinned to your brand,
 and copy a ready-to-use prompt. Add sections to the tray to assemble a whole
 funnel and get one combined master prompt from `/build`.
 
+The gallery also carries 64 browse-only Extras — 53 image prompts, 6 carousel
+sections and 5 full-page layouts (`lib/gallery-extras.ts`). Extras cannot join a
+funnel; their cards only offer "Copy prompt".
+
 No account, no API keys, no backend — your work is kept in the browser.
 
 Most variations ship a rendered HTML sample, so a section — or the whole selected

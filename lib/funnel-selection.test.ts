@@ -56,6 +56,24 @@ test("validatePersisted rejects junk rather than throwing", () => {
   assert.equal(validatePersisted({}, CATALOGUE), null);
 });
 
+test("validatePersisted drops a __proto__ key instead of throwing, keeping other valid keys", () => {
+  // A literal `{ __proto__: ... }` object-initializer key sets the prototype
+  // rather than creating an own property, which would not reproduce the bug —
+  // JSON.parse (how this data actually arrives, from localStorage) is
+  // different: it creates a genuine own enumerable "__proto__" property. Use
+  // an actual JSON string so this test exercises the real code path.
+  const raw = JSON.parse(
+    '{"sel":{"__proto__":{"enabled":true,"variation":"hax","copy":"evil"},' +
+      '"hero":{"enabled":true,"variation":"01b","copy":"hi"}},"kit":' +
+      JSON.stringify(KIT) +
+      "}"
+  );
+  const out = validatePersisted(raw, CATALOGUE);
+  assert.notEqual(out, null);
+  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b", copy: "hi" });
+  assert.equal(Object.prototype.hasOwnProperty.call(out?.sel ?? {}, "__proto__"), false);
+});
+
 test("validatePersisted coerces malformed entry fields", () => {
   const out = validatePersisted(
     { sel: { hero: { enabled: "yes", variation: "01a", copy: 42 } }, kit: {} },
