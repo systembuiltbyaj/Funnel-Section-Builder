@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useFunnelSelection } from "@/lib/funnel-selection-provider";
 import { PROMPT_GROUPS } from "@/lib/prompt-groups";
 import { flattenGroups, filterGallery } from "@/lib/gallery-filter";
+import { EXTRA_GROUPS, isExtraGroup } from "@/lib/gallery-extras";
 import { buildOutputs } from "@/lib/prompt-assembly";
 import { sampleForPreview } from "@/lib/samples";
 import { LivePreview, type PreviewItem } from "../live-preview";
@@ -17,14 +18,20 @@ export function Gallery() {
   const [query, setQuery] = useState("");
   const [live, setLive] = useState<{ heading: string; items: PreviewItem[] } | null>(null);
 
-  const items = useMemo(() => flattenGroups(PROMPT_GROUPS), []);
+  const items = useMemo(
+    () => [...flattenGroups(PROMPT_GROUPS), ...flattenGroups(EXTRA_GROUPS)],
+    []
+  );
   const shown = useMemo(
     () => filterGallery(items, { groupId: activeGroup, query }),
     [items, activeGroup, query]
   );
 
   const pickedIds = Object.entries(sel).filter(([, v]) => v?.enabled).map(([id]) => id);
-  const activeGroupMeta = PROMPT_GROUPS.find((g) => g.id === activeGroup) ?? null;
+  const activeGroupMeta =
+    PROMPT_GROUPS.find((g) => g.id === activeGroup) ??
+    EXTRA_GROUPS.find((g) => g.id === activeGroup) ??
+    null;
 
   /**
    * One section's prompt, assembled through the same path the builder uses so a
@@ -128,7 +135,11 @@ export function Gallery() {
                       item={item}
                       inFunnel={inFunnel}
                       onCopy={() => copyPrompt(item.groupId, v.number)}
-                      onToggle={() => toggleSection(item.groupId, v.number)}
+                      onToggle={
+                        isExtraGroup(item.groupId)
+                          ? null
+                          : () => toggleSection(item.groupId, v.number)
+                      }
                       onPreview={
                         sample
                           ? () =>

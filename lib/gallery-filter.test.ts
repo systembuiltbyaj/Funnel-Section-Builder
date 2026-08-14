@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { flattenGroups, filterGallery } from "./gallery-filter.ts";
 import { PROMPT_GROUPS } from "./prompt-groups.ts";
+import { EXTRA_GROUPS, isExtraGroup } from "./gallery-extras.ts";
 
 const GROUPS = [
   {
@@ -79,4 +80,22 @@ test("the real catalogue flattens to 110 items across 12 groups", () => {
   const items = flattenGroups(PROMPT_GROUPS);
   assert.equal(items.length, 110);
   assert.equal(new Set(items.map((i) => i.groupId)).size, 12);
+});
+
+test("the extras collections expose 53 image prompts, 6 carousel and 5 layouts", () => {
+  const byId = Object.fromEntries(EXTRA_GROUPS.map((g) => [g.id, g.variations.length]));
+  assert.deepEqual(byId, { gptimage: 53, carousel: 6, local: 5 });
+});
+
+test("extras flatten and filter through the same functions as the 10P groups", () => {
+  const items = flattenGroups(EXTRA_GROUPS);
+  assert.equal(items.length, 64);
+  assert.equal(filterGallery(items, { groupId: "carousel", query: "" }).length, 6);
+});
+
+test("isExtraGroup distinguishes extras from 10P groups", () => {
+  assert.equal(isExtraGroup("carousel"), true);
+  assert.equal(isExtraGroup("gptimage"), true);
+  assert.equal(isExtraGroup("hero"), false);
+  assert.equal(isExtraGroup(null), false);
 });

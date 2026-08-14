@@ -37,6 +37,8 @@ precede step 3. Outside the flow: `/reset` (password reset) and
 |---|---|
 | **Section catalog** — every variation, its prompt, its thumbnail | `lib/section-catalogue.ts`, `export const sections: Section[]` |
 | Section groups + display order | `lib/prompt-groups.ts` |
+| Public gallery filtering (`flattenGroups`, `filterGallery`, `GalleryGroup`/`GalleryItem` types) | `lib/gallery-filter.ts` |
+| Gallery's three browse-only "Extras" collections (image prompts, carousel, full layouts) — reuse `GalleryGroup`/`Section`, cannot join a funnel | `lib/gallery-extras.ts` |
 | Initial/empty selection shape | `lib/catalogue.ts`, `lib/funnel-selection.ts` |
 | Selection + brand kit shared across the flow | `lib/funnel-selection-provider.tsx` |
 | Prompt assembly (per-section + full-funnel master) | `lib/prompt-assembly.ts` |

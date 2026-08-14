@@ -1,6 +1,7 @@
 "use client";
 
 import { PROMPT_GROUPS } from "@/lib/prompt-groups";
+import { EXTRA_GROUPS } from "@/lib/gallery-extras";
 
 /**
  * The 10P as a filter rail.
@@ -17,7 +18,9 @@ export function GalleryRail({
   onSelect: (groupId: string | null) => void;
   pickedIds: string[];
 }) {
-  const total = PROMPT_GROUPS.reduce((n, g) => n + g.variations.length, 0);
+  const total =
+    PROMPT_GROUPS.reduce((n, g) => n + g.variations.length, 0) +
+    EXTRA_GROUPS.reduce((n, g) => n + g.variations.length, 0);
 
   return (
     <nav
@@ -64,6 +67,29 @@ export function GalleryRail({
           </button>
         );
       })}
+
+      <div className="mt-3 border-t border-[#221C48] pt-3">
+        <div className="mb-1 px-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#5A5478]">
+          Extras
+        </div>
+        {EXTRA_GROUPS.map((g) => {
+          const active = activeGroup === g.id;
+          return (
+            <button
+              key={g.id}
+              type="button"
+              onClick={() => onSelect(g.id)}
+              aria-current={active ? "true" : undefined}
+              className={`flex w-full items-center justify-between rounded-md px-2.5 py-1.5 text-left text-[12px] transition ${
+                active ? "bg-[#F5C842] font-bold text-[#0D0B1F]" : "text-[#A09AB8] hover:text-[#E8E4F5]"
+              }`}
+            >
+              <span className="truncate">{g.label}</span>
+              <span className={active ? "opacity-65" : "text-[#5A5478]"}>{g.variations.length}</span>
+            </button>
+          );
+        })}
+      </div>
     </nav>
   );
 }
