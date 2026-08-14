@@ -1,35 +1,29 @@
 # Funnel Section Builder — project instructions
 
-Next.js 16 (App Router) internal tool. Turns the 10P Sales Page Framework into
+Next.js 16 (App Router) tool. Turns the 10P Sales Page Framework into
 copy-ready prompts for GoHighLevel custom-code sections, and previews the
 resulting sections live from a library of rendered HTML samples.
 
 ## Precedence — read this before trusting any claim
 
-`.env.example` and the code are the source of truth for configuration and
-behaviour. `README.md` and `SUPABASE_SETUP.md` describe; they do not define. If a
-doc and the code disagree, the code wins and **the doc is the bug** — fix it in
-the same change.
+The code is the source of truth for configuration and behaviour. `README.md`
+describes; it does not define. If a doc and the code disagree, the code wins
+and **the doc is the bug** — fix it in the same change.
 
-The passcode gate that earlier docs described is gone (commit `08b26d5`). Auth is
-Supabase email/password with open signup. Do not reintroduce a passcode.
+The app is public with no auth, no backend and no environment variables. State
+lives entirely in the browser (`localStorage`). Reintroducing auth, a backend,
+or environment variables is a deliberate decision to be made explicitly — not
+a fix for something broken.
 
-## The three-step flow
+## The two routes
 
-The app is a guided flow, not a single builder page. `HubShell` renders the
-chrome for steps 1–2; step 3 carries its own app bar and renders `FlowSteps`
-directly (wrapping it in `HubShell` would stack two headers).
-
-| Step | Route | Page |
+| Route | Page | What it is |
 |---|---|---|
-| 1 — Copy & brand | `/` | `app/page.tsx` → `app/hub/start.tsx`, `app/hub/saved-funnels.tsx` |
-| 2 — Sections (AI door) | `/review` | `app/review/page.tsx` → `review-picks.tsx` |
-| 2 — Sections (manual door) | `/sections` | `app/sections/page.tsx` → `app/hub/library.tsx`, `funnel-tray.tsx` |
-| 3 — Build | `/build` | `app/build/page.tsx` → `app/private-content.tsx` |
+| `/` | `app/page.tsx` → `app/gallery/gallery.tsx` | The gallery: rail, search, cards, tray |
+| `/build` | `app/build/page.tsx` → `app/private-content.tsx` | Full-funnel assembly and the master prompt |
 
-Step 2 has two doors and both write to the same selection store, so either can
-precede step 3. Outside the flow: `/reset` (password reset) and
-`/auth/callback` (auth code exchange).
+There is no auth, no API route, no middleware and no environment variable. State
+lives in `localStorage` under `fsb.selection.v3`.
 
 ## Where things live
 
@@ -37,22 +31,15 @@ precede step 3. Outside the flow: `/reset` (password reset) and
 |---|---|
 | **Section catalog** — every variation, its prompt, its thumbnail | `lib/section-catalogue.ts`, `export const sections: Section[]` |
 | Section groups + display order | `lib/prompt-groups.ts` |
-| Public gallery filtering (`flattenGroups`, `filterGallery`, `GalleryGroup`/`GalleryItem` types) | `lib/gallery-filter.ts` |
+| Gallery UI (rail, cards, search, tray) | `app/gallery/` |
+| Gallery filtering (group + search) | `lib/gallery-filter.ts` |
 | Gallery's three browse-only "Extras" collections (image prompts, carousel, full layouts) — reuse `GalleryGroup`/`Section`, cannot join a funnel | `lib/gallery-extras.ts` |
 | Initial/empty selection shape | `lib/catalogue.ts`, `lib/funnel-selection.ts` |
 | Selection + brand kit shared across the flow | `lib/funnel-selection-provider.tsx` |
 | Prompt assembly (per-section + full-funnel master) | `lib/prompt-assembly.ts` |
-| Groq request/response shaping | `lib/analyze.ts` |
 | Builder UI, brand kit inputs, Brand Check linter | `app/private-content.tsx`, `FunnelBuilder()` |
-| Flow chrome + stepper | `app/hub/shell.tsx` (`HubShell`, `FlowSteps`) |
 | Live preview modal (single section + full funnel) | `app/live-preview.tsx` |
 | Sample resolution + brand re-skin logic | `lib/samples.ts` |
-| Auth UI | `app/auth-gate.tsx` |
-| Session refresh + `/private/*` asset gate | `middleware.ts` |
-| Project CRUD (RLS-scoped) | `app/api/projects/`, `app/api/projects/[id]/` |
-| Request-body shaping for those routes (mass-assignment guard) | `lib/projects-payload.ts` |
-| Groq analyze endpoint | `app/api/funnel-analyze/route.ts` |
-| Schema + RLS policies | `supabase/migrations/0001_init.sql` |
 | Rendered section samples + thumbnails | `public/private/` |
 
 `lib/section-catalogue.ts` is ~11.7k lines, nearly all of it prompt text inside
@@ -125,8 +112,7 @@ Tests run on Node's built-in runner with `--experimental-strip-types`, so test
 files import with an explicit `.ts` extension. Do not add Jest/Vitest without
 asking — the current setup has zero test dependencies.
 
-`npm run dev` binds port **3100**; that port is what belongs in Supabase's
-redirect allow-list.
+`npm run dev` binds port **3100**.
 
 ## Keeping this file true
 
