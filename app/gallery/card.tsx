@@ -26,15 +26,24 @@ export function GalleryCard({
   inFunnel: boolean;
   onPreview: (() => void) | null;
   onToggle: (() => void) | null;
-  onCopy: () => void;
+  onCopy: () => string;
 }) {
-  const [copied, setCopied] = useState(false);
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
   const v = item.variation;
 
-  function copy() {
-    onCopy();
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
+  // Mirrors CopyButton in app/private-content.tsx: await the write and only
+  // claim success once the browser confirms it. writeText rejects on insecure
+  // origins and denied permission, so an unconditional setCopied(true) would
+  // report "Copied ✓" while the clipboard stayed untouched.
+  async function copy() {
+    const text = onCopy();
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopyState("copied");
+    } catch {
+      setCopyState("failed");
+    }
+    window.setTimeout(() => setCopyState("idle"), 1600);
   }
 
   return (
@@ -79,9 +88,13 @@ export function GalleryCard({
           <button
             type="button"
             onClick={copy}
-            className="flex-1 rounded-md bg-[#F5C842] px-2 py-1.5 text-[11.5px] font-bold text-[#0D0B1F] transition hover:brightness-110"
+            className={`flex-1 rounded-md px-2 py-1.5 text-[11.5px] font-bold transition ${
+              copyState === "failed"
+                ? "bg-[#3A1E2A] text-[#F87171]"
+                : "bg-[#F5C842] text-[#0D0B1F] hover:brightness-110"
+            }`}
           >
-            {copied ? "Copied ✓" : "Copy prompt"}
+            {copyState === "copied" ? "Copied ✓" : copyState === "failed" ? "Copy failed" : "Copy prompt"}
           </button>
 
           {onPreview && (

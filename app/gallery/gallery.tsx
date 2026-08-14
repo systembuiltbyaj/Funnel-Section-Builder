@@ -29,16 +29,19 @@ export function Gallery() {
   /**
    * One section's prompt, assembled through the same path the builder uses so a
    * single-section copy and a full-funnel build cannot drift apart.
+   *
+   * Returns the text rather than writing it to the clipboard: the write is
+   * async and can fail (insecure origin, denied permission), and only the
+   * card knows how to surface that failure in its own button state.
    */
-  function copyPrompt(groupId: string, variationNumber: string) {
+  function copyPrompt(groupId: string, variationNumber: string): string {
     const { blocks } = buildOutputs({
       groups: PROMPT_GROUPS,
       sel: { [groupId]: { enabled: true, variation: variationNumber, copy: "" } },
       kit,
       includeRef: true,
     });
-    const text = blocks.map((b) => `${b.heading}\n${b.text}`).join("\n\n");
-    void navigator.clipboard.writeText(text);
+    return blocks.map((b) => `${b.heading}\n${b.text}`).join("\n\n");
   }
 
   return (

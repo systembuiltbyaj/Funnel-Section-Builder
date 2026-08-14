@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useFunnelSelection } from "@/lib/funnel-selection-provider";
 
 /**
@@ -11,12 +12,32 @@ import { useFunnelSelection } from "@/lib/funnel-selection-provider";
 export function BrandKitPanel({ onClose }: { onClose: () => void }) {
   const { kit, setKit } = useFunnelSelection();
 
+  // Same pattern as LivePreview (app/live-preview.tsx): Escape closes the
+  // modal and background scroll is locked while it's open.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
   const field =
     "w-full rounded-md border border-[#2A2250] bg-[#0B091A] px-3 py-2 text-[12.5px] text-[#E8E4F5] outline-none focus:border-[#7C5CFC]";
   const label = "mb-1 block text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5A5478]";
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-end justify-center bg-black/60 p-0 sm:items-center sm:p-4">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Brand kit"
+      className="fixed inset-0 z-[200] flex items-end justify-center bg-black/60 p-0 sm:items-center sm:p-4"
+    >
       <div className="max-h-[86vh] w-full max-w-[520px] overflow-y-auto rounded-t-2xl border border-[#2A2250] bg-[#12102A] p-5 sm:rounded-2xl">
         <div className="mb-4 flex items-center gap-3">
           <h2 className="text-[16px] font-bold text-[#E8E4F5]">Brand kit</h2>
