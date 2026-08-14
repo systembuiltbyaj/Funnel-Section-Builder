@@ -3,18 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
-import { lock } from "./actions";
 import { LivePreview, type PreviewItem } from "./live-preview";
 import { sampleForPreview } from "@/lib/samples";
 import { PROMPT_GROUPS as builderGroups } from "@/lib/prompt-groups";
 import { useFunnelSelection } from "@/lib/funnel-selection-provider";
-import { INITIAL_SEL } from "@/lib/catalogue";
-import { EMPTY_ANALYSIS } from "@/lib/funnel-selection";
-import {
-  buildOutputs as assemblePrompts,
-  variationShortName,
-  type BuilderSelection,
-} from "@/lib/prompt-assembly";
+import { buildOutputs as assemblePrompts, variationShortName } from "@/lib/prompt-assembly";
 
 function CopyButton({
   text,
@@ -95,13 +88,6 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
     </div>
   );
 }
-
-/**
- * A mutable copy of the default selections. INITIAL_SEL is a shared module
- * constant, so callers that build a selection set by mutation must not touch it.
- */
-const freshSelections = (): Record<string, BuilderSelection> =>
-  Object.fromEntries(Object.entries(INITIAL_SEL).map(([id, s]) => [id, { ...s }]));
 
 // ---- Brand Check color/font helpers ----
 function normHex(hex: string): string | null {
@@ -191,7 +177,6 @@ function FunnelBuilder() {
     kit,
     setSection: update,
     setKit,
-    replaceAll,
     reset: resetSelection,
   } = useFunnelSelection();
   const { primary, background, fontHead, fontSub, fontBody, images } = kit;
@@ -206,12 +191,7 @@ function FunnelBuilder() {
 
   const [includeRef, setIncludeRef] = useState(true);
   const [generated, setGenerated] = useState(false);
-  const [mode, setMode] = useState<"analyze" | "manual" | "check">("analyze");
-  const [fullCopy, setFullCopy] = useState("");
-  const [analyzing, setAnalyzing] = useState(false);
-  const [analyzeErr, setAnalyzeErr] = useState<string | null>(null);
-  const [reasons, setReasons] = useState<Record<string, string>>({});
-  const [meta, setMeta] = useState<{ niche: string; vibe: string } | null>(null);
+  const [mode, setMode] = useState<"manual" | "check">("manual");
   const [vPreview, setVPreview] = useState<{ src: string; alt: string } | null>(null);
   const [live, setLive] = useState<{ heading: string; items: PreviewItem[] } | null>(null);
   const [htmlIn, setHtmlIn] = useState("");
@@ -257,121 +237,6 @@ function FunnelBuilder() {
     return items;
   };
 
-  // --- Saved projects (Supabase full-stack layer) ---
-  const supabaseOn = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-  const [projects, setProjects] = useState<{ id: string; name: string; updated_at: string }[]>([]);
-  const [projectsOpen, setProjectsOpen] = useState(false);
-  const [projStatus, setProjStatus] = useState("");
-
-  const refreshProjects = useCallback(async () => {
-    try {
-      const res = await fetch("/api/projects");
-      if (res.ok) {
-        const d = await res.json();
-        setProjects(d.projects || []);
-      }
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
-  // Initial load. Inlined rather than calling refreshProjects() so the state
-  // update is visibly post-await and can be abandoned if the builder unmounts
-  // mid-flight; refreshProjects stays for the imperative save/delete refresh.
-  useEffect(() => {
-    if (!supabaseOn) return;
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/api/projects");
-        if (!res.ok) return;
-        const d = await res.json();
-        if (!cancelled) setProjects(d.projects || []);
-      } catch {
-        /* ignore */
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [supabaseOn]);
-
-  const saveProject = async () => {
-    const name = window.prompt("Save funnel as:", "My funnel");
-    if (name === null) return;
-    setProjStatus("Saving…");
-    try {
-      const res = await fetch("/api/projects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim() || "Untitled funnel",
-          data: { primary, background, fontHead, fontSub, fontBody, images, includeRef, sel },
-        }),
-      });
-      if (res.ok) {
-        setProjStatus("Saved ✓");
-        refreshProjects();
-      } else {
-        const d = await res.json().catch(() => ({}));
-        setProjStatus(d.error || "Save failed");
-      }
-    } catch {
-      setProjStatus("Save failed");
-    }
-    setTimeout(() => setProjStatus(""), 2500);
-  };
-
-  const loadProject = async (id: string) => {
-    setProjectsOpen(false);
-    // Selections now persist across pages, so a load can silently discard work
-    // collected on the hub. Confirm before overwriting anything unsaved.
-    const dirty = Object.values(sel).some((s) => s?.enabled);
-    if (dirty && !window.confirm("Loading this funnel will replace the sections you have selected. Continue?")) {
-      return;
-    }
-    setProjStatus("Loading…");
-    try {
-      const res = await fetch(`/api/projects/${id}`);
-      if (!res.ok) {
-        setProjStatus("Load failed");
-        setTimeout(() => setProjStatus(""), 2500);
-        return;
-      }
-      const { project } = await res.json();
-      const d = project.data || {};
-      setIncludeRef(d.includeRef ?? true);
-      replaceAll({
-        sel: d.sel || INITIAL_SEL,
-        kit: {
-          primary: d.primary || "",
-          background: d.background || "",
-          fontHead: d.fontHead || "",
-          fontSub: d.fontSub || "",
-          fontBody: d.fontBody || "",
-          images: d.images || "",
-        },
-        analysis: EMPTY_ANALYSIS,
-      });
-      setGenerated(false);
-      setProjStatus(`Loaded "${project.name}"`);
-    } catch {
-      setProjStatus("Load failed");
-    }
-    setTimeout(() => setProjStatus(""), 2500);
-  };
-
-  const deleteProject = async (id: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!window.confirm("Delete this saved funnel?")) return;
-    try {
-      const res = await fetch(`/api/projects/${id}`, { method: "DELETE" });
-      if (res.ok) refreshProjects();
-    } catch {
-      /* ignore */
-    }
-  };
-
   const buildOutputs = useCallback(
     () =>
       assemblePrompts({
@@ -390,62 +255,6 @@ function FunnelBuilder() {
   const derived = useMemo(() => (generated ? buildOutputs() : null), [generated, buildOutputs]);
   const results = derived?.blocks ?? null;
   const fullPrompt = derived?.full ?? null;
-
-  const analyze = async () => {
-    setAnalyzing(true);
-    setAnalyzeErr(null);
-    try {
-      const catalog = builderGroups.map((g) => ({
-        id: g.id,
-        label: g.label,
-        variations: g.variations.map((v) => ({
-          number: v.number,
-          title: v.title,
-          description: v.description,
-          funnelTypes: v.funnelTypes ?? [],
-        })),
-      }));
-      const res = await fetch("/api/funnel-analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ copy: fullCopy, catalog }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Analysis failed.");
-      const next = freshSelections();
-      const nextReasons: Record<string, string> = {};
-      for (const s of (data.sections || []) as {
-        sectionId: string;
-        recommendedVariation: string;
-        reason: string;
-        copy: string;
-      }[]) {
-        if (!next[s.sectionId]) continue;
-        const group = builderGroups.find((g) => g.id === s.sectionId);
-        const variation = group?.variations.some((v) => v.number === s.recommendedVariation)
-          ? s.recommendedVariation
-          : group?.variations[0].number ?? "";
-        next[s.sectionId] = { enabled: true, variation, copy: s.copy || "" };
-        nextReasons[s.sectionId] = s.reason || "";
-      }
-      replaceAll({
-        sel: next,
-        kit,
-        analysis: {
-          reasons: nextReasons,
-          meta: { niche: data.niche || "", vibe: data.vibe || "" },
-          sourceCopy: fullCopy,
-        },
-      });
-      setReasons(nextReasons);
-      setMeta({ niche: data.niche || "", vibe: data.vibe || "" });
-      setGenerated(false);
-    } catch (e) {
-      setAnalyzeErr(e instanceof Error ? e.message : "Analysis failed.");
-    } finally {
-      setAnalyzing(false);
-    }
-  };
 
   const runCheck = () => {
     const brandHexes = uniqHexes(`${primary} ${background}`);
@@ -500,10 +309,6 @@ function FunnelBuilder() {
   const reset = () => {
     resetSelection();
     setGenerated(false);
-    setFullCopy("");
-    setReasons({});
-    setMeta(null);
-    setAnalyzeErr(null);
     setHtmlIn("");
     setCheck(null);
     setFixedHtml(null);
@@ -516,15 +321,6 @@ function FunnelBuilder() {
       {/* Mode toggle */}
       <div className="flex justify-center mb-5">
         <div className="inline-flex rounded-lg border border-[#2A2250] bg-[#0B091A] p-1">
-          <button
-            type="button"
-            onClick={() => setMode("analyze")}
-            className={`px-4 py-1.5 text-[12.5px] font-semibold rounded-md transition ${
-              mode === "analyze" ? "bg-[#7C5CFC] text-white" : "text-[#A09AB8] hover:text-white"
-            }`}
-          >
-            ✨ Analyze Copy (AI)
-          </button>
           <button
             type="button"
             onClick={() => setMode("manual")}
@@ -546,108 +342,11 @@ function FunnelBuilder() {
         </div>
       </div>
 
-      {/* Saved projects bar (Supabase full-stack layer) */}
-      {supabaseOn && (
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
-          <button
-            type="button"
-            onClick={saveProject}
-            className="rounded-md border border-[#2A2250] bg-[#161330] text-white text-[12.5px] font-semibold px-3.5 py-2 transition hover:border-[#7C5CFC]"
-          >
-            💾 Save funnel
-          </button>
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => {
-                setProjectsOpen((o) => !o);
-                if (!projectsOpen) refreshProjects();
-              }}
-              className="rounded-md border border-[#2A2250] bg-[#161330] text-white text-[12.5px] font-semibold px-3.5 py-2 transition hover:border-[#7C5CFC]"
-            >
-              📁 My Projects ({projects.length})
-            </button>
-            {projectsOpen && (
-              <div className="absolute z-30 mt-1 left-1/2 -translate-x-1/2 w-[280px] rounded-lg border border-[#2A2250] bg-[#12102A] p-1.5 max-h-[320px] overflow-auto shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
-                {projects.length === 0 ? (
-                  <p className="text-[12px] text-[#5A5478] px-2 py-3 text-center">
-                    No saved funnels yet. Build one, then hit Save.
-                  </p>
-                ) : (
-                  projects.map((p) => (
-                    <div
-                      key={p.id}
-                      onClick={() => loadProject(p.id)}
-                      className="group flex items-center justify-between gap-2 rounded-md px-2.5 py-2 cursor-pointer hover:bg-[#1A1740]"
-                    >
-                      <span className="text-[12.5px] text-white truncate">{p.name}</span>
-                      <button
-                        type="button"
-                        onClick={(e) => deleteProject(p.id, e)}
-                        aria-label="Delete saved funnel"
-                        className="text-[#5A5478] hover:text-[#F87171] text-[13px] opacity-0 group-hover:opacity-100 transition"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))
-                )}
-              </div>
-            )}
-          </div>
-          {projStatus && <span className="text-[12px] text-[#4ade80]">{projStatus}</span>}
-        </div>
-      )}
-
       <p className="text-[13px] text-[#A09AB8] leading-[1.6] mb-6 text-center">
-        {mode === "analyze"
-          ? "Paste the client's full funnel copy. AI splits it into the 10P sections, recommends the best-fit variation for each, and fills your copy in — review, tweak, then generate."
-          : mode === "check"
+        {mode === "check"
           ? "Built the page already? Paste its HTML here and check it against your brand kit — it flags every off-brand color/font and one-click swaps them. Deterministic, no AI, no tokens."
           : "Pick a variation per section, drop in your brand + copy, and generate one ready-to-paste prompt for each section. Pure assembly — nothing leaves your browser."}
       </p>
-
-      {/* 0 · Analyze (AI) */}
-      {mode === "analyze" && (
-        <section className="rounded-[14px] border border-[#2A2250] bg-[#161330] p-6 mb-5">
-          <h2
-            className="text-[15px] font-bold mb-1"
-            style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
-          >
-            <span className="text-[#7C5CFC]">1 ·</span> Paste Full Funnel Copy
-          </h2>
-          <p className="text-[12px] text-[#A09AB8] mb-4">
-            The whole thing — headlines, body, testimonials, offer, FAQ. AI maps it onto the 10P framework.
-          </p>
-          <textarea
-            value={fullCopy}
-            onChange={(e) => setFullCopy(e.target.value)}
-            rows={9}
-            placeholder="Paste the client's full sales-page / funnel copy here..."
-            className={fieldCls}
-          />
-          <div className="flex flex-wrap items-center gap-3 mt-4">
-            <span className="text-[11.5px] text-[#5A5478]">{fullCopy.trim().length.toLocaleString()} chars</span>
-            {meta && (meta.niche || meta.vibe) && (
-              <span className="text-[11.5px] text-[#A09AB8]">
-                Detected: <span className="text-[#C0B8E0]">{[meta.niche, meta.vibe].filter(Boolean).join(" · ")}</span>
-              </span>
-            )}
-            <button
-              type="button"
-              onClick={analyze}
-              disabled={analyzing || fullCopy.trim().length < 40}
-              className="ml-auto rounded-md bg-[#7C5CFC] text-white text-[12.5px] font-bold px-5 py-2.5 transition hover:brightness-110 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
-            >
-              {analyzing ? "Analyzing…" : "✨ Analyze & Recommend"}
-            </button>
-          </div>
-          {analyzeErr && (
-            <p className="text-[12.5px] text-[#F87171] mt-3">{analyzeErr}</p>
-          )}
-        </section>
-      )}
 
       {/* 1 · Brand kit */}
       <section className="rounded-[14px] border border-[#2A2250] bg-[#161330] p-6 mb-5">
@@ -655,7 +354,7 @@ function FunnelBuilder() {
           className="text-[15px] font-bold mb-1"
           style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
         >
-          <span className="text-[#7C5CFC]">{mode === "analyze" ? "2 ·" : "1 ·"}</span> Brand Kit
+          <span className="text-[#7C5CFC]">1 ·</span> Brand Kit
         </h2>
         <p className="text-[12px] text-[#A09AB8] mb-4">
           Two brand colors + three font roles. The AI derives all supporting shades (text, muted,
@@ -726,8 +425,7 @@ function FunnelBuilder() {
             className="text-[15px] font-bold"
             style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
           >
-            <span className="text-[#7C5CFC]">{mode === "analyze" ? "3 ·" : "2 ·"}</span>{" "}
-            {mode === "analyze" ? "Review AI Picks & Copy" : "Pick Sections & Copy"}
+            <span className="text-[#7C5CFC]">2 ·</span> Pick Sections & Copy
           </h2>
           <span className="text-[11.5px] font-semibold text-[#A09AB8]">
             {enabledCount} selected
@@ -773,12 +471,6 @@ function FunnelBuilder() {
                     </select>
                   )}
                 </div>
-                {s.enabled && reasons[g.id] && (
-                  <div className="mt-2.5 text-[11.5px] leading-[1.5] flex gap-1.5">
-                    <span className="font-bold text-[#9B82FF] shrink-0">★ AI pick:</span>
-                    <span className="text-[#A09AB8]">{reasons[g.id]}</span>
-                  </div>
-                )}
                 {s.enabled && v.previewSrc && (
                   <div className="mt-3 w-full max-w-[460px] mx-auto">
                     <button
@@ -1107,7 +799,7 @@ export function PrivateContent() {
             href="/"
             className="shrink-0 rounded-md border border-[#2A2250] px-2.5 py-1.5 text-[12px] text-[#A09AB8] transition hover:border-[#7C5CFC] hover:text-[#E8E4F5]"
           >
-            ← Hub
+            ← Gallery
           </Link>
           <span
             className="truncate text-[13px] font-bold"
@@ -1115,14 +807,6 @@ export function PrivateContent() {
           >
             Funnel Builder
           </span>
-          <form action={lock} className="ml-auto shrink-0">
-            <button
-              type="submit"
-              className="rounded-md border border-[#2A2250] px-3 py-1.5 text-[11.5px] text-[#5A5478] transition hover:border-[#F87171] hover:text-[#F87171]"
-            >
-              Sign out
-            </button>
-          </form>
         </div>
       </header>
 
