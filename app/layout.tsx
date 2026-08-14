@@ -18,7 +18,7 @@ export const viewport: Viewport = {
 };
 
 // No blanket noindex: signup is open, so the landing page should be findable.
-// The authed surfaces (/build, /private/*) set their own noindex.
+// Public tool: every route is indexable. Nothing here is gated.
 export const metadata: Metadata = {
   title: "Funnel Section Builder",
   description:
