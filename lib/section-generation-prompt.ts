@@ -34,7 +34,14 @@ STYLING RULES:
 - Every rule you write must be scoped beneath one unique class on the <section>, so sections cannot collide.
 - Responsive down to 360px. Use relative units.
 - No external stylesheets, scripts, frameworks or network requests of any kind.
-- If an image is needed and no URL is supplied, use a CSS-drawn placeholder block — never a hotlinked stock photo.`;
+- If an image is needed and no URL is supplied, use a CSS-drawn placeholder block — never a hotlinked stock photo.
+
+LENGTH — this is a hard constraint, not a preference:
+- Keep the whole fragment under 160 lines. Favour a few well-chosen rules over exhaustive ones.
+- Do not restate a rule that the shared tokens already cover.
+- If the section is a list (FAQ, features, testimonials, pricing tiers), include at most 6 items.
+  The client can duplicate one; they cannot recover a section that was cut off.
+- A section that runs long gets cut off mid-tag and is thrown away, so brevity is correctness here.`;
 
 export function buildSectionGenerationPrompt(args: {
   variation: Section;

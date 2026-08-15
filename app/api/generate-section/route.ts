@@ -29,8 +29,14 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 const MODEL = "claude-sonnet-5";
-/** A section is a few thousand tokens of HTML; this is headroom, not a target. */
-const MAX_OUTPUT_TOKENS = 6_000;
+/**
+ * Measured: this model emits ~67 output tokens/sec, so anything past roughly
+ * 3,600 tokens cannot finish inside Vercel Hobby's 60s function ceiling. A
+ * 6,000 ceiling let one section run 52s and abort; 3,200 truncated list-heavy
+ * sections like FAQ. 4,500 is the measured middle. This is a latency budget
+ * expressed in tokens, not a generosity dial — raising it re-breaks the route.
+ */
+const MAX_OUTPUT_TOKENS = 4_500;
 /** Leaves room to still return a JSON error inside the 60s function budget. */
 const UPSTREAM_TIMEOUT_MS = 52_000;
 
