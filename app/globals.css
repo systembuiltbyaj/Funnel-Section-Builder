@@ -68,3 +68,213 @@
     transform: none;
   }
 }
+
+/* ==========================================================================
+   Cold-open title sequence  (markup: app/cold-open.tsx)
+
+   Pure CSS, no JavaScript. Every animation uses `forwards` so the sequence
+   always reaches its end state even if hydration never happens — nobody can
+   be left staring at a black screen.
+
+   Deliberately outside @layer: this overlay must win against everything,
+   and unlayered rules beat layered ones regardless of source order.
+   ========================================================================== */
+
+.co {
+  /* Every timing lives here. Total run: 3.1s. */
+  --co-wire-dur: 1.5s;
+  --co-wire-stagger: 0.05s;
+  --co-hair-at: 0.15s;
+  --co-hair-dur: 0.5s;
+  --co-kicker-at: 0.5s;
+  --co-kicker-dur: 0.45s;
+  --co-type-at: 0.7s;
+  --co-type-dur: 1.2s;
+  --co-fade-at: 2.55s;
+  --co-fade-dur: 0.55s;
+
+  --co-violet: var(--color-persian, #5e17eb);
+
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #000;
+  animation: co-out var(--co-fade-dur) ease var(--co-fade-at) forwards;
+}
+
+/* --- wireframes: three outlines passing the camera --------------------- */
+
+.co__wire {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(46vw, 420px);
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--co-violet);
+  border-radius: 14px;
+  opacity: 0;
+  animation: co-wire var(--co-wire-dur) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.co__wire--1 { animation-delay: calc(var(--co-wire-stagger) * 1); }
+.co__wire--2 { animation-delay: calc(var(--co-wire-stagger) * 2); }
+.co__wire--3 { animation-delay: calc(var(--co-wire-stagger) * 3); }
+
+@keyframes co-wire {
+  0%   { transform: translate(-50%, -50%) scale(0.18); opacity: 0; }
+  18%  { opacity: 0.85; }
+  100% { transform: translate(-50%, -50%) scale(3.4); opacity: 0; }
+}
+
+/* --- hairline dropping through the centre ----------------------------- */
+
+.co__hair {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  transform-origin: top center;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--co-violet) 70%, transparent) 45%,
+    transparent
+  );
+  transform: scaleY(0);
+  animation: co-hair var(--co-hair-dur) cubic-bezier(0.16, 1, 0.3, 1)
+    var(--co-hair-at) forwards;
+}
+
+@keyframes co-hair {
+  to { transform: scaleY(1); }
+}
+
+/* --- text stack -------------------------------------------------------- */
+
+.co__stack {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  padding: 0 1rem;
+}
+
+.co__kicker {
+  margin: 0;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.62em;
+  /* letter-spacing adds trailing space after the last glyph; pull it back so
+     the kicker reads as centred against the name below. */
+  text-indent: 0.62em;
+  text-transform: uppercase;
+  color: var(--co-violet);
+  opacity: 0;
+  animation: co-fade-in var(--co-kicker-dur) ease var(--co-kicker-at) forwards;
+}
+
+@keyframes co-fade-in {
+  to { opacity: 1; }
+}
+
+/* --- the name, typing on while staying centred ------------------------- *
+
+   THE RE-CENTRING TRICK — read before editing.
+
+   The name must be centred at EVERY frame while it types:
+       AL  ->  ALLEN BAC  ->  ALLEN BACTAD
+   growing outward from the middle, not left-to-right.
+
+   How it works:
+     - `.co__name` is an inline-grid with `justify-items: center`.
+     - `.co__ghost` and `.co__clip` share grid cell 1/1. The ghost is a hidden
+       copy of the full text whose only job is to size the cell to the final
+       width.
+     - `.co__clip` animates `width: 0 -> 100%` in steps, with overflow hidden.
+       Because the grid centres it, growing its width walks its LEFT edge
+       leftward at half the rate the text is revealed.
+     - `.co__text` is `display: block; white-space: nowrap`, so it is anchored
+       to the clip's left edge and never reflows as the clip grows.
+
+   Net effect: every intermediate state lands dead centre for free.
+
+   THE EDIT THAT BREAKS IT: anchoring the text to the grid cell instead of to
+   the clip box — i.e. dropping the ghost, or letting `.co__text` size itself
+   from the grid. That yields an ordinary left-anchored typewriter, which is
+   the wrong result and looks it.
+   -------------------------------------------------------------------------- */
+
+.co__name {
+  display: inline-grid;
+  justify-items: center;
+  font-size: clamp(1.75rem, 7vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.co__ghost,
+.co__clip {
+  grid-area: 1 / 1;
+}
+
+/* Sizes the grid cell to the finished text. Never shown. */
+.co__ghost {
+  visibility: hidden;
+}
+
+.co__clip {
+  position: relative;
+  width: 0;
+  overflow: hidden;
+  /* 12 steps = the 12 characters of "ALLEN BACTAD" (space included). */
+  animation: co-type var(--co-type-dur) steps(12, end) var(--co-type-at) forwards;
+}
+
+@keyframes co-type {
+  to { width: 100%; }
+}
+
+.co__text {
+  display: block;
+  white-space: nowrap;
+}
+
+.co__caret {
+  position: absolute;
+  right: 0;
+  top: 0.1em;
+  bottom: 0.1em;
+  width: 3px;
+  background: var(--co-violet);
+  animation: co-caret 0.5s steps(1, end) infinite;
+}
+
+@keyframes co-caret {
+  50% { opacity: 0; }
+}
+
+/* --- the whole overlay leaving ---------------------------------------- */
+
+@keyframes co-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* Open straight into the app — deliberately not a static black flash. */
+@media (prefers-reduced-motion: reduce) {
+  .co { display: none; }
+}
+
+@media print {
+  .co { display: none; }
+}

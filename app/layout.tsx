@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { FunnelSelectionProvider } from "@/lib/funnel-selection-provider";
 import { CATALOGUE, INITIAL_SEL } from "@/lib/catalogue";
+import { ColdOpen } from "./cold-open";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,6 +34,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="font-sans">
+        {/* First child so it paints over everything. Root layout stays mounted
+            across client-side navigation, so this plays once per full load. */}
+        <ColdOpen />
         <FunnelSelectionProvider catalogue={CATALOGUE} initialSel={INITIAL_SEL}>
           {children}
         </FunnelSelectionProvider>
