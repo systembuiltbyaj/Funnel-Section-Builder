@@ -9,7 +9,13 @@ The gallery also carries 64 browse-only Extras — 53 image prompts, 6 carousel
 sections and 5 full-page layouts (`lib/gallery-extras.ts`). Extras cannot join a
 funnel; their cards only offer "Copy prompt".
 
-No account, no API keys, no backend — your work is kept in the browser.
+No account and no database — your work is kept in the browser.
+
+On `/build` you can either copy a master prompt to run yourself, or have the app
+**generate the page for you**: it builds each section in its own request and
+stitches them into one single-file HTML document you can download and edit. That
+path needs an `ANTHROPIC_API_KEY`; without one the app still works and simply
+offers the prompt instead.
 
 Most variations ship a rendered HTML sample, so a section — or the whole selected
 funnel — can be previewed live and re-skinned in the client's brand kit before a
@@ -32,5 +38,10 @@ npm test               # node --test, no extra dependencies
 ```
 
 ## Deploy (Vercel)
-Push to a GitHub repo and import in Vercel. No environment variables are
-required.
+Push to a GitHub repo and import in Vercel.
+
+Set `ANTHROPIC_API_KEY` if you want in-app HTML generation; everything else
+works without it. **Set a hard monthly budget cap in the Anthropic console** —
+the app is public and has no accounts, so that cap is the only real limit on
+spend. Generation runs one request per section deliberately, because Vercel
+Hobby caps a function at 60 seconds.

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { LivePreview, type PreviewItem } from "./live-preview";
+import { GeneratePanel } from "./build/generate-panel";
 import { sampleForPreview } from "@/lib/samples";
 import { PROMPT_GROUPS as builderGroups } from "@/lib/prompt-groups";
 import { useFunnelSelection } from "@/lib/funnel-selection-provider";
@@ -608,6 +609,15 @@ function FunnelBuilder() {
               <pre className="font-mono text-[11px] text-[#C0B8E0] leading-[1.7] whitespace-pre-wrap px-5 py-4 max-h-[360px] overflow-auto">
                 {fullPrompt}
               </pre>
+            </div>
+          )}
+
+          {/* The prompt above is the hand-off path; this is the same thing built
+              for you. Both stay available — generation can fail or be switched
+              off, and the prompt must still be a real option when it does. */}
+          {fullPrompt && (
+            <div className="mb-5">
+              <GeneratePanel />
             </div>
           )}
 

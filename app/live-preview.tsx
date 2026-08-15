@@ -9,7 +9,18 @@ import {
   type BrandKit,
 } from "@/lib/samples";
 
-export type PreviewItem = { id: string; title: string; sampleSrc: string };
+/**
+ * A preview source. Either a `sampleSrc` to fetch (a catalogue sample) or an
+ * inline `html` document already in hand (a freshly generated funnel). When
+ * `html` is present the fetch is skipped and no brand re-skin is applied —
+ * generated output is already built in the client's own brand.
+ */
+export type PreviewItem = {
+  id: string;
+  title: string;
+  sampleSrc?: string;
+  html?: string;
+};
 
 type Device = "desktop" | "mobile";
 
@@ -49,6 +60,16 @@ function PreviewFrame({
     let cancelled = false;
 
     (async () => {
+      // A generated document arrives inline and is already in the client's
+      // brand, so it is neither fetched nor re-skinned.
+      if (item.html !== undefined) {
+        setHtml(withHeightReporter(item.html, frameId));
+        return;
+      }
+      if (!item.sampleSrc) {
+        setError("Preview unavailable — no document to show.");
+        return;
+      }
       try {
         const res = await fetch(item.sampleSrc);
         if (!res.ok) throw new Error(`${res.status}`);
@@ -64,7 +85,7 @@ function PreviewFrame({
     return () => {
       cancelled = true;
     };
-  }, [item.sampleSrc, applyBrand, kit, frameId]);
+  }, [item.sampleSrc, item.html, applyBrand, kit, frameId]);
 
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
