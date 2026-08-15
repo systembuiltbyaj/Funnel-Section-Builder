@@ -49,8 +49,33 @@ console** — which is the real backstop, because with no accounts there is no
 reliable per-user limit. If generation is unconfigured or fails, the master
 prompt on `/build` remains a first-class path; never reduce it to an apology.
 
-`ANTHROPIC_API_KEY` is the only environment variable. Without it the route
-returns 503 and the UI falls back to the prompt.
+### Providers, and why the default is what it is
+
+`GROQ_API_KEY` or `ANTHROPIC_API_KEY` — whichever is set. Groq wins when both
+are, because it is free and fast enough to leave real headroom. Force the other
+with `GENERATION_PROVIDER=anthropic`. With neither, the route returns 503 and the
+UI falls back to the prompt.
+
+Measured on this project's own sections, all three of these were learned the
+hard way — do not re-litigate them without re-measuring:
+
+| Provider / model | Speed | Outcome |
+|---|---|---|
+| anthropic · sonnet-5 | ~95 tok/s | Best output. FAQ-class sections ran 34–43s and truncated intermittently against the 60s ceiling. Costs money. |
+| groq · llama-3.3-70b | ~460 tok/s | Fast and free, but broke the design contract: light section backgrounds on a dark page, and `url('BG_IMAGE')` emitted as a literal. |
+| **groq · gpt-oss-120b** | fast | **Current default.** Holds the contract. More verbose, so it hits the free tier's 12k tokens/minute more often. |
+
+**The token block is role-labelled for a reason.** Handed bare colour values, a
+model will use `--text` as a card background and produce an invisible section —
+observed, not theoretical. Each token carries its role in a comment, and the
+system prompt repeats that `--text`/`--muted` are text-only. Do not strip those
+comments to tidy the output.
+
+**Rate limits are expected, not exceptional.** Groq's free tier caps
+tokens-per-minute, so a multi-section funnel *will* hit 429. The route returns
+`rate_limited` with a wait derived from the provider's headers, and the panel
+counts the wait down and retries. A 3-section run took 81s wall-clock, 20s of it
+generating.
 
 ## Where things live
 
@@ -64,6 +89,7 @@ returns 503 and the UI falls back to the prompt.
 | Design-token contract every generated section obeys | `lib/design-tokens.ts` |
 | What `/api/generate-section` accepts (caps, catalogue check) | `lib/generate-contract.ts` |
 | The message sent to the model for one section | `lib/section-generation-prompt.ts` |
+| Which model generates, and how to call it | `lib/generation-provider.ts` |
 | Turning a model reply into a usable fragment | `lib/html-extract.ts` |
 | Assembling fragments into one deliverable file | `lib/stitch-funnel.ts` |
 | Generation progress UI | `app/build/generate-panel.tsx` |

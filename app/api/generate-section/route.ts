@@ -5,6 +5,12 @@ import { validateGenerateRequest } from "@/lib/generate-contract";
 import { buildTokenBlock } from "@/lib/design-tokens";
 import { buildSectionGenerationPrompt, SYSTEM_PROMPT } from "@/lib/section-generation-prompt";
 import { extractSectionFragment } from "@/lib/html-extract";
+import {
+  pickProvider,
+  buildProviderRequest,
+  parseProviderReply,
+  parseRetryAfterSeconds,
+} from "@/lib/generation-provider";
 
 /**
  * Generate the HTML for ONE section.
@@ -19,25 +25,17 @@ import { extractSectionFragment } from "@/lib/html-extract";
  * this endpoint can only ever produce one of the catalogue's sections. It
  * cannot be farmed as a general-purpose LLM proxy.
  *
- * Spend is bounded by: the output ceiling below, the input caps in
- * `validateGenerateRequest`, and a hard monthly budget set in the Anthropic
- * console — which is the real backstop, since there are no accounts and so no
- * reliable per-user limit.
+ * Spend is bounded by: the provider's own output ceiling, the input caps in
+ * `validateGenerateRequest`, and — when running on a paid provider — a hard
+ * monthly budget set in that provider's console. With no accounts there is no
+ * reliable per-user limit, so that cap is the real backstop. The default
+ * provider (Groq) is free-tier, where the equivalent limit is its own rate
+ * limiting rather than a bill.
  */
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-const MODEL = "claude-sonnet-5";
-/**
- * Measured: this model emits ~67 output tokens/sec, so anything past roughly
- * 3,600 tokens cannot finish inside Vercel Hobby's 60s function ceiling. A
- * 6,000 ceiling let one section run 52s and abort; 3,200 truncated list-heavy
- * sections like FAQ. 4,500 is the measured middle. This is a latency budget
- * expressed in tokens, not a generosity dial — raising it re-breaks the route.
- */
-const MAX_OUTPUT_TOKENS = 4_500;
-/** Leaves room to still return a JSON error inside the 60s function budget. */
 const UPSTREAM_TIMEOUT_MS = 52_000;
 
 function fail(code: string, message: string, status: number) {
@@ -52,8 +50,10 @@ export async function POST(req: NextRequest) {
     return fail("forbidden", "Cross-origin requests are not accepted.", 403);
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
+  // Groq by default: free, and ~5x faster, which is what makes a section fit
+  // inside the 60s function ceiling. See lib/generation-provider.ts.
+  const provider = pickProvider(process.env);
+  if (!provider) {
     return fail(
       "not_configured",
       "Generation is not configured on this deployment. Copy the prompt instead.",
@@ -89,38 +89,43 @@ export async function POST(req: NextRequest) {
 
   let reply: string;
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const request = buildProviderRequest(provider, {
+      system: SYSTEM_PROMPT,
+      prompt,
+    });
+    const res = await fetch(request.url, {
       method: "POST",
       signal: controller.signal,
-      headers: {
-        "content-type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: MAX_OUTPUT_TOKENS,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: "user", content: prompt }],
-      }),
+      headers: request.headers,
+      body: request.body,
     });
+
+    // A rate limit is not an error the user caused, and it is recoverable —
+    // it gets its own code and a wait, so the client can pause and retry
+    // rather than marking the section failed. The free tier is capped on
+    // tokens per minute, so a multi-section funnel WILL hit this.
+    if (res.status === 429) {
+      const retryAfterSec = parseRetryAfterSeconds((name) => res.headers.get(name));
+      return Response.json(
+        {
+          code: "rate_limited",
+          message: `Rate limited — retrying in ${retryAfterSec}s.`,
+          retryAfterSec,
+        },
+        { status: 429 }
+      );
+    }
 
     if (!res.ok) {
       // Surface the class of failure without leaking the provider's body.
       const hint =
-        res.status === 429
-          ? "The generator is rate limited right now."
-          : res.status === 400
-            ? "The generator rejected this section."
-            : "The generator is unavailable.";
+        res.status === 400
+          ? "The generator rejected this section."
+          : "The generator is unavailable.";
       return fail("upstream_error", hint, 502);
     }
 
-    const data = (await res.json()) as { content?: Array<{ type: string; text?: string }> };
-    reply = (data.content ?? [])
-      .filter((part) => part.type === "text")
-      .map((part) => part.text ?? "")
-      .join("");
+    reply = parseProviderReply(provider.provider, await res.json());
   } catch (error) {
     const aborted = error instanceof Error && error.name === "AbortError";
     return fail(

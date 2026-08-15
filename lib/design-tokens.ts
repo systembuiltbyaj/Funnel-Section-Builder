@@ -78,15 +78,18 @@ export function resolveTokens(kit: FunnelBrandKit): ResolvedTokens {
  */
 export function buildTokenBlock(kit: FunnelBrandKit): string {
   const t = resolveTokens(kit);
+  // Each token is labelled with its ROLE. A model handed bare colour values
+  // will happily use --text as a card background, which yields white-on-white
+  // and an invisible section — observed, not hypothetical.
   return [
     ":root {",
-    `  --brand: ${t.brand};`,
-    `  --brand-contrast: ${t.brandContrast};`,
-    `  --bg: ${t.bg};`,
-    `  --surface: ${t.surface};`,
-    `  --border: ${t.border};`,
-    `  --text: ${t.text};`,
-    `  --muted: ${t.muted};`,
+    `  --brand: ${t.brand};            /* accents, CTAs, emphasis. Never body text. */`,
+    `  --brand-contrast: ${t.brandContrast};   /* text ON a --brand fill */`,
+    `  --bg: ${t.bg};               /* the page ground. Already set on body. */`,
+    `  --surface: ${t.surface};          /* cards and raised panels. The ONLY other background. */`,
+    `  --border: ${t.border};           /* hairlines and dividers */`,
+    `  --text: ${t.text};             /* body and headings. TEXT ONLY, never a background. */`,
+    `  --muted: ${t.muted};            /* secondary text. TEXT ONLY. */`,
     `  --font-head: ${t.fontHead};`,
     `  --font-sub: ${t.fontSub};`,
     `  --font-body: ${t.fontBody};`,

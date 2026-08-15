@@ -31,10 +31,22 @@ OUTPUT RULES — these are absolute:
 
 STYLING RULES:
 - Use ONLY the CSS custom properties given to you. Do not invent colours, fonts or hex values.
+- Respect each token's ROLE, which is written beside it. The two that are always wrong to
+  misuse: --text and --muted are TEXT COLOURS and must never be a background; --bg and
+  --surface are the only backgrounds that exist. Using --text as a panel fill produces
+  white-on-white and an unreadable section.
 - Every rule you write must be scoped beneath one unique class on the <section>, so sections cannot collide.
 - Responsive down to 360px. Use relative units.
 - No external stylesheets, scripts, frameworks or network requests of any kind.
-- If an image is needed and no URL is supplied, use a CSS-drawn placeholder block — never a hotlinked stock photo.
+- The page already sets background: var(--bg) on the body. Do NOT give the section a
+  different background unless the spec asks for a contrasting band — and if it does,
+  use var(--surface). Never a literal colour, and never a light background on a dark
+  palette. A section that fights the page background is a broken section.
+- If an image is needed and no URL is supplied, draw a CSS placeholder block. NEVER emit a
+  bare token such as url('BG_IMAGE') or src="VIDEO_THUMB" — those resolve to nothing and
+  render as a broken image.
+- Write real headline copy. If client copy is supplied, shape it into a headline and a
+  subhead; do not paste a whole paragraph into the <h1>.
 
 LENGTH — this is a hard constraint, not a preference:
 - Keep the whole fragment under 160 lines. Favour a few well-chosen rules over exhaustive ones.

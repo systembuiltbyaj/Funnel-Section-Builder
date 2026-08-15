@@ -22,7 +22,22 @@ import { LivePreview, type PreviewItem } from "../live-preview";
  * risk the quota that the funnel selection itself depends on.
  */
 
-type RowState = "pending" | "running" | "done" | "failed";
+type RowState = "pending" | "running" | "waiting" | "done" | "failed";
+
+/**
+ * A 429 is not a failure the user caused and not one they can fix — the free
+ * tier is capped on tokens per minute, so a multi-section funnel is *expected*
+ * to hit it. It carries how long to wait so the run can pause and continue.
+ */
+class RateLimited extends Error {
+  constructor(readonly retryAfterSec: number) {
+    super(`Rate limited, retrying in ${retryAfterSec}s`);
+  }
+}
+
+const MAX_RATE_LIMIT_WAITS = 4;
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 type Row = {
   groupId: string;
@@ -32,11 +47,14 @@ type Row = {
   state: RowState;
   html?: string;
   error?: string;
+  /** Seconds left on a rate-limit pause, shown so the wait reads as progress. */
+  waitSec?: number;
 };
 
 const STATE_LABEL: Record<RowState, string> = {
-  pending: "Waiting",
+  pending: "Queued",
   running: "Generating…",
+  waiting: "Rate limited",
   done: "Done",
   failed: "Failed",
 };
@@ -44,6 +62,7 @@ const STATE_LABEL: Record<RowState, string> = {
 const STATE_CLASS: Record<RowState, string> = {
   pending: "text-[#5A5478]",
   running: "text-[#F5C842]",
+  waiting: "text-[#A09AB8]",
   done: "text-[#4ADE80]",
   failed: "text-[#F87171]",
 };
@@ -91,14 +110,44 @@ export function GeneratePanel() {
         }),
       });
       const data = (await res.json().catch(() => null)) as
-        | { html?: string; code?: string; message?: string }
+        | { html?: string; code?: string; message?: string; retryAfterSec?: number }
         | null;
+      if (res.status === 429) {
+        throw new RateLimited(
+          typeof data?.retryAfterSec === "number" ? data.retryAfterSec : 15
+        );
+      }
       if (!res.ok || !data?.html) {
         throw new Error(data?.message ?? "Generation failed.");
       }
       return data.html;
     },
     [kit]
+  );
+
+
+  /**
+   * One section, waiting out rate limits rather than failing on them. Returns
+   * the fragment, or throws for a real failure.
+   */
+  const generateWithPatience = useCallback(
+    async (index: number, item: (typeof chosen)[number]): Promise<string> => {
+      for (let attempt = 0; attempt <= MAX_RATE_LIMIT_WAITS; attempt += 1) {
+        patchRow(index, { state: "running", error: undefined, waitSec: undefined });
+        try {
+          return await generateOne(item);
+        } catch (error) {
+          if (!(error instanceof RateLimited) || attempt === MAX_RATE_LIMIT_WAITS) throw error;
+          // Count the pause down so a 40s wait reads as progress, not a hang.
+          for (let left = error.retryAfterSec; left > 0; left -= 1) {
+            patchRow(index, { state: "waiting", waitSec: left });
+            await sleep(1000);
+          }
+        }
+      }
+      throw new Error("Still rate limited after several attempts.");
+    },
+    [generateOne, patchRow]
   );
 
   const runAll = useCallback(async () => {
@@ -108,10 +157,9 @@ export function GeneratePanel() {
     setRows(initial);
 
     for (let i = 0; i < chosen.length; i += 1) {
-      patchRow(i, { state: "running", error: undefined });
       try {
-        const html = await generateOne(chosen[i]);
-        patchRow(i, { state: "done", html });
+        const html = await generateWithPatience(i, chosen[i]);
+        patchRow(i, { state: "done", html, waitSec: undefined });
       } catch (error) {
         const message = error instanceof Error ? error.message : "Generation failed.";
         patchRow(i, { state: "failed", error: message });
@@ -124,15 +172,14 @@ export function GeneratePanel() {
       }
     }
     setRunning(false);
-  }, [chosen, generateOne, patchRow]);
+  }, [chosen, generateWithPatience, patchRow]);
 
   const retryOne = useCallback(
     async (index: number) => {
       setRunning(true);
-      patchRow(index, { state: "running", error: undefined });
       try {
-        const html = await generateOne(chosen[index]);
-        patchRow(index, { state: "done", html });
+        const html = await generateWithPatience(index, chosen[index]);
+        patchRow(index, { state: "done", html, waitSec: undefined });
       } catch (error) {
         patchRow(index, {
           state: "failed",
@@ -141,7 +188,7 @@ export function GeneratePanel() {
       }
       setRunning(false);
     },
-    [chosen, generateOne, patchRow]
+    [chosen, generateWithPatience, patchRow]
   );
 
   // Memoised because the stitched document below depends on it; recomputing
@@ -231,7 +278,9 @@ export function GeneratePanel() {
                 {row.label} · {row.name}
               </span>
               <span className={`shrink-0 text-[11.5px] ${STATE_CLASS[row.state]}`}>
-                {STATE_LABEL[row.state]}
+                {row.state === "waiting" && row.waitSec
+                  ? `Rate limited — ${row.waitSec}s`
+                  : STATE_LABEL[row.state]}
               </span>
               {row.state === "failed" && (
                 <button
