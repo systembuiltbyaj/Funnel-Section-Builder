@@ -74,11 +74,27 @@ export type ProviderRequest = {
   body: string;
 };
 
+/**
+ * Per-call overrides. Generation wants a little warmth; classification wants
+ * near-determinism and a parseable object.
+ *
+ * `json` is a Groq-only hint — Anthropic's Messages API has no
+ * `response_format`, so a JSON reply there is secured by the system prompt
+ * instead. Callers must not assume the flag alone guarantees valid JSON.
+ */
+export type ProviderOptions = {
+  temperature?: number;
+  json?: boolean;
+};
+
 export function buildProviderRequest(
   config: ProviderConfig,
-  args: { system: string; prompt: string }
+  args: { system: string; prompt: string },
+  options: ProviderOptions = {}
 ): ProviderRequest {
   const { system, prompt } = args;
+  // Low but not zero: layout benefits from a little variety, structure does not.
+  const temperature = options.temperature ?? 0.4;
 
   if (config.provider === "groq") {
     return {
@@ -90,8 +106,8 @@ export function buildProviderRequest(
       body: JSON.stringify({
         model: config.model,
         max_tokens: config.maxOutputTokens,
-        // Low but not zero: layout benefits from a little variety, structure does not.
-        temperature: 0.4,
+        temperature,
+        ...(options.json ? { response_format: { type: "json_object" } } : {}),
         messages: [
           { role: "system", content: system },
           { role: "user", content: prompt },
@@ -110,6 +126,7 @@ export function buildProviderRequest(
     body: JSON.stringify({
       model: config.model,
       max_tokens: config.maxOutputTokens,
+      temperature,
       system,
       messages: [{ role: "user", content: prompt }],
     }),

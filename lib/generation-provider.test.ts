@@ -137,3 +137,26 @@ test("junk or missing headers fall back to a sane short wait", () => {
   assert.equal(parseRetryAfterSeconds(headers({ "retry-after": "soon" })), 15);
   assert.equal(parseRetryAfterSeconds(headers({ "x-ratelimit-reset-tokens": "nonsense" })), 15);
 });
+
+test("groq asks for a strict JSON object when json mode is on", () => {
+  const config = { provider: "groq", apiKey: "k", model: "m", maxOutputTokens: 100 } as const;
+  const req = buildProviderRequest(config, { system: "s", prompt: "p" }, { json: true, temperature: 0.2 });
+  const body = JSON.parse(req.body);
+  assert.deepEqual(body.response_format, { type: "json_object" });
+  assert.equal(body.temperature, 0.2);
+});
+
+test("anthropic honours temperature but carries no response_format", () => {
+  const config = { provider: "anthropic", apiKey: "k", model: "m", maxOutputTokens: 100 } as const;
+  const req = buildProviderRequest(config, { system: "s", prompt: "p" }, { json: true, temperature: 0.2 });
+  const body = JSON.parse(req.body);
+  assert.equal(body.temperature, 0.2);
+  assert.equal("response_format" in body, false);
+});
+
+test("omitting options leaves the generation defaults untouched", () => {
+  const config = { provider: "groq", apiKey: "k", model: "m", maxOutputTokens: 100 } as const;
+  const body = JSON.parse(buildProviderRequest(config, { system: "s", prompt: "p" }).body);
+  assert.equal(body.temperature, 0.4);
+  assert.equal("response_format" in body, false);
+});
