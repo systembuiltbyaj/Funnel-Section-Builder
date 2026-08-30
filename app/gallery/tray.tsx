@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useFunnelSelection } from "@/lib/funnel-selection-provider";
 import { PROMPT_GROUPS } from "@/lib/prompt-groups";
 import { variationShortName } from "@/lib/prompt-assembly";
@@ -13,7 +12,7 @@ import { BrandKitPanel } from "./brand-kit-panel";
  * Hidden until something is picked, so a browse-only visitor never sees funnel
  * chrome they did not ask for.
  */
-export function FunnelTray() {
+export function FunnelTray({ onBuild }: { onBuild: () => void }) {
   const { sel, hydrated, setSection } = useFunnelSelection();
   const [brandOpen, setBrandOpen] = useState(false);
 
@@ -58,12 +57,13 @@ export function FunnelTray() {
             Brand kit
           </button>
 
-          <Link
-            href="/build"
+          <button
+            type="button"
+            onClick={onBuild}
             className="shrink-0 rounded-md bg-[#7C5CFC] px-5 py-2.5 text-[12.5px] font-bold text-white transition hover:brightness-110"
           >
             Build full funnel →
-          </Link>
+          </button>
         </div>
       </div>
 

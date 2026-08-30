@@ -8,13 +8,19 @@ import { EXTRA_GROUPS, isExtraGroup } from "@/lib/gallery-extras";
 import { singleSectionPrompt } from "@/lib/single-section-prompt";
 import { sampleForPreview } from "@/lib/samples";
 import { LivePreview, type PreviewItem } from "../live-preview";
-import { GalleryRail } from "./rail";
 import { GalleryCard } from "./card";
 import { FunnelTray } from "./tray";
 
-export function Gallery() {
+export function Gallery({
+  activeGroup,
+  onSelectGroup,
+  onBuild,
+}: {
+  activeGroup: string | null;
+  onSelectGroup: (groupId: string | null) => void;
+  onBuild: () => void;
+}) {
   const { sel, kit, toggleSection } = useFunnelSelection();
-  const [activeGroup, setActiveGroup] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [live, setLive] = useState<{ heading: string; items: PreviewItem[] } | null>(null);
 
@@ -27,7 +33,6 @@ export function Gallery() {
     [items, activeGroup, query]
   );
 
-  const pickedIds = Object.entries(sel).filter(([, v]) => v?.enabled).map(([id]) => id);
   const activeGroupMeta =
     PROMPT_GROUPS.find((g) => g.id === activeGroup) ??
     EXTRA_GROUPS.find((g) => g.id === activeGroup) ??
@@ -49,42 +54,9 @@ export function Gallery() {
   }
 
   return (
-    <main className="relative min-h-[100dvh] overflow-x-hidden bg-[#0D0B1F] text-white">
-      <div
-        aria-hidden
-        className="pointer-events-none fixed left-1/2 top-[-100px] z-0 h-[600px] w-[900px] -translate-x-1/2"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 30%, rgba(124,92,252,0.13) 0%, transparent 65%)",
-        }}
-      />
-
-      <div className="relative z-10">
-        <header className="px-4 pb-6 pt-10 text-center">
-          <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#6B6390]">
-            10P Sales Page Framework
-          </div>
-          <h1
-            className="text-[30px] font-bold leading-tight"
-            style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
-          >
-            Funnel Section <span className="text-[#F5C842]">Templates</span>
-          </h1>
-          <p className="mx-auto mt-2.5 max-w-[520px] text-[13px] leading-[1.6] text-[#A09AB8]">
-            110 ready-made funnel sections across the 12 groups of the 10P framework, plus 64
-            browse-only extras (image prompts, carousel, full layouts). Preview any section live,
-            recolour it to your brand, and take away a copy-ready prompt.
-          </p>
-        </header>
-
-        <div className="mx-auto flex max-w-[1240px] gap-6 px-4 pb-28">
-          <GalleryRail
-            activeGroup={activeGroup}
-            onSelect={setActiveGroup}
-            pickedIds={pickedIds}
-          />
-
-          <div className="min-w-0 flex-1">
+    <>
+      <div className="mx-auto max-w-[1240px] px-4 pb-28">
+        <div className="min-w-0 flex-1">
             <div className="mb-5">
               <label htmlFor="gallery-search" className="sr-only">
                 Search sections
@@ -115,8 +87,15 @@ export function Gallery() {
             {shown.length === 0 ? (
               <div className="rounded-[14px] border border-dashed border-[#2A2250] px-6 py-14 text-center">
                 <p className="text-[13px] text-[#A09AB8]">
-                  Nothing matches “{query}”. Try a shorter search, or pick a group on the left.
+                  Nothing matches “{query}”. Try a shorter search, or pick a group above.
                 </p>
+                <button
+                  type="button"
+                  onClick={() => onSelectGroup(null)}
+                  className="mt-3 rounded-md border border-[#2A2250] px-3 py-1.5 text-[12px] text-[#A09AB8] transition hover:border-[#7C5CFC] hover:text-[#E8E4F5]"
+                >
+                  Show all sections
+                </button>
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-3.5 lg:grid-cols-2">
@@ -154,11 +133,10 @@ export function Gallery() {
                 })}
               </div>
             )}
-          </div>
         </div>
       </div>
 
-      <FunnelTray />
+      <FunnelTray onBuild={onBuild} />
 
       {live && (
         <LivePreview
@@ -168,6 +146,6 @@ export function Gallery() {
           onClose={() => setLive(null)}
         />
       )}
-    </main>
+    </>
   );
 }
