@@ -6,7 +6,7 @@ import {
   stripBrandBlocks,
   PLACEHOLDER_COPY_RULE,
 } from "./prompt-assembly.ts";
-import type { PromptGroup, FunnelBrandKit } from "./prompt-assembly.ts";
+import type { PromptGroup, FunnelBrandKit, BuilderSelection } from "./prompt-assembly.ts";
 
 const EMPTY_KIT: FunnelBrandKit = {
   primary: "", background: "", fontHead: "", fontSub: "", fontBody: "", images: "",
@@ -49,7 +49,7 @@ test("stripBrandBlocks is a no-op with no labels", () => {
 test("buildOutputs returns no blocks and no full prompt when nothing is enabled", () => {
   const out = buildOutputs({
     groups: GROUPS,
-    sel: { hero: { enabled: false, variation: "01a", copy: "" } },
+    sel: { hero: { enabled: false, variation: "01a" } },
     kit: EMPTY_KIT,
     includeRef: true,
   });
@@ -60,7 +60,7 @@ test("buildOutputs returns no blocks and no full prompt when nothing is enabled"
 test("buildOutputs emits a block and a full prompt for an enabled section", () => {
   const out = buildOutputs({
     groups: GROUPS,
-    sel: { hero: { enabled: true, variation: "01a", copy: "My headline" } },
+    sel: { hero: { enabled: true, variation: "01a" } },
     kit: EMPTY_KIT,
     includeRef: false,
   });
@@ -72,7 +72,9 @@ test("buildOutputs emits a block and a full prompt for an enabled section", () =
 test("no copy reaches the prompt — the model is told to write its own", () => {
   const out = buildOutputs({
     groups: GROUPS,
-    sel: { hero: { enabled: true, variation: "01a", copy: "My headline" } },
+    // Cast: the type no longer has `copy`, but a record persisted before it was
+    // dropped still does at runtime. This pins that such a field cannot leak.
+    sel: { hero: { enabled: true, variation: "01a", copy: "My headline" } as BuilderSelection },
     kit: EMPTY_KIT,
     includeRef: false,
   });
@@ -88,7 +90,7 @@ test("no copy reaches the prompt — the model is told to write its own", () => 
 test("buildOutputs puts the authoritative brand kit ahead of the spec when a kit is set", () => {
   const out = buildOutputs({
     groups: GROUPS,
-    sel: { hero: { enabled: true, variation: "01a", copy: "Copy" } },
+    sel: { hero: { enabled: true, variation: "01a" } },
     kit: { ...EMPTY_KIT, primary: "#7C5CFC", fontHead: "Syne" },
     includeRef: false,
   });
@@ -101,7 +103,7 @@ test("buildOutputs puts the authoritative brand kit ahead of the spec when a kit
 test("buildOutputs falls back to the first variation when the number is unknown", () => {
   const out = buildOutputs({
     groups: GROUPS,
-    sel: { hero: { enabled: true, variation: "does-not-exist", copy: "" } },
+    sel: { hero: { enabled: true, variation: "does-not-exist" } },
     kit: EMPTY_KIT,
     includeRef: false,
   });

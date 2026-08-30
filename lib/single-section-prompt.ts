@@ -27,7 +27,7 @@ export function singleSectionPrompt(
 ): string {
   const { blocks } = buildOutputs({
     groups: [...groups],
-    sel: { [groupId]: { enabled: true, variation: variationNumber, copy: "" } },
+    sel: { [groupId]: { enabled: true, variation: variationNumber } },
     kit,
     includeRef: true,
   });

@@ -19,7 +19,7 @@ test("v2 state with an analysis block still validates, ignoring the dead field",
     },
     CATALOGUE
   );
-  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b", copy: "hi" });
+  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b" });
   assert.equal("analysis" in (out ?? {}), false);
 });
 
@@ -28,7 +28,7 @@ test("validatePersisted keeps entries that match the catalogue", () => {
     { sel: { hero: { enabled: true, variation: "01b", copy: "hi" } }, kit: KIT },
     CATALOGUE
   );
-  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b", copy: "hi" });
+  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b" });
   assert.equal(out?.kit.primary, "#7C5CFC");
 });
 
@@ -46,7 +46,7 @@ test("validatePersisted repairs a dead variation number to the group's first", (
     CATALOGUE
   );
   assert.equal(out?.sel.hero.variation, "01a", "should fall back to the first valid variation");
-  assert.equal(out?.sel.hero.copy, "keep", "copy must survive the repair");
+  assert.equal("copy" in (out?.sel.hero ?? {}), false, "copy is not carried forward");
 });
 
 test("validatePersisted rejects junk rather than throwing", () => {
@@ -70,7 +70,7 @@ test("validatePersisted drops a __proto__ key instead of throwing, keeping other
   );
   const out = validatePersisted(raw, CATALOGUE);
   assert.notEqual(out, null);
-  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b", copy: "hi" });
+  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b" });
   assert.equal(Object.prototype.hasOwnProperty.call(out?.sel ?? {}, "__proto__"), false);
 });
 
@@ -80,6 +80,22 @@ test("validatePersisted coerces malformed entry fields", () => {
     CATALOGUE
   );
   assert.equal(out?.sel.hero.enabled, true);
-  assert.equal(out?.sel.hero.copy, "");
+  assert.equal("copy" in (out?.sel.hero ?? {}), false);
   assert.equal(out?.kit.primary, "");
+});
+
+test("a v3 record written before copy was dropped still loads its sections", () => {
+  const stored = {
+    sel: { hero: { enabled: true, variation: "01a", copy: "an old client's headline" } },
+    kit: { primary: "#7c5cfc", background: "", fontHead: "", fontSub: "", fontBody: "", images: "" },
+  };
+  const out = validatePersisted(stored, { hero: ["01a", "01b"] });
+  assert.ok(out);
+  assert.equal(out.sel.hero.enabled, true);
+  assert.equal(out.sel.hero.variation, "01a");
+  assert.equal(
+    "copy" in out.sel.hero,
+    false,
+    "copy must be dropped on read, not carried forward"
+  );
 });

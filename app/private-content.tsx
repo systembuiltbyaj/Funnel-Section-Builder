@@ -346,7 +346,7 @@ function FunnelBuilder() {
       <p className="text-[13px] text-[#A09AB8] leading-[1.6] mb-6 text-center">
         {mode === "check"
           ? "Built the page already? Paste its HTML here and check it against your brand kit — it flags every off-brand color/font and one-click swaps them. Deterministic, no AI, no tokens."
-          : "Pick a variation per section, drop in your brand + copy, and generate one ready-to-paste prompt for each section. Pure assembly — nothing leaves your browser."}
+          : "Pick a variation per section, set your brand kit, and generate one ready-to-paste prompt for each. The AI writes placeholder copy to match. Pure assembly — nothing leaves your browser."}
       </p>
 
       {/* 1 · Brand kit */}
@@ -426,7 +426,7 @@ function FunnelBuilder() {
             className="text-[15px] font-bold"
             style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
           >
-            <span className="text-[#7C5CFC]">2 ·</span> Pick Sections & Copy
+            <span className="text-[#7C5CFC]">2 ·</span> Pick Sections
           </h2>
           <span className="text-[11.5px] font-semibold text-[#A09AB8]">
             {enabledCount} selected
@@ -513,15 +513,6 @@ function FunnelBuilder() {
                       </button>
                     )}
                   </div>
-                )}
-                {s.enabled && (
-                  <textarea
-                    value={s.copy}
-                    onChange={(e) => update(g.id, { copy: e.target.value })}
-                    rows={3}
-                    placeholder={`Copy for ${g.label} — headline, subhead, CTA, body, names...`}
-                    className={`${fieldCls} mt-3`}
-                  />
                 )}
               </div>
             );

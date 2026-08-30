@@ -7,7 +7,7 @@
 // later refactor (e.g. moving where the builder's state lives) can be proven not to
 // have changed a single character of a generated prompt.
 
-export type BuilderSelection = { enabled: boolean; variation: string; copy: string };
+export type BuilderSelection = { enabled: boolean; variation: string };
 
 // Named FunnelBrandKit, NOT BrandKit: lib/samples.ts already exports a `BrandKit`
 // (5 optional fields, used for preview re-skinning). Two same-named exported types

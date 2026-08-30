@@ -22,8 +22,10 @@ function str(v: unknown): string {
  * A selection saved weeks ago can name a section or variation that no longer
  * exists; left unchecked the builder's `find()` returns undefined and silently
  * substitutes a section the user never chose. Unknown groups are dropped, a
- * dead variation number is repaired to the group's first, and the user's typed
- * copy is preserved either way. Junk input returns null rather than throwing.
+ * dead variation number is repaired to the group's first. A `copy` field from a
+ * record written before the builder became a layout picker is dropped here
+ * rather than forcing a storage-key bump, which would reset every saved funnel.
+ * Junk input returns null rather than throwing.
  */
 export function validatePersisted(raw: unknown, catalogue: CatalogueShape): PersistedState | null {
   if (typeof raw !== "object" || raw === null) return null;
@@ -50,7 +52,6 @@ export function validatePersisted(raw: unknown, catalogue: CatalogueShape): Pers
     sel[id] = {
       enabled: Boolean(entry.enabled),
       variation: valid.includes(variation) ? variation : valid[0],
-      copy: str(entry.copy),
     };
   }
 
