@@ -20,10 +20,10 @@ import {
  * per selected section and stitches the results with `stitchFunnel()`.
  *
  * The abuse control here is structural, not a rate limit: the request body
- * carries a section *reference* and the client's copy — never prompt text. The
- * prompt is rebuilt server-side from the catalogue, so no matter what is posted
- * this endpoint can only ever produce one of the catalogue's sections. It
- * cannot be farmed as a general-purpose LLM proxy.
+ * carries a section *reference* and a brand kit — never prompt text, and no
+ * client prose at all. The prompt is rebuilt server-side from the catalogue, so
+ * no matter what is posted this endpoint can only ever produce one of the
+ * catalogue's sections. It cannot be farmed as a general-purpose LLM proxy.
  *
  * Spend is bounded by: the provider's own output ceiling, the input caps in
  * `validateGenerateRequest`, and — when running on a paid provider — a hard
@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
   if (!parsed.ok) {
     return fail(parsed.code, parsed.message, parsed.code === "input_too_large" ? 413 : 400);
   }
-  const { groupId, variation: variationNumber, copy, kit } = parsed.value;
+  const { groupId, variation: variationNumber, kit } = parsed.value;
 
   // Validation already proved these exist; this is the lookup, not a check.
   const group = PROMPT_GROUPS.find((g) => g.id === groupId);
@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
   }
 
   const tokenBlock = buildTokenBlock(kit);
-  const prompt = buildSectionGenerationPrompt({ variation, copy, tokenBlock });
+  const prompt = buildSectionGenerationPrompt({ variation, tokenBlock });
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);

@@ -1,13 +1,13 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { validateGenerateRequest, COPY_MAX, KIT_FIELD_MAX } from "./generate-contract.ts";
+import { validateGenerateRequest, KIT_FIELD_MAX } from "./generate-contract.ts";
 
 const CATALOGUE = { hero: ["01a", "01b"], faq: ["11a"] };
 const KIT = {
   primary: "#7c5cfc", background: "#0d0b1f",
   fontHead: "Syne", fontSub: "", fontBody: "", images: "",
 };
-const OK = { groupId: "hero", variation: "01a", copy: "Big promise.", kit: KIT };
+const OK = { groupId: "hero", variation: "01a", kit: KIT };
 
 test("a well-formed request passes and is normalised", () => {
   const r = validateGenerateRequest(OK, CATALOGUE);
@@ -40,14 +40,16 @@ test("a __proto__ group id cannot pass the catalogue check", () => {
   assert.equal(r.ok, false, "Object.prototype must not look like a known group");
 });
 
-test("oversized copy is refused with the size code, not the selection code", () => {
-  const r = validateGenerateRequest({ ...OK, copy: "x".repeat(COPY_MAX + 1) }, CATALOGUE);
-  assert.equal(r.ok, false);
-  if (!r.ok) assert.equal(r.code, "input_too_large");
-});
-
-test("copy exactly at the cap is allowed", () => {
-  assert.equal(validateGenerateRequest({ ...OK, copy: "x".repeat(COPY_MAX) }, CATALOGUE).ok, true);
+test("a copy field in the body is ignored, not forwarded", () => {
+  const r = validateGenerateRequest({ ...OK, copy: "x".repeat(50_000) }, CATALOGUE);
+  assert.equal(r.ok, true, "an unknown field must not fail validation");
+  if (r.ok) {
+    assert.equal(
+      "copy" in r.value,
+      false,
+      "copy must not survive into the validated value — the model never sees client prose"
+    );
+  }
 });
 
 test("a brand-kit field cannot be used to smuggle a payload", () => {
@@ -73,6 +75,6 @@ test("extra fields in the body are dropped, never forwarded", () => {
   const r = validateGenerateRequest(hostile, CATALOGUE);
   assert.equal(r.ok, true);
   if (r.ok) {
-    assert.deepEqual(Object.keys(r.value).sort(), ["copy", "groupId", "kit", "variation"]);
+    assert.deepEqual(Object.keys(r.value).sort(), ["groupId", "kit", "variation"]);
   }
 });

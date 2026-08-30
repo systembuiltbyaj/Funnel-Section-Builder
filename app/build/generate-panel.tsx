@@ -80,7 +80,6 @@ export function GeneratePanel() {
           variation: v.number,
           label: g.label,
           name: variationShortName(v.title),
-          copy: sel[g.id].copy ?? "",
         };
       }),
     [sel]
@@ -105,7 +104,6 @@ export function GeneratePanel() {
         body: JSON.stringify({
           groupId: item.groupId,
           variation: item.variation,
-          copy: item.copy,
           kit,
         }),
       });
