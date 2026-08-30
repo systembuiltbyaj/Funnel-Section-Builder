@@ -10,7 +10,10 @@ test("storage key is versioned so a shape change cannot resurrect old state", ()
   assert.equal(STORAGE_KEY, "fsb.selection.v3");
 });
 
-test("v2 state with an analysis block still validates, ignoring the dead field", () => {
+test("an older analysis block is read for its reasons and stripped of dead fields", () => {
+  // The 2026-08 shape nested niche/vibe under `meta` and kept the whole pasted
+  // page in `sourceCopy`. Reasons still map cleanly; `sourceCopy` must not come
+  // back with them — the tool no longer stores anyone's copy.
   const out = validatePersisted(
     {
       sel: { hero: { enabled: true, variation: "01b", copy: "hi" } },
@@ -19,8 +22,10 @@ test("v2 state with an analysis block still validates, ignoring the dead field",
     },
     CATALOGUE
   );
-  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b", copy: "hi" });
-  assert.equal("analysis" in (out ?? {}), false);
+  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b" });
+  assert.equal(out?.analysis?.reasons.hero, "why");
+  assert.equal(out?.analysis?.niche, "", "the old nested meta shape is not read");
+  assert.equal("sourceCopy" in (out?.analysis ?? {}), false, "pasted copy must not persist");
 });
 
 test("validatePersisted keeps entries that match the catalogue", () => {
@@ -28,7 +33,7 @@ test("validatePersisted keeps entries that match the catalogue", () => {
     { sel: { hero: { enabled: true, variation: "01b", copy: "hi" } }, kit: KIT },
     CATALOGUE
   );
-  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b", copy: "hi" });
+  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b" });
   assert.equal(out?.kit.primary, "#7C5CFC");
 });
 
@@ -46,7 +51,7 @@ test("validatePersisted repairs a dead variation number to the group's first", (
     CATALOGUE
   );
   assert.equal(out?.sel.hero.variation, "01a", "should fall back to the first valid variation");
-  assert.equal(out?.sel.hero.copy, "keep", "copy must survive the repair");
+  assert.equal("copy" in (out?.sel.hero ?? {}), false, "copy is not carried forward");
 });
 
 test("validatePersisted rejects junk rather than throwing", () => {
@@ -70,7 +75,7 @@ test("validatePersisted drops a __proto__ key instead of throwing, keeping other
   );
   const out = validatePersisted(raw, CATALOGUE);
   assert.notEqual(out, null);
-  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b", copy: "hi" });
+  assert.deepEqual(out?.sel.hero, { enabled: true, variation: "01b" });
   assert.equal(Object.prototype.hasOwnProperty.call(out?.sel ?? {}, "__proto__"), false);
 });
 
@@ -80,6 +85,55 @@ test("validatePersisted coerces malformed entry fields", () => {
     CATALOGUE
   );
   assert.equal(out?.sel.hero.enabled, true);
-  assert.equal(out?.sel.hero.copy, "");
+  assert.equal("copy" in (out?.sel.hero ?? {}), false);
   assert.equal(out?.kit.primary, "");
+});
+
+test("a v3 record written before copy was dropped still loads its sections", () => {
+  const stored = {
+    sel: { hero: { enabled: true, variation: "01a", copy: "an old client's headline" } },
+    kit: { primary: "#7c5cfc", background: "", fontHead: "", fontSub: "", fontBody: "", images: "" },
+  };
+  const out = validatePersisted(stored, { hero: ["01a", "01b"] });
+  assert.ok(out);
+  assert.equal(out.sel.hero.enabled, true);
+  assert.equal(out.sel.hero.variation, "01a");
+  assert.equal(
+    "copy" in out.sel.hero,
+    false,
+    "copy must be dropped on read, not carried forward"
+  );
+});
+
+test("analysis round-trips through persisted state", () => {
+  const stored = {
+    sel: { hero: { enabled: true, variation: "01a" } },
+    kit: { primary: "", background: "", fontHead: "", fontSub: "", fontBody: "", images: "" },
+    analysis: { reasons: { hero: "matches personal brand" }, niche: "coaching", vibe: "premium" },
+  };
+  const out = validatePersisted(stored, { hero: ["01a"] });
+  assert.ok(out);
+  assert.equal(out.analysis?.niche, "coaching");
+  assert.equal(out.analysis?.reasons.hero, "matches personal brand");
+});
+
+test("a record with no analysis loads with analysis null", () => {
+  const stored = {
+    sel: { hero: { enabled: true, variation: "01a" } },
+    kit: { primary: "", background: "", fontHead: "", fontSub: "", fontBody: "", images: "" },
+  };
+  const out = validatePersisted(stored, { hero: ["01a"] });
+  assert.ok(out);
+  assert.equal(out.analysis, null);
+});
+
+test("a reason for a section that no longer exists is dropped", () => {
+  const stored = {
+    sel: {},
+    kit: { primary: "", background: "", fontHead: "", fontSub: "", fontBody: "", images: "" },
+    analysis: { reasons: { gone: "stale", hero: "kept" }, niche: "", vibe: "" },
+  };
+  const out = validatePersisted(stored, { hero: ["01a"] });
+  assert.ok(out);
+  assert.deepEqual(Object.keys(out.analysis?.reasons ?? {}), ["hero"]);
 });

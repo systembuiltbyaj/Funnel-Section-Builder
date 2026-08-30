@@ -4,6 +4,7 @@ import {
   pickProvider,
   buildProviderRequest,
   parseProviderReply,
+  isTokenRateLimit,
   parseRetryAfterSeconds,
 } from "./generation-provider.ts";
 
@@ -136,4 +137,96 @@ test("junk or missing headers fall back to a sane short wait", () => {
   assert.equal(parseRetryAfterSeconds(headers({})), 15);
   assert.equal(parseRetryAfterSeconds(headers({ "retry-after": "soon" })), 15);
   assert.equal(parseRetryAfterSeconds(headers({ "x-ratelimit-reset-tokens": "nonsense" })), 15);
+});
+
+test("groq asks for a strict JSON object when json mode is on", () => {
+  const config = { provider: "groq", apiKey: "k", model: "m", maxOutputTokens: 100, analyzeCopyMax: 9_000, analyzeMaxOutputTokens: 1_200 } as const;
+  const req = buildProviderRequest(config, { system: "s", prompt: "p" }, { json: true, temperature: 0.2 });
+  const body = JSON.parse(req.body);
+  assert.deepEqual(body.response_format, { type: "json_object" });
+  assert.equal(body.temperature, 0.2);
+});
+
+test("anthropic carries neither temperature nor response_format", () => {
+  const config = { provider: "anthropic", apiKey: "k", model: "m", maxOutputTokens: 100, analyzeCopyMax: 9_000, analyzeMaxOutputTokens: 1_200 } as const;
+  const req = buildProviderRequest(config, { system: "s", prompt: "p" }, { json: true, temperature: 0.2 });
+  const body = JSON.parse(req.body);
+  assert.equal(
+    "temperature" in body,
+    false,
+    "claude-sonnet-5 rejects the whole request with '`temperature` is deprecated for this model'"
+  );
+  assert.equal("response_format" in body, false, "Anthropic has no such field");
+  assert.equal(body.system, "s", "the system prompt is what constrains the shape instead");
+});
+
+test("omitting options leaves the generation defaults untouched", () => {
+  const config = { provider: "groq", apiKey: "k", model: "m", maxOutputTokens: 100, analyzeCopyMax: 9_000, analyzeMaxOutputTokens: 1_200 } as const;
+  const body = JSON.parse(buildProviderRequest(config, { system: "s", prompt: "p" }).body);
+  assert.equal(body.temperature, 0.4);
+  assert.equal("response_format" in body, false);
+});
+
+test("a plain 429 is a rate limit", () => {
+  assert.equal(isTokenRateLimit(429, ""), true);
+});
+
+test("Groq's 413 TPM refusal is a rate limit, not a hard failure", () => {
+  const body =
+    '{"error":{"message":"Request too large for model on tokens per minute (TPM): Limit 8000, Requested 10535","type":"tokens","code":"rate_limit_exceeded"}}';
+  assert.equal(isTokenRateLimit(413, body), true);
+});
+
+test("a 413 that is genuinely too large is not treated as retryable", () => {
+  assert.equal(isTokenRateLimit(413, '{"error":{"message":"Payload too large"}}'), false);
+});
+
+test("other upstream failures are not rate limits", () => {
+  assert.equal(isTokenRateLimit(500, "rate_limit_exceeded"), false);
+  assert.equal(isTokenRateLimit(400, ""), false);
+});
+
+test("maxOutputTokens overrides the config ceiling", () => {
+  const config = { provider: "groq", apiKey: "k", model: "m", maxOutputTokens: 6000, analyzeCopyMax: 9_000, analyzeMaxOutputTokens: 1_200 } as const;
+  const body = JSON.parse(
+    buildProviderRequest(config, { system: "s", prompt: "p" }, { maxOutputTokens: 1200 }).body
+  );
+  assert.equal(body.max_tokens, 1200);
+});
+
+test("analysis can use a different provider from generation", () => {
+  const env = { GROQ_API_KEY: "g", ANTHROPIC_API_KEY: "a", ANALYZE_PROVIDER: "anthropic" };
+  assert.equal(pickProvider(env, "generation")?.provider, "groq", "generation stays free and fast");
+  assert.equal(pickProvider(env, "analysis")?.provider, "anthropic");
+});
+
+test("ANALYZE_PROVIDER overrides GENERATION_PROVIDER for analysis only", () => {
+  const env = { GROQ_API_KEY: "g", ANTHROPIC_API_KEY: "a", GENERATION_PROVIDER: "anthropic", ANALYZE_PROVIDER: "groq" };
+  assert.equal(pickProvider(env, "generation")?.provider, "anthropic");
+  assert.equal(pickProvider(env, "analysis")?.provider, "groq");
+});
+
+test("analysis falls back to GENERATION_PROVIDER when unset", () => {
+  const env = { GROQ_API_KEY: "g", ANTHROPIC_API_KEY: "a", GENERATION_PROVIDER: "anthropic" };
+  assert.equal(pickProvider(env, "analysis")?.provider, "anthropic");
+});
+
+test("the paste cap comes from the provider, not a constant", () => {
+  assert.equal(pickProvider({ GROQ_API_KEY: "g" }, "analysis")?.analyzeCopyMax, 9_000);
+  assert.equal(pickProvider({ ANTHROPIC_API_KEY: "a" }, "analysis")?.analyzeCopyMax, 90_000);
+});
+
+test("an unconfigured ANALYZE_PROVIDER key does not strand analysis", () => {
+  const env = { GROQ_API_KEY: "g", ANALYZE_PROVIDER: "anthropic" };
+  assert.equal(pickProvider(env, "analysis")?.provider, "groq", "no anthropic key — fall back, not null");
+});
+
+test("the analyzer's output ceiling leaves Anthropic room to think", () => {
+  const groq = pickProvider({ GROQ_API_KEY: "g" }, "analysis");
+  const anthropic = pickProvider({ ANTHROPIC_API_KEY: "a" }, "analysis");
+  assert.equal(groq?.analyzeMaxOutputTokens, 1_200, "small: Groq bills max_tokens against its TPM");
+  assert.ok(
+    (anthropic?.analyzeMaxOutputTokens ?? 0) >= 4_000,
+    "claude-sonnet-5 spends ~1,550 tokens thinking before it writes a single character"
+  );
 });

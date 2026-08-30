@@ -20,7 +20,21 @@ export type PreviewItem = {
   title: string;
   sampleSrc?: string;
   html?: string;
+  /**
+   * The slice of the client's pasted page this section maps to.
+   *
+   * Shown BESIDE the sample, never merged into it. The samples are 100
+   * independently authored documents with no shared slot structure, so swapping
+   * text into them reliably is not possible — and a half-swapped section reads
+   * as a bug rather than as a preview. Side by side, the layout stays honest
+   * and the mapping stays legible.
+   */
+  copy?: string;
 };
+
+/** Width of the copy column. Below this the layout is not worth splitting. */
+const COPY_PANEL_WIDTH = 320;
+const MIN_SPLIT_WIDTH = 760;
 
 type Device = "desktop" | "mobile";
 
@@ -159,6 +173,11 @@ export function LivePreview({
   const [containerWidth, setContainerWidth] = useState(0);
   const stageRef = useRef<HTMLDivElement | null>(null);
 
+  // Split only when there is copy to show AND room to show it. Below the
+  // threshold the frame would be squeezed to the point of being useless, so the
+  // layout keeps the full width and the copy column is dropped.
+  const splitCopy = items.some((i) => i.copy) && containerWidth >= MIN_SPLIT_WIDTH;
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -245,19 +264,55 @@ export function LivePreview({
       )}
 
       <div ref={stageRef} className="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:thin]">
-        <div className="mx-auto" style={{ maxWidth: device === "mobile" ? 390 : "100%" }}>
-          {items.map((item) => (
+        <div className="mx-auto" style={{ maxWidth: splitCopy ? "100%" : device === "mobile" ? 390 : "100%" }}>
+          {items.map((item) => {
+            const frameWidth = splitCopy
+              ? Math.max(320, containerWidth - COPY_PANEL_WIDTH - 16)
+              : containerWidth;
             // Keyed on the brand toggle so each frame remounts with fresh
             // loading state instead of showing the previous skin mid-fetch.
-            <PreviewFrame
-              key={`${item.id}-${applyBrand ? "brand" : "orig"}`}
-              item={item}
-              kit={kit}
-              applyBrand={applyBrand}
-              device={device}
-              containerWidth={device === "mobile" ? Math.min(containerWidth, 390) : containerWidth}
-            />
-          ))}
+            const frame = (
+              <PreviewFrame
+                key={`${item.id}-${applyBrand ? "brand" : "orig"}`}
+                item={item}
+                kit={kit}
+                applyBrand={applyBrand}
+                device={device}
+                containerWidth={device === "mobile" ? Math.min(frameWidth, 390) : frameWidth}
+              />
+            );
+
+            if (!splitCopy) return frame;
+
+            return (
+              <div
+                key={`${item.id}-row`}
+                className="flex items-start gap-4 border-b border-[#221C48] px-3 py-3 last:border-b-0"
+              >
+                <div className="min-w-0 flex-1">{frame}</div>
+                <aside
+                  className="shrink-0 rounded-lg border border-[#2A2250] bg-[#0B091A] p-3"
+                  style={{ width: COPY_PANEL_WIDTH }}
+                >
+                  <div className="mb-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#7C5CFC]">
+                    Your copy
+                  </div>
+                  <div className="mb-2 truncate text-[11px] text-[#8B84A8]" title={item.title}>
+                    {item.title}
+                  </div>
+                  {item.copy ? (
+                    <p className="whitespace-pre-wrap text-[12px] leading-[1.55] text-[#C0B8E0]">
+                      {item.copy}
+                    </p>
+                  ) : (
+                    <p className="text-[12px] italic leading-[1.55] text-[#5A5478]">
+                      No excerpt mapped to this section.
+                    </p>
+                  )}
+                </aside>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

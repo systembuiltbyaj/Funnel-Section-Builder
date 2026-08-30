@@ -1,7 +1,12 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildOutputs, variationShortName, stripBrandBlocks } from "./prompt-assembly.ts";
-import type { PromptGroup, FunnelBrandKit } from "./prompt-assembly.ts";
+import {
+  buildOutputs,
+  variationShortName,
+  stripBrandBlocks,
+  CONTENT_SLOT_RULE,
+} from "./prompt-assembly.ts";
+import type { PromptGroup, FunnelBrandKit, BuilderSelection } from "./prompt-assembly.ts";
 
 const EMPTY_KIT: FunnelBrandKit = {
   primary: "", background: "", fontHead: "", fontSub: "", fontBody: "", images: "",
@@ -44,7 +49,7 @@ test("stripBrandBlocks is a no-op with no labels", () => {
 test("buildOutputs returns no blocks and no full prompt when nothing is enabled", () => {
   const out = buildOutputs({
     groups: GROUPS,
-    sel: { hero: { enabled: false, variation: "01a", copy: "" } },
+    sel: { hero: { enabled: false, variation: "01a" } },
     kit: EMPTY_KIT,
     includeRef: true,
   });
@@ -55,21 +60,37 @@ test("buildOutputs returns no blocks and no full prompt when nothing is enabled"
 test("buildOutputs emits a block and a full prompt for an enabled section", () => {
   const out = buildOutputs({
     groups: GROUPS,
-    sel: { hero: { enabled: true, variation: "01a", copy: "My headline" } },
+    sel: { hero: { enabled: true, variation: "01a" } },
     kit: EMPTY_KIT,
     includeRef: false,
   });
   assert.equal(out.blocks.length, 1);
   assert.equal(out.blocks[0].id, "hero");
   assert.ok(out.blocks[0].heading.includes("HERO"));
-  assert.ok(out.blocks[0].text.includes("My headline"));
-  assert.ok(out.full?.includes("My headline"));
+});
+
+test("no copy reaches the prompt, and the model is told to leave slots", () => {
+  const out = buildOutputs({
+    groups: GROUPS,
+    // Cast: the type no longer has `copy`, but a record persisted before it was
+    // dropped still does at runtime. This pins that such a field cannot leak.
+    sel: { hero: { enabled: true, variation: "01a", copy: "My headline" } as BuilderSelection },
+    kit: EMPTY_KIT,
+    includeRef: false,
+  });
+  assert.ok(
+    !out.blocks[0].text.includes("My headline"),
+    "a copy field left over on the selection must not leak into the prompt"
+  );
+  assert.ok(!out.full?.includes("My headline"));
+  assert.ok(out.blocks[0].text.includes(CONTENT_SLOT_RULE));
+  assert.ok(out.full?.includes(CONTENT_SLOT_RULE));
 });
 
 test("buildOutputs puts the authoritative brand kit ahead of the spec when a kit is set", () => {
   const out = buildOutputs({
     groups: GROUPS,
-    sel: { hero: { enabled: true, variation: "01a", copy: "Copy" } },
+    sel: { hero: { enabled: true, variation: "01a" } },
     kit: { ...EMPTY_KIT, primary: "#7C5CFC", fontHead: "Syne" },
     includeRef: false,
   });
@@ -82,7 +103,7 @@ test("buildOutputs puts the authoritative brand kit ahead of the spec when a kit
 test("buildOutputs falls back to the first variation when the number is unknown", () => {
   const out = buildOutputs({
     groups: GROUPS,
-    sel: { hero: { enabled: true, variation: "does-not-exist", copy: "" } },
+    sel: { hero: { enabled: true, variation: "does-not-exist" } },
     kit: EMPTY_KIT,
     includeRef: false,
   });
@@ -96,4 +117,39 @@ test("sectionSpecForCombined drops the single-file output block and trailing bui
   assert.ok(!out.includes("=== OUTPUT ==="), "single-file output block survived");
   assert.ok(!out.includes("Build the complete file now"), "trailing build line survived");
   assert.ok(out.includes("=== LAYOUT ==="), "section spec was lost");
+});
+
+test("an empty brand kit never asks the model to choose a palette", () => {
+  const out = buildOutputs({
+    groups: GROUPS,
+    sel: { hero: { enabled: true, variation: "01a" } },
+    kit: EMPTY_KIT,
+    includeRef: false,
+  });
+  for (const text of [out.blocks[0].text, out.full ?? ""]) {
+    assert.ok(
+      !/choose one clean, conversion-friendly palette/i.test(text),
+      "colour is the client's to own — the model must not pick a brand colour"
+    );
+    assert.match(text, /Do NOT choose a brand colour/);
+    assert.match(text, /--brand/, "a swappable CSS variable is offered instead");
+  }
+});
+
+test("the slot rule survives into both outputs when a brand kit IS set", () => {
+  const out = buildOutputs({
+    groups: GROUPS,
+    sel: { hero: { enabled: true, variation: "01a" } },
+    kit: { ...EMPTY_KIT, primary: "#7C5CFC", fontHead: "Syne" },
+    includeRef: false,
+  });
+  assert.ok(out.blocks[0].text.includes(CONTENT_SLOT_RULE), "per-section block keeps it");
+  assert.ok(out.full?.includes(CONTENT_SLOT_RULE), "master prompt keeps it");
+});
+
+test("the slot rule names the bracket convention it depends on", () => {
+  assert.match(CONTENT_SLOT_RULE, /\[HEADLINE/);
+  assert.match(CONTENT_SLOT_RULE, /\[IMAGE 16:9/);
+  assert.match(CONTENT_SLOT_RULE, /Never a stock URL/);
+  assert.match(CONTENT_SLOT_RULE, /nav labels/, "structural furniture stays real words");
 });

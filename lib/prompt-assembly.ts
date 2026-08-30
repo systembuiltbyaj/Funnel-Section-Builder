@@ -7,7 +7,7 @@
 // later refactor (e.g. moving where the builder's state lives) can be proven not to
 // have changed a single character of a generated prompt.
 
-export type BuilderSelection = { enabled: boolean; variation: string; copy: string };
+export type BuilderSelection = { enabled: boolean; variation: string };
 
 // Named FunnelBrandKit, NOT BrandKit: lib/samples.ts already exports a `BrandKit`
 // (5 optional fields, used for preview re-skinning). Two same-named exported types
@@ -70,6 +70,53 @@ export function sectionSpecForCombined(base: string): string {
   return t.trim();
 }
 
+/**
+ * The content contract for every generated section.
+ *
+ * This tool outputs a layout skeleton, not a finished page: structure and
+ * design are the product, while copy, images and brand colours belong to the
+ * client. So the model is told to leave labelled slots rather than to invent
+ * content.
+ *
+ * Labelled slots rather than bare `______` on purpose. A blank tells the model
+ * nothing about what belongs there, so it either guesses or leaves a gap that
+ * collapses the layout; a label carries the brief AND stays unmistakably not
+ * real copy. Keeping every slot bracketed and on one line is what makes
+ * "find every `[`" a workable fill-in pass.
+ */
+export const CONTENT_SLOT_RULE =
+  "— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —\n" +
+  "This is a layout skeleton. The client supplies all content later.\n" +
+  "Write NO real copy and invent NO images.\n\n" +
+  "- Every text slot: [LABEL — what belongs there, and how long]\n" +
+  "  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]\n" +
+  "- Every image: a CSS placeholder box whose only content is\n" +
+  "  [IMAGE 16:9 — what it should show]. Never a stock URL, never an\n" +
+  "  <img src> pointing at a real file.\n" +
+  "- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],\n" +
+  "  [TESTIMONIAL 2 — …] — so each can be filled independently.\n" +
+  '- Keep each slot on one line, so a find-and-replace on "[" catches every one.\n' +
+  "- Real words are still required for structural furniture: nav labels,\n" +
+  '  "Read more", form field labels. Those are layout, not copy.';
+
+/**
+ * Palette instruction for when the user supplied no brand colours.
+ *
+ * The previous wording asked the model to "choose one clean, conversion-friendly
+ * palette", which is the model picking a client's brand for them. Colour is the
+ * client's to own, so an empty kit ships monochrome behind CSS variables.
+ */
+const NEUTRAL_PALETTE_RULE =
+  "— BRAND COLORS —\n" +
+  "None supplied — the client owns the palette. Do NOT choose a brand colour.\n" +
+  "Define every colour once as a CSS custom property on :root and use only\n" +
+  "those variables throughout, so swapping the palette is a four-line edit:\n" +
+  "  --brand   /* accent: CTAs, links, highlights — a neutral grey for now */\n" +
+  "  --bg      /* page base */\n" +
+  "  --surface /* cards and raised panels */\n" +
+  "  --text    /* body text — TEXT ONLY, never a background */\n" +
+  "Ship it monochrome. A borrowed accent colour reads as a mistake.";
+
 export function buildOutputs(args: {
   groups: PromptGroup[];
   sel: Record<string, BuilderSelection>;
@@ -130,7 +177,7 @@ export function buildOutputs(args: {
       text =
         brandKit +
         `${bar}\n${heading}\n${v.description}\n${bar}\n\n${v.basePrompt}\n\n` +
-        `=== CLIENT COPY FOR THIS SECTION (use verbatim) ===\n${s.copy.trim() || "______"}`;
+        CONTENT_SLOT_RULE;
       if (includeRef) {
         const stripLabels = [...(hasColors ? ["BRAND COLORS"] : []), ...(hasFonts ? ["FONTS"] : [])];
         text +=
@@ -140,12 +187,13 @@ export function buildOutputs(args: {
     } else {
       const clientVars =
         `=== CLIENT VARIABLES — USE THESE (override any example values in the spec above) ===\n\n` +
-        `— BRAND COLORS —\n______\n\n` +
-        `— FONTS —\n______\n\n` +
-        `— IMAGES —\nUse placeholder images first, then swap for the real assets.\n${
-          images.trim() || "(no image notes — keep the section's built-in placeholder images)"
+        `${NEUTRAL_PALETTE_RULE}\n\n` +
+        `— FONTS —\nNone supplied. Use one clean system font stack behind a CSS variable; do not pick a display font for the client.\n\n` +
+        `— IMAGES —\n${
+          images.trim() ||
+          "No assets supplied — every image is a labelled placeholder box (see CONTENT below)."
         }\n\n` +
-        `— COPY —\n${s.copy.trim() || "______"}`;
+        CONTENT_SLOT_RULE;
       text = `${bar}\n${heading}\n${v.description}\n${bar}\n\n${v.basePrompt}\n\n${clientVars}`;
       if (includeRef) {
         text +=
@@ -162,9 +210,10 @@ export function buildOutputs(args: {
     return { blocks, full: null as string | null };
   }
   const kitLines =
-    (colorBlock || `— BRAND COLORS —\n(choose one clean, conversion-friendly palette and use it throughout)`) +
+    (colorBlock || NEUTRAL_PALETTE_RULE) +
     `\n\n` +
-    (fontBlock || `— FONTS —\n(choose 1–2 Google Fonts and use them throughout)`) +
+    (fontBlock ||
+      `— FONTS —\nNone supplied. Use one clean system font stack behind CSS variables; do not pick a display font for the client.`) +
     `\n${images.trim() ? `\n— IMAGES / LOGO —\n${images.trim()}\n` : ""}`;
   let full =
     `You are an expert frontend developer and funnel designer.\n\n` +
@@ -188,7 +237,7 @@ export function buildOutputs(args: {
       `SECTION ${i + 1} — ${g.label} · ${variationShortName(v.title)} (${v.description})\n` +
       `${"-".repeat(58)}\n\n` +
       `${sectionSpecForCombined(v.basePrompt)}\n\n` +
-      `— COPY FOR THIS SECTION (use verbatim) —\n${s.copy.trim() || "______"}\n`;
+      `${CONTENT_SLOT_RULE}\n`;
   });
   full +=
     `\n=== ASSEMBLY ===\n` +

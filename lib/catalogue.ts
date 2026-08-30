@@ -17,6 +17,6 @@ export const CATALOGUE: CatalogueShape = Object.fromEntries(
 export const INITIAL_SEL: Record<string, BuilderSelection> = Object.fromEntries(
   PROMPT_GROUPS.map((g) => [
     g.id,
-    { enabled: false, variation: g.variations[0].number, copy: "" },
+    { enabled: false, variation: g.variations[0].number },
   ])
 );
