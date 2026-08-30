@@ -7,14 +7,52 @@ import type { FunnelBrandKit, BuilderSelection } from "./prompt-assembly.ts";
 /** Bumped whenever PersistedState's shape changes, so stale state is ignored. */
 export const STORAGE_KEY = "fsb.selection.v3";
 
+/**
+ * The AI's rationale for the current picks.
+ *
+ * Optional on purpose: adding it does NOT bump STORAGE_KEY, so a funnel saved
+ * before the analyzer existed still loads — it simply arrives with no reasons.
+ */
+export type PersistedAnalysis = {
+  reasons: Record<string, string>;
+  niche: string;
+  vibe: string;
+};
+
 export type PersistedState = {
   sel: Record<string, BuilderSelection>;
   kit: FunnelBrandKit;
+  analysis: PersistedAnalysis | null;
 };
 export type CatalogueShape = Record<string, string[]>; // group id -> valid variation numbers
 
 function str(v: unknown): string {
   return typeof v === "string" ? v : "";
+}
+
+const REASON_MAX = 160;
+
+/**
+ * Reasons are keyed by section id, so they are filtered against the live
+ * catalogue for the same reason selections are: a stale id would render a
+ * rationale beside a section the user never picked.
+ */
+function readAnalysis(raw: unknown, catalogue: CatalogueShape): PersistedAnalysis | null {
+  if (typeof raw !== "object" || raw === null) return null;
+  const obj = raw as Record<string, unknown>;
+  const rawReasons =
+    typeof obj.reasons === "object" && obj.reasons !== null
+      ? (obj.reasons as Record<string, unknown>)
+      : {};
+
+  const reasons: Record<string, string> = {};
+  for (const [id, value] of Object.entries(rawReasons)) {
+    if (!Object.prototype.hasOwnProperty.call(catalogue, id)) continue;
+    if (!Array.isArray(catalogue[id])) continue;
+    reasons[id] = str(value).slice(0, REASON_MAX);
+  }
+
+  return { reasons, niche: str(obj.niche), vibe: str(obj.vibe) };
 }
 
 /**
@@ -68,5 +106,6 @@ export function validatePersisted(raw: unknown, catalogue: CatalogueShape): Pers
       fontHead: str(rawKit.fontHead), fontSub: str(rawKit.fontSub),
       fontBody: str(rawKit.fontBody), images: str(rawKit.images),
     },
+    analysis: readAnalysis(obj.analysis, catalogue),
   };
 }
