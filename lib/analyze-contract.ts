@@ -18,7 +18,13 @@
 
 import type { CatalogueShape } from "./funnel-selection.ts";
 
-/** A long sales page, trimmed. Above any real funnel, far below a book. */
+/**
+ * Default paste cap, used when no provider-derived cap is supplied.
+ *
+ * This is the free-tier figure. The real cap belongs to the provider — see
+ * `analyzeCopyMax` on `ProviderConfig` — because it is set by the per-minute
+ * token budget rather than by anything about the page.
+ */
 export const ANALYZE_COPY_MAX = 9_000;
 /** Below this there is nothing to classify, and it is almost certainly a probe. */
 export const ANALYZE_COPY_MIN = 40;
@@ -74,14 +80,17 @@ function str(v: unknown): string {
   return typeof v === "string" ? v : "";
 }
 
-export function validateAnalyzeRequest(raw: unknown): AnalyzeValidation {
+export function validateAnalyzeRequest(
+  raw: unknown,
+  maxChars: number = ANALYZE_COPY_MAX
+): AnalyzeValidation {
   const copy = str(own(raw, "copy")).trim();
 
-  if (copy.length > ANALYZE_COPY_MAX) {
+  if (copy.length > maxChars) {
     return {
       ok: false,
       code: "input_too_large",
-      message: `Paste is longer than ${ANALYZE_COPY_MAX.toLocaleString()} characters. Trim it and try again.`,
+      message: `Paste is longer than ${maxChars.toLocaleString()} characters. Trim it and try again.`,
     };
   }
   if (copy.length < ANALYZE_COPY_MIN) {

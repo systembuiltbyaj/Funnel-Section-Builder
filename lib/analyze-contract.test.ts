@@ -102,3 +102,15 @@ test("a section cannot be recommended twice", () => {
   assert.equal(out.sections.length, 1);
   assert.equal(out.sections[0].reason, "first");
 });
+
+test("the paste cap is whatever the caller passes, not a fixed constant", () => {
+  const long = { copy: "x".repeat(20_000) };
+  assert.equal(validateAnalyzeRequest(long, 9_000).ok, false, "refused on the free-tier cap");
+  assert.equal(validateAnalyzeRequest(long, 90_000).ok, true, "accepted on a larger budget");
+});
+
+test("the refusal message names the cap actually in force", () => {
+  const r = validateAnalyzeRequest({ copy: "x".repeat(95_000) }, 90_000);
+  assert.equal(r.ok, false);
+  if (!r.ok) assert.match(r.message, /90,000 characters/);
+});

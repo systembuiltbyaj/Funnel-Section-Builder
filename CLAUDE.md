@@ -87,12 +87,44 @@ console** — which is the real backstop, because with no accounts there is no
 reliable per-user limit. If generation is unconfigured or fails, the master
 prompt on `/build` remains a first-class path; never reduce it to an apology.
 
+### Two provider traps, both measured
+
+Neither is guessable from the docs, and both fail silently rather than loudly:
+
+- **`temperature` is rejected outright by `claude-sonnet-5`** — the whole
+  request 400s with "`temperature` is deprecated for this model". Anthropic
+  therefore gets no `temperature` at all in `buildProviderRequest`; the system
+  prompt is the only shape lever that works on both providers.
+- **Anthropic thinks by default, and thinking is billed against `max_tokens`.**
+  On a 9,900-token analyze request at a 1,200 ceiling, sonnet-5 spent all 1,200
+  thinking, returned **zero text blocks** and `stop_reason: "max_tokens"` — an
+  empty string, not an error. At 6,000 it uses ~1,550 thinking + ~490 text and
+  answers correctly. Any Anthropic ceiling must budget for thinking first.
+
+  This is also the likeliest explanation for the intermittent truncation
+  recorded below for Anthropic generation: a 4,500 ceiling minus ~1,500 thinking
+  leaves far less HTML headroom than the number suggests.
+
 ### Providers, and why the default is what it is
 
 `GROQ_API_KEY` or `ANTHROPIC_API_KEY` — whichever is set. Groq wins when both
 are, because it is free and fast enough to leave real headroom. Force the other
 with `GENERATION_PROVIDER=anthropic`. With neither, the route returns 503 and the
 UI falls back to the prompt.
+
+**Generation and analysis resolve providers separately** — `pickProvider(env,
+role)`, with `ANALYZE_PROVIDER` overriding `GENERATION_PROVIDER` for analysis
+only. They are bound by different limits, so one default cannot serve both:
+
+| | Generation | Analysis |
+|---|---|---|
+| Hard constraint | the 60s function ceiling | how much page it can accept |
+| Why Groq | ~5x faster, so a section finishes | free, but the 8k TPM caps the paste at 9,000 chars |
+| Why Anthropic | better page, but truncates | **90,000 chars** and sharper matching |
+
+Paste caps and analyzer output ceilings live on `ProviderConfig`
+(`analyzeCopyMax`, `analyzeMaxOutputTokens`) rather than as constants, because
+both are properties of the provider's budget, not of the page.
 
 Measured on this project's own sections, all three of these were learned the
 hard way — do not re-litigate them without re-measuring:

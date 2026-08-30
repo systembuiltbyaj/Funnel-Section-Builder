@@ -36,17 +36,6 @@ export const maxDuration = 60;
 
 const UPSTREAM_TIMEOUT_MS = 45_000;
 
-/**
- * The analyser's own output ceiling, far below generation's.
- *
- * The reply is one short line per section — a dozen at most. Groq counts
- * `max_tokens` against the per-minute budget as part of the request, so
- * inheriting generation's 6,000 ceiling made every call ask for ~10.5k tokens
- * against a free-tier limit of 8k and get refused outright. Measured: a real
- * 12-section reply lands under 400 tokens.
- */
-const ANALYZE_MAX_OUTPUT_TOKENS = 1_200;
-
 function fail(code: string, message: string, status: number) {
   return Response.json({ code, message }, { status });
 }
@@ -59,7 +48,9 @@ export async function POST(req: NextRequest) {
     return fail("forbidden", "Cross-origin requests are not accepted.", 403);
   }
 
-  const provider = pickProvider(process.env);
+  // Analysis resolves its own provider: it is bound by how much page it can
+  // accept, not by the 60s generation ceiling. See ANALYZE_PROVIDER.
+  const provider = pickProvider(process.env, "analysis");
   if (!provider) {
     return fail(
       "not_configured",
@@ -75,7 +66,7 @@ export async function POST(req: NextRequest) {
     return fail("invalid_input", "Malformed request body.", 400);
   }
 
-  const parsed = validateAnalyzeRequest(raw);
+  const parsed = validateAnalyzeRequest(raw, provider.analyzeCopyMax);
   if (!parsed.ok) {
     return fail(parsed.code, parsed.message, parsed.code === "input_too_large" ? 413 : 400);
   }
@@ -94,7 +85,7 @@ export async function POST(req: NextRequest) {
     const request = buildProviderRequest(
       provider,
       { system: ANALYZE_SYSTEM_PROMPT, prompt },
-      { temperature: 0.2, json: true, maxOutputTokens: ANALYZE_MAX_OUTPUT_TOKENS }
+      { temperature: 0.2, json: true, maxOutputTokens: provider.analyzeMaxOutputTokens }
     );
     const res = await fetch(request.url, {
       method: "POST",
