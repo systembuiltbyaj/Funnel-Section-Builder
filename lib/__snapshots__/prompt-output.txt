@@ -78,17 +78,35 @@ Build the complete file now.
 === CLIENT VARIABLES — USE THESE (override any example values in the spec above) ===
 
 — BRAND COLORS —
-______
+None supplied — the client owns the palette. Do NOT choose a brand colour.
+Define every colour once as a CSS custom property on :root and use only
+those variables throughout, so swapping the palette is a four-line edit:
+  --brand   /* accent: CTAs, links, highlights — a neutral grey for now */
+  --bg      /* page base */
+  --surface /* cards and raised panels */
+  --text    /* body text — TEXT ONLY, never a background */
+Ship it monochrome. A borrowed accent colour reads as a mistake.
 
 — FONTS —
-______
+None supplied. Use one clean system font stack behind a CSS variable; do not pick a display font for the client.
 
 — IMAGES —
-Use placeholder images first, then swap for the real assets.
-(no image notes — keep the section's built-in placeholder images)
+No assets supplied — every image is a labelled placeholder box (see CONTENT below).
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 --- full ---
 You are an expert frontend developer and funnel designer.
 
@@ -106,10 +124,17 @@ Build ONE complete, production-ready, single-file HTML landing page — the FULL
 Render the ENTIRE page in this kit. Treat any colors/fonts named inside the section specs as illustrative placeholders and replace them with this kit:
 
 — BRAND COLORS —
-(choose one clean, conversion-friendly palette and use it throughout)
+None supplied — the client owns the palette. Do NOT choose a brand colour.
+Define every colour once as a CSS custom property on :root and use only
+those variables throughout, so swapping the palette is a four-line edit:
+  --brand   /* accent: CTAs, links, highlights — a neutral grey for now */
+  --bg      /* page base */
+  --surface /* cards and raised panels */
+  --text    /* body text — TEXT ONLY, never a background */
+Ship it monochrome. A borrowed accent colour reads as a mistake.
 
 — FONTS —
-(choose 1–2 Google Fonts and use them throughout)
+None supplied. Use one clean system font stack behind CSS variables; do not pick a display font for the client.
 
 === SECTIONS (build in this exact order) ===
 
@@ -173,8 +198,20 @@ Full-width centered layout (NOT split)
 - Comment block at top with numbered steps so client knows exactly what to edit
 - One file, no frameworks, no build step
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 === ASSEMBLY ===
 Output the complete single HTML file now: all 1 sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.
@@ -281,8 +318,20 @@ Full-width centered layout (NOT split)
 
 Build the complete file now.
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to the Hero Variation 1 (Tony Robbins-style) base component.
@@ -413,8 +462,20 @@ Full-width centered layout (NOT split)
 - Comment block at top with numbered steps so client knows exactly what to edit
 - One file, no frameworks, no build step
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 === ASSEMBLY ===
 Output the complete single HTML file now: all 1 sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.
@@ -521,8 +582,20 @@ Full-width centered layout (NOT split)
 
 Build the complete file now.
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to the Hero Variation 1 (Tony Robbins-style) base component.
@@ -629,8 +702,20 @@ Google Fonts only | GHL standalone custom code block
 
 Build the complete file now.
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to the Empathy V1 (3-Column Clean Corporate) base component.
@@ -725,8 +810,20 @@ Google Fonts only | GHL standalone custom code block
 
 Total value must be 3–5x the price. Build the complete file now.
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to the Offer V1 (Classic Centered Box · Clean Corporate) base component.
@@ -821,8 +918,20 @@ Google Fonts only | GHL standalone custom code block
 
 Build the complete file now.
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to FAQ V1 (Classic Single-Column · Clean Corporate).
@@ -931,8 +1040,20 @@ Full-width centered layout (NOT split)
 - Comment block at top with numbered steps so client knows exactly what to edit
 - One file, no frameworks, no build step
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 ----------------------------------------------------------
 SECTION 2 — EMPATHY · Variation 1 (3-column horizontal cards (clean corporate). Stakes · Connection · Way Out. Light bg, Inter, scroll-triggered staggered fade-up.)
@@ -960,8 +1081,20 @@ SECTION 2 — EMPATHY · Variation 1 (3-column horizontal cards (clean corporate
 - Padding reduces to 48px 18px
 - Font sizes scale down gracefully
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 ----------------------------------------------------------
 SECTION 3 — OFFER POSITIONING · Variation 1 (Classic centered offer box (clean corporate). 6 ✓ items + 2 ★ bonuses + total value + strikethrough + price + CTA. Inter, light bg.)
@@ -997,8 +1130,20 @@ SECTION 3 — OFFER POSITIONING · Variation 1 (Classic centered offer box (clea
 
 Total value must be 3–5x the price.
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 ----------------------------------------------------------
 SECTION 4 — FAQ · Variation 1 (Classic single-column accordion (8 items, first open). Inter, clean corporate · blue open-state + circle toggles.)
@@ -1022,8 +1167,20 @@ SECTION 4 — FAQ · Variation 1 (Classic single-column accordion (8 items, firs
 === MOBILE (≤768px) ===
 - Full width
 
-— COPY —
-No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
+— CONTENT: LEAVE SLOTS, DO NOT WRITE COPY —
+This is a layout skeleton. The client supplies all content later.
+Write NO real copy and invent NO images.
+
+- Every text slot: [LABEL — what belongs there, and how long]
+  e.g. [HEADLINE — 6-9 words, the core promise]  [CTA — 2-4 words]
+- Every image: a CSS placeholder box whose only content is
+  [IMAGE 16:9 — what it should show]. Never a stock URL, never an
+  <img src> pointing at a real file.
+- Repeating items get numbered slots — [TESTIMONIAL 1 — 1-2 sentences],
+  [TESTIMONIAL 2 — …] — so each can be filled independently.
+- Keep each slot on one line, so a find-and-replace on "[" catches every one.
+- Real words are still required for structural furniture: nav labels,
+  "Read more", form field labels. Those are layout, not copy.
 
 === ASSEMBLY ===
 Output the complete single HTML file now: all 4 sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.

@@ -12,8 +12,19 @@ funnel; their cards only offer "Copy prompt".
 No account and no database — your work is kept in the browser.
 
 It is a **layout picker**: you choose a variation per section and set a brand
-kit. There are no copy fields, and generated pages come back with placeholder
-copy for you to replace.
+kit. There are no copy fields. What comes back is a **skeleton** — the structure,
+the design system and the animations, with every content point left as a labelled
+slot for you to fill:
+
+```html
+<h1>[HEADLINE — 6-9 words, the core promise]</h1>
+<div class="img-slot">[IMAGE 16:9 — coach on stage]</div>
+<a class="cta">[CTA — 2-4 words]</a>
+```
+
+Colour is yours too: every value is a CSS custom property on `:root`, so
+re-branding a page is a four-line edit. Leave the brand kit blank and it ships
+monochrome rather than guessing an accent colour for you.
 
 In the Funnel Builder tab you can either copy a master prompt to run yourself, or
 have the app **generate the page for you**: it builds each section in its own

@@ -18,7 +18,7 @@
  *    surface a pasted sales page used to carry.
  */
 
-import { sectionSpecForCombined } from "./prompt-assembly.ts";
+import { sectionSpecForCombined, CONTENT_SLOT_RULE } from "./prompt-assembly.ts";
 import type { Section } from "./section-catalogue.ts";
 
 export const SYSTEM_PROMPT = `You are a senior frontend developer building one section of a landing page.
@@ -43,11 +43,14 @@ STYLING RULES:
   different background unless the spec asks for a contrasting band — and if it does,
   use var(--surface). Never a literal colour, and never a light background on a dark
   palette. A section that fights the page background is a broken section.
-- If an image is needed and no URL is supplied, draw a CSS placeholder block. NEVER emit a
-  bare token such as url('BG_IMAGE') or src="VIDEO_THUMB" — those resolve to nothing and
-  render as a broken image.
-- Write real headline copy: a short headline and a distinct subhead. Never paste a
-  whole paragraph into the <h1>.
+- If an image is needed, draw a CSS placeholder block whose only content is a labelled
+  slot such as [IMAGE 16:9 — coach on stage]. NEVER emit a bare token such as
+  url('BG_IMAGE') or src="VIDEO_THUMB", and never link a real or stock image URL —
+  both resolve to nothing and render as a broken image.
+- This is a layout skeleton, so you write NO real copy. Every headline, subhead, body
+  line, CTA label and list item is a labelled slot on one line, e.g.
+  [HEADLINE — 6-9 words, the core promise]. Structural furniture (nav labels, form
+  field labels, "Read more") stays real words — that is layout, not copy.
 
 LENGTH — this is a hard constraint, not a preference:
 - Keep the whole fragment under 160 lines. Favour a few well-chosen rules over exhaustive ones.
@@ -70,11 +73,7 @@ export function buildSectionGenerationPrompt(args: {
     `=== SECTION TO BUILD: ${variation.label} — ${variation.title} ===`,
     spec,
     "",
-    "=== COPY ===",
-    "No client copy is supplied. Write realistic, conversion-focused placeholder",
-    "copy that fits this section's purpose: headline, subhead, body, CTA label and",
-    "any list items the layout needs. Keep it specific and on-tone — never lorem",
-    "ipsum, and never leave a slot empty.",
+    CONTENT_SLOT_RULE,
     "",
     "Output the section fragment now.",
   ].join("\n");

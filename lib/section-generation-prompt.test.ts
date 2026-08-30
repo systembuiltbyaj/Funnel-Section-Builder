@@ -38,8 +38,8 @@ test("no client prose can reach the prompt", () => {
   const p = buildSectionGenerationPrompt({ variation: VARIATION, tokenBlock: TOKENS });
   assert.ok(!p.includes("<<<COPY"), "the copy fence is gone with the copy field");
   assert.ok(
-    /No client copy is supplied/.test(p),
-    "the model is told to write its own placeholder copy"
+    /LEAVE SLOTS, DO NOT WRITE COPY/.test(p),
+    "the model is told to leave labelled slots, not write copy"
   );
 });
 
@@ -47,4 +47,14 @@ test("the same inputs always produce the same prompt", () => {
   const a = buildSectionGenerationPrompt({ variation: VARIATION, tokenBlock: TOKENS });
   const b = buildSectionGenerationPrompt({ variation: VARIATION, tokenBlock: TOKENS });
   assert.equal(a, b);
+});
+
+test("the system prompt forbids inventing copy and images", () => {
+  assert.match(SYSTEM_PROMPT, /you write NO real copy/);
+  assert.match(SYSTEM_PROMPT, /never link a real or stock image URL/);
+  assert.equal(
+    /Write real headline copy/.test(SYSTEM_PROMPT),
+    false,
+    "the old instruction to invent copy must be gone"
+  );
 });

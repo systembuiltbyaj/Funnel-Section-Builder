@@ -44,14 +44,34 @@ text, and never client prose.** The server rebuilds the prompt from the
 catalogue. That is what stops the endpoint being farmed as a general-purpose LLM
 proxy, and it is worth more than any rate limit. Keep it that way.
 
-### The builder collects no copy
+### The output is a skeleton — layout and design only
 
 This is a **layout picker**. There are no per-section copy fields,
 `BuilderSelection` is `{enabled, variation}`, and neither
-`/api/generate-section` nor the assembled prompts carry client prose. Generated
-sections come out with model-written placeholder copy — that is the accepted
-trade, not a defect (see
-`docs/superpowers/specs/2026-08-30-layout-picker-restore-design.md`).
+`/api/generate-section` nor the assembled prompts carry client prose. Structure
+and design are the product; copy, images and brand colour belong to the client
+(see `docs/superpowers/specs/2026-08-30-layout-picker-restore-design.md`).
+
+`CONTENT_SLOT_RULE` in `lib/prompt-assembly.ts` is the single contract that
+enforces this, and **both** output paths use it — the copyable prompts and
+`/api/generate-section`. It requires:
+
+- every text slot to be `[LABEL — what belongs there, and how long]`, one per line
+- every image to be a CSS placeholder box holding `[IMAGE 16:9 — …]`, never a
+  stock URL and never a bare `url('BG_IMAGE')` token
+- repeating items to be numbered (`[TESTIMONIAL 1 — …]`) so they fill independently
+- structural furniture (nav labels, form labels, "Read more") to stay real words
+
+Labelled slots, not bare `______`: a blank tells the model nothing about what
+belongs there, so it guesses or leaves a gap that collapses the layout. The
+bracket convention is load-bearing — it is what makes "find every `[`" a
+workable fill-in pass. Do not loosen it to make previews look finished.
+
+With no brand kit, `NEUTRAL_PALETTE_RULE` applies: the model is told **not** to
+choose a brand colour and to put every colour behind a `:root` variable. Asking
+it to "choose a conversion-friendly palette" — the old wording — picks a
+client's brand for them. Measured on a real run: 17 `var(--…)` uses, zero
+literal hex.
 
 The one place text is typed is the analyzer's paste box, and it is transient:
 sent to derive recommendations, then discarded. It is never persisted and never
