@@ -94,3 +94,47 @@ test("the same input always produces byte-identical output", () => {
   const b = stitchFunnel({ tokenBlock: TOKENS, fragments: [...FRAGMENTS], title: "Acme" });
   assert.equal(a, b);
 });
+
+test("a brand font is actually loaded, not just named in CSS", () => {
+  const doc = stitchFunnel({
+    tokenBlock: ":root { --font-head: \"Sora\", sans-serif; }",
+    fragments: [{ groupId: "hero", variation: "01a", html: "<section>x</section>" }],
+    fontFamilies: ["Sora", "Inter", "Inter"],
+  });
+  assert.match(doc, /fonts\.googleapis\.com/, "the font must be fetched, or it silently falls back");
+  assert.match(doc, /family=Sora/);
+  assert.match(doc, /family=Inter/);
+  assert.equal(
+    (doc.match(/family=Inter/g) ?? []).length,
+    1,
+    "a font named twice is requested once"
+  );
+  assert.match(doc, /display=swap/, "text must render before the font arrives");
+});
+
+test("no font link is emitted when no fonts were chosen", () => {
+  const doc = stitchFunnel({
+    tokenBlock: ":root {}",
+    fragments: [{ groupId: "hero", variation: "01a", html: "<section>x</section>" }],
+    fontFamilies: ["", "   ", ""],
+  });
+  assert.equal(/fonts\.googleapis/.test(doc), false);
+});
+
+test("a font name cannot break out of the href", () => {
+  const doc = stitchFunnel({
+    tokenBlock: ":root {}",
+    fragments: [{ groupId: "hero", variation: "01a", html: "<section>x</section>" }],
+    fontFamilies: ['Sora" onload="alert(1)', "In<script>ter"],
+  });
+  assert.equal(doc.includes('onload="alert(1)'), false, "attribute cannot be escaped");
+  assert.equal(doc.includes("<script>"), false);
+});
+
+test("omitting fontFamilies keeps the old output shape", () => {
+  const doc = stitchFunnel({
+    tokenBlock: ":root {}",
+    fragments: [{ groupId: "hero", variation: "01a", html: "<section>x</section>" }],
+  });
+  assert.equal(/fonts\.googleapis/.test(doc), false);
+});

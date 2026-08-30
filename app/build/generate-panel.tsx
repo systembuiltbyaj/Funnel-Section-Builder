@@ -204,7 +204,14 @@ export function GeneratePanel() {
       variation: r.variation,
       html: r.html as string,
     }));
-    return stitchFunnel({ tokenBlock: buildTokenBlock(kit), fragments, title: "Funnel" });
+    return stitchFunnel({
+      tokenBlock: buildTokenBlock(kit),
+      fragments,
+      title: "Funnel",
+      // Without these the token block names the brand fonts but nothing fetches
+      // them, and the page renders in the fallback stack.
+      fontFamilies: [kit.fontHead, kit.fontSub, kit.fontBody],
+    });
   }, [doneRows, kit]);
 
   async function copyDocument() {
