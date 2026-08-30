@@ -22,9 +22,10 @@ deliberately for HTML generation (see below). There is no middleware.
 
 | Route | Page | What it is |
 |---|---|---|
-| `/` | `app/page.tsx` → `app/gallery/gallery.tsx` | The gallery: rail, search, cards, tray |
-| `/build` | `app/build/page.tsx` → `app/private-content.tsx` | Full-funnel assembly, the master prompt, and generation |
+| `/` | `app/page.tsx` → `app/shell.tsx` | The whole tool: pill rail, builder, gallery, tray |
+| `/build` | `app/build/page.tsx` | Redirect to `/?tab=builder` — kept because the portfolio links to it |
 | `POST /api/generate-section` | `app/api/generate-section/route.ts` | Generates ONE section's HTML |
+| `POST /api/funnel-analyze` | `app/api/funnel-analyze/route.ts` | Recommends a variation per 10P section for a pasted page |
 
 ## Generation — why it is per-section
 
@@ -38,10 +39,27 @@ makes the stitched page cohere is that **every call is handed the same `:root`
 token block**, derived deterministically from the brand kit with no model
 involved (`lib/design-tokens.ts`). Do not make the tokens per-section.
 
-**The request body carries a section reference and the client's copy — never
-prompt text.** The server rebuilds the prompt from the catalogue. That is what
-stops the endpoint being farmed as a general-purpose LLM proxy, and it is worth
-more than any rate limit. Keep it that way.
+**The request body carries a section reference and a brand kit — never prompt
+text, and never client prose.** The server rebuilds the prompt from the
+catalogue. That is what stops the endpoint being farmed as a general-purpose LLM
+proxy, and it is worth more than any rate limit. Keep it that way.
+
+### The builder collects no copy
+
+This is a **layout picker**. There are no per-section copy fields,
+`BuilderSelection` is `{enabled, variation}`, and neither
+`/api/generate-section` nor the assembled prompts carry client prose. Generated
+sections come out with model-written placeholder copy — that is the accepted
+trade, not a defect (see
+`docs/superpowers/specs/2026-08-30-layout-picker-restore-design.md`).
+
+The one place text is typed is the analyzer's paste box, and it is transient:
+sent to derive recommendations, then discarded. It is never persisted and never
+reaches the generator.
+
+Storage stays on `fsb.selection.v3`. `validatePersisted` drops the `copy` field
+that older records still carry, rather than bumping the key — a bump would
+silently reset every saved funnel.
 
 Spend is bounded by the output ceiling in the route, the input caps in
 `lib/generate-contract.ts`, and **a hard monthly budget cap set in the Anthropic
@@ -63,7 +81,7 @@ hard way — do not re-litigate them without re-measuring:
 |---|---|---|
 | anthropic · sonnet-5 | ~95 tok/s | Best output. FAQ-class sections ran 34–43s and truncated intermittently against the 60s ceiling. Costs money. |
 | groq · llama-3.3-70b | ~460 tok/s | Fast and free, but broke the design contract: light section backgrounds on a dark page, and `url('BG_IMAGE')` emitted as a literal. |
-| **groq · gpt-oss-120b** | fast | **Current default.** Holds the contract. More verbose, so it hits the free tier's 12k tokens/minute more often. |
+| **groq · gpt-oss-120b** | fast | **Current default.** Holds the contract. More verbose, so it hits the free tier's 8k tokens/minute more often. |
 
 **The token block is role-labelled for a reason.** Handed bare colour values, a
 model will use `--text` as a card background and produce an invisible section —
@@ -71,11 +89,43 @@ observed, not theoretical. Each token carries its role in a comment, and the
 system prompt repeats that `--text`/`--muted` are text-only. Do not strip those
 comments to tidy the output.
 
+### The analyzer, and why it is not an LLM proxy
+
+`POST /api/funnel-analyze` takes **only** the pasted page. The catalogue the
+model chooses from is built server-side from `PROMPT_GROUPS` — never accepted
+from the client. The 2026-08 version of this route did take `catalog` from the
+body, which combined with free-form `copy` was close to an arbitrary prompt
+channel. Do not reintroduce it.
+
+Every `sectionId` and `recommendedVariation` in the reply is validated against
+the live catalogue before it reaches the client, so the endpoint can only ever
+answer with sections that already exist. It returns no copy, which keeps replies
+to a few hundred tokens — it is the cheapest call in the app.
+
+This deliberately reopens decision 3 ("No AI, no accounts") of
+`docs/superpowers/specs/2026-08-08-public-gallery-design.md`, which removed the
+analyzer as an abuse target. The reasoning for reopening it is recorded in the
+2026-08-30 spec; do not re-litigate it from the older doc alone.
+
 **Rate limits are expected, not exceptional.** Groq's free tier caps
-tokens-per-minute, so a multi-section funnel *will* hit 429. The route returns
-`rate_limited` with a wait derived from the provider's headers, and the panel
-counts the wait down and retries. A 3-section run took 81s wall-clock, 20s of it
-generating.
+tokens-per-minute — measured at **8,000** on this account, not the 12k this file
+claimed until 2026-08-30 — so a multi-section funnel *will* hit it. The route
+returns `rate_limited` with a wait derived from the provider's headers, and the
+panel counts the wait down and retries. A 3-section run took 81s wall-clock, 20s
+of it generating.
+
+Two things about that limit are easy to get wrong, and both cost real debugging:
+
+- **Groq does not always answer 429.** When the *request* (prompt + `max_tokens`)
+  exceeds the per-minute budget it replies **413** with
+  `code: "rate_limit_exceeded"`. Treating that as a hard failure tells the user
+  the service is broken when it is merely busy. `isTokenRateLimit()` in
+  `lib/generation-provider.ts` is what tells the two apart — use it rather than
+  matching on status alone.
+- **`max_tokens` is counted up front, as part of the request.** Asking for a
+  generous output ceiling on a call whose reply is three lines is what trips the
+  limit, not the reply. Give each caller a ceiling sized to its own output:
+  generation uses 6,000, the analyzer 1,200.
 
 ## Where things live
 
@@ -93,6 +143,11 @@ generating.
 | Turning a model reply into a usable fragment | `lib/html-extract.ts` |
 | Assembling fragments into one deliverable file | `lib/stitch-funnel.ts` |
 | Generation progress UI | `app/build/generate-panel.tsx` |
+| Single-page shell — pill rail + builder/gallery view switch | `app/shell.tsx` |
+| What `/api/funnel-analyze` accepts, and what of its reply is believed | `lib/analyze-contract.ts` |
+| The message sent to the model to recommend layouts | `lib/analyze-prompt.ts` |
+| Client call for the analyzer | `lib/analyze.ts` |
+| Analyze Copy (AI) panel | `app/build/analyze-panel.tsx` |
 | Gallery's three browse-only "Extras" collections (image prompts, carousel, full layouts) — reuse `GalleryGroup`/`Section`, cannot join a funnel | `lib/gallery-extras.ts` |
 | Initial/empty selection shape | `lib/catalogue.ts`, `lib/funnel-selection.ts` |
 | Selection + brand kit shared across the flow | `lib/funnel-selection-provider.tsx` |
