@@ -4,6 +4,7 @@ import {
   pickProvider,
   buildProviderRequest,
   parseProviderReply,
+  isTokenRateLimit,
   parseRetryAfterSeconds,
 } from "./generation-provider.ts";
 
@@ -159,4 +160,31 @@ test("omitting options leaves the generation defaults untouched", () => {
   const body = JSON.parse(buildProviderRequest(config, { system: "s", prompt: "p" }).body);
   assert.equal(body.temperature, 0.4);
   assert.equal("response_format" in body, false);
+});
+
+test("a plain 429 is a rate limit", () => {
+  assert.equal(isTokenRateLimit(429, ""), true);
+});
+
+test("Groq's 413 TPM refusal is a rate limit, not a hard failure", () => {
+  const body =
+    '{"error":{"message":"Request too large for model on tokens per minute (TPM): Limit 8000, Requested 10535","type":"tokens","code":"rate_limit_exceeded"}}';
+  assert.equal(isTokenRateLimit(413, body), true);
+});
+
+test("a 413 that is genuinely too large is not treated as retryable", () => {
+  assert.equal(isTokenRateLimit(413, '{"error":{"message":"Payload too large"}}'), false);
+});
+
+test("other upstream failures are not rate limits", () => {
+  assert.equal(isTokenRateLimit(500, "rate_limit_exceeded"), false);
+  assert.equal(isTokenRateLimit(400, ""), false);
+});
+
+test("maxOutputTokens overrides the config ceiling", () => {
+  const config = { provider: "groq", apiKey: "k", model: "m", maxOutputTokens: 6000 } as const;
+  const body = JSON.parse(
+    buildProviderRequest(config, { system: "s", prompt: "p" }, { maxOutputTokens: 1200 }).body
+  );
+  assert.equal(body.max_tokens, 1200);
 });

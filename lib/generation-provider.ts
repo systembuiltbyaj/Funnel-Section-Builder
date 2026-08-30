@@ -85,6 +85,15 @@ export type ProviderRequest = {
 export type ProviderOptions = {
   temperature?: number;
   json?: boolean;
+  /**
+   * Override the config's output ceiling.
+   *
+   * Groq bills `max_tokens` against the per-minute token budget up front, as
+   * part of the *request* size — so asking for a generation-sized ceiling on a
+   * call that replies with three lines is what trips the limit, not the reply.
+   * Classification passes a small number here.
+   */
+  maxOutputTokens?: number;
 };
 
 export function buildProviderRequest(
@@ -95,6 +104,7 @@ export function buildProviderRequest(
   const { system, prompt } = args;
   // Low but not zero: layout benefits from a little variety, structure does not.
   const temperature = options.temperature ?? 0.4;
+  const maxTokens = options.maxOutputTokens ?? config.maxOutputTokens;
 
   if (config.provider === "groq") {
     return {
@@ -105,7 +115,7 @@ export function buildProviderRequest(
       },
       body: JSON.stringify({
         model: config.model,
-        max_tokens: config.maxOutputTokens,
+        max_tokens: maxTokens,
         temperature,
         ...(options.json ? { response_format: { type: "json_object" } } : {}),
         messages: [
@@ -125,7 +135,7 @@ export function buildProviderRequest(
     },
     body: JSON.stringify({
       model: config.model,
-      max_tokens: config.maxOutputTokens,
+      max_tokens: maxTokens,
       temperature,
       system,
       messages: [{ role: "user", content: prompt }],
@@ -186,4 +196,20 @@ export function parseRetryAfterSeconds(
 
 function clampWait(seconds: number): number {
   return Math.min(60, Math.max(2, Math.ceil(seconds)));
+}
+
+/**
+ * Did the provider refuse this call because of a token rate limit?
+ *
+ * Groq does NOT always answer with 429. When the request itself (prompt +
+ * `max_tokens`) exceeds the per-minute budget it replies **413** with
+ * `code: "rate_limit_exceeded"` — a distinction worth honouring, because a
+ * rate limit is recoverable by waiting and a genuine 413 is not. Treating the
+ * 413 as a hard failure tells the user the service is broken when it is merely
+ * busy.
+ */
+export function isTokenRateLimit(status: number, body: string): boolean {
+  if (status === 429) return true;
+  if (status !== 413) return false;
+  return /rate_limit_exceeded|tokens per minute|TPM/i.test(body);
 }
