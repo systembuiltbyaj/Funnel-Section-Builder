@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { LivePreview, type PreviewItem } from "./live-preview";
 import { GeneratePanel } from "./build/generate-panel";
+import { AnalyzePanel } from "./build/analyze-panel";
 import { sampleForPreview } from "@/lib/samples";
 import { PROMPT_GROUPS as builderGroups } from "@/lib/prompt-groups";
 import { useFunnelSelection } from "@/lib/funnel-selection-provider";
@@ -176,6 +177,7 @@ function FunnelBuilder() {
   const {
     sel,
     kit,
+    analysis,
     setSection: update,
     setKit,
     reset: resetSelection,
@@ -192,7 +194,7 @@ function FunnelBuilder() {
 
   const [includeRef, setIncludeRef] = useState(true);
   const [generated, setGenerated] = useState(false);
-  const [mode, setMode] = useState<"manual" | "check">("manual");
+  const [mode, setMode] = useState<"analyze" | "manual" | "check">("analyze");
   const [vPreview, setVPreview] = useState<{ src: string; alt: string } | null>(null);
   const [live, setLive] = useState<{ heading: string; items: PreviewItem[] } | null>(null);
   const [htmlIn, setHtmlIn] = useState("");
@@ -324,6 +326,15 @@ function FunnelBuilder() {
         <div className="inline-flex rounded-lg border border-[#2A2250] bg-[#0B091A] p-1">
           <button
             type="button"
+            onClick={() => setMode("analyze")}
+            className={`px-4 py-1.5 text-[12.5px] font-semibold rounded-md transition ${
+              mode === "analyze" ? "bg-[#7C5CFC] text-white" : "text-[#A09AB8] hover:text-white"
+            }`}
+          >
+            ✨ Analyze Copy (AI)
+          </button>
+          <button
+            type="button"
             onClick={() => setMode("manual")}
             className={`px-4 py-1.5 text-[12.5px] font-semibold rounded-md transition ${
               mode === "manual" ? "bg-[#7C5CFC] text-white" : "text-[#A09AB8] hover:text-white"
@@ -344,10 +355,14 @@ function FunnelBuilder() {
       </div>
 
       <p className="text-[13px] text-[#A09AB8] leading-[1.6] mb-6 text-center">
-        {mode === "check"
+        {mode === "analyze"
+          ? "Paste a page and the AI recommends the best-fit layout for each of the 10P sections — review, tweak, then generate."
+          : mode === "check"
           ? "Built the page already? Paste its HTML here and check it against your brand kit — it flags every off-brand color/font and one-click swaps them. Deterministic, no AI, no tokens."
           : "Pick a variation per section, set your brand kit, and generate one ready-to-paste prompt for each. The AI writes placeholder copy to match. Pure assembly — nothing leaves your browser."}
       </p>
+
+      {mode === "analyze" && <AnalyzePanel />}
 
       {/* 1 · Brand kit */}
       <section className="rounded-[14px] border border-[#2A2250] bg-[#161330] p-6 mb-5">
@@ -355,7 +370,7 @@ function FunnelBuilder() {
           className="text-[15px] font-bold mb-1"
           style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
         >
-          <span className="text-[#7C5CFC]">1 ·</span> Brand Kit
+          <span className="text-[#7C5CFC]">{mode === "analyze" ? "2 ·" : "1 ·"}</span> Brand Kit
         </h2>
         <p className="text-[12px] text-[#A09AB8] mb-4">
           Two brand colors + three font roles. The AI derives all supporting shades (text, muted,
@@ -426,7 +441,8 @@ function FunnelBuilder() {
             className="text-[15px] font-bold"
             style={{ fontFamily: "var(--font-space-grotesk, 'Space Grotesk', sans-serif)" }}
           >
-            <span className="text-[#7C5CFC]">2 ·</span> Pick Sections
+            <span className="text-[#7C5CFC]">{mode === "analyze" ? "3 ·" : "2 ·"}</span>{" "}
+            {mode === "analyze" ? "Review AI Picks" : "Pick Sections"}
           </h2>
           <span className="text-[11.5px] font-semibold text-[#A09AB8]">
             {enabledCount} selected
@@ -472,6 +488,12 @@ function FunnelBuilder() {
                     </select>
                   )}
                 </div>
+                {s.enabled && analysis?.reasons[g.id] && (
+                  <p className="mt-2 flex items-start gap-1.5 text-[11.5px] leading-[1.5]">
+                    <span className="font-bold text-[#9B82FF] shrink-0">★ AI pick:</span>
+                    <span className="text-[#A09AB8]">{analysis.reasons[g.id]}</span>
+                  </p>
+                )}
                 {s.enabled && v.previewSrc && (
                   <div className="mt-3 w-full max-w-[460px] mx-auto">
                     <button
