@@ -88,7 +88,7 @@ Use placeholder images first, then swap for the real assets.
 (no image notes — keep the section's built-in placeholder images)
 
 — COPY —
-A
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 --- full ---
 You are an expert frontend developer and funnel designer.
 
@@ -173,8 +173,8 @@ Full-width centered layout (NOT split)
 - Comment block at top with numbered steps so client knows exactly what to edit
 - One file, no frameworks, no build step
 
-— COPY FOR THIS SECTION (use verbatim) —
-A
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 === ASSEMBLY ===
 Output the complete single HTML file now: all 1 sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.
@@ -281,8 +281,8 @@ Full-width centered layout (NOT split)
 
 Build the complete file now.
 
-=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
-A
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to the Hero Variation 1 (Tony Robbins-style) base component.
@@ -413,8 +413,8 @@ Full-width centered layout (NOT split)
 - Comment block at top with numbered steps so client knows exactly what to edit
 - One file, no frameworks, no build step
 
-— COPY FOR THIS SECTION (use verbatim) —
-A
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 === ASSEMBLY ===
 Output the complete single HTML file now: all 1 sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.
@@ -521,8 +521,8 @@ Full-width centered layout (NOT split)
 
 Build the complete file now.
 
-=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
-A
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to the Hero Variation 1 (Tony Robbins-style) base component.
@@ -629,8 +629,8 @@ Google Fonts only | GHL standalone custom code block
 
 Build the complete file now.
 
-=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
-B
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to the Empathy V1 (3-Column Clean Corporate) base component.
@@ -725,8 +725,8 @@ Google Fonts only | GHL standalone custom code block
 
 Total value must be 3–5x the price. Build the complete file now.
 
-=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
-C
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to the Offer V1 (Classic Centered Box · Clean Corporate) base component.
@@ -821,8 +821,8 @@ Google Fonts only | GHL standalone custom code block
 
 Build the complete file now.
 
-=== CLIENT COPY FOR THIS SECTION (use verbatim) ===
-D
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 ──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────
 Apply these client values to FAQ V1 (Classic Single-Column · Clean Corporate).
@@ -931,8 +931,8 @@ Full-width centered layout (NOT split)
 - Comment block at top with numbered steps so client knows exactly what to edit
 - One file, no frameworks, no build step
 
-— COPY FOR THIS SECTION (use verbatim) —
-A
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 ----------------------------------------------------------
 SECTION 2 — EMPATHY · Variation 1 (3-column horizontal cards (clean corporate). Stakes · Connection · Way Out. Light bg, Inter, scroll-triggered staggered fade-up.)
@@ -960,8 +960,8 @@ SECTION 2 — EMPATHY · Variation 1 (3-column horizontal cards (clean corporate
 - Padding reduces to 48px 18px
 - Font sizes scale down gracefully
 
-— COPY FOR THIS SECTION (use verbatim) —
-B
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 ----------------------------------------------------------
 SECTION 3 — OFFER POSITIONING · Variation 1 (Classic centered offer box (clean corporate). 6 ✓ items + 2 ★ bonuses + total value + strikethrough + price + CTA. Inter, light bg.)
@@ -997,8 +997,8 @@ SECTION 3 — OFFER POSITIONING · Variation 1 (Classic centered offer box (clea
 
 Total value must be 3–5x the price.
 
-— COPY FOR THIS SECTION (use verbatim) —
-C
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 ----------------------------------------------------------
 SECTION 4 — FAQ · Variation 1 (Classic single-column accordion (8 items, first open). Inter, clean corporate · blue open-state + circle toggles.)
@@ -1022,8 +1022,8 @@ SECTION 4 — FAQ · Variation 1 (Classic single-column accordion (8 items, firs
 === MOBILE (≤768px) ===
 - Full width
 
-— COPY FOR THIS SECTION (use verbatim) —
-D
+— COPY —
+No client copy is supplied. Write realistic, conversion-focused placeholder copy that fits this section's purpose and the funnel's apparent niche: headline, subhead, body, CTA label, and any names, labels or list items the layout needs. Keep it specific and on-tone. Never lorem ipsum, never empty slots, never literal underscores.
 
 === ASSEMBLY ===
 Output the complete single HTML file now: all 4 sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.

@@ -1,6 +1,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildOutputs, variationShortName, stripBrandBlocks } from "./prompt-assembly.ts";
+import {
+  buildOutputs,
+  variationShortName,
+  stripBrandBlocks,
+  PLACEHOLDER_COPY_RULE,
+} from "./prompt-assembly.ts";
 import type { PromptGroup, FunnelBrandKit } from "./prompt-assembly.ts";
 
 const EMPTY_KIT: FunnelBrandKit = {
@@ -62,8 +67,22 @@ test("buildOutputs emits a block and a full prompt for an enabled section", () =
   assert.equal(out.blocks.length, 1);
   assert.equal(out.blocks[0].id, "hero");
   assert.ok(out.blocks[0].heading.includes("HERO"));
-  assert.ok(out.blocks[0].text.includes("My headline"));
-  assert.ok(out.full?.includes("My headline"));
+});
+
+test("no copy reaches the prompt — the model is told to write its own", () => {
+  const out = buildOutputs({
+    groups: GROUPS,
+    sel: { hero: { enabled: true, variation: "01a", copy: "My headline" } },
+    kit: EMPTY_KIT,
+    includeRef: false,
+  });
+  assert.ok(
+    !out.blocks[0].text.includes("My headline"),
+    "a copy field left over on the selection must not leak into the prompt"
+  );
+  assert.ok(!out.full?.includes("My headline"));
+  assert.ok(out.blocks[0].text.includes(PLACEHOLDER_COPY_RULE));
+  assert.ok(out.full?.includes(PLACEHOLDER_COPY_RULE));
 });
 
 test("buildOutputs puts the authoritative brand kit ahead of the spec when a kit is set", () => {

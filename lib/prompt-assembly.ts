@@ -70,6 +70,22 @@ export function sectionSpecForCombined(base: string): string {
   return t.trim();
 }
 
+/**
+ * What replaces the per-section copy block.
+ *
+ * The builder is a layout picker and collects no copy, so the model has to
+ * supply its own. The previous empty block (`— COPY —\n______`) told it
+ * nothing and produced blank slots or lorem ipsum; naming the job explicitly
+ * produces a section that reads like a real page.
+ */
+export const PLACEHOLDER_COPY_RULE =
+  "— COPY —\n" +
+  "No client copy is supplied. Write realistic, conversion-focused placeholder copy " +
+  "that fits this section's purpose and the funnel's apparent niche: headline, " +
+  "subhead, body, CTA label, and any names, labels or list items the layout needs. " +
+  "Keep it specific and on-tone. Never lorem ipsum, never empty slots, never " +
+  "literal underscores.";
+
 export function buildOutputs(args: {
   groups: PromptGroup[];
   sel: Record<string, BuilderSelection>;
@@ -130,7 +146,7 @@ export function buildOutputs(args: {
       text =
         brandKit +
         `${bar}\n${heading}\n${v.description}\n${bar}\n\n${v.basePrompt}\n\n` +
-        `=== CLIENT COPY FOR THIS SECTION (use verbatim) ===\n${s.copy.trim() || "______"}`;
+        PLACEHOLDER_COPY_RULE;
       if (includeRef) {
         const stripLabels = [...(hasColors ? ["BRAND COLORS"] : []), ...(hasFonts ? ["FONTS"] : [])];
         text +=
@@ -145,7 +161,7 @@ export function buildOutputs(args: {
         `— IMAGES —\nUse placeholder images first, then swap for the real assets.\n${
           images.trim() || "(no image notes — keep the section's built-in placeholder images)"
         }\n\n` +
-        `— COPY —\n${s.copy.trim() || "______"}`;
+        PLACEHOLDER_COPY_RULE;
       text = `${bar}\n${heading}\n${v.description}\n${bar}\n\n${v.basePrompt}\n\n${clientVars}`;
       if (includeRef) {
         text +=
@@ -188,7 +204,7 @@ export function buildOutputs(args: {
       `SECTION ${i + 1} — ${g.label} · ${variationShortName(v.title)} (${v.description})\n` +
       `${"-".repeat(58)}\n\n` +
       `${sectionSpecForCombined(v.basePrompt)}\n\n` +
-      `— COPY FOR THIS SECTION (use verbatim) —\n${s.copy.trim() || "______"}\n`;
+      `${PLACEHOLDER_COPY_RULE}\n`;
   });
   full +=
     `\n=== ASSEMBLY ===\n` +
