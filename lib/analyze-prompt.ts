@@ -27,17 +27,21 @@ Do two things:
 (a) Detect which of the catalogue's sections are genuinely present in the page.
 (b) For each one, pick the single best-fit variation by matching the page's niche, tone and
     vibe against that variation's description and funnelTypes, with a one-sentence reason.
+(c) Return the slice of the PAGE that section is built from, copied verbatim.
 
 Respond with STRICT JSON only. No markdown, no code fences, no commentary. Schema:
-{"niche":string,"vibe":string,"sections":[{"sectionId":string,"recommendedVariation":string,"reason":string}]}
+{"niche":string,"vibe":string,"sections":[{"sectionId":string,"recommendedVariation":string,"reason":string,"copy":string}]}
 
 Rules:
 - sectionId MUST be one of the catalogue's ids. recommendedVariation MUST be one of the
   variation numbers listed under that section. Never invent either.
 - Order sections in the catalogue's order. Include a section only if it is genuinely present.
 - Keep each reason under 20 words.
-- Recommend layouts only — never return the page's text, or any rewrite of it. No copy,
-  no headlines, no excerpts. Section ids and reasons are the entire job.`;
+- "copy" is a VERBATIM excerpt from the PAGE — never a rewrite, never invented, never a
+  summary. Keep it under 500 characters: the opening lines of that section is enough. It is
+  shown beside a layout preview so a human can see which part of their page maps where.
+- Recommend layouts; do not write copy. If a section is present but you cannot find its text,
+  return an empty string for "copy" rather than composing something.`;
 
 export function buildAnalyzePrompt(args: {
   copy: string;

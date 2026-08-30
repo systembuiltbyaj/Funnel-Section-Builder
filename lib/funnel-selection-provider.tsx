@@ -17,11 +17,23 @@ interface ContextValue {
   sel: Record<string, BuilderSelection>;
   kit: FunnelBrandKit;
   analysis: PersistedAnalysis | null;
+  /**
+   * Section id -> the slice of the pasted page it maps to.
+   *
+   * Deliberately NOT part of PersistedAnalysis: it is shown beside the layout
+   * preview and then forgotten. Persisting it would break the promise the
+   * analyze panel makes — that pasted text is never saved.
+   */
+  sectionCopy: Record<string, string>;
   hydrated: boolean;
   setSection: (id: string, patch: Partial<BuilderSelection>) => void;
   toggleSection: (id: string, variation: string) => void;
   setKit: (patch: Partial<FunnelBrandKit>) => void;
-  applyAnalysis: (next: Record<string, BuilderSelection>, analysis: PersistedAnalysis) => void;
+  applyAnalysis: (
+    next: Record<string, BuilderSelection>,
+    analysis: PersistedAnalysis,
+    sectionCopy?: Record<string, string>
+  ) => void;
   reset: () => void;
 }
 
@@ -37,6 +49,8 @@ export function FunnelSelectionProvider({
   const [sel, setSel] = useState(initialSel);
   const [kit, setKitState] = useState<FunnelBrandKit>(EMPTY_KIT);
   const [analysis, setAnalysis] = useState<PersistedAnalysis | null>(null);
+  // In-memory only. Never written to localStorage — see sectionCopy above.
+  const [sectionCopy, setSectionCopy] = useState<Record<string, string>>({});
   const [hydrated, setHydrated] = useState(false);
 
   // Hydrate after mount, never during render: localStorage does not exist on the
@@ -99,9 +113,14 @@ export function FunnelSelectionProvider({
    * when the user already has picks — see the analyze panel.
    */
   const applyAnalysis = useCallback(
-    (next: Record<string, BuilderSelection>, nextAnalysis: PersistedAnalysis) => {
+    (
+      next: Record<string, BuilderSelection>,
+      nextAnalysis: PersistedAnalysis,
+      nextCopy: Record<string, string> = {}
+    ) => {
       setSel(next);
       setAnalysis(nextAnalysis);
+      setSectionCopy(nextCopy);
     },
     []
   );
@@ -110,11 +129,12 @@ export function FunnelSelectionProvider({
     setSel(initialSel);
     setKitState(EMPTY_KIT);
     setAnalysis(null);
+    setSectionCopy({});
   }, [initialSel]);
 
   const value = useMemo<ContextValue>(
-    () => ({ sel, kit, analysis, hydrated, setSection, toggleSection, setKit, applyAnalysis, reset }),
-    [sel, kit, analysis, hydrated, setSection, toggleSection, setKit, applyAnalysis, reset]
+    () => ({ sel, kit, analysis, sectionCopy, hydrated, setSection, toggleSection, setKit, applyAnalysis, reset }),
+    [sel, kit, analysis, sectionCopy, hydrated, setSection, toggleSection, setKit, applyAnalysis, reset]
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

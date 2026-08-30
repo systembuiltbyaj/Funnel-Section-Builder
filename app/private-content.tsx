@@ -178,6 +178,7 @@ function FunnelBuilder() {
     sel,
     kit,
     analysis,
+    sectionCopy,
     setSection: update,
     setKit,
     reset: resetSelection,
@@ -235,7 +236,14 @@ function FunnelBuilder() {
       if (!s?.enabled) continue;
       const v = g.variations.find((x) => x.number === s.variation) ?? g.variations[0];
       const sampleSrc = sampleForPreview(v.previewSrc);
-      if (sampleSrc) items.push({ id: `${g.id}-${v.number}`, title: v.title, sampleSrc });
+      if (sampleSrc) {
+        items.push({
+          id: `${g.id}-${v.number}`,
+          title: `${g.label} — ${v.title}`,
+          sampleSrc,
+          copy: sectionCopy[g.id],
+        });
+      }
     }
     return items;
   };

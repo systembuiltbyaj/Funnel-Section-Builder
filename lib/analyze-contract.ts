@@ -30,6 +30,8 @@ export const ANALYZE_COPY_MAX = 9_000;
 export const ANALYZE_COPY_MIN = 40;
 
 const REASON_MAX = 160;
+/** One section's excerpt. Enough to recognise the section, far below a page. */
+export const SECTION_COPY_MAX = 600;
 const META_MAX = 200;
 const DESCRIPTION_MAX = 60;
 
@@ -60,6 +62,19 @@ export type AnalyzedSection = {
   sectionId: string;
   recommendedVariation: string;
   reason: string;
+  /**
+   * The slice of the pasted page this section is built from.
+   *
+   * For display beside the layout preview ONLY — it is never persisted, never
+   * assembled into a prompt, and never sent to `/api/generate-section`. The
+   * tool is still a layout picker; this exists so a preview shows the client's
+   * own words next to the wireframe instead of a stranger's demo content.
+   *
+   * Capped hard: excerpts are output tokens, and the old analyzer's unbounded
+   * 6,000-character-per-section copy is what made its replies large enough to
+   * trip a per-minute token limit on every real funnel.
+   */
+  copy: string;
 };
 
 export type Analysis = {
@@ -150,6 +165,7 @@ export function normalizeAnalysis(raw: unknown, catalogue: CatalogueShape): Anal
         sectionId,
         recommendedVariation: valid.includes(recommended) ? recommended : valid[0],
         reason: str(own(entry, "reason")).slice(0, REASON_MAX),
+        copy: str(own(entry, "copy")).trim().slice(0, SECTION_COPY_MAX),
       });
     }
   }

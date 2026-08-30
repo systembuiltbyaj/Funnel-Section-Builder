@@ -44,12 +44,15 @@ export function AnalyzePanel() {
 
       const next: Record<string, BuilderSelection> = { ...INITIAL_SEL };
       const reasons: Record<string, string> = {};
+      // Excerpts ride along in memory for the preview only — see the provider.
+      const excerpts: Record<string, string> = {};
       for (const s of result.sections) {
         next[s.sectionId] = { enabled: true, variation: s.recommendedVariation };
         reasons[s.sectionId] = s.reason;
+        if (s.copy) excerpts[s.sectionId] = s.copy;
       }
 
-      applyAnalysis(next, { reasons, niche: result.niche, vibe: result.vibe });
+      applyAnalysis(next, { reasons, niche: result.niche, vibe: result.vibe }, excerpts);
     } catch (e) {
       setError(e instanceof AnalyzeFailure ? e.message : "Analysis failed. Try again.");
     } finally {

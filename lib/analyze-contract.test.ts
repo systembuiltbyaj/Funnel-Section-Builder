@@ -6,6 +6,7 @@ import {
   normalizeAnalysis,
   ANALYZE_COPY_MAX,
   ANALYZE_COPY_MIN,
+  SECTION_COPY_MAX,
 } from "./analyze-contract.ts";
 
 const CATALOGUE = { hero: ["01a", "01b"], faq: ["11a"] };
@@ -113,4 +114,34 @@ test("the refusal message names the cap actually in force", () => {
   const r = validateAnalyzeRequest({ copy: "x".repeat(95_000) }, 90_000);
   assert.equal(r.ok, false);
   if (!r.ok) assert.match(r.message, /90,000 characters/);
+});
+
+test("a section's copy excerpt is carried through and capped", () => {
+  const out = normalizeAnalysis(
+    { sections: [{ sectionId: "hero", recommendedVariation: "01a", reason: "r", copy: "  Big promise here.  " }] },
+    CATALOGUE
+  );
+  assert.equal(out.sections[0].copy, "Big promise here.", "trimmed");
+
+  const huge = normalizeAnalysis(
+    { sections: [{ sectionId: "hero", recommendedVariation: "01a", reason: "r", copy: "x".repeat(5_000) }] },
+    CATALOGUE
+  );
+  assert.equal(huge.sections[0].copy.length, SECTION_COPY_MAX, "excerpts are output tokens — capped hard");
+});
+
+test("a section with no copy is still usable", () => {
+  const out = normalizeAnalysis(
+    { sections: [{ sectionId: "hero", recommendedVariation: "01a", reason: "r" }] },
+    CATALOGUE
+  );
+  assert.equal(out.sections[0].copy, "", "missing copy degrades to empty, never undefined");
+});
+
+test("a non-string copy cannot reach the UI", () => {
+  const out = normalizeAnalysis(
+    { sections: [{ sectionId: "hero", recommendedVariation: "01a", reason: "r", copy: { evil: true } }] },
+    CATALOGUE
+  );
+  assert.equal(out.sections[0].copy, "");
 });

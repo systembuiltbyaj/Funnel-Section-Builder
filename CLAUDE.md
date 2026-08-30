@@ -77,6 +77,22 @@ The one place text is typed is the analyzer's paste box, and it is transient:
 sent to derive recommendations, then discarded. It is never persisted and never
 reaches the generator.
 
+The analyzer does return a short **verbatim excerpt per section**
+(`SECTION_COPY_MAX`, 600 chars), and the full-funnel preview shows it in a
+column *beside* each sample. Three rules keep that from reopening the copy path:
+
+- it lives in `sectionCopy` on the provider, which is deliberately **excluded
+  from the `localStorage` write** — check `funnel-selection-provider.tsx` before
+  adding fields to that `setItem` call
+- it never enters `buildOutputs`, `/api/generate-section`, or any prompt
+- the model is told to quote, never rewrite, and to return `""` when it cannot
+  find the text — so an excerpt is always the client's own words or nothing
+
+**Beside, not merged.** Swapping the excerpt *into* the sample was considered and
+rejected: the 100 samples are independently authored with no shared slot
+structure, so a swap lands correctly on the heading and mangles everything
+below it, and a half-swapped section reads as a bug rather than a preview.
+
 Storage stays on `fsb.selection.v3`. `validatePersisted` drops the `copy` field
 that older records still carry, rather than bumping the key — a bump would
 silently reset every saved funnel.

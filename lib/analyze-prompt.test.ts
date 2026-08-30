@@ -15,13 +15,22 @@ test("the system prompt demands strict JSON and forbids inventing ids", () => {
   assert.match(ANALYZE_SYSTEM_PROMPT, /MUST be one of/);
 });
 
-test("the system prompt asks for no copy at all", () => {
-  assert.equal(
-    /verbatim/i.test(ANALYZE_SYSTEM_PROMPT),
-    false,
-    "the layout picker must never ask the model to echo the page back"
+test("the copy it returns must be quoted, not written", () => {
+  // The excerpt exists to show a human which part of their page maps where. A
+  // model that rewrites it would be composing copy — the one thing this tool
+  // deliberately does not do.
+  assert.match(ANALYZE_SYSTEM_PROMPT, /VERBATIM excerpt/);
+  assert.match(ANALYZE_SYSTEM_PROMPT, /never a rewrite, never invented/);
+  assert.match(ANALYZE_SYSTEM_PROMPT, /do not write copy/i);
+  assert.match(
+    ANALYZE_SYSTEM_PROMPT,
+    /empty string/,
+    "a section with no findable text must come back blank, not filled in"
   );
-  assert.match(ANALYZE_SYSTEM_PROMPT, /never return the page's text/i);
+});
+
+test("the excerpt is length-bounded in the prompt, not only in the parser", () => {
+  assert.match(ANALYZE_SYSTEM_PROMPT, /under 500 characters/);
 });
 
 test("the user prompt carries the catalogue and the page, clearly separated", () => {
