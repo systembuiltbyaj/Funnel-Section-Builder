@@ -63,14 +63,42 @@ const NESTED_SAMPLES: Record<string, string> = {
  * Returns null when the variation is a static reference (image-prompt library,
  * layout screenshots) with no rendered HTML behind it.
  */
-export function sampleForPreview(previewSrc: string | undefined): string | null {
+/** `/private/hero-v1-thumb.webp` -> `hero-v1`. */
+function slugFromPreview(previewSrc: string | undefined): string | null {
   if (!previewSrc) return null;
-  const slug = previewSrc
+  return previewSrc
     .replace(/^\/private\//, "")
     .replace(/-thumb\.webp$/, "")
     .replace(/\.webp$/, "");
+}
+
+export function sampleForPreview(previewSrc: string | undefined): string | null {
+  const slug = slugFromPreview(previewSrc);
+  if (!slug) return null;
   if (FLAT_SAMPLES.has(slug)) return `/private/${slug}-sample.html`;
   return NESTED_SAMPLES[slug] ?? null;
+}
+
+/**
+ * The greyscale wireframe companion for a variation, or null when it has none.
+ *
+ * Only slugs with a rendered sample have one: the wireframe is generated from
+ * the same layout (see `scripts/build-wireframes.mjs`), so a variation with
+ * nothing to mirror gets nothing. Callers fall back to the designed sample.
+ */
+export function wireframeForPreview(previewSrc: string | undefined): string | null {
+  const slug = slugFromPreview(previewSrc);
+  if (!slug) return null;
+  // Nested collections (ai-academy, carousel, local) are whole-page references
+  // rather than 10P sections, so they are deliberately not wireframed.
+  return FLAT_SAMPLES.has(slug) ? `/private/${slug}-wireframe.html` : null;
+}
+
+/** The wireframe's own thumbnail, shot by `scripts/shoot-wireframes.py`. */
+export function wireframeThumb(previewSrc: string | undefined): string | null {
+  const slug = slugFromPreview(previewSrc);
+  if (!slug) return null;
+  return FLAT_SAMPLES.has(slug) ? `/private/${slug}-wire-thumb.webp` : null;
 }
 
 // ---------------------------------------------------------------------------

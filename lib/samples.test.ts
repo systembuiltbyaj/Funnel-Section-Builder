@@ -6,6 +6,8 @@ import {
   isFrameHeightMessage,
   sampleForPreview,
   withHeightReporter,
+  wireframeForPreview,
+  wireframeThumb,
 } from "./samples.ts";
 
 // A stand-in for the library's sample documents: palette in :root, plus the
@@ -108,4 +110,24 @@ test("isFrameHeightMessage only accepts well-formed frame messages", () => {
   assert.equal(isFrameHeightMessage({ source: "fsb-preview", id: "a" }), false);
   assert.equal(isFrameHeightMessage(null), false);
   assert.equal(isFrameHeightMessage("fsb-preview"), false);
+});
+
+test("a variation with a sample also resolves a wireframe and its thumbnail", () => {
+  assert.equal(wireframeForPreview("/private/hero-v1-thumb.webp"), "/private/hero-v1-wireframe.html");
+  assert.equal(wireframeThumb("/private/hero-v1-thumb.webp"), "/private/hero-v1-wire-thumb.webp");
+});
+
+test("references with no rendered sample have no wireframe either", () => {
+  // The image-prompt library and the layout screenshots have no layout to
+  // mirror, so they keep falling back to their static thumbnail.
+  assert.equal(wireframeForPreview("/private/gpt-img-01-thumb.webp"), null);
+  assert.equal(wireframeThumb("/private/gpt-img-01-thumb.webp"), null);
+  assert.equal(wireframeForPreview(undefined), null);
+});
+
+test("nested collections are not wireframed", () => {
+  // layout-1-lunara resolves a sample, but it is a whole-page reference rather
+  // than a 10P section, so build-wireframes.mjs never produces one for it.
+  assert.ok(sampleForPreview("/private/layout-1-lunara-thumb.webp"));
+  assert.equal(wireframeForPreview("/private/layout-1-lunara-thumb.webp"), null);
 });
