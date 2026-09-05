@@ -87,17 +87,23 @@ test("no copy reaches the prompt, and the model is told to leave slots", () => {
   assert.ok(out.full?.includes(CONTENT_SLOT_RULE));
 });
 
-test("buildOutputs puts the authoritative brand kit ahead of the spec when a kit is set", () => {
+test("a brand kit never reaches the output — the tool emits a wireframe", () => {
+  // The kit is still collected and still drives the gallery's Design preview.
+  // It just must not colour a generated prompt: the deliverable is a skeleton,
+  // and the client applies their palette afterwards.
   const out = buildOutputs({
     groups: GROUPS,
     sel: { hero: { enabled: true, variation: "01a" } },
-    kit: { ...EMPTY_KIT, primary: "#7C5CFC", fontHead: "Syne" },
+    kit: { ...EMPTY_KIT, primary: "#7C5CFC", fontHead: "Syne", images: "Logo: /brand.svg" },
     includeRef: false,
   });
-  const text = out.blocks[0].text;
-  assert.ok(text.startsWith("╔══ BRAND KIT"), "brand kit must lead the prompt");
-  assert.ok(text.includes("#7C5CFC"));
-  assert.ok(text.includes("Syne"));
+  for (const text of [out.blocks[0].text, out.full ?? ""]) {
+    assert.equal(text.includes("#7C5CFC"), false, "the brand colour must not leak");
+    assert.equal(text.includes("Syne"), false, "nor the brand font");
+    assert.equal(text.includes("/brand.svg"), false, "nor the image notes");
+    assert.match(text, /Do NOT choose a brand colour/);
+    assert.match(text, /RENDER AS A DESIGNED WIREFRAME/);
+  }
 });
 
 test("buildOutputs falls back to the first variation when the number is unknown", () => {

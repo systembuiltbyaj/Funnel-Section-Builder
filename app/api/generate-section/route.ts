@@ -3,6 +3,7 @@ import { CATALOGUE } from "@/lib/catalogue";
 import { PROMPT_GROUPS } from "@/lib/prompt-groups";
 import { validateGenerateRequest } from "@/lib/generate-contract";
 import { buildTokenBlock } from "@/lib/design-tokens";
+import { WIREFRAME_KIT } from "@/lib/wireframe-rule";
 import { buildSectionGenerationPrompt, SYSTEM_PROMPT } from "@/lib/section-generation-prompt";
 import { extractSectionFragment } from "@/lib/html-extract";
 import {
@@ -72,7 +73,9 @@ export async function POST(req: NextRequest) {
   if (!parsed.ok) {
     return fail(parsed.code, parsed.message, parsed.code === "input_too_large" ? 413 : 400);
   }
-  const { groupId, variation: variationNumber, kit } = parsed.value;
+  // `kit` is validated and accepted but deliberately not read: the output is a
+  // wireframe, so the client's palette never reaches the model.
+  const { groupId, variation: variationNumber } = parsed.value;
 
   // Validation already proved these exist; this is the lookup, not a check.
   const group = PROMPT_GROUPS.find((g) => g.id === groupId);
@@ -81,7 +84,11 @@ export async function POST(req: NextRequest) {
     return fail("invalid_selection", "Unknown section.", 400);
   }
 
-  const tokenBlock = buildTokenBlock(kit);
+  // Wireframe tokens, not the client's kit: the output is a skeleton, so colour
+  // and type are theirs to apply afterwards. The kit is still validated and
+  // accepted — the gallery's Design preview re-skins with it — it just never
+  // reaches the model.
+  const tokenBlock = buildTokenBlock(WIREFRAME_KIT);
   const prompt = buildSectionGenerationPrompt({ variation, tokenBlock });
 
   const controller = new AbortController();

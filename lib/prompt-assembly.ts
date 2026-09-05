@@ -7,6 +7,8 @@
 // later refactor (e.g. moving where the builder's state lives) can be proven not to
 // have changed a single character of a generated prompt.
 
+import { WIREFRAME_RULE } from "./wireframe-rule.ts";
+
 export type BuilderSelection = { enabled: boolean; variation: string };
 
 // Named FunnelBrandKit, NOT BrandKit: lib/samples.ts already exports a `BrandKit`
@@ -124,45 +126,13 @@ export function buildOutputs(args: {
   includeRef: boolean;
 }): { blocks: PromptBlock[]; full: string | null } {
   const { groups: builderGroups, sel, includeRef } = args;
-  const { primary, background, fontHead, fontSub, fontBody, images } = args.kit;
 
   const bar = "=".repeat(60);
-  const hasColors = primary.trim().length > 0 || background.trim().length > 0;
-  const hasFonts = fontHead.trim().length > 0 || fontSub.trim().length > 0 || fontBody.trim().length > 0;
-  const hasBrand = hasColors || hasFonts;
 
-  const colorBlock = hasColors
-    ? `— BRAND COLORS (2-color kit — derive every supporting shade from these) —\n` +
-      `Primary / accent: ${primary.trim() || "(pick one)"}\n` +
-      `Background / base: ${background.trim() || "(pick one)"}\n` +
-      `Derive on-brand from the two colors above: text, muted text, cards/surfaces, borders, hovers and gradients ` +
-      `(use tints/shades of the brand colors + neutral white/black/grey). Use the primary for CTAs, links and highlights; ` +
-      `the background as the page base. Do NOT introduce any unrelated hue.`
-    : "";
-  const fontBlock = hasFonts
-    ? `— FONTS · MANDATORY (load via a Google Fonts <link>; set as CSS variables and apply to EVERY text element) —\n` +
-      `Headline font: ${fontHead.trim() || "(strong display font)"}  → ALL H1/H2 and section titles\n` +
-      `Subheadline font: ${fontSub.trim() || "(use the body or headline font)"}  → eyebrows, sub-headings, labels\n` +
-      `Body font: ${fontBody.trim() || "(clean readable sans)"}  → paragraphs, lists, buttons, nav, all UI text\n` +
-      `Use ONLY these fonts. IGNORE every other font named anywhere in the spec (e.g. Inter, Playfair Display, Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — those are placeholders.`
-    : "";
-
-  // Authoritative brand kit — leads the prompt so the building AI applies it
-  // instead of the variation's illustrative example palette.
-  const brandKit = hasBrand
-    ? `╔══ BRAND KIT — AUTHORITATIVE · OVERRIDES EVERY COLOR & FONT BELOW ══╗\n` +
-      `RULE: The spec below names specific colors and fonts (e.g. Inter, Playfair Display,\n` +
-      `Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — treat EVERY one of\n` +
-      `them as an illustrative placeholder ONLY. IGNORE those font names entirely and use the\n` +
-      `BRAND KIT fonts below for ALL text. Re-skin the ENTIRE section in this brand kit:\n` +
-      `backgrounds, text, accents, buttons, borders, gradients, hovers — every color and font.\n` +
-      `Keep the spec's LAYOUT, STRUCTURE and ANIMATIONS exactly; change only palette + typography to this:\n\n` +
-      `${colorBlock ? colorBlock + "\n\n" : ""}` +
-      `${fontBlock ? fontBlock + "\n" : ""}` +
-      `${images.trim() ? `\n— IMAGES / LOGO —\n${images.trim()}\n` : ""}` +
-      `╚${"═".repeat(66)}╝\n\n`
-    : "";
-
+  // The brand kit no longer shapes the output. This tool emits a WIREFRAME —
+  // structure only — so colour, type and imagery are the client's to apply
+  // afterwards. The kit is still collected because the gallery's Design preview
+  // re-skins the sample with it; it simply never reaches a generated prompt.
   const blocks: { id: string; heading: string; sub: string; text: string }[] = [];
   for (const g of builderGroups) {
     const s = sel[g.id];
@@ -172,35 +142,20 @@ export function buildOutputs(args: {
     const vName = variationShortName(v.title);
     const heading = `SECTION ${secNum} · ${g.label} — ${vName}`;
 
-    let text: string;
-    if (hasBrand) {
-      text =
-        brandKit +
-        `${bar}\n${heading}\n${v.description}\n${bar}\n\n${v.basePrompt}\n\n` +
-        CONTENT_SLOT_RULE;
-      if (includeRef) {
-        const stripLabels = [...(hasColors ? ["BRAND COLORS"] : []), ...(hasFonts ? ["FONTS"] : [])];
-        text +=
-          `\n\n──────── REFERENCE · layout & copy-slot guide (palette removed — use the BRAND KIT above) ────────\n` +
-          stripBrandBlocks(v.varsPrompt, stripLabels);
-      }
-    } else {
-      const clientVars =
-        `=== CLIENT VARIABLES — USE THESE (override any example values in the spec above) ===\n\n` +
-        `${NEUTRAL_PALETTE_RULE}\n\n` +
-        `— FONTS —\nNone supplied. Use one clean system font stack behind a CSS variable; do not pick a display font for the client.\n\n` +
-        `— IMAGES —\n${
-          images.trim() ||
-          "No assets supplied — every image is a labelled placeholder box (see CONTENT below)."
-        }\n\n` +
-        CONTENT_SLOT_RULE;
-      text = `${bar}\n${heading}\n${v.description}\n${bar}\n\n${v.basePrompt}\n\n${clientVars}`;
-      if (includeRef) {
-        text +=
-          `\n\n──────── REFERENCE · original variation example (format guide only) ────────\n` +
-          v.varsPrompt;
-      }
+    const clientVars =
+      `=== CLIENT VARIABLES — USE THESE (override any example values in the spec above) ===\n\n` +
+      `${NEUTRAL_PALETTE_RULE}\n\n` +
+      `— FONTS —\nNone supplied. Use one clean system font stack behind a CSS variable; do not pick a display font for the client.\n\n` +
+      `— IMAGES —\nEvery image is a labelled placeholder box. Use no photographs.\n\n` +
+      CONTENT_SLOT_RULE +
+      WIREFRAME_RULE;
+    let text = `${bar}\n${heading}\n${v.description}\n${bar}\n\n${v.basePrompt}\n\n${clientVars}`;
+    if (includeRef) {
+      text +=
+        `\n\n──────── REFERENCE · original variation example (format guide only) ────────\n` +
+        v.varsPrompt;
     }
+
     blocks.push({ id: g.id, heading, sub: v.description, text });
   }
 
@@ -210,11 +165,9 @@ export function buildOutputs(args: {
     return { blocks, full: null as string | null };
   }
   const kitLines =
-    (colorBlock || NEUTRAL_PALETTE_RULE) +
+    NEUTRAL_PALETTE_RULE +
     `\n\n` +
-    (fontBlock ||
-      `— FONTS —\nNone supplied. Use one clean system font stack behind CSS variables; do not pick a display font for the client.`) +
-    `\n${images.trim() ? `\n— IMAGES / LOGO —\n${images.trim()}\n` : ""}`;
+    `— FONTS —\nNone supplied. Use one clean system font stack behind CSS variables; do not pick a display font for the client.\n`;
   let full =
     `You are an expert frontend developer and funnel designer.\n\n` +
     `Build ONE complete, production-ready, single-file HTML landing page — the FULL funnel — by stacking the ${ordered.length} sections below IN THE GIVEN ORDER.\n\n` +
@@ -240,7 +193,8 @@ export function buildOutputs(args: {
       `${CONTENT_SLOT_RULE}\n`;
   });
   full +=
-    `\n=== ASSEMBLY ===\n` +
-    `Output the complete single HTML file now: all ${ordered.length} sections in order, sharing one brand kit and design system, fully responsive and animated. Nothing else.`;
+    WIREFRAME_RULE +
+    `\n\n=== ASSEMBLY ===\n` +
+    `Output the complete single HTML file now: all ${ordered.length} sections in order, sharing one greyscale wireframe system, fully responsive. Nothing else.`;
   return { blocks, full: full as string | null };
 }

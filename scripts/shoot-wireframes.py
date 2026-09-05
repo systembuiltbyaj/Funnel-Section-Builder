@@ -22,9 +22,10 @@ from playwright.sync_api import sync_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PRIVATE = os.path.join(ROOT, "public", "private")
 
-# Matches the aspect ratio the gallery card reserves, so a thumbnail never
-# letterboxes or crops the headline out of frame.
-VIEWPORT = {"width": 1280, "height": 640}
+# 16:10 exactly, because the gallery card renders `aspect-[16/10] object-cover`.
+# Shot at any other ratio the card crops the sides off, which eats the first and
+# last character of every heading — observed at 1280x640.
+VIEWPORT = {"width": 1280, "height": 800}
 
 
 def targets(argv):

@@ -19,6 +19,7 @@
  */
 
 import { sectionSpecForCombined, CONTENT_SLOT_RULE } from "./prompt-assembly.ts";
+import { WIREFRAME_RULE } from "./wireframe-rule.ts";
 import type { Section } from "./section-catalogue.ts";
 
 export const SYSTEM_PROMPT = `You are a senior frontend developer building one section of a landing page.
@@ -74,6 +75,7 @@ export function buildSectionGenerationPrompt(args: {
     spec,
     "",
     CONTENT_SLOT_RULE,
+    WIREFRAME_RULE,
     "",
     "Output the section fragment now.",
   ].join("\n");
