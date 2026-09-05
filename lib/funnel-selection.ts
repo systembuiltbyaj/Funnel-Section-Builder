@@ -30,6 +30,20 @@ function str(v: unknown): string {
   return typeof v === "string" ? v : "";
 }
 
+/**
+ * Group ids that were folded into another when the 12 groups became 10.
+ *
+ * Without this, `validatePersisted` sees an id the catalogue no longer has and
+ * drops it — the section disappears from a saved funnel with no error, which is
+ * exactly the silent-repair failure the variation-number note in CLAUDE.md
+ * warns about. Variation numbers did not change in the merge, so the number
+ * carried over is still valid under the new id.
+ */
+const MERGED_GROUP_IDS: Record<string, string> = {
+  compare: "usp",
+  urgency: "risk",
+};
+
 const REASON_MAX = 160;
 
 /**
@@ -82,12 +96,19 @@ export function validatePersisted(raw: unknown, catalogue: CatalogueShape): Pers
     // an ordinary object. That would pass a bare `!valid` check and then blow
     // up on `valid.includes(...)` below, and the provider's try/catch would
     // silently discard the visitor's whole saved funnel.
-    const valid = catalogue[id];
+    const targetId = Object.prototype.hasOwnProperty.call(MERGED_GROUP_IDS, id)
+      ? MERGED_GROUP_IDS[id]
+      : id;
+    // An explicit pick under the new id always wins: a migrated entry must
+    // never silently replace a section the user actually chose.
+    if (targetId !== id && Object.prototype.hasOwnProperty.call(obj.sel, targetId)) continue;
+
+    const valid = catalogue[targetId];
     if (!Array.isArray(valid) || valid.length === 0) continue;
     if (typeof value !== "object" || value === null) continue;
     const entry = value as Record<string, unknown>;
     const variation = str(entry.variation);
-    sel[id] = {
+    sel[targetId] = {
       enabled: Boolean(entry.enabled),
       variation: valid.includes(variation) ? variation : valid[0],
     };

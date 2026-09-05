@@ -76,10 +76,10 @@ test("a query matching nothing returns empty, not everything", () => {
   assert.equal(filterGallery(items, { groupId: null, query: "zzzzz" }).length, 0);
 });
 
-test("the real catalogue flattens to 110 items across 12 groups", () => {
+test("the real catalogue flattens to 110 items across 10 groups", () => {
   const items = flattenGroups(PROMPT_GROUPS);
   assert.equal(items.length, 110);
-  assert.equal(new Set(items.map((i) => i.groupId)).size, 12);
+  assert.equal(new Set(items.map((i) => i.groupId)).size, 10);
 });
 
 test("the extras collections expose 53 image prompts, 6 carousel and 5 layouts", () => {

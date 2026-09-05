@@ -137,3 +137,35 @@ test("a reason for a section that no longer exists is dropped", () => {
   assert.ok(out);
   assert.deepEqual(Object.keys(out.analysis?.reasons ?? {}), ["hero"]);
 });
+
+test("a funnel saved under a merged group id keeps its section", () => {
+  // `compare` folded into `usp` and `urgency` into `risk` when the 12 groups
+  // became 10. Without a migration validatePersisted drops the unknown id and
+  // the section vanishes from the saved funnel with no error.
+  const stored = {
+    sel: {
+      compare: { enabled: true, variation: "04c" },
+      urgency: { enabled: true, variation: "10b" },
+    },
+    kit: { primary: "", background: "", fontHead: "", fontSub: "", fontBody: "", images: "" },
+  };
+  const out = validatePersisted(stored, { usp: ["04c", "05a"], risk: ["08a", "10b"] });
+  assert.ok(out);
+  assert.equal(out.sel.usp?.enabled, true, "compare survived as usp");
+  assert.equal(out.sel.usp?.variation, "04c", "and kept its variation");
+  assert.equal(out.sel.risk?.enabled, true, "urgency survived as risk");
+  assert.equal(out.sel.risk?.variation, "10b");
+  assert.equal("compare" in out.sel, false, "the dead id does not linger");
+});
+
+test("a migrated id never overwrites a section already chosen under the new id", () => {
+  const stored = {
+    sel: {
+      usp: { enabled: true, variation: "05a" },
+      compare: { enabled: true, variation: "04c" },
+    },
+    kit: { primary: "", background: "", fontHead: "", fontSub: "", fontBody: "", images: "" },
+  };
+  const out = validatePersisted(stored, { usp: ["04c", "05a"] });
+  assert.equal(out?.sel.usp?.variation, "05a", "the explicit pick wins over the migrated one");
+});

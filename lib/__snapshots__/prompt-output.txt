@@ -635,7 +635,7 @@ CTA Button URL:      ______
 About | Mission | Events | Programs | Coaching | Shop | Blog
 (Edit array at top of <script>)
 
-SECTION 02 · EMPATHY — Variation 1
+SECTION 02 · PROBLEM — Variation 1
 ╔══ BRAND KIT — AUTHORITATIVE · OVERRIDES EVERY COLOR & FONT BELOW ══╗
 RULE: The spec below names specific colors and fonts (e.g. Inter, Playfair Display,
 Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — treat EVERY one of
@@ -660,7 +660,7 @@ Logo: /brand/logo.svg
 ╚══════════════════════════════════════════════════════════════════╝
 
 ============================================================
-SECTION 02 · EMPATHY — Variation 1
+SECTION 02 · PROBLEM — Variation 1
 3-column horizontal cards (clean corporate). Stakes · Connection · Way Out. Light bg, Inter, scroll-triggered staggered fade-up.
 ============================================================
 
@@ -740,7 +740,7 @@ Icon:  arrow-up-right
 Title: There's a Smarter Path Forward
 Body:  Once I found the right system, everything changed in 90 days. Not overnight — but faster than I ever thought possible. That's exactly what you'll build here.
 
-SECTION 06 · OFFER POSITIONING — Variation 1
+SECTION 06 · OFFER & CTA — Variation 1
 ╔══ BRAND KIT — AUTHORITATIVE · OVERRIDES EVERY COLOR & FONT BELOW ══╗
 RULE: The spec below names specific colors and fonts (e.g. Inter, Playfair Display,
 Cormorant Garamond, DM Sans, Manrope, Montserrat, Space Grotesk) — treat EVERY one of
@@ -765,7 +765,7 @@ Logo: /brand/logo.svg
 ╚══════════════════════════════════════════════════════════════════╝
 
 ============================================================
-SECTION 06 · OFFER POSITIONING — Variation 1
+SECTION 06 · OFFER & CTA — Variation 1
 Classic centered offer box (clean corporate). 6 ✓ items + 2 ★ bonuses + total value + strikethrough + price + CTA. Inter, light bg.
 ============================================================
 
@@ -1056,7 +1056,7 @@ Write NO real copy and invent NO images.
   "Read more", form field labels. Those are layout, not copy.
 
 ----------------------------------------------------------
-SECTION 2 — EMPATHY · Variation 1 (3-column horizontal cards (clean corporate). Stakes · Connection · Way Out. Light bg, Inter, scroll-triggered staggered fade-up.)
+SECTION 2 — PROBLEM · Variation 1 (3-column horizontal cards (clean corporate). Stakes · Connection · Way Out. Light bg, Inter, scroll-triggered staggered fade-up.)
 ----------------------------------------------------------
 
 === LAYOUT ===
@@ -1097,7 +1097,7 @@ Write NO real copy and invent NO images.
   "Read more", form field labels. Those are layout, not copy.
 
 ----------------------------------------------------------
-SECTION 3 — OFFER POSITIONING · Variation 1 (Classic centered offer box (clean corporate). 6 ✓ items + 2 ★ bonuses + total value + strikethrough + price + CTA. Inter, light bg.)
+SECTION 3 — OFFER & CTA · Variation 1 (Classic centered offer box (clean corporate). 6 ✓ items + 2 ★ bonuses + total value + strikethrough + price + CTA. Inter, light bg.)
 ----------------------------------------------------------
 
 === FIXED LAYOUT STRUCTURE ===

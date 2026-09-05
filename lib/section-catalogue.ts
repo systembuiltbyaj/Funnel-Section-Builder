@@ -6,13 +6,11 @@ export type SectionId =
   | "hero"
   | "empathy"
   | "opportunity"
-  | "compare"
   | "usp"
   | "offer"
   | "social"
   | "risk"
   | "authority"
-  | "urgency"
   | "faq"
   | "footer"
   | "gptimage"
@@ -38,13 +36,11 @@ export const labelClasses: Record<SectionId, string> = {
   hero: "text-[#F5C842]",
   empathy: "text-[#FF6BA3]",
   opportunity: "text-[#9B7FFF]",
-  compare: "text-[#5ED9D1]",
   usp: "text-[#FF9C6E]",
   offer: "text-[#6BCB77]",
   social: "text-[#FFB84D]",
   risk: "text-[#90CAF9]",
   authority: "text-[#C896FF]",
-  urgency: "text-[#FF8585]",
   faq: "text-[#B8D8E0]",
   footer: "text-[#94A3B8]",
   gptimage: "text-[#A3E635]",
@@ -1290,7 +1286,7 @@ const TICKER_TEXT = "______";`,
   {
     id: "empathy",
     number: "02a",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 1",
     description:
       "3-column horizontal cards (clean corporate). Stakes · Connection · Way Out. Light bg, Inter, scroll-triggered staggered fade-up.",
@@ -1371,7 +1367,7 @@ Body:  Once I found the right system, everything changed in 90 days. Not overnig
   {
     id: "empathy",
     number: "02b",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 2",
     description:
       "Big numbered rows (dark premium). Gold/amber/green accent per row. Stakes · Connection · Way Out. Slide-in from left animations.",
@@ -1446,7 +1442,7 @@ Body:  One framework. Proven results. People just like you crossing $50k months 
   {
     id: "empathy",
     number: "02c",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 3",
     description:
       "Zigzag alternating icon/text (editorial magazine). Lavender bg, Playfair Display + Source Serif. Alternating slide-in animations.",
@@ -1522,7 +1518,7 @@ Body:  When you stop fighting the current and learn to read it, progress stops b
   {
     id: "empathy",
     number: "02d",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 4",
     description:
       "Split layout — coach photo left + stacked pain/hope bullets right. Warm cream bg, Plus Jakarta Sans, approachable personal-brand vibe.",
@@ -1599,7 +1595,7 @@ Text: See How I Did It →  (solid orange pill)`,
   {
     id: "empathy",
     number: "02e",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 5",
     description:
       "Horizontal journey timeline — 3 stages with circle icons + connecting arrows. Minimal SaaS feel, DM Sans, red/amber/green progression.",
@@ -1675,7 +1671,7 @@ Text:  Predictable results. Scalable momentum. Freedom.`,
   {
     id: "empathy",
     number: "02f",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 6",
     description:
       "Fullscreen dark BG (gym/arena) + glass-morphism overlay cards. Bebas Neue + Inter, cinematic fitness/performance vibe. Ken Burns slow zoom.",
@@ -1754,7 +1750,7 @@ Ready to finally close the gap — for good.`,
   {
     id: "empathy",
     number: "02g",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 7",
     description:
       "Two-column 'fork in the road': red-tinted pain checklist left + green-tinted solution checklist right. Outfit font, Without/With contrast, centered CTA below.",
@@ -1834,7 +1830,7 @@ Text: I Want the Right System →`,
   {
     id: "empathy",
     number: "02h",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 8",
     description:
       "Dark navy 2-column layout: left CTA-anchored copy + right 3 vertical accent-bar cards (red, amber, green). Syne + Inter, typographic-forward agency feel.",
@@ -1921,7 +1917,7 @@ Bar 3 (green left border):
   {
     id: "opportunity",
     number: "03a",
-    label: "OPPORTUNITY VEHICLE",
+    label: "SOLUTION",
     title: "Opportunity Variation 1",
     description:
       "4-phase horizontal grid + 3-stat bar (clean corporate). Inter, light bg, colored phase labels with left-border accent.",
@@ -2009,7 +2005,7 @@ Stat 3: 90   · days to a fully systemized business`,
   {
     id: "opportunity",
     number: "03b",
-    label: "OPPORTUNITY VEHICLE",
+    label: "SOLUTION",
     title: "Opportunity Variation 2",
     description:
       "Vertical stepper + connector lines (dark premium). Left intro · right 3-step process with numbered circles. Space Grotesk.",
@@ -2084,7 +2080,7 @@ Stat 3: 92%   · client satisfaction rate`,
   {
     id: "opportunity",
     number: "03c",
-    label: "OPPORTUNITY VEHICLE",
+    label: "SOLUTION",
     title: "Opportunity Variation 3",
     description:
       "3 phase cards with neon glow accents (dark neon, tech-forward). Outfit font. Each card has colored top-border + radial glow behind.",
@@ -2164,7 +2160,7 @@ Stat 3: 12wk  · average to full results`,
   {
     id: "opportunity",
     number: "03d",
-    label: "OPPORTUNITY VEHICLE",
+    label: "SOLUTION",
     title: "Opportunity Variation 4",
     description:
       "Accordion expandable phases (modern SaaS). Left intro + CTA · right 3 collapsible phase cards (first expanded by default). DM Sans.",
@@ -2244,7 +2240,7 @@ Stat 3: 87     · days avg`,
   {
     id: "opportunity",
     number: "03e",
-    label: "OPPORTUNITY VEHICLE",
+    label: "SOLUTION",
     title: "Opportunity Variation 5",
     description:
       "Arrow flow diagram → outcome box (fresh green wellness). 3 stage cards + arrows + highlighted outcome card. Plus Jakarta Sans.",
@@ -2330,7 +2326,7 @@ Stat 3: 94%  · client success rate`,
   {
     id: "opportunity",
     number: "03f",
-    label: "OPPORTUNITY VEHICLE",
+    label: "SOLUTION",
     title: "Opportunity Variation 6",
     description:
       "Tabbed phase switcher (corporate professional). 4 tabs · 2-col tab content (text + visual). Manrope. JS tab switching.",
@@ -2421,7 +2417,7 @@ Stat 3: 4.9★ · average client rating`,
   {
     id: "opportunity",
     number: "03g",
-    label: "OPPORTUNITY VEHICLE",
+    label: "SOLUTION",
     title: "Opportunity Variation 7",
     description:
       "Split — 3 numbered method steps left + 3 big stat blocks right (warm agency). Syne headlines + Inter body.",
@@ -2502,7 +2498,7 @@ Stat 3 (blue):   3.2X · average revenue multiple`,
   {
     id: "opportunity",
     number: "03h",
-    label: "OPPORTUNITY VEHICLE",
+    label: "SOLUTION",
     title: "Opportunity Variation 8",
     description:
       "Full dark numbered timeline + proof row (high-performance fitness/business hybrid). 4 borderless cells with vertical dividers. Space Grotesk.",
@@ -2591,7 +2587,7 @@ Stat 3: 4.9★   · average program rating`,
   {
     id: "opportunity",
     number: "03i",
-    label: "OPPORTUNITY VEHICLE",
+    label: "SOLUTION",
     title: "Opportunity Variation 9",
     description:
       "Roadmap milestones + outcome flag (warm coaching). Left intro + mini stats · right vertical timeline with colored milestones + outcome cap. Nunito.",
@@ -2681,13 +2677,13 @@ Outcome (teal · OUTCOME, flag icon):
   Body:   Freedom. Purpose. Financial independence. All three.`,
   },
   {
-    id: "compare",
+    id: "usp",
     number: "04a",
-    label: "BEFORE VS AFTER",
+    label: "FEATURES & BENEFITS",
     title: "Before vs After Variation 1",
     description:
       "Classic 2-column comparison cards (clean corporate). Red ✗ card left, green ✓ card right with mirrored pairs. Inter, light bg.",
-    labelClass: labelClasses.compare,
+    labelClass: labelClasses.usp,
     previewSrc: "/private/before-after-v1-thumb.webp",
     funnelTypes: ["Corporate","B2B","Coaching"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -2769,13 +2765,13 @@ Pair 5:
   New: Energized, focused, and building something real`,
   },
   {
-    id: "compare",
+    id: "usp",
     number: "04b",
-    label: "BEFORE VS AFTER",
+    label: "FEATURES & BENEFITS",
     title: "Before vs After Variation 2",
     description:
       "Row-by-row mirrored table with axis labels in center (dark premium). Old vs New columns with center 'axis' pill. Space Grotesk.",
-    labelClass: labelClasses.compare,
+    labelClass: labelClasses.usp,
     previewSrc: "/private/before-after-v2-thumb.webp",
     funnelTypes: ["High-Ticket Coaching","Mastermind"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -2850,13 +2846,13 @@ Row 5 — Axis: Team
   New: Lean VA team handling operations`,
   },
   {
-    id: "compare",
+    id: "usp",
     number: "04c",
-    label: "BEFORE VS AFTER",
+    label: "FEATURES & BENEFITS",
     title: "Before vs After Variation 3",
     description:
       "Full-bleed dark split (deep red BEFORE / deep green AFTER) with glowing center divider + VS badge. Outfit, dramatic high-energy.",
-    labelClass: labelClasses.compare,
+    labelClass: labelClasses.usp,
     previewSrc: "/private/before-after-v3-thumb.webp",
     funnelTypes: ["Premium Coaching","Personal Brand"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -2933,13 +2929,13 @@ Items:
 VS badge with subtle pulse glow.`,
   },
   {
-    id: "compare",
+    id: "usp",
     number: "04d",
-    label: "BEFORE VS AFTER",
+    label: "FEATURES & BENEFITS",
     title: "Before vs After Variation 4",
     description:
       "Stacked rows with axis label on TOP + side-by-side Without (left) / With (right) below + Overall Shift summary block at the bottom with 3 count-up stats. DM Sans, modern SaaS.",
-    labelClass: labelClasses.compare,
+    labelClass: labelClasses.usp,
     previewSrc: "/private/before-after-v4-thumb.webp",
     funnelTypes: ["SaaS","Tech Coaching","Course"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -3041,13 +3037,13 @@ Stat 2:     −63%  · Hours Worked
 Stat 3:     +200% · Close Rate`,
   },
   {
-    id: "compare",
+    id: "usp",
     number: "04e",
-    label: "BEFORE VS AFTER",
+    label: "FEATURES & BENEFITS",
     title: "Before vs After Variation 5",
     description:
       "Progress-bar visual comparison (data-driven). 5 metrics with red/green animated bars + change% badge + before/after labels. Plus Jakarta Sans.",
-    labelClass: labelClasses.compare,
+    labelClass: labelClasses.usp,
     previewSrc: "/private/before-after-v5-thumb.webp",
     funnelTypes: ["Wellness","Data-Driven Coaching","Fitness"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -3111,13 +3107,13 @@ Bar 4: Time to First $30K Month  · -78%  · 18+ months · 90 days   · 100% · 
 Bar 5: Client Satisfaction Score · +94%  · 3.1 / 5.0  · 4.9 / 5.0 · 62%  · 98%`,
   },
   {
-    id: "compare",
+    id: "usp",
     number: "04f",
-    label: "BEFORE VS AFTER",
+    label: "FEATURES & BENEFITS",
     title: "Before vs After Variation 6",
     description:
       "Single transform timeline — old card → arrow → new card per pair (warm agency). 4 transformation rows. Syne + Inter.",
-    labelClass: labelClasses.compare,
+    labelClass: labelClasses.usp,
     previewSrc: "/private/before-after-v6-thumb.webp",
     funnelTypes: ["Agency","Brand Coaching","Premium"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -3192,13 +3188,13 @@ Pair 4:
   New: Confidently charging $10K–$25K and getting paid in full`,
   },
   {
-    id: "compare",
+    id: "usp",
     number: "04h",
-    label: "BEFORE VS AFTER",
+    label: "FEATURES & BENEFITS",
     title: "Before vs After Variation 8",
     description:
       "Full-width alternating row pairs (corporate). Sticky red/green column headers + 5 mirrored rows with subtle colored left borders. Manrope.",
-    labelClass: labelClasses.compare,
+    labelClass: labelClasses.usp,
     previewSrc: "/private/before-after-v8-thumb.webp",
     funnelTypes: ["Consulting","B2B","Executive Coaching"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -3279,7 +3275,7 @@ Row 5:
   {
     id: "usp",
     number: "05a",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "USP Variation 1",
     description:
       "Classic 3-column icon cards (clean corporate). Money/Process/Forever cards with colored icon blocks + stat pills. Inter, light bg.",
@@ -3359,7 +3355,7 @@ Stat:  Clients still growing 2 years later`,
   {
     id: "usp",
     number: "05b",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "USP Variation 2",
     description:
       "Dark numbered pillars (premium high-ticket). 3 dark cards with big colored numbers + title + body + proof badge. Space Grotesk.",
@@ -3437,7 +3433,7 @@ Proof:  Skills last a lifetime`,
   {
     id: "usp",
     number: "05c",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "USP Variation 3",
     description:
       "Split — left headline/intro/CTA + right 3 compact horizontal cards stacked. Warm cream bg, Plus Jakarta Sans, approachable.",
@@ -3518,7 +3514,7 @@ Card 3 (green · Forever):
   {
     id: "usp",
     number: "05d",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "USP Variation 4",
     description:
       "3 large stat cards (corporate/consulting). Each card features a massive count-up number + title + body. Manrope, data-driven.",
@@ -3591,7 +3587,7 @@ Body:       For every dollar invested in the program, our clients report an aver
   {
     id: "usp",
     number: "05e",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "USP Variation 5",
     description:
       "Overlapping gradient accent cards (dark neon premium SaaS). 3 cards with colored gradient bg + border + stat badge. Outfit.",
@@ -3670,7 +3666,7 @@ Stat:  Scalable forever`,
   {
     id: "usp",
     number: "05f",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "USP Variation 6",
     description:
       "Full dark neon glow cards (high-performance coaching). 3 cards with massive count-up numbers + radial box-shadow glow. Syne + Inter.",
@@ -3749,7 +3745,7 @@ Body:       Not 6 months. Not a year. 90 days from onboarding to a business that
   {
     id: "usp",
     number: "05g",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "USP Variation 7",
     description:
       "Centered manifesto headline + 3 colored pill bullets (editorial premium). DM Serif Display + DM Sans, authoritative.",
@@ -3820,7 +3816,7 @@ Pill 3 (green · infinity): Skills that compound for life`,
   {
     id: "usp",
     number: "05h",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "USP Variation 8",
     description:
       "Tabbed USP with detail panel (friendly coaching). 3 clickable tabs + detail panel below with big number + title + body. Nunito.",
@@ -3899,7 +3895,7 @@ Panel body:       When the 12 weeks end, the business doesn't. We build infrastr
   {
     id: "usp",
     number: "05i",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "USP Variation 9",
     description:
       "Staggered offset cards with cascading waterfall layout (dark bold agency). 3 cards each offset down further than the last. Space Grotesk.",
@@ -3978,7 +3974,7 @@ Stat:  Grows forever`,
   {
     id: "offer",
     number: "06a",
-    label: "OFFER POSITIONING",
+    label: "OFFER & CTA",
     title: "Offer Positioning Variation 1",
     description:
       "Classic centered offer box (clean corporate). 6 ✓ items + 2 ★ bonuses + total value + strikethrough + price + CTA. Inter, light bg.",
@@ -4074,7 +4070,7 @@ Trust: Join 500+ clients already inside the program`,
   {
     id: "offer",
     number: "06b",
-    label: "OFFER POSITIONING",
+    label: "OFFER & CTA",
     title: "Offer Positioning Variation 2",
     description:
       "Dark premium offer box with gold glow + urgency banner + green ✓ + amber ★. Space Grotesk, high-ticket exclusive.",
@@ -4173,7 +4169,7 @@ Trust: Secure checkout · 30-day money-back guarantee`,
   {
     id: "offer",
     number: "06c",
-    label: "OFFER POSITIONING",
+    label: "OFFER & CTA",
     title: "Offer Positioning Variation 3",
     description:
       "Split layout — offer stack left + sticky price column right. Warm cream bg, Plus Jakarta Sans, approachable coaching feel.",
@@ -4262,7 +4258,7 @@ Trust:          30-day guarantee included`,
   {
     id: "offer",
     number: "06d",
-    label: "OFFER POSITIONING",
+    label: "OFFER & CTA",
     title: "Offer Positioning Variation 4",
     description:
       "3-tier pricing plans (Self-Study · Group · VIP) with 'Most Popular' badge on middle tier. Manrope, modern SaaS.",
@@ -4356,7 +4352,7 @@ Note: Best for fastest results`,
   {
     id: "offer",
     number: "06e",
-    label: "OFFER POSITIONING",
+    label: "OFFER & CTA",
     title: "Offer Positioning Variation 5",
     description:
       "Offer box + 2 social-proof review cards (split layout). DM Sans, fresh health/wellness · teal accent · 5-star reviews.",
@@ -4453,7 +4449,7 @@ Review 2:
   {
     id: "offer",
     number: "06f",
-    label: "OFFER POSITIONING",
+    label: "OFFER & CTA",
     title: "Offer Positioning Variation 6",
     description:
       "Accordion-style core + bonus reveal (dark neon). Clickable collapsible sections with purple price reveal. Outfit, premium SaaS.",
@@ -4543,7 +4539,7 @@ Trust:          30-day full refund · Cancel anytime`,
   {
     id: "offer",
     number: "06g",
-    label: "OFFER POSITIONING",
+    label: "OFFER & CTA",
     title: "Offer Positioning Variation 7",
     description:
       "Us vs competitors comparison table (fresh green wellness). 7 rows comparing features and prices. Nunito.",
@@ -4627,7 +4623,7 @@ Trust: 500+ clients transformed`,
   {
     id: "offer",
     number: "06h",
-    label: "OFFER POSITIONING",
+    label: "OFFER & CTA",
     title: "Offer Positioning Variation 8",
     description:
       "Floating white offer card on dark navy bg with urgency badge + gold CTA. Space Grotesk + Inter, high-converting.",
@@ -4722,7 +4718,7 @@ Trust:          30-day refund · Secure checkout`,
   {
     id: "offer",
     number: "06i",
-    label: "OFFER POSITIONING",
+    label: "OFFER & CTA",
     title: "Offer Positioning Variation 9",
     description:
       "Full-width mega offer reveal — 2-col grid (core / bonus) + dark bottom bar with massive gold price. Syne + Inter, bold agency.",
@@ -4810,7 +4806,7 @@ CTA:            CLAIM YOUR SPOT →`,
   {
     id: "social",
     number: "07a",
-    label: "SOCIAL PROOF",
+    label: "TESTIMONIALS",
     title: "Social Proof Variation 1",
     description:
       "Classic 2×2 testimonial grid + brand bar (clean corporate). Aggregate header + 4 cards with star/quote/avatar. Inter, light bg.",
@@ -4882,7 +4878,7 @@ Forbes | Entrepreneur | Inc. | Business Insider | Fast Company | CNN`,
   {
     id: "social",
     number: "07b",
-    label: "SOCIAL PROOF",
+    label: "TESTIMONIALS",
     title: "Social Proof Variation 2",
     description:
       "Dark masonry 3-column grid of 6 testimonials (premium exclusive). Space Grotesk, staggered columns.",
@@ -4952,7 +4948,7 @@ Forbes | Entrepreneur | Inc. | Business Insider | Fast Company | CNN`,
   {
     id: "social",
     number: "07c",
-    label: "SOCIAL PROOF",
+    label: "TESTIMONIALS",
     title: "Social Proof Variation 3",
     description:
       "Horizontal scroll carousel with arrows + dot pagination + auto-scroll (modern SaaS). DM Sans, light bg.",
@@ -5024,7 +5020,7 @@ Forbes | Entrepreneur | Inc. | Business Insider | Fast Company | CNN`,
   {
     id: "social",
     number: "07d",
-    label: "SOCIAL PROOF",
+    label: "TESTIMONIALS",
     title: "Social Proof Variation 4",
     description:
       "Video testimonial thumbnails + lightbox + text testimonials below (dark neon video-first). Outfit, Unsplash thumbnails.",
@@ -5105,7 +5101,7 @@ Forbes | Entrepreneur | Inc. | Business Insider | Fast Company | CNN`,
   {
     id: "social",
     number: "07e",
-    label: "SOCIAL PROOF",
+    label: "TESTIMONIALS",
     title: "Social Proof Variation 5",
     description:
       "Big featured quote left + 2×2 smaller cards right (warm personal brand). Plus Jakarta Sans, cream bg.",
@@ -5176,7 +5172,7 @@ Forbes | Entrepreneur | Inc. | Business Insider | Fast Company | CNN`,
   {
     id: "social",
     number: "07f",
-    label: "SOCIAL PROOF",
+    label: "TESTIMONIALS",
     title: "Social Proof Variation 6",
     description:
       "Stats bar (4 count-up stats) + 3 testimonials row (data-driven). Manrope, light bg + green stats band.",
@@ -5247,7 +5243,7 @@ Forbes | Entrepreneur | Inc. | Business Insider | Fast Company | CNN`,
   {
     id: "social",
     number: "07g",
-    label: "SOCIAL PROOF",
+    label: "TESTIMONIALS",
     title: "Social Proof Variation 7",
     description:
       "Before/after result cards — 2×2 with star+result badge header (transformation-focused). Nunito, light bg.",
@@ -5324,7 +5320,7 @@ Forbes | Entrepreneur | Inc. | Business Insider | Fast Company | CNN`,
   {
     id: "social",
     number: "07h",
-    label: "SOCIAL PROOF",
+    label: "TESTIMONIALS",
     title: "Social Proof Variation 8",
     description:
       "Single centered hero testimonial that rotates (dark editorial). Syne + Inter, dot nav + auto-rotate + giant quote mark.",
@@ -5398,7 +5394,7 @@ Forbes | Entrepreneur | Inc. | Business Insider | Fast Company | CNN`,
   {
     id: "risk",
     number: "08a",
-    label: "RISK REVERSAL",
+    label: "FINAL CTA & GUARANTEE",
     title: "Risk Reversal Variation 1",
     description:
       "Classic centered guarantee card (clean corporate). Green seal · primary guarantee · secondary protections line · full-width CTA. Inter, light gray bg.",
@@ -5460,7 +5456,7 @@ CTA: I'm In — Enroll Risk-Free →`,
   {
     id: "risk",
     number: "08b",
-    label: "RISK REVERSAL",
+    label: "FINAL CTA & GUARANTEE",
     title: "Risk Reversal Variation 2",
     description:
       "Split layout — big seal left (light-blue panel) + text right with two layer cards. Manrope, executive/consulting trust-heavy.",
@@ -5520,7 +5516,7 @@ CTA: Enroll Risk-Free Today →`,
   {
     id: "risk",
     number: "08c",
-    label: "RISK REVERSAL",
+    label: "FINAL CTA & GUARANTEE",
     title: "Risk Reversal Variation 3",
     description:
       "Dark premium guarantee card with green glow + two layer cards. Space Grotesk, high-ticket / exclusive vibe.",
@@ -5580,7 +5576,7 @@ CTA: Lock In My Spot →`,
   {
     id: "risk",
     number: "08d",
-    label: "RISK REVERSAL",
+    label: "FINAL CTA & GUARANTEE",
     title: "Risk Reversal Variation 4",
     description:
       "Trust-badges bar (4 icons) + centered guarantee text. Plus Jakarta Sans, fresh health/wellness, approachable.",
@@ -5641,7 +5637,7 @@ CTA: Start Risk-Free →`,
   {
     id: "risk",
     number: "08e",
-    label: "RISK REVERSAL",
+    label: "FINAL CTA & GUARANTEE",
     title: "Risk Reversal Variation 5",
     description:
       "With vs without guarantee comparison (red vs green columns). DM Sans, modern comparison-first consulting/SaaS.",
@@ -5698,7 +5694,7 @@ CTA: Enroll Under the Guarantee →`,
   {
     id: "risk",
     number: "08f",
-    label: "RISK REVERSAL",
+    label: "FINAL CTA & GUARANTEE",
     title: "Risk Reversal Variation 6",
     description:
       "Minimal text-first guarantee — large serif headline + two stacked layer cards. DM Serif Display + DM Sans, editorial luxury.",
@@ -5756,7 +5752,7 @@ CTA: I'm In — Enroll Risk-Free →`,
   {
     id: "risk",
     number: "08g",
-    label: "RISK REVERSAL",
+    label: "FINAL CTA & GUARANTEE",
     title: "Risk Reversal Variation 7",
     description:
       "Triple seals row (blue/green/amber, glowing) + layered protection text. Syne + Inter, dark bold agency.",
@@ -5816,7 +5812,7 @@ CTA: Accept All Three Guarantees →`,
   {
     id: "risk",
     number: "08h",
-    label: "RISK REVERSAL",
+    label: "FINAL CTA & GUARANTEE",
     title: "Risk Reversal Variation 8",
     description:
       "Guarantee card (left, animated SVG shield-check seal + covered list) + interactive mini-FAQ accordion (right). Outfit, modern friendly SaaS/coaching hybrid.",
@@ -5888,7 +5884,7 @@ FAQ Q3: "How does the free coaching work?" — A3: "We schedule weekly calls unt
   {
     id: "authority",
     number: "09a",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Authority Variation 1",
     description:
       "Classic split — coach photo left + bio right (label, transformation H2, epiphany, 4 ✓ credentials, CTA). Inter, clean corporate.",
@@ -5949,7 +5945,7 @@ CTA: Watch My Full Story →`,
   {
     id: "authority",
     number: "09b",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Authority Variation 2",
     description:
       "Dark bio + 4 count-up credential stats. Space Grotesk, high-ticket premium, gold accent.",
@@ -6008,7 +6004,7 @@ CTA: Apply to Work With Me →`,
   {
     id: "authority",
     number: "09c",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Authority Variation 3",
     description:
       "Transformation-arc serif headline (centered) + 2-col story/photo. DM Serif Display + DM Sans, editorial story-forward.",
@@ -6065,7 +6061,7 @@ CTA: Learn My Full Story →`,
   {
     id: "authority",
     number: "09d",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Authority Variation 4",
     description:
       "Story left + photo right (reversed) with floating stat badges. Plus Jakarta Sans, warm personal brand.",
@@ -6123,7 +6119,7 @@ CTA: My Full Transformation →`,
   {
     id: "authority",
     number: "09e",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Authority Variation 5",
     description:
       "Full-bleed coach-on-stage background + transparent coach cutout (right) + content left with glass pill credentials. Outfit + Inter, cinematic.",
@@ -6181,7 +6177,7 @@ CTA: Watch My Story →`,
   {
     id: "authority",
     number: "09f",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Authority Variation 6",
     description:
       "Coach journey timeline (Struggle → Discovery → Today) — large coach portrait + credentials left, story + timeline right. Manrope, transformation-focused.",
@@ -6240,7 +6236,7 @@ CTA: Start Your Transformation →`,
   {
     id: "authority",
     number: "09g",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Authority Variation 7",
     description:
       "Magazine editorial — full-height coach photo + caption (left), amber-accented bio (right). Syne + Inter, dark premium.",
@@ -6297,7 +6293,7 @@ CTA: Read My Full Story →`,
   {
     id: "authority",
     number: "09h",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Authority Variation 8",
     description:
       "3-column — photo (verified badge + rating caption) | bio card (mini-stats + signature) | icon credential tiles. DM Sans + Caveat, modern structured SaaS/consulting.",
@@ -6355,7 +6351,7 @@ CTA: Work With Alex →`,
   {
     id: "authority",
     number: "09i",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Authority Variation 9",
     description:
       "Bio (photo + story) over a full-width as-seen-in media bar. Nunito, warm community-driven health/life coaching.",
@@ -6411,13 +6407,13 @@ As Seen In: Forbes | Entrepreneur | Inc. | Business Insider | Fast Company
 CTA: Start My Journey →`,
   },
   {
-    id: "urgency",
+    id: "risk",
     number: "10a",
-    label: "URGENCY",
+    label: "FINAL CTA & GUARANTEE",
     title: "Urgency Variation 1",
     description:
       "Dark centered countdown — red radial glow, 4 timer boxes, scarcity + trust line. Space Grotesk, bold high-energy.",
-    labelClass: labelClasses.urgency,
+    labelClass: labelClasses.risk,
     previewSrc: "/private/urgency-v1-thumb.webp",
     funnelTypes: ["Coaching", "Course", "Cohort"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -6481,13 +6477,13 @@ Scarcity: ⚠ Only 8 of 30 seats remaining
 Trust: 30-day guarantee · Secure checkout`,
   },
   {
-    id: "urgency",
+    id: "risk",
     number: "10b",
-    label: "URGENCY",
+    label: "FINAL CTA & GUARANTEE",
     title: "Urgency Variation 2",
     description:
       "Split — urgency + gold timer (left) + mini offer card (right). Space Grotesk, dark gold high-ticket.",
-    labelClass: labelClasses.urgency,
+    labelClass: labelClasses.risk,
     previewSrc: "/private/urgency-v2-thumb.webp",
     funnelTypes: ["High-Ticket", "Mastermind", "Premium"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -6538,13 +6534,13 @@ LEFT — Label: ENROLLMENT CLOSES · H2: This Cohort Closes Friday. · Sub: "Pri
 RIGHT — Header: 8 SEATS LEFT AT THIS PRICE · Items (✓): "12-Week Agency Accelerator Program" · "All bonuses included (expires Friday)" · "Founding member pricing locked" · Price today: $4,997 · CTA: ENROLL NOW →`,
   },
   {
-    id: "urgency",
+    id: "risk",
     number: "10c",
-    label: "URGENCY",
+    label: "FINAL CTA & GUARANTEE",
     title: "Urgency Variation 3",
     description:
       "Countdown + after-deadline loss/keep comparison (red vs green). Outfit, dark navy consequence-driven.",
-    labelClass: labelClasses.urgency,
+    labelClass: labelClasses.risk,
     previewSrc: "/private/urgency-v3-thumb.webp",
     funnelTypes: ["Consulting", "SaaS", "Course"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -6595,13 +6591,13 @@ Enroll now and keep (✓): "Locked-in price — never increases" · "All fast-ac
 CTA: LOCK IN MY SPOT → · Scarcity: ⚠ 8 of 30 seats remaining`,
   },
   {
-    id: "urgency",
+    id: "risk",
     number: "10d",
-    label: "URGENCY",
+    label: "FINAL CTA & GUARANTEE",
     title: "Urgency Variation 4",
     description:
       "Seat-scarcity progress bar (green→red, animated fill) + price-reset timer. Inter, FOMO-driven dark.",
-    labelClass: labelClasses.urgency,
+    labelClass: labelClasses.risk,
     previewSrc: "/private/urgency-v4-thumb.webp",
     funnelTypes: ["Cohort", "Course", "Membership"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -6655,13 +6651,13 @@ Timer label: Plus — price resets Friday:
 CTA: CLAIM ONE OF THE 8 REMAINING SPOTS → · Note: Next cohort opens in 6 months at $9,997`,
   },
   {
-    id: "urgency",
+    id: "risk",
     number: "10e",
-    label: "URGENCY",
+    label: "FINAL CTA & GUARANTEE",
     title: "Urgency Variation 5",
     description:
       "Three stacked urgency drivers (deadline / bonus / seats) + timer. DM Sans, decision-forcing dark.",
-    labelClass: labelClasses.urgency,
+    labelClass: labelClasses.risk,
     previewSrc: "/private/urgency-v5-thumb.webp",
     funnelTypes: ["Coaching", "Consulting", "Course"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -6713,13 +6709,13 @@ Driver 3 (blue, 🪑): "Only 8 Seats Remaining" / "This cohort is capped at 30. 
 Timer label: Enrollment closes in: · CTA: ENROLL BEFORE IT'S GONE → · Scarcity: ⚠ 8 of 30 seats · Price increases Friday`,
   },
   {
-    id: "urgency",
+    id: "risk",
     number: "10f",
-    label: "URGENCY",
+    label: "FINAL CTA & GUARANTEE",
     title: "Urgency Variation 6",
     description:
       "Gold premium dark — gold glow behind gold-bordered timer, price-increase framing. Space Grotesk, exclusive.",
-    labelClass: labelClasses.urgency,
+    labelClass: labelClasses.risk,
     previewSrc: "/private/urgency-v6-thumb.webp",
     funnelTypes: ["High-Ticket", "Premium", "Mastermind"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -6771,13 +6767,13 @@ Timer label: Time until price increase:
 CTA: LOCK IN $4,997 BEFORE MIDNIGHT → · Below CTA: Price goes to $9,997 on Saturday · Scarcity: 8 of 30 seats · Closes Friday`,
   },
   {
-    id: "urgency",
+    id: "risk",
     number: "10g",
-    label: "URGENCY",
+    label: "FINAL CTA & GUARANTEE",
     title: "Urgency Variation 7",
     description:
       "Price-increase anchor — today vs after price row + purple timer. Syne + Inter, neon decision-forcing.",
-    labelClass: labelClasses.urgency,
+    labelClass: labelClasses.risk,
     previewSrc: "/private/urgency-v7-thumb.webp",
     funnelTypes: ["Course", "Coaching", "Premium"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -6829,13 +6825,13 @@ Sub: "The program doesn't change. The coaching doesn't change. Only the price do
 Timer label: This price locks in: · CTA: LOCK IN $4,997 NOW → · Scarcity: ⚠ 8 seats remaining at this price · Trust: 30-day guarantee · Secure checkout`,
   },
   {
-    id: "urgency",
+    id: "risk",
     number: "10h",
-    label: "URGENCY",
+    label: "FINAL CTA & GUARANTEE",
     title: "Urgency Variation 8",
     description:
       "Neon dark + glowing purple timer (pulse loop), dual cap (seats or Friday). Outfit + Inter, tech-premium cohort.",
-    labelClass: labelClasses.urgency,
+    labelClass: labelClasses.risk,
     previewSrc: "/private/urgency-v8-thumb.webp",
     funnelTypes: ["Cohort", "SaaS", "Premium"],
     basePrompt: `You are an expert frontend developer and funnel designer.
@@ -7819,7 +7815,7 @@ Footer: Logo "Revenue Architecture" · Privacy Policy | Terms of Service | Discl
   {
     id: "empathy",
     number: "02i",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 9",
     description:
       "Split — instructor photo left with dark overlay, 5 pain bullet cards right, closing italic resolution line. AI Academy dark/indigo style.",
@@ -7882,7 +7878,7 @@ const CLOSING_LINE = "Don't worry, we'll fix that with you in [BRAND_NAME] so yo
   {
     id: "empathy",
     number: "02j",
-    label: "EMPATHY",
+    label: "PROBLEM",
     title: "Empathy Variation 10",
     description:
       "Split layout — two dark 'before/after' photo cards with a connecting orange arrow (left) + story headline, 3 orange check-circle bullets & CTA (right). Warm cream bg, transformation framing.",
@@ -7962,7 +7958,7 @@ Text: See How I Did It →  (solid orange pill)`,
   {
     id: "opportunity",
     number: "AIA-04",
-    label: "OPPORTUNITY",
+    label: "SOLUTION",
     title: "The AI Shift — Stats + Matrix",
     description:
       "4 giant Cormorant italic stats left, live JS random data-matrix visual right. Builds AI opportunity urgency. Dark/indigo.",
@@ -8025,7 +8021,7 @@ const MATRIX_LABEL = "AGENTS WORKING FOR YOU 24/7";`,
   {
     id: "opportunity",
     number: "AIA-05",
-    label: "OPPORTUNITY",
+    label: "SOLUTION",
     title: "3-Step Method Cards",
     description:
       "Centered section with 3 numbered dark-glass method cards (icon + number + title + body). The 'how' behind the program. Hover border accent.",
@@ -8082,7 +8078,7 @@ const CARDS = [
   {
     id: "usp",
     number: "AIA-07",
-    label: "USP",
+    label: "FEATURES & BENEFITS",
     title: "Introducing + Laptop Mockup + 4 Features",
     description:
       "Pure-CSS laptop mockup centered + 4 dark feature cards (2×2) + CTA + live countdown. Full program intro section.",
@@ -8145,7 +8141,7 @@ const DEADLINE    = "2026-08-01T23:59:59";`,
   {
     id: "offer",
     number: "AIA-08",
-    label: "OFFER",
+    label: "OFFER & CTA",
     title: "Pricing Card + Checklist + Countdown",
     description:
       "Centered indigo-bordered offer card: full checklist, price anchor, discount badge, CTA + live countdown. Launch pricing.",
@@ -8219,7 +8215,7 @@ const DEADLINE    = "2026-08-01T23:59:59";`,
   {
     id: "offer",
     number: "AIA-09",
-    label: "OFFER",
+    label: "OFFER & CTA",
     title: "Sneak Peek — Dashboard + Course Cards",
     description:
       "Dashboard screenshot + 6 course cards (2×3 grid) with progress bars. Creates desire before the buy.",
@@ -8276,7 +8272,7 @@ const COURSES = [
   {
     id: "offer",
     number: "AIA-10",
-    label: "OFFER",
+    label: "OFFER & CTA",
     title: "Discover Bullets 2-Col Grid",
     description:
       "2-col icon + text bullet grid (10 items) showing everything inside, with CTA + live countdown at the bottom.",
@@ -8335,7 +8331,7 @@ const DEADLINE = "2026-08-01T23:59:59";`,
   {
     id: "social",
     number: "AIA-11",
-    label: "SOCIAL PROOF",
+    label: "TESTIMONIALS",
     title: "Proof of Concept — App Screenshots",
     description:
       "5 staggered floating app screenshots — center elevated, sides faded — with continuous float animation. Proves real results.",
@@ -8393,7 +8389,7 @@ const SUB        = "Most people build stuff that collects dust. I built a new of
   {
     id: "authority",
     number: "AIA-12",
-    label: "AUTHORITY",
+    label: "TRUST",
     title: "Instructor Bio + Client Logos",
     description:
       "Split — tall photo left with name overlay, 3-paragraph bio right, client logo bar below. Cormorant italic on the name.",

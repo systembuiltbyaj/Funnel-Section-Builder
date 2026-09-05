@@ -21,5 +21,30 @@ export const PROMPT_GROUPS = (() => {
     }
     byId.get(s.id)!.push(s);
   }
-  return order.map((id) => ({ id, label: byId.get(id)![0].label, variations: byId.get(id)! }));
+  // Explicit funnel order rather than "order first seen in the array".
+  // Merging groups (before/after into Features, urgency into Final CTA) would
+  // otherwise place the merged group wherever its FIRST member happened to sit,
+  // which is not where it belongs in the funnel. Ids missing from this list
+  // fall to the end in array order, so adding a group cannot silently vanish.
+  const FUNNEL_ORDER = [
+    "hero",
+    "authority",
+    "empathy",
+    "opportunity",
+    "usp",
+    "social",
+    "offer",
+    "faq",
+    "risk",
+    "footer",
+  ];
+  const rank = (id: string) => {
+    const i = FUNNEL_ORDER.indexOf(id);
+    return i === -1 ? FUNNEL_ORDER.length + order.indexOf(id) : i;
+  };
+
+  return order
+    .slice()
+    .sort((a, b) => rank(a) - rank(b))
+    .map((id) => ({ id, label: byId.get(id)![0].label, variations: byId.get(id)! }));
 })() satisfies PromptGroup[];
