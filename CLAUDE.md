@@ -244,6 +244,35 @@ derives one from the other; sub-folder collections (`ai-academy/`, `carousel/`,
 slug to `FLAT_SAMPLES` (or `NESTED_SAMPLES`) in `lib/samples.ts` — otherwise the
 live preview silently falls back to the static thumbnail with no error.
 
+### Wireframes are a second asset per variation
+
+Every slug in `FLAT_SAMPLES` also has `{slug}-wireframe.html` and
+`{slug}-wire-thumb.webp`. The gallery card shows the wireframe and the preview
+opens on it; the designed sample is behind a **Design** toggle. Both are
+generated, never hand-written:
+
+```bash
+node --experimental-strip-types scripts/build-wireframes.mjs --anthropic   # HTML
+python scripts/shoot-wireframes.py                                        # thumbs
+```
+
+Three things about that pipeline cost real debugging, so do not undo them:
+
+- **Thumbnails are shot at 1280x800**, because the card is `aspect-[16/10]` and
+  `object-cover`. Shot at any other ratio the card trims the sides and eats the
+  first and last character of every heading.
+- **The wireframe prompt overrides `CONTENT_SLOT_RULE`.** Brackets exist so a
+  *deliverable* can be filled in with find-and-replace; a gallery thumbnail is
+  read at 460px wide, where `[HEADLINE — 6-9 words, core promise]` is unreadable
+  and "Main Headline Goes Here" is not. Deliverables keep their brackets.
+- **Generate on Anthropic, not Groq.** Groq produced flat output with no
+  annotations, no icon glyphs, and emoji where SVG was asked for. Cost measured
+  at ~$0.03 per section, ~$3 for the full set.
+
+A blanket CSS greyscale filter over the existing samples was tried first and
+rejected: it holds on 30/30 text sections but loses 30-70% of the content on 4
+of 9 heroes, whose text sits inside the full-bleed media it hides.
+
 Sample documents drive their palette from a `:root` custom-property block. Keep
 that convention: the brand re-skin reads `--accent` / `--bg` from it, and a
 template that hard-codes colours outside `:root` will only partially re-skin.
