@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>URGENCY — Urgency Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* urgency · 10e */
+.urgency-wire {
+  position: relative;
+  background: var(--bg);
+  padding: 4rem 1.5rem;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+.urgency-wire .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 0;
+}
+.urgency-wire .blob1 { width: 320px; height: 320px; top: -80px; right: -100px; }
+.urgency-wire .blob2 { width: 240px; height: 240px; bottom: -60px; left: -80px; }
+
+.urgency-wire .wrap {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.urgency-wire .header { text-align: center; margin-bottom: 2.5rem; }
+.urgency-wire .eyebrow {
+  display: inline-block;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .35rem 1rem;
+  margin-bottom: 1rem;
+}
+.urgency-wire h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--text);
+  margin: 0 0 .75rem;
+}
+.urgency-wire .sub {
+  color: var(--muted);
+  font-size: .95rem;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.urgency-wire .drivers {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 46rem;
+  margin: 0 auto 2.5rem;
+}
+.urgency-wire .driver {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+.urgency-wire .d1 { border-left: 4px solid var(--text); }
+.urgency-wire .d2 { border-left: 4px dashed var(--muted); }
+.urgency-wire .d3 { border-left: 4px dotted var(--muted); }
+
+.urgency-wire .icon {
+  flex: none;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+}
+.urgency-wire .icon svg { width: 20px; height: 20px; stroke: var(--muted); fill: none; }
+
+.urgency-wire .driver-text { flex: 1; }
+.urgency-wire .driver-text .title { font-size: .95rem; font-weight: 600; color: var(--text); margin: 0 0 .2rem; }
+.urgency-wire .driver-text .body { font-size: .82rem; color: var(--muted); margin: 0; }
+
+.urgency-wire .badge {
+  flex: none;
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .3rem .7rem;
+  white-space: nowrap;
+}
+
+.urgency-wire .timer {
+  display: flex;
+  justify-content: center;
+  gap: .75rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.urgency-wire .timebox {
+  min-width: 72px;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: var(--radius);
+  padding: .8rem .5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.urgency-wire .timebox .num { display: block; font-size: 1.4rem; font-weight: 700; }
+.urgency-wire .timebox .lbl { display: block; font-size: .65rem; text-transform: uppercase; color: var(--border); margin-top: .25rem; }
+
+.urgency-wire .cta-row { text-align: center; }
+.urgency-wire .cta {
+  display: inline-block;
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius);
+  padding: .9rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.urgency-wire .scarcity {
+  text-align: center;
+  color: var(--muted);
+  font-size: .85rem;
+  margin-top: .9rem;
+}
+
+.urgency-wire .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 150px;
+  z-index: 2;
+}
+.urgency-wire .note1 { top: 1rem; right: .5rem; text-align: left; }
+.urgency-wire .note svg { width: 50px; height: 40px; display: block; }
+
+@media (max-width: 768px) {
+  .urgency-wire .driver { flex-wrap: wrap; }
+  .urgency-wire .badge { margin-left: auto; }
+  .urgency-wire .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- urgency · 10e -->
+<section class="urgency-wire">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <div class="note note1">
+    Countdown + scarcity stack drives urgency
+    <svg viewBox="0 0 50 40"><path d="M45 5 C 20 5, 10 30, 5 35" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/></svg>
+  </div>
+
+  <div class="wrap">
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="drivers">
+      <div class="driver d1">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <div class="driver-text">
+          <p class="title">Driver 1 — Deadline</p>
+          <p class="body">Short line explaining the hard deadline for this offer.</p>
+        </div>
+        <span class="badge">Ends Soon</span>
+      </div>
+
+      <div class="driver d2">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.3L12 14.8 7.1 17l.9-5.3-4-3.9L9.5 7z"/></svg></div>
+        <div class="driver-text">
+          <p class="title">Driver 2 — Bonus Expiry</p>
+          <p class="body">Short line explaining the bonus that disappears after the timer.</p>
+        </div>
+        <span class="badge">Bonus Ends</span>
+      </div>
+
+      <div class="driver d3">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 20c0-3 3-5 6-5s6 2 6 5"/><path d="M14 15c3 0 6 2 6 5"/></svg></div>
+        <div class="driver-text">
+          <p class="title">Driver 3 — Seat Cap</p>
+          <p class="body">Short line explaining the limited number of seats available.</p>
+        </div>
+        <span class="badge">12 Seats Left</span>
+      </div>
+    </div>
+
+    <div class="timer">
+      <div class="timebox"><span class="num">07</span><span class="lbl">Days</span></div>
+      <div class="timebox"><span class="num">12</span><span class="lbl">Hours</span></div>
+      <div class="timebox"><span class="num">45</span><span class="lbl">Mins</span></div>
+      <div class="timebox"><span class="num">09</span><span class="lbl">Secs</span></div>
+    </div>
+
+    <div class="cta-row">
+      <button class="cta">Primary CTA →</button>
+      <p class="scarcity">Real scarcity number — only 12 seats remaining at this price.</p>
+    </div>
+  </div>
+</section>
+</body>
+</html>

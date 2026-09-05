@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OFFER POSITIONING — Offer Positioning Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* offer · 06e */
+.offer5 {
+  background: var(--bg);
+  padding: 96px 24px;
+  font-family: var(--font-body);
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+}
+.offer5 * { box-sizing: border-box; }
+.offer5 .wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  position: relative;
+}
+.offer5 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--border);
+  opacity: 0.25;
+  z-index: 0;
+}
+.offer5 .blob.b1 { width: 320px; height: 320px; top: -60px; left: -100px; }
+.offer5 .blob.b2 { width: 260px; height: 260px; bottom: 20px; right: -80px; }
+
+.offer5 .header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 56px;
+  position: relative;
+  z-index: 1;
+}
+.offer5 .eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+.offer5 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  margin: 0 0 12px;
+}
+.offer5 .sub { color: var(--muted); font-size: 1rem; line-height: 1.5; }
+
+.offer5 .grid {
+  display: grid;
+  grid-template-columns: 58% 42%;
+  gap: 40px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 768px) {
+  .offer5 .grid { grid-template-columns: 1fr; }
+}
+
+/* OFFER BOX */
+.offer5 .offer-box {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+.offer5 .offer-title {
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 0 0 20px;
+}
+.offer5 .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+.offer5 .item:last-of-type { border-bottom: none; }
+.offer5 .item .name { flex: 1; }
+.offer5 .item .val { color: var(--muted); font-size: 0.85rem; }
+.offer5 .check, .offer5 .star {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.offer5 .check svg { width: 11px; height: 11px; stroke: var(--text); }
+.offer5 .bonus .name, .offer5 .bonus .val { color: var(--muted); }
+.offer5 .star svg { width: 11px; height: 11px; fill: var(--muted); }
+
+.offer5 .total-value {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+  font-size: 0.9rem;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+.offer5 .price {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(44px, 6vw, 60px);
+  margin: 18px 0 6px;
+  color: var(--text);
+}
+.offer5 .plan-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.offer5 .cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 16px 0;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--brand-contrast);
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  font-size: 1rem;
+}
+
+/* REVIEW CARDS */
+.offer5 .reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.offer5 .review-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+.offer5 .stars { color: var(--muted); letter-spacing: 2px; margin-bottom: 10px; font-size: 0.95rem; }
+.offer5 .quote {
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 0.92rem;
+  margin: 0 0 16px;
+}
+.offer5 .who { display: flex; align-items: center; gap: 10px; }
+.offer5 .avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700;
+  flex-shrink: 0;
+}
+.offer5 .who-name { font-weight: 700; font-size: 0.9rem; }
+.offer5 .who-loc { font-size: 0.78rem; color: var(--muted); }
+
+.offer5 .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 140px;
+  right: -6px;
+  top: 210px;
+  display: none;
+}
+@media (min-width: 1050px) {
+  .offer5 .note { display: block; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .offer5 .offer-box { animation: slideL 0.6s ease-out both; }
+  .offer5 .review-card:nth-child(1) { animation: slideR 0.6s ease-out 0.1s both; }
+  .offer5 .review-card:nth-child(2) { animation: slideR 0.6s ease-out 0.25s both; }
+}
+@keyframes slideL { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideR { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+</style>
+</head>
+<body>
+<!-- offer · 06e -->
+<section class="offer5">
+  <div class="wrap">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="grid">
+      <div class="offer-box">
+        <p class="offer-title">Package Name Goes Here</p>
+
+        <div class="item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="name">Feature 1</span>
+          <span class="val">Value $XXX</span>
+        </div>
+        <div class="item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="name">Feature 2</span>
+          <span class="val">Value $XXX</span>
+        </div>
+        <div class="item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="name">Feature 3</span>
+          <span class="val">Value $XXX</span>
+        </div>
+        <div class="item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="name">Feature 4</span>
+          <span class="val">Value $XXX</span>
+        </div>
+        <div class="item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="name">Feature 5</span>
+          <span class="val">Value $XXX</span>
+        </div>
+
+        <div class="item bonus">
+          <span class="star"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.6L18 22l-6-4-6 4 1.3-7.8L2 9.6 9 9z"/></svg></span>
+          <span class="name">Bonus 1</span>
+          <span class="val">Value $XXX</span>
+        </div>
+        <div class="item bonus">
+          <span class="star"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.6L18 22l-6-4-6 4 1.3-7.8L2 9.6 9 9z"/></svg></span>
+          <span class="name">Bonus 2</span>
+          <span class="val">Value $XXX</span>
+        </div>
+
+        <div class="total-value">
+          <span>Total Value</span>
+          <span>$XXXX</span>
+        </div>
+
+        <p class="price">$XXX</p>
+        <p class="plan-label">One-time payment / plan name here</p>
+        <a href="#" class="cta">Primary CTA →</a>
+      </div>
+
+      <span class="note">Anchor the price against the total value here ↴
+        <svg width="60" height="40" viewBox="0 0 60 40" style="position:absolute; top:-30px; left:-40px;">
+          <path d="M55 5 C 30 5, 10 20, 5 35" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#arrow5)"/>
+          <defs><marker id="arrow5" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--muted)"/></marker></defs>
+        </svg>
+      </span>
+
+      <div class="reviews">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Short testimonial or social proof describing the result achieved."</p>
+          <div class="who">
+            <span class="avatar">AB</span>
+            <div>
+              <div class="who-name">Testimonial 1</div>
+              <div class="who-loc">Location / role</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Short testimonial or social proof describing the result achieved."</p>
+          <div class="who">
+            <span class="avatar">CD</span>
+            <div>
+              <div class="who-name">Testimonial 2</div>
+              <div class="who-loc">Location / role</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

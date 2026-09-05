@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HERO — Hero Variation 1 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* hero · 01a */
+.hero-wf1 {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 0 0 4rem;
+  font-family: var(--font-body);
+}
+.hero-wf1 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 0;
+}
+.hero-wf1 .blob1 { width: 26rem; height: 26rem; top: -8rem; left: -6rem; }
+.hero-wf1 .blob2 { width: 20rem; height: 20rem; bottom: -6rem; right: -4rem; }
+
+.hero-wf1 nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  border-bottom: 1px solid var(--border);
+}
+.hero-wf1 .logo {
+  width: 90px; height: 26px;
+  background: var(--border);
+  border-radius: 6px;
+}
+.hero-wf1 .nav-links {
+  display: flex;
+  gap: 1.4rem;
+  list-style: none;
+  margin: 0; padding: 0;
+  font-size: .8rem;
+  color: var(--muted);
+}
+.hero-wf1 .nav-right {
+  display: flex; align-items: center; gap: .8rem;
+}
+.hero-wf1 .search-ico {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--muted);
+  border-radius: 50%;
+  position: relative;
+}
+.hero-wf1 .search-ico::after {
+  content: "";
+  position: absolute;
+  width: 6px; height: 1.5px;
+  background: var(--muted);
+  transform: rotate(45deg);
+  bottom: -3px; right: -4px;
+}
+.hero-wf1 .hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+}
+.hero-wf1 .hamburger span {
+  width: 20px; height: 2px; background: var(--muted);
+}
+
+.hero-wf1 .wrap {
+  position: relative;
+  z-index: 2;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 0;
+  text-align: center;
+}
+.hero-wf1 .eyebrow {
+  display: inline-block;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: .35rem .9rem;
+  margin-bottom: 1.1rem;
+}
+.hero-wf1 h1 {
+  font-family: var(--font-head);
+  font-size: clamp(1.9rem, 4.4vw, 3.2rem);
+  line-height: 1.15;
+  color: var(--text);
+  margin: 0 0 1rem;
+  font-weight: 700;
+}
+.hero-wf1 .sub {
+  max-width: 40rem;
+  margin: 0 auto 1.8rem;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.hero-wf1 .ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: .8rem;
+  flex-wrap: wrap;
+}
+.hero-wf1 .cta-primary {
+  background: var(--brand);
+  color: var(--brand-contrast);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: .8rem;
+  letter-spacing: .04em;
+  padding: .85rem 1.7rem;
+  border-radius: var(--radius);
+  border: none;
+}
+.hero-wf1 .cta-secondary {
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  font-size: .8rem;
+  padding: .85rem 1.7rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.hero-wf1 .smallprint {
+  font-size: .75rem;
+  color: var(--muted);
+  margin-bottom: 2.6rem;
+}
+
+.hero-wf1 .video-block {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: .6rem;
+}
+.hero-wf1 .video-block .frame-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1.6rem;
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  padding: 0 .6rem;
+}
+.hero-wf1 .frame-bar span {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.hero-wf1 .play-btn {
+  width: 4.2rem; height: 4.2rem;
+  border-radius: 50%;
+  background: var(--brand);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-wf1 .play-btn svg { fill: var(--brand-contrast); width: 1.3rem; }
+.hero-wf1 .video-caption {
+  font-size: .7rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-wf1 .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  z-index: 3;
+  max-width: 10rem;
+  text-align: left;
+}
+.hero-wf1 .note svg { position: absolute; }
+
+@media (max-width: 768px) {
+  .hero-wf1 .nav-links { display: none; }
+  .hero-wf1 .hamburger { display: flex; }
+  .hero-wf1 .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- hero · 01a -->
+<section class="hero-wf1">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <nav>
+    <div class="logo"></div>
+    <ul class="nav-links">
+      <li>About</li><li>Mission</li><li>Events</li><li>Programs</li><li>Coaching</li><li>Shop</li><li>Blog</li>
+    </ul>
+    <div class="nav-right">
+      <div class="search-ico"></div>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <span class="eyebrow">EYEBROW / TAGLINE</span>
+    <h1>Main Headline Goes Here<br>Second Line Of Headline</h1>
+    <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    <div class="ctas">
+      <button class="cta-primary">Primary CTA →</button>
+      <button class="cta-secondary">Secondary CTA</button>
+    </div>
+    <div class="smallprint">Optional small text (e.g. no credit card required)</div>
+
+    <div style="position:relative;">
+      <div class="note" style="top:-2.2rem; right:-1rem;">
+        Feature the video or hero image here
+        <svg width="50" height="40" viewBox="0 0 50 40"><path d="M45 5 C 30 5, 20 25, 5 30" stroke="var(--muted)" stroke-width="1.2" fill="none" marker-end="url(#arrhead1)"/><defs><marker id="arrhead1" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--muted)"/></marker></defs></svg>
+      </div>
+      <div class="video-block">
+        <div class="frame-bar"><span></span><span></span><span></span></div>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><path d="M6 4 L20 12 L6 20 Z"/></svg>
+        </div>
+        <div class="video-caption">PRODUCT / DASHBOARD PREVIEW OR HERO IMAGE</div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

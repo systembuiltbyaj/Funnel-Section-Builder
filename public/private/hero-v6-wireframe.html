@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HERO — Hero Variation 6 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* hero · 01f */
+.hero6-wire{
+  position:relative;
+  background:var(--bg);
+  overflow:hidden;
+  font-family:var(--font-body);
+  padding-bottom:2rem;
+}
+.hero6-wire .blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--surface);
+  opacity:.6;
+  z-index:0;
+}
+.hero6-wire .blob.b1{width:420px;height:420px;top:-120px;right:-80px;}
+.hero6-wire .blob.b2{width:300px;height:300px;bottom:60px;left:-100px;}
+
+.hero6-wire .nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:1.5rem 2rem;
+  position:relative;
+  z-index:2;
+}
+.hero6-wire .logo{
+  width:120px;height:28px;
+  background:var(--surface);
+  border-radius:6px;
+}
+.hero6-wire .navlinks{display:flex;gap:1.5rem;}
+.hero6-wire .navlinks span{
+  font-size:.8rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.hero6-wire .hamburger{
+  display:none;flex-direction:column;gap:4px;
+}
+.hero6-wire .hamburger span{width:22px;height:2px;background:var(--muted);}
+
+.hero6-wire .wrap{
+  position:relative;
+  z-index:2;
+  max-width:1600px;
+  margin:0 auto;
+  padding:0 4rem 3rem;
+  display:grid;
+  grid-template-columns:minmax(0,640px) auto;
+  align-items:end;
+  justify-content:center;
+  gap:5rem;
+}
+.hero6-wire .left{
+  max-width:640px;
+  padding-bottom:2rem;
+}
+.hero6-wire .eyebrow{
+  display:inline-block;
+  font-size:.7rem;
+  text-transform:uppercase;
+  letter-spacing:.32em;
+  color:var(--muted);
+  background:var(--surface);
+  padding:.4rem .9rem;
+  border-radius:999px;
+  margin-bottom:1.2rem;
+}
+.hero6-wire h1{
+  font-family:var(--font-head);
+  font-size:clamp(2.2rem,6vw,4.4rem);
+  line-height:1.05;
+  color:var(--text);
+  margin:0 0 1.2rem;
+  font-weight:700;
+}
+.hero6-wire h1 span{color:var(--muted);}
+.hero6-wire p.sub{
+  font-size:clamp(.9rem,1.1vw,1.05rem);
+  line-height:1.65;
+  color:var(--muted);
+  max-width:480px;
+  margin:0 0 2rem;
+}
+.hero6-wire .btns{
+  display:flex;
+  gap:1.4rem;
+  flex-wrap:wrap;
+}
+.hero6-wire .btn-primary{
+  background:var(--brand);
+  color:var(--brand-contrast);
+  font-weight:700;
+  padding:1rem 1.9rem;
+  border-radius:999px;
+  font-size:.9rem;
+  border:none;
+}
+.hero6-wire .btn-watch{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  background:transparent;
+  border:none;
+  color:var(--text);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.8rem;
+  font-weight:600;
+}
+.hero6-wire .play-circle{
+  width:36px;height:36px;
+  border:1px solid var(--border);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero6-wire .play-circle svg{width:12px;height:12px;fill:var(--text);}
+
+.hero6-wire .right{
+  position:relative;
+  width:clamp(260px,38vw,460px);
+  display:flex;
+  justify-content:center;
+}
+.hero6-wire .photo-box{
+  width:100%;
+  aspect-ratio:3/4;
+  background:var(--surface);
+  border-radius:var(--radius);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.7rem;
+  border:1px solid var(--border);
+}
+.hero6-wire .photo-box svg{width:56px;height:56px;}
+.hero6-wire .photo-box span{
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-align:center;
+  padding:0 1rem;
+}
+
+.hero6-wire .note{
+  position:absolute;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  z-index:3;
+}
+.hero6-wire .note.n1{top:-10px;right:-10px;text-align:left;}
+.hero6-wire .note svg{position:absolute;top:20px;left:-40px;width:40px;height:40px;}
+
+.hero6-wire .featured{
+  position:relative;
+  z-index:2;
+  margin:2rem auto 0;
+  max-width:var(--maxw);
+  border-top:1px solid var(--border);
+  padding:1.6rem 2rem 0;
+}
+.hero6-wire .featured .label{
+  text-align:center;
+  font-size:.7rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--muted);
+  margin-bottom:1rem;
+}
+.hero6-wire .logos{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:2.5rem;
+  flex-wrap:wrap;
+}
+.hero6-wire .logos .lg{
+  width:110px;height:30px;
+  background:var(--surface);
+  border-radius:6px;
+}
+
+@media (max-width:768px){
+  .hero6-wire .wrap{
+    grid-template-columns:1fr;
+    padding:0 1.5rem 2rem;
+    text-align:center;
+    gap:2rem;
+  }
+  .hero6-wire .left{max-width:100%;padding-bottom:0;}
+  .hero6-wire p.sub{margin-left:auto;margin-right:auto;}
+  .hero6-wire .btns{flex-direction:column;align-items:stretch;}
+  .hero6-wire .btn-primary,.hero6-wire .btn-watch{justify-content:center;}
+  .hero6-wire .right{width:100%;max-width:340px;margin:0 auto;}
+  .hero6-wire .navlinks{display:none;}
+  .hero6-wire .hamburger{display:flex;}
+  .hero6-wire .logos{gap:1.2rem;}
+  .hero6-wire .note{display:none;}
+}
+</style>
+</head>
+<body>
+<!-- hero · 01f -->
+<section class="hero6-wire">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+
+  <nav class="nav">
+    <div class="logo"></div>
+    <div class="navlinks">
+      <span>Product</span>
+      <span>About</span>
+      <span>Pricing</span>
+      <span>Contact</span>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="wrap">
+    <div class="left">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h1>Main Headline<br><span>Goes Right Here</span><br>For Impact</h1>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+      <div class="btns">
+        <button class="btn-primary">Primary CTA →</button>
+        <button class="btn-watch">
+          <span class="play-circle">
+            <svg viewBox="0 0 10 10"><polygon points="0,0 10,5 0,10"/></svg>
+          </span>
+          Watch Video
+        </button>
+      </div>
+    </div>
+
+    <div class="right">
+      <span class="note n1">
+        Show your product, dashboard, or a relevant hero image here.
+        <svg viewBox="0 0 40 40"><path d="M35 5 Q10 5 8 35" stroke="var(--muted)" fill="none" stroke-width="1.5"/></svg>
+      </span>
+      <div class="photo-box">
+        <svg viewBox="0 0 64 64">
+          <rect x="4" y="4" width="56" height="56" rx="8" fill="var(--bg)" stroke="var(--border)"/>
+          <circle cx="24" cy="24" r="7" fill="var(--border)"/>
+          <polygon points="8,52 26,30 40,44 56,26 56,56 8,56" fill="var(--border)"/>
+        </svg>
+        <span>PERSON PHOTO / HERO IMAGE</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured">
+    <div class="label">Trusted by 1,000+ business owners</div>
+    <div class="logos">
+      <div class="lg"></div>
+      <div class="lg"></div>
+      <div class="lg"></div>
+      <div class="lg"></div>
+      <div class="lg"></div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ — FAQ Variation 1 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* faq · 11a */
+.faq1-wrap{
+  position:relative;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:5rem 1.5rem;
+  min-height:400px;
+}
+.faq1-blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--surface);
+  opacity:.5;
+  z-index:0;
+}
+.faq1-blob.a{width:260px;height:260px;top:-80px;left:-100px;}
+.faq1-blob.b{width:200px;height:200px;bottom:-60px;right:-80px;}
+.faq1-inner{max-width:760px;margin:0 auto;position:relative;z-index:1;}
+.faq1-head{text-align:center;margin-bottom:2.5rem;}
+.faq1-eyebrow{
+  display:inline-block;
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--surface);
+  border-radius:999px;
+  padding:.35rem .9rem;
+  margin-bottom:1rem;
+}
+.faq1-head h2{
+  font-family:var(--font-head);
+  font-size:2rem;
+  color:var(--text);
+  margin:0 0 .6rem;
+}
+.faq1-head p{
+  font-family:var(--font-body);
+  font-size:.95rem;
+  color:var(--muted);
+  margin:0;
+}
+.faq1-list{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--bg);
+}
+.faq1-item{
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.faq1-item:last-child{border-bottom:none;}
+.faq1-item input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.faq1-item label{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1.1rem 1.4rem;
+  cursor:pointer;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:17px;
+  color:var(--text);
+}
+.faq1-toggle{
+  flex:0 0 auto;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  line-height:1;
+}
+.faq1-toggle::before{content:"+";}
+.faq1-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .35s ease;
+  padding:0 1.4rem;
+}
+.faq1-answer p{
+  margin:0 0 1.1rem;
+  font-family:var(--font-body);
+  font-size:15px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.faq1-item input:checked ~ label{
+  background:var(--surface);
+  border-left:3px solid var(--brand);
+}
+.faq1-item input:checked ~ label .faq1-toggle::before{content:"\2212";}
+.faq1-item input:checked ~ .faq1-answer{
+  max-height:220px;
+}
+.faq1-note{
+  position:absolute;
+  top:-1.4rem;
+  right:-2rem;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  text-align:left;
+  z-index:2;
+}
+@media(max-width:768px){
+  .faq1-wrap{padding:3rem 1rem;}
+  .faq1-note{display:none;}
+}
+@media(prefers-reduced-motion:no-preference){
+  .faq1-item{
+    animation:faq1fade .5s ease both;
+  }
+  .faq1-item:nth-child(1){animation-delay:.05s;}
+  .faq1-item:nth-child(2){animation-delay:.1s;}
+  .faq1-item:nth-child(3){animation-delay:.15s;}
+  .faq1-item:nth-child(4){animation-delay:.2s;}
+  .faq1-item:nth-child(5){animation-delay:.25s;}
+  .faq1-item:nth-child(6){animation-delay:.3s;}
+}
+@keyframes faq1fade{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+<!-- faq · 11a -->
+<section class="faq1-wrap">
+  <div class="faq1-blob a"></div>
+  <div class="faq1-blob b"></div>
+  <div class="faq1-inner">
+    <div class="faq1-head">
+      <span class="faq1-eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Questions Before You Enroll</h2>
+      <p>A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="faq1-list">
+
+      <div class="faq1-item">
+        <input type="radio" name="faq1" id="faq1-1" checked>
+        <label for="faq1-1">Question 1 goes here — who this program is for
+          <span class="faq1-toggle"></span>
+        </label>
+        <div class="faq1-answer">
+          <p>Short and clear answer describing the ideal student or member, one to two sentences of muted supporting copy.</p>
+        </div>
+      </div>
+
+      <div class="faq1-item">
+        <input type="radio" name="faq1" id="faq1-2">
+        <label for="faq1-2">Question 2 goes here — the #1 objection
+          <span class="faq1-toggle"></span>
+        </label>
+        <div class="faq1-answer">
+          <p>Answer addressing the most common hesitation or doubt a prospect has before enrolling, reassuring tone.</p>
+        </div>
+      </div>
+
+      <div class="faq1-item">
+        <input type="radio" name="faq1" id="faq1-3">
+        <label for="faq1-3">Question 3 goes here — what makes this different
+          <span class="faq1-toggle"></span>
+        </label>
+        <div class="faq1-answer">
+          <p>Answer explaining the unique method, mentor, or system that differentiates this from other options.</p>
+        </div>
+      </div>
+
+      <div class="faq1-item">
+        <input type="radio" name="faq1" id="faq1-4">
+        <label for="faq1-4">Question 4 goes here — time required per week
+          <span class="faq1-toggle"></span>
+        </label>
+        <div class="faq1-answer">
+          <p>Answer stating the realistic weekly time commitment expected to see results.</p>
+        </div>
+      </div>
+
+      <div class="faq1-item">
+        <input type="radio" name="faq1" id="faq1-5">
+        <label for="faq1-5">Question 5 goes here — the guarantee, restated
+          <span class="faq1-toggle"></span>
+        </label>
+        <div class="faq1-answer">
+          <p>Answer restating the risk-reversal or money-back guarantee in plain, reassuring language.</p>
+        </div>
+      </div>
+
+      <div class="faq1-item">
+        <input type="radio" name="faq1" id="faq1-6">
+        <label for="faq1-6">Question 6 goes here — next start date
+          <span class="faq1-toggle"></span>
+        </label>
+        <div class="faq1-answer">
+          <p>Answer with the upcoming cohort or start date and how soon someone can begin.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="faq1-note">One item open at a time →</div>
+  </div>
+</section>
+</body>
+</html>

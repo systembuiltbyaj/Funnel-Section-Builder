@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ — FAQ Variation 3 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* faq · 11c */
+.faq3{background:#fafafa;padding:5rem 1.25rem;position:relative;overflow:hidden;}
+.faq3 .blob{position:absolute;border-radius:50%;background:#eee;opacity:.5;z-index:0;}
+.faq3 .blob1{width:320px;height:320px;top:-100px;right:-120px;}
+.faq3 .blob2{width:220px;height:220px;bottom:-80px;left:-80px;}
+.faq3 .wrap{max-width:760px;margin:0 auto;position:relative;z-index:1;}
+.faq3 .eyebrow{display:inline-block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;background:#eee;color:var(--muted);padding:.3rem .8rem;border-radius:999px;margin-bottom:1rem;}
+.faq3 h2{font-family:var(--font-head);color:var(--text);font-size:clamp(1.6rem,3.5vw,2.2rem);margin:0 0 .6rem;}
+.faq3 .sub{color:var(--muted);font-size:.95rem;max-width:52ch;margin:0 0 2.5rem;}
+.faq3 .accordion{border-top:1px solid var(--border);}
+.faq3 .item{border-bottom:1px solid var(--border);padding:1.1rem 0;}
+.faq3 .item.open{background:#f2f2f2;border-left:2px solid #b3b3b3;padding-left:1rem;margin-left:-1rem;border-radius:6px;}
+.faq3 .q{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:0;font-family:var(--font-head);}
+.faq3 .q span:first-child{color:var(--text);font-weight:600;font-size:.98rem;}
+.faq3 .item:not(.open) .q span:first-child{color:var(--muted);font-weight:500;}
+.faq3 .toggle{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#dcdcdc;display:flex;align-items:center;justify-content:center;margin-left:1rem;}
+.faq3 .toggle svg{width:12px;height:12px;stroke:#6a6a6d;stroke-width:2;fill:none;}
+.faq3 .a{overflow:hidden;transition:max-height .3s ease;}
+.faq3 .item.open .a{max-height:200px;margin-top:.8rem;}
+.faq3 .item:not(.open) .a{max-height:0;}
+.faq3 .a p{color:var(--muted);font-size:.88rem;line-height:1.5;margin:0;max-width:60ch;}
+.faq3 .note{position:absolute;top:40px;right:-30px;max-width:150px;font-family:'Segoe Script','Bradley Hand',cursive;font-size:13px;color:var(--muted);display:none;}
+@media(min-width:900px){.faq3 .note{display:block;}}
+@media(max-width:768px){.faq3{padding:3.5rem 1rem;}}
+</style>
+</head>
+<body>
+<!-- faq · 11c -->
+<section class="faq3">
+  <span class="blob blob1"></span>
+  <span class="blob blob2"></span>
+  <div class="wrap">
+    <span class="eyebrow">EYEBROW / TAGLINE</span>
+    <h2>Section Headline Goes Here</h2>
+    <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+
+    <div class="accordion">
+
+      <div class="item open">
+        <button class="q"><span>Question 1 goes here</span><span class="toggle"><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/></svg></span></button>
+        <div class="a"><p>A short and clear sentence answering the frequently asked question above.</p></div>
+      </div>
+
+      <div class="item">
+        <button class="q"><span>Question 2 goes here</span><span class="toggle"><svg viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg></span></button>
+        <div class="a"><p>Answer content placeholder text goes here for this item.</p></div>
+      </div>
+
+      <div class="item">
+        <button class="q"><span>Question 3 goes here</span><span class="toggle"><svg viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg></span></button>
+        <div class="a"><p>Answer content placeholder text goes here for this item.</p></div>
+      </div>
+
+      <div class="item">
+        <button class="q"><span>Question 4 goes here</span><span class="toggle"><svg viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg></span></button>
+        <div class="a"><p>Answer content placeholder text goes here for this item.</p></div>
+      </div>
+
+      <div class="item">
+        <button class="q"><span>Question 5 goes here</span><span class="toggle"><svg viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg></span></button>
+        <div class="a"><p>Answer content placeholder text goes here for this item.</p></div>
+      </div>
+
+      <div class="item">
+        <button class="q"><span>Question 6 goes here</span><span class="toggle"><svg viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg></span></button>
+        <div class="a"><p>Answer content placeholder text goes here for this item.</p></div>
+      </div>
+
+      <div class="item">
+        <button class="q"><span>Question 7 goes here</span><span class="toggle"><svg viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg></span></button>
+        <div class="a"><p>Answer content placeholder text goes here for this item.</p></div>
+      </div>
+
+      <div class="item">
+        <button class="q"><span>Question 8 goes here</span><span class="toggle"><svg viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg></span></button>
+        <div class="a"><p>Answer content placeholder text goes here for this item.</p></div>
+      </div>
+
+    </div>
+
+    <div class="note">Only one answer opens at a time — first item shown expanded</div>
+  </div>
+</section>
+</body>
+</html>

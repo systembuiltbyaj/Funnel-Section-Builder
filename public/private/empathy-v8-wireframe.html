@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMPATHY — Empathy Variation 8 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* empathy · 02h */
+.empathy8 {
+  background: var(--bg);
+  padding: 100px 32px;
+  font-family: var(--font-body);
+  position: relative;
+  overflow: hidden;
+}
+.empathy8 .wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  gap: 56px;
+  align-items: start;
+  position: relative;
+}
+.empathy8 .divider {
+  position: absolute;
+  left: 40%;
+  top: 0;
+  bottom: 0;
+  border-left: 1px dashed var(--border);
+}
+.empathy8 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .5;
+  z-index: 0;
+}
+.empathy8 .blob1 { width: 320px; height: 320px; top: -80px; right: -100px; }
+.empathy8 .blob2 { width: 220px; height: 220px; bottom: -60px; left: 10%; }
+
+.empathy8 .eyebrow {
+  display: inline-block;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+.empathy8 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  margin: 0 0 6px;
+}
+.empathy8 .accent-line {
+  font-style: italic;
+  color: var(--brand);
+}
+.empathy8 .body {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 18px 0 28px;
+  max-width: 40ch;
+}
+.empathy8 .cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.empathy8 .bars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+.empathy8 .bar {
+  background: var(--surface);
+  border-left: 3px solid var(--text);
+  padding: 22px 28px;
+  border-radius: var(--radius);
+}
+.empathy8 .bar:nth-child(2) { border-left-color: var(--brand); }
+.empathy8 .bar:nth-child(3) { border-left-color: var(--muted); }
+.empathy8 .bar-title {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+.empathy8 .bar-body {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.empathy8 .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 150px;
+  top: -30px;
+  right: 40px;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .empathy8 .wrap { grid-template-columns: 1fr; }
+  .empathy8 .divider { display: none; }
+  .empathy8 .cta { width: 100%; justify-content: center; }
+  .empathy8 .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- empathy · 02h -->
+<section class="empathy8">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="wrap">
+    <div class="divider"></div>
+
+    <div class="left">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here<br><span class="accent-line">It Never Was.</span></h2>
+      <p class="body">A short and clear value proposition that explains your offer and the main benefit.</p>
+      <a href="#" class="cta">Primary CTA →</a>
+    </div>
+
+    <div style="position:relative;">
+      <div class="note">
+        <svg width="60" height="40" style="position:absolute; left:-70px; top:10px;">
+          <path d="M50 5 C20 5 10 30 5 35" stroke="#6a6a6d" stroke-width="1.5" fill="none" marker-end="url(#arrow8)"/>
+          <defs>
+            <marker id="arrow8" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="#6a6a6d"/>
+            </marker>
+          </defs>
+        </svg>
+        Three stacked comparison bars — keep colored left borders
+      </div>
+
+      <div class="bars">
+        <div class="bar">
+          <div class="bar-title">Feature 1 — Wrong Foundation</div>
+          <div class="bar-body">Short benefit here describing the underlying problem this bar represents.</div>
+        </div>
+        <div class="bar">
+          <div class="bar-title">Feature 2 — Isolated Effort</div>
+          <div class="bar-body">Short benefit here describing the underlying problem this bar represents.</div>
+        </div>
+        <div class="bar">
+          <div class="bar-title">Feature 3 — Pattern Break</div>
+          <div class="bar-body">Short benefit here describing the underlying problem this bar represents.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BEFORE VS AFTER — Before vs After Variation 3 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* compare · 04c */
+.bva3 {
+  --before-bg: var(--surface);
+  --after-bg: var(--bg);
+  position: relative;
+  padding: 4rem 1.5rem;
+  background: var(--bg);
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+.bva3 .head {
+  max-width: var(--maxw);
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+.bva3 .eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  margin-bottom: 0.9rem;
+}
+.bva3 h2 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  color: var(--text);
+  margin: 0;
+}
+.bva3 .wrap {
+  position: relative;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  min-height: 600px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.bva3 .half {
+  flex: 1;
+  padding: 5rem 4rem;
+  display: flex;
+  flex-direction: column;
+}
+.bva3 .before { background: var(--before-bg); border-right: 1px solid var(--border); }
+.bva3 .after { background: var(--after-bg); }
+.bva3 .label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+.bva3 .half h3 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  color: var(--text);
+  margin: 0 0 0.6rem;
+}
+.bva3 .half .sub {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0 0 2rem;
+}
+.bva3 ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.bva3 li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
+}
+.bva3 li:hover { background: var(--surface); }
+.bva3 .icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.bva3 .vs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  animation: pulse3 2.4s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes pulse3 {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0.06); }
+  50% { box-shadow: 0 0 0 10px rgba(0,0,0,0); }
+}
+.bva3 .note {
+  position: absolute;
+  top: -1.4rem;
+  right: 1rem;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 160px;
+  text-align: left;
+}
+.bva3 .note svg { position: absolute; top: 18px; left: -40px; overflow: visible; }
+@media (max-width: 768px) {
+  .bva3 .wrap { flex-direction: column; min-height: unset; }
+  .bva3 .before { border-right: none; border-bottom: 1px solid var(--border); }
+  .bva3 .half { padding: 3rem 1.75rem; }
+  .bva3 .vs { position: relative; top: auto; left: auto; transform: none; margin: -30px auto; }
+  .bva3 .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- compare · 04c -->
+<section class="bva3">
+  <div class="head">
+    <span class="eyebrow">EYEBROW / TAGLINE</span>
+    <h2>Section Headline Goes Here</h2>
+  </div>
+  <div class="wrap">
+    <div class="note" aria-hidden="true">
+      Keep item wording short and parallel between both lists
+      <svg width="50" height="40" viewBox="0 0 50 40"><path d="M45 5 C 20 5, 10 20, 8 35" stroke="#9a9a9a" stroke-width="1.5" fill="none" marker-end="url(#arrow3)"/><defs><marker id="arrow3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#9a9a9a"/></marker></defs></svg>
+    </div>
+    <div class="half before">
+      <span class="label">BEFORE</span>
+      <h3>Life Without This Product</h3>
+      <p class="sub">A short italic line describing the old, painful way of doing things.</p>
+      <ul>
+        <li><span class="icon">✗</span> Pain point 1 goes here</li>
+        <li><span class="icon">✗</span> Pain point 2 goes here</li>
+        <li><span class="icon">✗</span> Pain point 3 goes here</li>
+        <li><span class="icon">✗</span> Pain point 4 goes here</li>
+        <li><span class="icon">✗</span> Pain point 5 goes here</li>
+      </ul>
+    </div>
+    <div class="half after">
+      <span class="label">AFTER</span>
+      <h3>Life With This Product</h3>
+      <p class="sub">A short italic line describing the new, better outcome.</p>
+      <ul>
+        <li><span class="icon">✓</span> Benefit 1 goes here</li>
+        <li><span class="icon">✓</span> Benefit 2 goes here</li>
+        <li><span class="icon">✓</span> Benefit 3 goes here</li>
+        <li><span class="icon">✓</span> Benefit 4 goes here</li>
+        <li><span class="icon">✓</span> Benefit 5 goes here</li>
+      </ul>
+    </div>
+    <div class="vs">VS</div>
+  </div>
+</section>
+</body>
+</html>

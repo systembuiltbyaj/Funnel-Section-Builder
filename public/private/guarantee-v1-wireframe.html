@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RISK REVERSAL — Risk Reversal Variation 1 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* risk · 08a */
+.risk-reversal-v1 {
+  position: relative;
+  background: var(--bg);
+  padding: 5rem 1.5rem;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+.risk-reversal-v1 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: 0.6;
+  z-index: 0;
+}
+.risk-reversal-v1 .blob1 { width: 380px; height: 380px; top: -120px; left: -100px; }
+.risk-reversal-v1 .blob2 { width: 300px; height: 300px; bottom: -100px; right: -80px; }
+
+.risk-reversal-v1 .card {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  width: 100%;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.10);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  animation: cardIn 0.7s ease-out both;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .risk-reversal-v1 .card { animation: none; }
+}
+
+.risk-reversal-v1 .seal {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  margin: 0 auto 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  line-height: 1.1;
+}
+.risk-reversal-v1 .seal .amt { font-size: 1.1rem; font-weight: 700; }
+.risk-reversal-v1 .seal .word { font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+.risk-reversal-v1 .pill {
+  display: inline-block;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+}
+
+.risk-reversal-v1 h2 {
+  font-family: var(--font-head);
+  color: var(--text);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  margin: 0 0 1rem;
+}
+
+.risk-reversal-v1 .primary {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 460px;
+  margin: 0 auto 0.9rem;
+}
+
+.risk-reversal-v1 .secondary {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin: 0 auto 1.8rem;
+  max-width: 440px;
+}
+
+.risk-reversal-v1 .cta {
+  display: block;
+  width: 100%;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  font-family: var(--font-head);
+  cursor: pointer;
+}
+
+.risk-reversal-v1 .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 150px;
+  z-index: 2;
+}
+.risk-reversal-v1 .note1 { top: 2rem; left: 1rem; text-align: right; }
+.risk-reversal-v1 .note svg { position: absolute; top: 20px; right: -40px; }
+
+@media (max-width: 768px) {
+  .risk-reversal-v1 { padding: 3rem 1rem; }
+  .risk-reversal-v1 .card { padding: 2rem 1.25rem; border-radius: calc(var(--radius) - 4px); }
+  .risk-reversal-v1 .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- risk · 08a -->
+<section class="risk-reversal-v1">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <div class="note note1">
+    Guarantee seal + specific numbers build trust fast
+    <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
+      <path d="M2 2 C 20 2, 40 30, 55 32" stroke="#a0a0a0" stroke-width="1.5" fill="none" />
+    </svg>
+  </div>
+
+  <div class="card">
+    <div class="seal">
+      <span class="amt">$20K</span>
+      <span class="word">Guarantee</span>
+    </div>
+
+    <span class="pill">100% Risk-Free</span>
+
+    <h2>Main Headline Names The Guarantee Specifically</h2>
+
+    <p class="primary">
+      A short and clear paragraph describing the outcome-based guarantee — what result is promised, the specific terms, and the timeframe (e.g. day-90 milestone) that backs it up.
+    </p>
+
+    <p class="secondary">
+      Optional small text: covered by a 14-day, no-questions-asked refund policy, plus the outcome guarantee through day 90.
+    </p>
+
+    <button class="cta">Primary CTA →</button>
+  </div>
+</section>
+</body>
+</html>

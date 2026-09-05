@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FOOTER — Footer Variation 4 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* footer · 12d */
+.footer-v4 {
+  --grad: var(--surface);
+  position: relative;
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+.footer-v4 .cta-band {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  overflow: hidden;
+  padding: 3rem 1.5rem;
+}
+
+.footer-v4 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--border);
+  opacity: 0.25;
+  filter: blur(2px);
+}
+.footer-v4 .blob-a { width: 260px; height: 260px; top: -80px; left: -60px; }
+.footer-v4 .blob-b { width: 200px; height: 200px; bottom: -70px; right: -40px; }
+
+.footer-v4 .cta-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.footer-v4 .eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+}
+
+.footer-v4 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  margin: 0;
+  color: var(--text);
+}
+
+.footer-v4 .sub {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 460px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.footer-v4 .cta-btn {
+  margin-top: 0.4rem;
+  display: inline-block;
+  background: var(--border);
+  color: var(--text);
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.footer-v4 .trust {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.footer-v4 .annotation {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  max-width: 150px;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  z-index: 2;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .footer-v4 .annotation { display: block; }
+}
+
+.footer-v4 footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  padding: 2rem 1.5rem;
+}
+
+.footer-v4 .foot-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  text-align: center;
+}
+
+.footer-v4 .logo-box {
+  width: 120px;
+  height: 32px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.footer-v4 nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.4rem;
+}
+
+.footer-v4 nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  position: relative;
+}
+
+.footer-v4 nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background: var(--text);
+  transition: width 0.2s ease;
+}
+
+.footer-v4 nav a:hover::after {
+  width: 100%;
+}
+
+.footer-v4 .copyright {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+@media (max-width: 480px) {
+  .footer-v4 nav { gap: 0.9rem; }
+  .footer-v4 .cta-band { padding: 2.5rem 1rem; min-height: 300px; }
+}
+</style>
+</head>
+<body>
+<!-- footer · 12d -->
+<section class="footer-v4">
+  <div class="cta-band">
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <span class="annotation">
+      Keep this CTA tall &amp; centered — the star of the footer
+    </span>
+    <div class="cta-inner">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit for this audience, with a nod to social proof.</p>
+      <button class="cta-btn">Primary CTA →</button>
+      <span class="trust">Optional small text (e.g. no credit card required)</span>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-inner">
+      <div class="logo-box"></div>
+      <nav>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Disclaimer</a>
+        <a href="#">Contact</a>
+      </nav>
+      <span class="copyright">© 2024 Company Name. All rights reserved.</span>
+    </div>
+  </footer>
+</section>
+</body>
+</html>

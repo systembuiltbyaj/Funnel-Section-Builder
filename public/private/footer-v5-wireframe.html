@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FOOTER — Footer Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* footer · 12e */
+.footer-v5 {
+  background: #fafafa;
+  border-top: 1px solid var(--border);
+  padding: 4rem 1.5rem 0;
+  font-family: var(--font-body);
+  position: relative;
+  overflow: hidden;
+}
+.footer-v5 .wrap { max-width: var(--maxw); margin: 0 auto; }
+
+.footer-v5 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .5;
+  z-index: 0;
+}
+.footer-v5 .blob.b1 { width: 320px; height: 320px; top: -120px; right: -80px; }
+.footer-v5 .blob.b2 { width: 220px; height: 220px; bottom: 40px; left: -80px; }
+
+.footer-v5 .stats {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+.footer-v5 .stat {
+  text-align: center;
+  padding: 1rem;
+}
+.footer-v5 .stat .num {
+  font-family: var(--font-head);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.footer-v5 .stat .lbl {
+  margin-top: .3rem;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+
+.footer-v5 .cta-block {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3.5rem 0;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.footer-v5 .eyebrow {
+  display: inline-block;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: .35rem .9rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.footer-v5 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  color: var(--text);
+  margin: 0 0 .8rem;
+}
+.footer-v5 .sub {
+  color: var(--muted);
+  font-size: .95rem;
+  max-width: 480px;
+  margin: 0 auto 1.8rem;
+  line-height: 1.5;
+}
+.footer-v5 .cta-btn {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: .95rem 2.2rem;
+  border-radius: var(--radius);
+  cursor: default;
+}
+.footer-v5 .micro {
+  margin-top: .8rem;
+  font-size: .78rem;
+  color: var(--muted);
+}
+.footer-v5 .trust {
+  margin-top: .6rem;
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+.footer-v5 .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  width: 150px;
+  z-index: 2;
+  top: 260px;
+  right: 0;
+  text-align: left;
+}
+.footer-v5 .note svg { position: absolute; top: -30px; left: -40px; }
+
+.footer-v5 .bottom-bar {
+  position: relative;
+  z-index: 1;
+  background: var(--surface);
+  border-radius: var(--radius) var(--radius) 0 0;
+  margin-top: 3rem;
+  padding: 1.6rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-v5 .logo-box {
+  width: 110px;
+  height: 30px;
+  background: var(--border);
+  border-radius: 6px;
+}
+.footer-v5 nav.flinks {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+.footer-v5 nav.flinks a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .82rem;
+  position: relative;
+}
+.footer-v5 nav.flinks a:hover { text-decoration: underline; }
+.footer-v5 .copyright {
+  font-size: .78rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .footer-v5 .stats { grid-template-columns: repeat(2, 1fr); }
+  .footer-v5 .cta-btn { width: 100%; }
+  .footer-v5 .bottom-bar { flex-direction: column; align-items: flex-start; }
+  .footer-v5 .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- footer · 12e -->
+<section class="footer-v5">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="wrap">
+
+    <div class="stats">
+      <div class="stat"><div class="num">10,000+</div><div class="lbl">Stat Label 1</div></div>
+      <div class="stat"><div class="num">98%</div><div class="lbl">Stat Label 2</div></div>
+      <div class="stat"><div class="num">4.9★</div><div class="lbl">Stat Label 3</div></div>
+      <div class="stat"><div class="num">50+</div><div class="lbl">Stat Label 4</div></div>
+    </div>
+
+    <div class="cta-block">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit, aimed at your audience with social proof baked in.</p>
+      <button class="cta-btn">Primary CTA →</button>
+      <div class="micro">Optional small text (e.g. no credit card required)</div>
+      <div class="trust">Trusted by 1,000+ business owners</div>
+      <div class="note">
+        <svg width="60" height="40" viewBox="0 0 60 40"><path d="M55 5 Q20 5 15 35" stroke="#999" stroke-width="1.5" fill="none" marker-end="url(#arrow5)"/><defs><marker id="arrow5" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#999"/></marker></defs></svg>
+        Main call-to-action, make it stand out
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="logo-box"></div>
+      <nav class="flinks">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Disclaimer</a>
+        <a href="#">Contact</a>
+      </nav>
+      <div class="copyright">© 2024 Company Name</div>
+    </div>
+
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SOCIAL PROOF — Social Proof Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* social · 07e */
+.sp5-wireframe{
+  position:relative;
+  background:#fff;
+  padding:96px 24px;
+  font-family:var(--font-body);
+  color:var(--text);
+  overflow:hidden;
+}
+.sp5-wireframe .blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--surface);
+  opacity:.5;
+  z-index:0;
+}
+.sp5-wireframe .blob1{width:340px;height:340px;top:-80px;left:-100px;}
+.sp5-wireframe .blob2{width:260px;height:260px;bottom:-60px;right:-60px;}
+
+.sp5-wireframe .wrap{
+  position:relative;
+  max-width:1200px;
+  margin:0 auto;
+  z-index:1;
+}
+
+.sp5-wireframe .header{
+  text-align:center;
+  max-width:700px;
+  margin:0 auto 56px;
+}
+.sp5-wireframe .eyebrow{
+  display:inline-block;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--surface);
+  border-radius:999px;
+  padding:6px 14px;
+  margin-bottom:16px;
+}
+.sp5-wireframe .aggregate{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:10px;
+  letter-spacing:.02em;
+}
+.sp5-wireframe .stars{color:var(--text);font-size:15px;letter-spacing:2px;}
+.sp5-wireframe h2{
+  font-family:var(--font-head);
+  font-size:clamp(28px,4vw,38px);
+  margin:8px 0 12px;
+}
+.sp5-wireframe .sub{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.6;
+}
+
+.sp5-wireframe .grid{
+  display:grid;
+  grid-template-columns:45% 55%;
+  gap:24px;
+  align-items:stretch;
+}
+@media(max-width:768px){
+  .sp5-wireframe .grid{grid-template-columns:1fr;}
+}
+
+/* featured */
+.sp5-wireframe .featured{
+  background:var(--surface);
+  border-left:4px solid var(--brand);
+  border-radius:var(--radius);
+  padding:36px 32px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:20px;
+}
+.sp5-wireframe .featured .stars{font-size:16px;}
+.sp5-wireframe .featured blockquote{
+  font-style:italic;
+  font-size:20px;
+  line-height:1.55;
+  margin:0;
+}
+.sp5-wireframe .person{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.sp5-wireframe .avatar{
+  border-radius:50%;
+  background:var(--border);
+  flex-shrink:0;
+}
+.sp5-wireframe .featured .avatar{width:56px;height:56px;}
+.sp5-wireframe .name{font-weight:700;font-size:14px;}
+.sp5-wireframe .role{color:var(--muted);font-size:13px;}
+
+/* small cards */
+.sp5-wireframe .cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+@media(max-width:560px){
+  .sp5-wireframe .cards{grid-template-columns:1fr;}
+}
+.sp5-wireframe .card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.sp5-wireframe .card .stars{font-size:13px;}
+.sp5-wireframe .card blockquote{
+  font-style:italic;
+  font-size:14px;
+  line-height:1.5;
+  margin:0;
+  color:var(--text);
+}
+.sp5-wireframe .card .person{gap:10px;}
+.sp5-wireframe .card .avatar{width:36px;height:36px;}
+.sp5-wireframe .card .name{font-size:13px;}
+.sp5-wireframe .card .role{font-size:12px;}
+
+/* brand bar */
+.sp5-wireframe .brandbar{
+  margin-top:72px;
+  text-align:center;
+}
+.sp5-wireframe .brandbar .label{
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:24px;
+}
+.sp5-wireframe .logos{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:28px;
+}
+.sp5-wireframe .logo{
+  width:110px;
+  height:32px;
+  background:var(--surface);
+  border-radius:6px;
+}
+.sp5-wireframe .logo.w2{width:80px;}
+.sp5-wireframe .logo.w3{width:130px;}
+
+/* annotation */
+.sp5-wireframe .note{
+  position:absolute;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  line-height:1.4;
+  z-index:2;
+}
+.sp5-wireframe .note1{top:-10px;right:0;text-align:left;}
+.sp5-wireframe .note2{left:-6px;bottom:130px;text-align:right;}
+@media(max-width:900px){ .sp5-wireframe .note{display:none;} }
+</style>
+</head>
+<body>
+<!-- social · 07e -->
+<section class="sp5-wireframe">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="wrap">
+
+    <div class="note note1">
+      Featured quote should feel like a real customer voice — keep it long-form
+      <svg width="60" height="40" viewBox="0 0 60 40"><path d="M55 5 C 30 5, 20 25, 5 32" stroke="#a3a3a3" stroke-width="1.4" fill="none" marker-end="url(#arrow1)"/><defs><marker id="arrow1" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#a3a3a3"/></marker></defs></svg>
+    </div>
+
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <div class="aggregate"><span class="stars">★★★★★</span> 4.9/5 across 1,240 reviews · 96% success rate</div>
+      <h2>Section Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="grid">
+      <div class="featured">
+        <div class="stars">★★★★★</div>
+        <blockquote>“Short testimonial or social proof, featuring a specific number and timeframe result that a reader can quantify.”</blockquote>
+        <div class="person">
+          <div class="avatar"></div>
+          <div>
+            <div class="name">Testimonial 1 — Name</div>
+            <div class="role">Title / Location</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Testimonial 2 — short quote with a number and timeframe.”</blockquote>
+          <div class="person">
+            <div class="avatar"></div>
+            <div>
+              <div class="name">Name</div>
+              <div class="role">Title / Location</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Testimonial 3 — short quote with a number and timeframe.”</blockquote>
+          <div class="person">
+            <div class="avatar"></div>
+            <div>
+              <div class="name">Name</div>
+              <div class="role">Title / Location</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Testimonial 4 — short quote with a number and timeframe.”</blockquote>
+          <div class="person">
+            <div class="avatar"></div>
+            <div>
+              <div class="name">Name</div>
+              <div class="role">Title / Location</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Testimonial 5 — short quote with a number and timeframe.”</blockquote>
+          <div class="person">
+            <div class="avatar"></div>
+            <div>
+              <div class="name">Name</div>
+              <div class="role">Title / Location</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note note2">
+      Logos: keep flat grey, no colour, consistent widths
+      <svg width="60" height="40" viewBox="0 0 60 40"><path d="M5 5 C 20 10, 30 25, 55 32" stroke="#a3a3a3" stroke-width="1.4" fill="none" marker-end="url(#arrow2)"/><defs><marker id="arrow2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#a3a3a3"/></marker></defs></svg>
+    </div>
+
+    <div class="brandbar">
+      <div class="label">AS FEATURED IN</div>
+      <div class="logos">
+        <div class="logo"></div>
+        <div class="logo w2"></div>
+        <div class="logo w3"></div>
+        <div class="logo"></div>
+        <div class="logo w2"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SOCIAL PROOF — Social Proof Variation 2 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* social · 07b */
+.sp-v2{box-sizing:border-box;overflow-x:hidden;position:relative;background:#fafafa;padding:72px 24px 56px;font-family:var(--font-body);}
+.sp-v2-wrap{max-width:1200px;margin:0 auto;position:relative;}
+.sp-v2-header{text-align:center;max-width:640px;margin:0 auto 44px;}
+.sp-v2-eyebrow{display:inline-block;background:var(--surface);color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:999px;border:1px solid var(--border);}
+.sp-v2-headline{font-family:var(--font-head);color:var(--text);font-size:clamp(24px,3.2vw,34px);margin:16px 0 12px;}
+.sp-v2-aggregate{color:var(--muted);font-size:15px;}
+.sp-v2-aggregate strong{color:var(--text);letter-spacing:2px;}
+.sp-v2-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.sp-v2-col{display:flex;flex-direction:column;gap:22px;}
+.sp-v2-col-mid{margin-top:20px;}
+.sp-v2-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column;gap:12px;}
+.sp-v2-stars{color:var(--muted);letter-spacing:2px;font-size:14px;}
+.sp-v2-quote{font-style:italic;color:var(--text);font-size:14px;line-height:1.55;flex-grow:1;}
+.sp-v2-person{display:flex;align-items:center;gap:10px;margin-top:4px;}
+.sp-v2-avatar{width:42px;height:42px;border-radius:50%;background:var(--surface);border:1px solid var(--border);flex-shrink:0;}
+.sp-v2-name{font-size:13px;color:var(--text);font-weight:600;}
+.sp-v2-title{font-size:12px;color:var(--muted);}
+.sp-v2-brandbar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:28px;margin-top:52px;padding-top:32px;border-top:1px solid var(--border);}
+.sp-v2-logo{width:120px;height:28px;border-radius:6px;background:var(--surface);border:1px solid var(--border);}
+.sp-v2-note{position:absolute;top:6px;right:8px;max-width:150px;font-family:'Segoe Script','Bradley Hand',cursive;font-size:13px;color:var(--muted);text-align:left;}
+@media (max-width:768px){
+.sp-v2-grid{grid-template-columns:1fr;}
+.sp-v2-col-mid{margin-top:0;}
+.sp-v2-note{display:none;}
+}
+</style>
+</head>
+<body>
+<!-- social · 07b -->
+<section class="sp-v2">
+  <div class="sp-v2-wrap">
+    <div class="sp-v2-header">
+      <span class="sp-v2-eyebrow">EYEBROW / TAGLINE</span>
+      <h2 class="sp-v2-headline">Main Headline Goes Here</h2>
+      <div class="sp-v2-aggregate"><strong>★★★★★</strong> &nbsp;4.9/5 across 1,200+ reviews · 96% success rate</div>
+    </div>
+
+    <div class="sp-v2-grid">
+      <div class="sp-v2-col">
+        <div class="sp-v2-card">
+          <div class="sp-v2-stars">★★★★★</div>
+          <div class="sp-v2-quote">"Testimonial 1 — a specific outcome with a number and a timeframe, e.g. grew revenue 32% in 90 days."</div>
+          <div class="sp-v2-person"><div class="sp-v2-avatar"></div><div><div class="sp-v2-name">Name Surname</div><div class="sp-v2-title">Title, Location</div></div></div>
+        </div>
+        <div class="sp-v2-card">
+          <div class="sp-v2-stars">★★★★★</div>
+          <div class="sp-v2-quote">"Testimonial 2 — a specific outcome with a number and a timeframe, e.g. cut costs 18% in 6 weeks."</div>
+          <div class="sp-v2-person"><div class="sp-v2-avatar"></div><div><div class="sp-v2-name">Name Surname</div><div class="sp-v2-title">Title, Location</div></div></div>
+        </div>
+      </div>
+
+      <div class="sp-v2-col sp-v2-col-mid">
+        <div class="sp-v2-card">
+          <div class="sp-v2-stars">★★★★★</div>
+          <div class="sp-v2-quote">"Testimonial 3 — a specific outcome with a number and a timeframe, e.g. doubled signups in 3 months."</div>
+          <div class="sp-v2-person"><div class="sp-v2-avatar"></div><div><div class="sp-v2-name">Name Surname</div><div class="sp-v2-title">Title, Location</div></div></div>
+        </div>
+        <div class="sp-v2-card">
+          <div class="sp-v2-stars">★★★★★</div>
+          <div class="sp-v2-quote">"Testimonial 4 — a specific outcome with a number and a timeframe, e.g. saved 12 hours/week within 30 days."</div>
+          <div class="sp-v2-person"><div class="sp-v2-avatar"></div><div><div class="sp-v2-name">Name Surname</div><div class="sp-v2-title">Title, Location</div></div></div>
+        </div>
+      </div>
+
+      <div class="sp-v2-col">
+        <div class="sp-v2-card">
+          <div class="sp-v2-stars">★★★★★</div>
+          <div class="sp-v2-quote">"Testimonial 5 — a specific outcome with a number and a timeframe, e.g. 4x’d leads in 60 days."</div>
+          <div class="sp-v2-person"><div class="sp-v2-avatar"></div><div><div class="sp-v2-name">Name Surname</div><div class="sp-v2-title">Title, Location</div></div></div>
+        </div>
+        <div class="sp-v2-card">
+          <div class="sp-v2-stars">★★★★★</div>
+          <div class="sp-v2-quote">"Testimonial 6 — a specific outcome with a number and a timeframe, e.g. onboarded in under 2 days."</div>
+          <div class="sp-v2-person"><div class="sp-v2-avatar"></div><div><div class="sp-v2-name">Name Surname</div><div class="sp-v2-title">Title, Location</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-v2-brandbar">
+      <div class="sp-v2-logo"></div>
+      <div class="sp-v2-logo"></div>
+      <div class="sp-v2-logo"></div>
+      <div class="sp-v2-logo"></div>
+      <div class="sp-v2-logo"></div>
+    </div>
+
+    <div class="sp-v2-note">Real client photo goes here — swap grey circle for headshot</div>
+  </div>
+</section>
+</body>
+</html>

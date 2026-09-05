@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OFFER POSITIONING — Offer Positioning Variation 7 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* offer · 06g */
+.offer7{
+  background:var(--bg);
+  padding:96px 24px;
+  font-family:var(--font-body);
+  position:relative;
+}
+.offer7 .wrap{
+  max-width:980px;
+  margin:0 auto;
+  position:relative;
+}
+.offer7 .blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--surface);
+  opacity:.6;
+  z-index:0;
+}
+.offer7 .blob1{ width:280px;height:280px; top:-60px; right:-100px;}
+.offer7 .blob2{ width:200px;height:200px; bottom:0; left:-80px;}
+.offer7 .header{
+  text-align:center;
+  max-width:640px;
+  margin:0 auto 48px;
+  position:relative;
+  z-index:1;
+}
+.offer7 .eyebrow{
+  display:inline-block;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--surface);
+  padding:6px 14px;
+  border-radius:999px;
+  margin-bottom:16px;
+}
+.offer7 h2{
+  font-family:var(--font-head);
+  font-size:clamp(28px,4vw,38px);
+  color:var(--text);
+  margin:0 0 12px;
+}
+.offer7 .sub{
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.6;
+  margin:0;
+}
+.offer7 .note{
+  position:absolute;
+  top:-10px;
+  right:-40px;
+  width:150px;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  z-index:2;
+  display:none;
+}
+@media(min-width:900px){ .offer7 .note{ display:block; } }
+
+.offer7 .table-scroll{
+  overflow-x:auto;
+  position:relative;
+  z-index:1;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+}
+.offer7 .row{
+  display:grid;
+  grid-template-columns:50% 25% 25%;
+  min-width:560px;
+  opacity:0;
+  transform:translateY(-8px);
+  animation:offer7fade .5s ease forwards;
+}
+@keyframes offer7fade{ to{ opacity:1; transform:translateY(0);} }
+.offer7 .row:nth-child(1){animation-delay:.0s;}
+.offer7 .row:nth-child(2){animation-delay:.08s;}
+.offer7 .row:nth-child(3){animation-delay:.16s;}
+.offer7 .row:nth-child(4){animation-delay:.24s;}
+.offer7 .row:nth-child(5){animation-delay:.32s;}
+.offer7 .row:nth-child(6){animation-delay:.40s;}
+.offer7 .row:nth-child(7){animation-delay:.48s;}
+.offer7 .row:nth-child(8){animation-delay:.56s;}
+@media(prefers-reduced-motion:reduce){
+  .offer7 .row{ animation:none; opacity:1; transform:none; }
+}
+.offer7 .row > div{
+  padding:16px 18px;
+  font-size:14px;
+  color:var(--text);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.offer7 .row:last-child > div{ border-bottom:none; }
+.offer7 .row.head > div{
+  background:var(--surface);
+  font-weight:700;
+  color:var(--text);
+}
+.offer7 .row:nth-child(odd):not(.head):not(.price) > div{ background:var(--bg); }
+.offer7 .row:nth-child(even):not(.head):not(.price) > div{ background:var(--surface); }
+.offer7 .row.price > div{
+  background:var(--brand);
+  color:var(--brand-contrast);
+  font-weight:700;
+}
+.offer7 .col-us{ font-weight:700; }
+.offer7 .col-others{ color:var(--muted); }
+.offer7 .icon{
+  width:20px;height:20px;
+  border-radius:50%;
+  flex:none;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface);
+}
+.offer7 .row.price .icon{ background:rgba(255,255,255,.2); }
+.offer7 .icon svg{ width:11px;height:11px; }
+
+.offer7 .below{
+  text-align:center;
+  padding-top:48px;
+  position:relative;
+  z-index:1;
+}
+.offer7 h3{
+  font-family:var(--font-head);
+  font-size:clamp(24px,3vw,30px);
+  color:var(--text);
+  margin:0 0 12px;
+  font-weight:700;
+}
+.offer7 .below .sub{ max-width:520px; margin:0 auto 24px; }
+.offer7 .cta{
+  display:inline-block;
+  background:var(--brand);
+  color:var(--brand-contrast);
+  padding:14px 34px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:15px;
+  text-decoration:none;
+  margin-bottom:16px;
+}
+.offer7 .trust{
+  color:var(--muted);
+  font-size:13px;
+  margin:0;
+}
+</style>
+</head>
+<body>
+<!-- offer · 06g -->
+<section class="offer7">
+  <div class="wrap">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+      <div class="note">See how the comparison table stacks the win column vs. the rest ↴</div>
+    </div>
+
+    <div class="table-scroll">
+      <div class="row head">
+        <div>Feature</div>
+        <div>US</div>
+        <div>Others</div>
+      </div>
+
+      <div class="row">
+        <div>Feature label 1 goes here</div>
+        <div class="col-us"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Included</div>
+        <div class="col-others"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"/></svg></span>Missing</div>
+      </div>
+
+      <div class="row">
+        <div>Feature label 2 goes here</div>
+        <div class="col-us"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Included</div>
+        <div class="col-others"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"/></svg></span>Missing</div>
+      </div>
+
+      <div class="row">
+        <div>Feature label 3 goes here</div>
+        <div class="col-us"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Included</div>
+        <div class="col-others"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"/></svg></span>Limited</div>
+      </div>
+
+      <div class="row">
+        <div>Feature label 4 goes here</div>
+        <div class="col-us"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Included</div>
+        <div class="col-others"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"/></svg></span>Missing</div>
+      </div>
+
+      <div class="row">
+        <div>Feature label 5 goes here</div>
+        <div class="col-us"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Included</div>
+        <div class="col-others"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"/></svg></span>Extra fee</div>
+      </div>
+
+      <div class="row">
+        <div>Feature label 6 goes here</div>
+        <div class="col-us"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Included</div>
+        <div class="col-others"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"/></svg></span>Missing</div>
+      </div>
+
+      <div class="row">
+        <div>Feature label 7 goes here</div>
+        <div class="col-us"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Included</div>
+        <div class="col-others"><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"/></svg></span>Missing</div>
+      </div>
+
+      <div class="row price">
+        <div>Price row label</div>
+        <div><span class="icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="var(--brand-contrast)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Best value price</div>
+        <div>Higher price</div>
+      </div>
+    </div>
+
+    <div class="below">
+      <h3>Closing headline reinforcing the win goes here</h3>
+      <p class="sub">A short and clear supporting sentence that removes any last doubt before the click.</p>
+      <a href="#" class="cta">Primary CTA →</a>
+      <p class="trust">Optional small text (e.g. no credit card required)</p>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ — FAQ Variation 6 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* faq · 11f */
+.faq6 {
+  background: var(--bg);
+  padding: 4rem 1.5rem;
+  position: relative;
+}
+.faq6 .wrap {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq6 .eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  margin-bottom: 1rem;
+}
+.faq6 h2 {
+  font-family: var(--font-head);
+  color: var(--text);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin: 0 0 2.5rem;
+}
+.faq6 details {
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 0;
+}
+.faq6 details[open] {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.2rem 1rem;
+}
+.faq6 summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+.faq6 summary::-webkit-details-marker { display: none; }
+.faq6 .num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: var(--border);
+  min-width: 2.4rem;
+  flex-shrink: 0;
+}
+.faq6 details[open] .num { color: var(--text); }
+.faq6 .q {
+  flex: 1;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 1rem;
+}
+.faq6 .toggle {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 1rem;
+  position: relative;
+}
+.faq6 details[open] .toggle::before { content: "–"; }
+.faq6 details:not([open]) .toggle::before { content: "+"; }
+.faq6 .answer {
+  margin: 0.8rem 0 0 3.4rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  max-width: 560px;
+}
+.faq6 .note {
+  position: absolute;
+  right: -190px;
+  top: 40px;
+  width: 170px;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+}
+.faq6 .note svg { position: absolute; top: -30px; left: 20px; }
+@media (max-width: 900px) {
+  .faq6 .note { display: none; }
+}
+@media (max-width: 480px) {
+  .faq6 .num { font-size: 1.5rem; min-width: 2rem; }
+  .faq6 .answer { margin-left: 0; }
+  .faq6 summary { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+<!-- faq · 11f -->
+<section class="faq6">
+  <div class="wrap">
+    <span class="eyebrow">EYEBROW / TAGLINE</span>
+    <h2>Section Headline Goes Here</h2>
+
+    <div class="note">
+      First answer stays open by default — shows the pattern at a glance.
+      <svg width="60" height="40" viewBox="0 0 60 40"><path d="M55 5 C 30 5, 15 20, 8 35" stroke="var(--border)" stroke-width="1.5" fill="none"/></svg>
+    </div>
+
+    <details open>
+      <summary>
+        <span class="num">01</span>
+        <span class="q">Question 1 goes here</span>
+        <span class="toggle"></span>
+      </summary>
+      <p class="answer">Answer text describing the response in one or two sentences.</p>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="num">02</span>
+        <span class="q">Question 2 goes here</span>
+        <span class="toggle"></span>
+      </summary>
+      <p class="answer">Answer text describing the response in one or two sentences.</p>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="num">03</span>
+        <span class="q">Question 3 goes here</span>
+        <span class="toggle"></span>
+      </summary>
+      <p class="answer">Answer text describing the response in one or two sentences.</p>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="num">04</span>
+        <span class="q">Question 4 goes here</span>
+        <span class="toggle"></span>
+      </summary>
+      <p class="answer">Answer text describing the response in one or two sentences.</p>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="num">05</span>
+        <span class="q">Question 5 goes here</span>
+        <span class="toggle"></span>
+      </summary>
+      <p class="answer">Answer text describing the response in one or two sentences.</p>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="num">06</span>
+        <span class="q">Question 6 goes here</span>
+        <span class="toggle"></span>
+      </summary>
+      <p class="answer">Answer text describing the response in one or two sentences.</p>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="num">07</span>
+        <span class="q">Question 7 goes here</span>
+        <span class="toggle"></span>
+      </summary>
+      <p class="answer">Answer text describing the response in one or two sentences.</p>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="num">08</span>
+        <span class="q">Question 8 goes here</span>
+        <span class="toggle"></span>
+      </summary>
+      <p class="answer">Answer text describing the response in one or two sentences.</p>
+    </details>
+  </div>
+</section>
+</body>
+</html>

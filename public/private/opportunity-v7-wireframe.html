@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OPPORTUNITY VEHICLE — Opportunity Variation 7 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* opportunity · 03g */
+.opp7 {
+  background: var(--surface);
+  padding: 100px 32px;
+  font-family: var(--font-body);
+}
+.opp7__wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+}
+.opp7__blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--border);
+  opacity: 0.25;
+  z-index: 0;
+}
+.opp7__blob--a { width: 260px; height: 260px; top: -60px; right: 10%; }
+.opp7__blob--b { width: 180px; height: 180px; bottom: -40px; left: 5%; }
+
+.opp7__left, .opp7__right { position: relative; z-index: 1; }
+
+.opp7__eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 14px;
+  margin-bottom: 18px;
+}
+.opp7__h2 {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+.opp7__sub {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 46ch;
+  margin: 0 0 40px;
+}
+.opp7__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.opp7__step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.opp7__num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--text);
+  opacity: 0.85;
+  flex-shrink: 0;
+  width: 64px;
+}
+.opp7__step:nth-child(2) .opp7__num { opacity: 0.6; }
+.opp7__step:nth-child(3) .opp7__num { opacity: 0.4; }
+.opp7__step-title {
+  font-weight: 600;
+  color: var(--text);
+  margin: 4px 0 6px;
+  font-size: 17px;
+}
+.opp7__step-body {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 40ch;
+}
+
+.opp7__stats {
+  display: flex;
+  flex-direction: column;
+}
+.opp7__stat {
+  padding: 32px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.opp7__stat:last-child { border-bottom: none; }
+.opp7__stat-num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(48px, 6vw, 72px);
+  color: var(--text);
+  line-height: 1;
+  opacity: 0.85;
+}
+.opp7__stat:nth-child(2) .opp7__stat-num { opacity: 0.6; }
+.opp7__stat:nth-child(3) .opp7__stat-num { opacity: 0.4; }
+.opp7__stat-label {
+  color: var(--muted);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+.opp7__note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  top: -30px;
+  right: 30px;
+  max-width: 160px;
+  text-align: left;
+  z-index: 2;
+}
+.opp7__note svg { position: absolute; top: 20px; left: -40px; }
+
+@media (max-width: 768px) {
+  .opp7__wrap {
+    grid-template-columns: 1fr;
+  }
+  .opp7__stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .opp7__stat {
+    flex: 1 1 30%;
+    border-bottom: none;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .opp7__stat:last-child { border-right: none; }
+  .opp7__note { display: none; }
+}
+
+@media (max-width: 480px) {
+  .opp7 { padding: 60px 20px; }
+  .opp7__stats { flex-direction: column; }
+  .opp7__stat { border-right: none; border-bottom: 1px solid var(--border); text-align: left; }
+}
+</style>
+</head>
+<body>
+<!-- opportunity · 03g -->
+<section class="opp7">
+  <div class="opp7__wrap">
+    <span class="opp7__blob opp7__blob--a"></span>
+    <span class="opp7__blob opp7__blob--b"></span>
+
+    <div class="opp7__note">
+      Walk through the 3 steps clearly — this builds trust before the ask.
+      <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+        <path d="M45 5 C 20 5, 10 25, 15 45" stroke="var(--muted)" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="opp7__left">
+      <span class="opp7__eyebrow">EYEBROW / TAGLINE</span>
+      <h2 class="opp7__h2">Main Headline Goes Here</h2>
+      <p class="opp7__sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+
+      <div class="opp7__steps">
+        <div class="opp7__step">
+          <span class="opp7__num">1</span>
+          <div>
+            <div class="opp7__step-title">Step 1</div>
+            <div class="opp7__step-body">Short benefit here explaining what happens in this step of the process.</div>
+          </div>
+        </div>
+        <div class="opp7__step">
+          <span class="opp7__num">2</span>
+          <div>
+            <div class="opp7__step-title">Step 2</div>
+            <div class="opp7__step-body">Short benefit here explaining what happens in this step of the process.</div>
+          </div>
+        </div>
+        <div class="opp7__step">
+          <span class="opp7__num">3</span>
+          <div>
+            <div class="opp7__step-title">Step 3</div>
+            <div class="opp7__step-body">Short benefit here explaining what happens in this step of the process.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="opp7__right">
+      <div class="opp7__stats">
+        <div class="opp7__stat">
+          <div class="opp7__stat-num">120+</div>
+          <div class="opp7__stat-label">Stat label one</div>
+        </div>
+        <div class="opp7__stat">
+          <div class="opp7__stat-num">98%</div>
+          <div class="opp7__stat-label">Stat label two</div>
+        </div>
+        <div class="opp7__stat">
+          <div class="opp7__stat-num">4.9</div>
+          <div class="opp7__stat-label">Stat label three</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

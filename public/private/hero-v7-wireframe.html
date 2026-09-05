@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HERO — Hero Variation 7 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* hero · 01g */
+.hero7-wire {
+  position: relative;
+  background: var(--bg);
+  overflow: hidden;
+  font-family: var(--font-body);
+  padding: 32px clamp(20px,4vw,64px) 0;
+}
+.hero7-wire .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 0;
+}
+.hero7-wire .blob.b1 { width: 420px; height: 420px; top: -120px; right: 10%; }
+.hero7-wire .blob.b2 { width: 300px; height: 300px; bottom: 60px; right: 25%; }
+
+.hero7-wire .nav {
+  position: relative;
+  z-index: 2;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 15px;
+  padding-bottom: 24px;
+}
+
+.hero7-wire .container {
+  position: relative;
+  z-index: 2;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0,600px) 1fr;
+  align-items: end;
+  gap: 48px;
+  padding-bottom: 60px;
+}
+
+.hero7-wire .left { max-width: 600px; padding-bottom: 20px; }
+
+.hero7-wire .eyebrow {
+  display: inline-block;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+}
+
+.hero7-wire h1 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(32px,5vw,58px);
+  line-height: 1.06;
+  color: var(--text);
+  margin: 0 0 20px;
+}
+.hero7-wire h1 em { color: var(--muted); font-style: italic; }
+
+.hero7-wire .sub {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 480px;
+  margin: 0 0 26px;
+}
+
+.hero7-wire .cta {
+  width: 100%;
+  display: block;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  border: none;
+  border-radius: 12px;
+  padding: 18px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+}
+.hero7-wire .cta.secondary {
+  margin-top: 12px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.hero7-wire .testimonial {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero7-wire .avatars { display: flex; }
+.hero7-wire .avatars span {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--bg);
+  margin-left: -12px;
+}
+.hero7-wire .avatars span:first-child { margin-left: 0; }
+.hero7-wire .t-text p {
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text);
+  margin: 0 0 4px;
+}
+.hero7-wire .t-text span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.hero7-wire .right {
+  position: relative;
+  width: clamp(260px,36vw,440px);
+  justify-self: end;
+}
+.hero7-wire .imgbox {
+  width: 100%;
+  height: clamp(320px,42vw,480px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--muted);
+}
+.hero7-wire .imgbox svg { opacity: .55; }
+.hero7-wire .imgbox span {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.hero7-wire .featured {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 20px clamp(20px,4vw,64px);
+  text-align: center;
+}
+.hero7-wire .featured .label {
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.hero7-wire .logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.hero7-wire .logos i {
+  display: block;
+  width: 90px;
+  height: 28px;
+  background: var(--border);
+  border-radius: 6px;
+  opacity: .7;
+}
+
+.hero7-wire .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  color: var(--muted);
+  font-size: 13px;
+  z-index: 3;
+  max-width: 160px;
+  line-height: 1.3;
+}
+.hero7-wire .note.n1 { top: 260px; left: 4%; }
+.hero7-wire .note.n2 { top: 40px; right: 6%; text-align: right; }
+
+@media (max-width: 768px) {
+  .hero7-wire .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero7-wire .left { max-width: 100%; }
+  .hero7-wire .sub { margin-left: auto; margin-right: auto; }
+  .hero7-wire .testimonial { justify-content: center; }
+  .hero7-wire .right { justify-self: center; margin-top: 20px; }
+  .hero7-wire .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- hero · 01g -->
+<section class="hero7-wire">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+
+  <div class="nav">Logo</div>
+
+  <div class="note n1">
+    Primary action — make this the loudest element on the page ↴
+    <svg width="50" height="40"><path d="M5,5 C20,30 30,30 45,20" stroke="#999" fill="none" stroke-width="1.5"/></svg>
+  </div>
+  <div class="note n2">
+    Show your product, hero photo, or person here
+    <svg width="50" height="40"><path d="M45,5 C30,30 20,30 5,20" stroke="#999" fill="none" stroke-width="1.5"/></svg>
+  </div>
+
+  <div class="container">
+    <div class="left">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h1>Main Headline Goes Here <em>With Highlight Phrase</em></h1>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+      <button class="cta">Primary CTA →</button>
+      <div class="testimonial">
+        <div class="avatars"><span></span></div>
+        <div class="t-text">
+          <p>Short testimonial or social proof.</p>
+          <span>Name, Title</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="imgbox">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <rect x="4" y="4" width="40" height="40" rx="6" stroke="#9a9a9a" stroke-width="2"/>
+          <circle cx="17" cy="17" r="4" stroke="#9a9a9a" stroke-width="2"/>
+          <path d="M6 34 L18 22 L28 32 L34 26 L42 34" stroke="#9a9a9a" stroke-width="2" fill="none"/>
+        </svg>
+        <span>Person / Hero Image Preview</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured">
+    <div class="label">Trusted by 1,000+ business owners</div>
+    <div class="logos">
+      <i></i><i></i><i></i><i></i><i></i>
+    </div>
+  </div>
+</section>
+</body>
+</html>

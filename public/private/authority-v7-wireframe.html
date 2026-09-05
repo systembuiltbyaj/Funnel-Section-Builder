@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AUTHORITY — Authority Variation 7 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* authority · 09g */
+.authority-v7 {
+  background: var(--bg);
+  padding: 4rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.authority-v7 .wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  min-height: 500px;
+  position: relative;
+}
+.authority-v7 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--border);
+  opacity: 0.25;
+  z-index: 0;
+}
+.authority-v7 .blob1 { width: 280px; height: 280px; top: -60px; left: -80px; }
+.authority-v7 .blob2 { width: 200px; height: 200px; bottom: -40px; right: 10%; }
+
+.authority-v7 .photo-col {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  min-height: 500px;
+  display: flex;
+  align-items: flex-end;
+  z-index: 1;
+}
+.authority-v7 .photo-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--muted);
+}
+.authority-v7 .photo-placeholder svg { opacity: 0.5; }
+.authority-v7 .photo-placeholder span {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.authority-v7 .caption-bar {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(255,255,255,0.85);
+  border-top: 1px solid var(--border);
+  padding: 1rem 1.25rem;
+}
+.authority-v7 .caption-bar .name {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1rem;
+}
+.authority-v7 .caption-bar .title {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 0.15rem;
+}
+
+.authority-v7 .content-col {
+  border-left: 2px solid var(--brand);
+  padding-left: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 1;
+}
+.authority-v7 .eyebrow {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+.authority-v7 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text);
+  line-height: 1.25;
+  margin: 0;
+}
+.authority-v7 h2 .accent {
+  color: var(--brand);
+  font-weight: 700;
+}
+.authority-v7 p.epiphany {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 42ch;
+}
+.authority-v7 .credentials {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.authority-v7 .credentials li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.authority-v7 .check-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.authority-v7 .cta {
+  align-self: flex-start;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.authority-v7 .note {
+  position: absolute;
+  font-family: 'Segoe Script', 'Bradley Hand', cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 150px;
+  line-height: 1.3;
+  z-index: 2;
+}
+.authority-v7 .note-photo { top: 8px; right: -30px; text-align: left; display: none; }
+.authority-v7 .note-cta { bottom: -10px; right: -10px; text-align: left; }
+
+@media (min-width: 900px) {
+  .authority-v7 .note-photo { display: block; }
+}
+
+@media (max-width: 768px) {
+  .authority-v7 .wrap {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .authority-v7 .photo-col {
+    min-height: auto;
+    aspect-ratio: 16/9;
+  }
+  .authority-v7 .content-col {
+    border-left: none;
+    border-top: 2px solid var(--brand);
+    padding-left: 0;
+    padding-top: 1.5rem;
+  }
+  .authority-v7 .note { display: none !important; }
+}
+</style>
+</head>
+<body>
+<!-- authority · 09g -->
+<section class="authority-v7">
+  <div class="wrap">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+
+    <div class="photo-col">
+      <div class="photo-placeholder">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <rect x="4" y="4" width="48" height="48" rx="8" stroke="currentColor" stroke-width="2"/>
+          <circle cx="21" cy="22" r="6" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 44 L22 28 L32 38 L40 30 L50 44" stroke="currentColor" stroke-width="2" fill="none"/>
+        </svg>
+        <span>PHOTO — COACH, TALL EDITORIAL CROP</span>
+      </div>
+      <div class="caption-bar">
+        <div class="name">Coach Name Here</div>
+        <div class="title">Title / Credential Line</div>
+      </div>
+    </div>
+
+    <div class="content-col">
+      <span class="eyebrow">MEET YOUR COACH</span>
+      <h2>From Struggling to Thriving — <span class="accent">The Turning Point</span> That Changed Everything</h2>
+      <p class="epiphany">A short paragraph describing the moment of realization that led the coach to their method — 2-3 sentences establishing credibility and empathy.</p>
+      <ul class="credentials">
+        <li>
+          <span class="check-circle">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="var(--muted)" stroke-width="2" fill="none"/></svg>
+          </span>
+          Credential 1 — short qualifying statement
+        </li>
+        <li>
+          <span class="check-circle">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="var(--muted)" stroke-width="2" fill="none"/></svg>
+          </span>
+          Credential 2 — short qualifying statement
+        </li>
+        <li>
+          <span class="check-circle">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="var(--muted)" stroke-width="2" fill="none"/></svg>
+          </span>
+          Credential 3 — short qualifying statement
+        </li>
+        <li>
+          <span class="check-circle">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="var(--muted)" stroke-width="2" fill="none"/></svg>
+          </span>
+          Credential 4 — short qualifying statement
+        </li>
+      </ul>
+      <button class="cta">Primary CTA →</button>
+      <div class="note note-cta">↳ Anchor CTA to the epiphany moment</div>
+    </div>
+
+    <div class="note note-photo">Full-height coach photo,<br>bottom caption bar</div>
+  </div>
+</section>
+</body>
+</html>

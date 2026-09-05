@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FOOTER — Footer Variation 3 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* footer · 12c */
+.footer-var3 {
+  position: relative;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 4rem 1.5rem 0;
+  font-family: var(--font-body);
+  color: var(--text);
+  overflow: hidden;
+}
+
+.footer-var3 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .5;
+  z-index: 0;
+}
+.footer-var3 .blob1 { width: 320px; height: 320px; top: -80px; right: -100px; }
+.footer-var3 .blob2 { width: 220px; height: 220px; bottom: 100px; left: -80px; }
+
+/* CTA block */
+.footer-var3 .cta-block {
+  position: relative;
+  z-index: 1;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 3rem;
+}
+.footer-var3 .eyebrow {
+  display: inline-block;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .35rem .9rem;
+  border-radius: 999px;
+}
+.footer-var3 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  margin: 0;
+}
+.footer-var3 .cta-btn {
+  background: var(--brand);
+  color: var(--brand-contrast);
+  border: none;
+  border-radius: var(--radius);
+  padding: 1rem 2.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.footer-var3 .cta-micro {
+  color: var(--muted);
+  font-size: .85rem;
+  margin: 0;
+}
+.footer-var3 .trust {
+  color: var(--muted);
+  font-size: .85rem;
+  margin-top: .5rem;
+}
+
+/* Footer columns */
+.footer-var3 .foot-cols {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  gap: 2rem;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.footer-var3 .foot-col h4 {
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin: 0 0 .9rem;
+}
+.footer-var3 .foot-col a,
+.footer-var3 .foot-col p {
+  display: block;
+  color: var(--text);
+  font-size: .9rem;
+  text-decoration: none;
+  margin-bottom: .55rem;
+}
+.footer-var3 .foot-col a:hover { text-decoration: underline; }
+
+.footer-var3 .logo-box {
+  width: 110px;
+  height: 32px;
+  background: var(--surface);
+  border-radius: 6px;
+  margin-bottom: .75rem;
+}
+.footer-var3 .tagline { color: var(--muted); font-size: .85rem; }
+
+.footer-var3 .social-row { display: flex; gap: .6rem; margin-top: .75rem; }
+.footer-var3 .social-circ {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* bottom bar */
+.footer-var3 .bottom-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.footer-var3 .bottom-bar a {
+  color: var(--muted);
+  font-size: .8rem;
+  text-decoration: none;
+}
+.footer-var3 .bottom-bar a:hover { text-decoration: underline; }
+.footer-var3 .copyright { color: var(--muted); font-size: .8rem; width: 100%; text-align: center; margin-top: .5rem; }
+
+.footer-var3 .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 150px;
+  z-index: 2;
+}
+.footer-var3 .note1 { top: 10px; right: 0; text-align: right; }
+
+@media (max-width: 768px) {
+  .footer-var3 .cta-btn { width: 100%; }
+  .footer-var3 .foot-cols { grid-template-columns: 1fr 1fr; }
+  .footer-var3 .bottom-bar { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<!-- footer · 12c -->
+<section class="footer-var3">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <div class="note note1">
+    Big pulse CTA — min 300px tall, keep it centered
+    <svg width="60" height="40" viewBox="0 0 60 40" style="overflow:visible">
+      <path d="M50 5 C 30 5, 15 20, 5 30" stroke="#a3a3a3" stroke-width="1.5" fill="none" marker-end="url(#arrow3)"/>
+      <defs><marker id="arrow3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#a3a3a3"/></marker></defs>
+    </svg>
+  </div>
+
+  <div class="cta-block">
+    <span class="eyebrow">EYEBROW / TAGLINE</span>
+    <h2>Main Headline Goes Here</h2>
+    <button class="cta-btn">Primary CTA →</button>
+    <p class="cta-micro">Optional small text (e.g. no credit card required)</p>
+    <p class="trust">Trusted by 1,000+ business owners</p>
+  </div>
+
+  <div class="foot-cols">
+    <div class="foot-col">
+      <div class="logo-box"></div>
+      <p class="tagline">A short and clear value proposition that explains your offer.</p>
+      <div class="social-row">
+        <div class="social-circ">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <div class="social-circ">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="4"/></svg>
+        </div>
+        <div class="social-circ">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="2"><path d="M4 4 L20 20 M20 4 L4 20"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-col">
+      <h4>Program</h4>
+      <a href="#">Program link 1</a>
+      <a href="#">Program link 2</a>
+      <a href="#">Program link 3</a>
+      <a href="#">Program link 4</a>
+    </div>
+
+    <div class="foot-col">
+      <h4>Support</h4>
+      <a href="#">Support link 1</a>
+      <a href="#">Support link 2</a>
+      <a href="#">Support link 3</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <div class="foot-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Disclaimer</a>
+      <a href="#">Cookie Policy</a>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Disclaimer</a>
+    <a href="#">Contact</a>
+    <span class="copyright">© 2024 Company Name. All rights reserved.</span>
+  </div>
+</section>
+</body>
+</html>

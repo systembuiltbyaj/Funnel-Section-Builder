@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HERO — Hero Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* hero · 01e */
+.hero-wf5{
+  position:relative;
+  background:var(--bg);
+  overflow:hidden;
+  font-family:var(--font-body);
+}
+.hero-wf5 .nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:20px 32px;
+  animation:wf5fadeTop .5s ease both;
+}
+.hero-wf5 .nav-logo{display:flex;align-items:center;gap:8px;font-weight:700;text-transform:uppercase;font-size:13px;color:var(--text);}
+.hero-wf5 .nav-mark{width:16px;height:16px;background:var(--muted);border-radius:3px;}
+.hero-wf5 .nav-links{display:flex;gap:24px;font-size:13px;color:var(--muted);}
+.hero-wf5 .nav-social{display:flex;gap:8px;}
+.hero-wf5 .nav-social span{width:26px;height:26px;border:1px solid var(--border);border-radius:50%;}
+.hero-wf5 .hamburger{display:none;flex-direction:column;gap:4px;}
+.hero-wf5 .hamburger span{width:20px;height:2px;background:var(--text);}
+
+.hero-wf5 .wrap{
+  position:relative;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:40px 32px 80px;
+  display:grid;
+  grid-template-columns:minmax(0,560px) auto;
+  align-items:center;
+  gap:48px;
+  min-height:70vh;
+}
+.hero-wf5 .blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--surface);
+  opacity:.6;
+  z-index:0;
+}
+.hero-wf5 .blob1{width:340px;height:340px;top:-60px;right:120px;}
+.hero-wf5 .blob2{width:220px;height:220px;bottom:0;right:400px;opacity:.4;}
+
+.hero-wf5 .left{position:relative;z-index:1;}
+.hero-wf5 .eyebrow{
+  display:inline-block;
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.25em;
+  color:var(--muted);
+  background:var(--surface);
+  border-radius:20px;
+  padding:6px 14px;
+  margin-bottom:22px;
+  animation:wf5fadeUp .5s .1s ease both;
+}
+.hero-wf5 h1{
+  font-family:var(--font-head);
+  font-size:clamp(38px,5.5vw,68px);
+  line-height:1.08;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin:0 0 20px;
+}
+.hero-wf5 h1 span{display:block;animation:wf5fadeUp .5s ease both;}
+.hero-wf5 h1 span:nth-child(1){animation-delay:.2s;}
+.hero-wf5 h1 span:nth-child(2){animation-delay:.3s;font-style:italic;color:var(--muted);}
+.hero-wf5 h1 span:nth-child(3){animation-delay:.4s;}
+
+.hero-wf5 p.sub{
+  font-size:clamp(14px,1.1vw,16px);
+  line-height:1.7;
+  color:var(--muted);
+  max-width:420px;
+  margin:0 0 30px;
+  animation:wf5fadeUp .5s .5s ease both;
+}
+.hero-wf5 .btns{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  animation:wf5fadeUp .5s .6s ease both;
+}
+.hero-wf5 .btn{
+  padding:15px 28px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:700;
+  cursor:default;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--border);
+}
+.hero-wf5 .btn-primary{background:var(--brand);color:var(--brand-contrast);border:none;}
+.hero-wf5 .btn-secondary{background:transparent;color:var(--text);}
+
+.hero-wf5 .right{
+  position:relative;
+  z-index:1;
+  display:flex;
+  justify-content:center;
+  animation:wf5fadeRight .6s .3s ease both;
+}
+.hero-wf5 .frame{
+  width:clamp(300px,38vw,440px);
+  aspect-ratio:3/4;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  position:relative;
+}
+.hero-wf5 .frame::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:50px;
+  background:linear-gradient(to bottom, transparent, var(--bg));
+  border-radius:0 0 var(--radius) var(--radius);
+}
+.hero-wf5 .frame svg{width:52px;height:52px;color:var(--muted);}
+.hero-wf5 .frame .cap{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--muted);
+}
+
+.hero-wf5 .note{
+  position:absolute;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  z-index:2;
+}
+.hero-wf5 .note1{top:10px;right:40px;text-align:right;}
+.hero-wf5 .note svg{width:60px;height:40px;}
+
+@keyframes wf5fadeTop{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:none;}}
+@keyframes wf5fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@keyframes wf5fadeRight{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:none;}}
+
+@media (max-width:768px){
+  .hero-wf5 .nav-links,.hero-wf5 .nav-social{display:none;}
+  .hero-wf5 .hamburger{display:flex;}
+  .hero-wf5 .wrap{grid-template-columns:1fr;padding-top:20px;}
+  .hero-wf5 .right{order:-1;margin-bottom:24px;}
+  .hero-wf5 .frame{width:min(300px,80vw);aspect-ratio:4/3;}
+  .hero-wf5 .left{text-align:center;}
+  .hero-wf5 p.sub{margin-left:auto;margin-right:auto;}
+  .hero-wf5 .btns{flex-direction:column;}
+  .hero-wf5 .btn{width:100%;justify-content:center;}
+  .hero-wf5 .note{display:none;}
+}
+</style>
+</head>
+<body>
+<!-- hero · 01e -->
+<section class="hero-wf5">
+  <nav class="nav">
+    <div class="nav-logo"><span class="nav-mark"></span> LOGO TEXT</div>
+    <div class="nav-links">
+      <span>Home</span><span>Features</span><span>Pricing</span><span>Contact</span>
+    </div>
+    <div class="nav-social"><span></span><span></span><span></span></div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="wrap">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+
+    <div class="note note1">
+      Person / hero image sits here, right column
+      <svg viewBox="0 0 60 40"><path d="M55 5 C30 5, 20 30, 5 32" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--muted)"/></marker></defs></svg>
+    </div>
+
+    <div class="left">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h1>
+        <span>Main Headline</span>
+        <span>Goes Right Here</span>
+        <span>Third Line Text</span>
+      </h1>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+      <div class="btns">
+        <span class="btn btn-primary">Primary CTA →</span>
+        <span class="btn btn-secondary">Secondary CTA</span>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="frame">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="6" y="6" width="52" height="52" rx="8"/>
+          <circle cx="22" cy="24" r="6"/>
+          <path d="M10 48 L26 32 L38 42 L54 24 L58 48 Z"/>
+        </svg>
+        <div class="cap">PERSON / HERO IMAGE</div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

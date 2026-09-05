@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMPATHY — Empathy Variation 1 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* empathy · 02a */
+.empathy-v1 {
+  position: relative;
+  background: var(--bg);
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+  padding: 96px 24px;
+}
+.empathy-v1 .ev1-wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  position: relative;
+}
+.empathy-v1 .ev1-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 56px;
+}
+.empathy-v1 .ev1-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-bottom: 18px;
+}
+.empathy-v1 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: var(--text);
+  margin: 0 0 14px;
+}
+.empathy-v1 .ev1-sub {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+.empathy-v1 .ev1-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.empathy-v1 .ev1-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: ev1fade 0.6s ease forwards;
+}
+.empathy-v1 .ev1-card:nth-child(1) { animation-delay: 0s; }
+.empathy-v1 .ev1-card:nth-child(2) { animation-delay: 0.15s; }
+.empathy-v1 .ev1-card:nth-child(3) { animation-delay: 0.3s; }
+@keyframes ev1fade {
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .empathy-v1 .ev1-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+.empathy-v1 .ev1-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.empathy-v1 .ev1-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--muted);
+  fill: none;
+  stroke-width: 1.6;
+}
+.empathy-v1 .ev1-card h3 {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  color: var(--text);
+  margin: 0 0 10px;
+}
+.empathy-v1 .ev1-card p {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+.empathy-v1 .ev1-note {
+  position: absolute;
+  top: -34px;
+  right: 0;
+  max-width: 180px;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: right;
+}
+.empathy-v1 .ev1-note svg {
+  display: block;
+  margin-left: auto;
+  width: 60px;
+  height: 40px;
+  stroke: var(--muted);
+  fill: none;
+  stroke-width: 1.4;
+}
+@media (max-width: 768px) {
+  .empathy-v1 { padding: 48px 18px; }
+  .empathy-v1 .ev1-grid { grid-template-columns: 1fr; }
+  .empathy-v1 .ev1-note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- empathy · 02a -->
+<section class="empathy-v1">
+  <div class="ev1-wrap">
+    <div class="ev1-note">
+      Name the real cost of inaction here.
+      <svg viewBox="0 0 60 40"><path d="M2 2 C 30 2, 40 20, 55 34" marker-end="url(#none)"/></svg>
+    </div>
+    <div class="ev1-header">
+      <span class="ev1-eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="ev1-sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+    <div class="ev1-grid">
+      <div class="ev1-card">
+        <div class="ev1-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2 L2 21 h20 Z" /><line x1="12" y1="9" x2="12" y2="14"/><circle cx="12" cy="17" r="0.6" fill="var(--muted)"/></svg>
+        </div>
+        <h3>Feature 1 — The Stakes</h3>
+        <p>A short and clear sentence describing the risk or cost of not solving this problem.</p>
+      </div>
+      <div class="ev1-card">
+        <div class="ev1-icon">
+          <svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 20c0-3 3-5 6-5s6 2 6 5"/><path d="M12 20c0-3 3-5 6-5s4 1 4 3"/></svg>
+        </div>
+        <h3>Feature 2 — The Connection</h3>
+        <p>A short and clear sentence showing you understand what the reader is going through.</p>
+      </div>
+      <div class="ev1-card">
+        <div class="ev1-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12 L9 6 L14 11 L21 4"/><path d="M15 4 h6 v6"/></svg>
+        </div>
+        <h3>Feature 3 — The Way Out</h3>
+        <p>A short and clear sentence describing the path forward and the relief it brings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

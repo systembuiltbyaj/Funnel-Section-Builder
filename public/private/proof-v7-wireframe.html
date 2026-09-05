@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SOCIAL PROOF — Social Proof Variation 7 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* social · 07g */
+.sp7-wrap{
+  box-sizing:border-box;
+  overflow-x:hidden;
+  background:#fafafa;
+  padding:96px 24px 64px;
+  font-family:var(--font-body);
+  position:relative;
+}
+.sp7-container{
+  max-width:1140px;
+  margin:0 auto;
+  position:relative;
+}
+.sp7-blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--border);
+  opacity:.25;
+  z-index:0;
+}
+.sp7-blob.b1{width:280px;height:280px;top:-60px;left:-100px;}
+.sp7-blob.b2{width:220px;height:220px;bottom:20px;right:-80px;}
+
+.sp7-header{
+  text-align:center;
+  max-width:640px;
+  margin:0 auto 40px;
+  position:relative;
+  z-index:1;
+}
+.sp7-eyebrow{
+  display:inline-block;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:4px 14px;
+  margin-bottom:16px;
+}
+.sp7-aggregate{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+.sp7-stars{
+  color:var(--text);
+  letter-spacing:2px;
+  margin-right:6px;
+}
+.sp7-h2{
+  font-family:var(--font-head);
+  font-size:clamp(24px,4vw,34px);
+  color:var(--text);
+  margin:0 0 12px;
+}
+.sp7-sub{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.5;
+  margin:0;
+}
+
+.sp7-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+  position:relative;
+  z-index:1;
+}
+@media (max-width:768px){
+  .sp7-grid{grid-template-columns:1fr;}
+}
+
+.sp7-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:24px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.04);
+  transition:transform .3s ease, box-shadow .3s ease;
+  opacity:0;
+  transform:translateY(24px);
+}
+.sp7-card.sp7-visible{
+  opacity:1;
+  transform:translateY(0);
+  transition:opacity .5s ease, transform .5s ease, box-shadow .3s ease;
+}
+.sp7-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 24px rgba(0,0,0,0.08);
+}
+.sp7-card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+.sp7-badge{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--text);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:4px 10px;
+  transition:box-shadow .3s ease;
+}
+.sp7-card:hover .sp7-badge{
+  box-shadow:0 0 0 3px var(--border);
+}
+.sp7-quote{
+  font-style:italic;
+  color:var(--text);
+  font-size:14.5px;
+  line-height:1.55;
+  margin:0 0 18px;
+}
+.sp7-person{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.sp7-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:var(--surface);
+  border:1px solid var(--border);
+  flex:none;
+}
+.sp7-name{
+  font-size:13.5px;
+  color:var(--text);
+  font-weight:600;
+}
+.sp7-title{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.sp7-brandbar{
+  margin-top:56px;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.sp7-brandlabel{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+.sp7-logos{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:32px;
+  flex-wrap:wrap;
+}
+.sp7-logo{
+  width:100px;
+  height:28px;
+  background:var(--border);
+  border-radius:6px;
+  opacity:.6;
+}
+.sp7-logo:nth-child(2n){opacity:.4;}
+.sp7-logo:nth-child(3n){opacity:.7;}
+
+.sp7-note{
+  position:absolute;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  z-index:2;
+  top:-8px;
+  right:0;
+  text-align:left;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .sp7-card{opacity:1;transform:none;transition:none;}
+}
+</style>
+</head>
+<body>
+<!-- social · 07g -->
+<section class="sp7-wrap">
+  <div class="sp7-container">
+    <div class="sp7-blob b1"></div>
+    <div class="sp7-blob b2"></div>
+
+    <div class="sp7-note" style="top:0;right:-6px;">
+      Real photos + real numbers here
+      <svg width="60" height="40" viewBox="0 0 60 40" style="overflow:visible;">
+        <path d="M50 4 C 20 4, 10 24, 4 34" stroke="var(--muted)" stroke-width="1.2" fill="none" marker-end="url(#arrow7)"/>
+        <defs>
+          <marker id="arrow7" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="var(--muted)"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <header class="sp7-header">
+      <span class="sp7-eyebrow">EYEBROW / TAGLINE</span>
+      <div class="sp7-aggregate"><span class="sp7-stars">★★★★★</span>4.9/5 across 1,240 reviews · 96% success rate</div>
+      <h2 class="sp7-h2">Section Headline Goes Here</h2>
+      <p class="sp7-sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </header>
+
+    <div class="sp7-grid">
+      <div class="sp7-card">
+        <div class="sp7-card-head">
+          <span class="sp7-stars">★★★★★</span>
+          <span class="sp7-badge">+38% revenue</span>
+        </div>
+        <p class="sp7-quote">"Testimonial 1 — grew revenue by 38% in 90 days after switching over, results showed within the first month."</p>
+        <div class="sp7-person">
+          <div class="sp7-avatar"></div>
+          <div>
+            <div class="sp7-name">Name Surname</div>
+            <div class="sp7-title">Title, Company / City</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp7-card">
+        <div class="sp7-card-head">
+          <span class="sp7-stars">★★★★★</span>
+          <span class="sp7-badge">3x faster</span>
+        </div>
+        <p class="sp7-quote">"Testimonial 2 — cut our turnaround time from 3 weeks to 5 days, a 3x improvement across the whole team."</p>
+        <div class="sp7-person">
+          <div class="sp7-avatar"></div>
+          <div>
+            <div class="sp7-name">Name Surname</div>
+            <div class="sp7-title">Title, Company / City</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp7-card">
+        <div class="sp7-card-head">
+          <span class="sp7-stars">★★★★★</span>
+          <span class="sp7-badge">-42% costs</span>
+        </div>
+        <p class="sp7-quote">"Testimonial 3 — reduced monthly operating costs by 42% within the first quarter of onboarding."</p>
+        <div class="sp7-person">
+          <div class="sp7-avatar"></div>
+          <div>
+            <div class="sp7-name">Name Surname</div>
+            <div class="sp7-title">Title, Company / City</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp7-card">
+        <div class="sp7-card-head">
+          <span class="sp7-stars">★★★★★</span>
+          <span class="sp7-badge">+12k users</span>
+        </div>
+        <p class="sp7-quote">"Testimonial 4 — onboarded 12,000 new users in 60 days with zero increase in support tickets."</p>
+        <div class="sp7-person">
+          <div class="sp7-avatar"></div>
+          <div>
+            <div class="sp7-name">Name Surname</div>
+            <div class="sp7-title">Title, Company / City</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp7-brandbar">
+      <div class="sp7-brandlabel">Trusted by 1,000+ business owners</div>
+      <div class="sp7-logos">
+        <div class="sp7-logo"></div>
+        <div class="sp7-logo"></div>
+        <div class="sp7-logo"></div>
+        <div class="sp7-logo"></div>
+        <div class="sp7-logo"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var cards = document.querySelectorAll('.sp7-wrap .sp7-card');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    cards.forEach(function(c){c.classList.add('sp7-visible');});
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var i = Array.prototype.indexOf.call(cards, entry.target);
+        setTimeout(function(){entry.target.classList.add('sp7-visible');}, i*120);
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.2});
+  cards.forEach(function(c){io.observe(c);});
+})();
+</script>
+</body>
+</html>

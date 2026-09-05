@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP — USP Variation 9 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* usp · 05i */
+.usp9 {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 100px 24px;
+  position: relative;
+}
+.usp9 .head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 56px;
+}
+.usp9 .eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 18px;
+}
+.usp9 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text);
+  margin: 0 0 14px;
+}
+.usp9 .sub {
+  font-family: var(--font-sub);
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+.usp9 .wrap {
+  position: relative;
+}
+.usp9 .note {
+  position: absolute;
+  top: -46px;
+  right: 12px;
+  width: 170px;
+  font-family: 'Segoe Script', 'Bradley Hand', cursive;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: left;
+  line-height: 1.3;
+}
+.usp9 .note svg { position: absolute; left: -34px; top: 20px; }
+.usp9 .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  position: relative;
+}
+.usp9 .cards::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  height: 0;
+  border-top: 1px dashed var(--border);
+  z-index: 0;
+}
+.usp9 .card {
+  position: relative;
+  z-index: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--muted);
+  border-radius: 16px;
+  padding: 32px 28px;
+}
+.usp9 .card:nth-child(1) { margin-top: 0; }
+.usp9 .card:nth-child(2) { margin-top: 32px; }
+.usp9 .card:nth-child(3) { margin-top: 64px; }
+.usp9 .icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.usp9 .icon svg { width: 22px; height: 22px; }
+.usp9 .card h3 {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 10px;
+}
+.usp9 .card p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+.usp9 .stat {
+  display: inline-block;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+@media (max-width: 768px) {
+  .usp9 .cards { grid-template-columns: 1fr; }
+  .usp9 .card:nth-child(1),
+  .usp9 .card:nth-child(2),
+  .usp9 .card:nth-child(3) { margin-top: 0; }
+  .usp9 .cards::before { display: none; }
+  .usp9 .note { position: static; width: auto; margin-bottom: 24px; }
+  .usp9 .note svg { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- usp · 05i -->
+<section class="usp9">
+  <div class="head">
+    <span class="eyebrow">EYEBROW / TAGLINE</span>
+    <h2>Section Headline Goes Here</h2>
+    <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="note">
+      Cascading cards draw the eye left to right
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <path d="M35 5 C20 5 10 20 5 35" stroke="#8a8a8d" stroke-width="1.2" fill="none"/>
+        <path d="M5 35 L9 29 M5 35 L11 37" stroke="#8a8a8d" stroke-width="1.2"/>
+      </svg>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="1.6">
+            <path d="M13 2 3 14h7l-1 8 11-14h-7l1-6Z" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Feature 1</h3>
+        <p>Short benefit here explaining the value of this particular advantage in one or two lines.</p>
+        <span class="stat">Stat / metric</span>
+      </div>
+
+      <div class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="1.6">
+            <path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7l-9-5Z" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Feature 2</h3>
+        <p>Short benefit here explaining the value of this particular advantage in one or two lines.</p>
+        <span class="stat">Stat / metric</span>
+      </div>
+
+      <div class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="1.6">
+            <path d="M4 19V10M11 19V4M18 19v-7" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Feature 3</h3>
+        <p>Short benefit here explaining the value of this particular advantage in one or two lines.</p>
+        <span class="stat">Stat / metric</span>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

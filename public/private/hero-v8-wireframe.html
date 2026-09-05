@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HERO — Hero Variation 8 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* hero · 01h */
+.hero8-wf {
+  position: relative;
+  background: var(--bg);
+  overflow: hidden;
+  padding: 32px 5vw 0;
+  font-family: var(--font-body);
+}
+.hero8-wf .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: 0.6;
+  z-index: 0;
+}
+.hero8-wf .blob1 { width: 420px; height: 420px; top: -120px; right: -100px; }
+.hero8-wf .blob2 { width: 280px; height: 280px; bottom: 40px; left: -80px; }
+
+.hero8-wf .nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.hero8-wf .logo {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text);
+  line-height: 1.1;
+}
+.hero8-wf .logo span:last-child { color: var(--muted); font-size: 14px; }
+.hero8-wf .navlinks {
+  display: flex;
+  gap: 24px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero8-wf .container {
+  position: relative;
+  z-index: 2;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  align-items: end;
+  gap: 48px;
+  padding: 48px 0 60px;
+}
+
+.hero8-wf .eyebrow {
+  display: inline-block;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.hero8-wf .headline {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--text);
+  font-size: clamp(32px, 5.5vw, 60px);
+  line-height: 1.05;
+  margin: 0 0 20px;
+}
+.hero8-wf .headline .accent { color: var(--muted); }
+
+.hero8-wf .subhead {
+  color: var(--muted);
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.55;
+  max-width 480px;
+  max-width: 460px;
+  margin-bottom: 28px;
+}
+
+.hero8-wf .ctas { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+.hero8-wf .btn {
+  border-radius: 999px;
+  padding: 15px 30px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.hero8-wf .btn-primary { background: var(--brand); color: var(--brand-contrast); }
+.hero8-wf .btn-secondary { border: 1px solid var(--border); color: var(--text); background: transparent; }
+
+.hero8-wf .testimonial {
+  border-left: 3px solid var(--border);
+  padding-left: 16px;
+  max-width: 420px;
+}
+.hero8-wf .testimonial p {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
+.hero8-wf .testimonial .name { font-weight: 700; color: var(--text); font-size: 13px; }
+.hero8-wf .testimonial .title { color: var(--muted); font-size: 11.5px; }
+
+.hero8-wf .media {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+}
+.hero8-wf .media svg { opacity: 0.5; }
+.hero8-wf .media .cap {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+
+.hero8-wf .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  z-index: 3;
+  max-width: 160px;
+}
+.hero8-wf .note1 { top: 60px; right: 40px; text-align: left; }
+
+.hero8-wf .featured {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 22px 5vw;
+  text-align: center;
+}
+.hero8-wf .featured .label {
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.hero8-wf .logos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.hero8-wf .logo-box {
+  width: 100px;
+  height: 28px;
+  background: var(--border);
+  border-radius: 6px;
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .hero8-wf .container { grid-template-columns: 1fr; }
+  .hero8-wf .media { order: -1; }
+  .hero8-wf .navlinks { display: none; }
+  .hero8-wf .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- hero · 01h -->
+<section class="hero8-wf">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <nav class="nav">
+    <div class="logo">
+      <span>LOGO LINE ONE</span>
+      <span>Line Two</span>
+    </div>
+    <div class="navlinks">
+      <span>About</span>
+      <span>Schedule</span>
+      <span>Contact</span>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="note note1">
+      → Show speaker or hero photo here, bottom-anchored
+      <svg width="60" height="40"><path d="M5 5 C 30 5, 40 30, 55 32" stroke="#999" fill="none" stroke-width="1.5"/></svg>
+    </div>
+
+    <div>
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h1 class="headline">Main Headline<br>Goes Right Here<br><span class="accent">Third Line Accent</span></h1>
+      <p class="subhead">A short and clear value proposition that explains your offer and the main benefit to the visitor.</p>
+      <div class="ctas">
+        <div class="btn btn-primary">Primary CTA →</div>
+        <div class="btn btn-secondary">Secondary CTA</div>
+      </div>
+      <div class="testimonial">
+        <p>"Short testimonial or social proof quote goes here for credibility."</p>
+        <div class="name">Full Name</div>
+        <div class="title">Title, Company</div>
+      </div>
+    </div>
+
+    <div class="media">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <rect x="4" y="4" width="48" height="48" rx="8" stroke="#9a9a9a" stroke-width="2"/>
+        <circle cx="20" cy="20" r="6" stroke="#9a9a9a" stroke-width="2"/>
+        <path d="M8 42 L22 26 L32 36 L40 28 L50 42" stroke="#9a9a9a" stroke-width="2" fill="none"/>
+      </svg>
+      <div class="cap">PERSON / HERO IMAGE PLACEHOLDER</div>
+    </div>
+  </div>
+
+  <div class="featured">
+    <div class="label">Featured In</div>
+    <div class="logos">
+      <div class="logo-box"></div>
+      <div class="logo-box"></div>
+      <div class="logo-box"></div>
+      <div class="logo-box"></div>
+      <div class="logo-box"></div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

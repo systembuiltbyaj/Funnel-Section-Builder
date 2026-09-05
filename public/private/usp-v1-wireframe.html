@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP — USP Variation 1 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* usp · 05a */
+.usp1-wrap {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom, var(--bg), var(--surface));
+  padding: 64px 24px 56px;
+  position: relative;
+}
+.usp1-wrap * { box-sizing: border-box; }
+.usp1-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.usp1-blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 0;
+}
+.usp1-blob.b1 { width: 260px; height: 260px; top: -60px; left: -80px; }
+.usp1-blob.b2 { width: 200px; height: 200px; top: 120px; right: -60px; }
+
+.usp1-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 48px;
+  position: relative;
+  z-index: 1;
+}
+.usp1-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+.usp1-header h2 {
+  font-family: var(--font-head);
+  font-size: 32px;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+.usp1-header p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.usp1-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+.usp1-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.03);
+}
+.usp1-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.usp1-icon svg { width: 22px; height: 22px; stroke: var(--muted); fill: none; stroke-width: 1.7; }
+
+.usp1-card h3 {
+  font-family: var(--font-head);
+  font-size: 17px;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+.usp1-card p {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+.usp1-pill {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.usp1-note {
+  position: absolute;
+  top: -30px;
+  right: 40px;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 160px;
+  text-align: left;
+  z-index: 2;
+}
+.usp1-note svg { width: 60px; height: 40px; }
+
+@media (max-width: 768px) {
+  .usp1-grid { grid-template-columns: 1fr; }
+  .usp1-note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- usp · 05a -->
+<section class="usp1-wrap">
+  <div class="usp1-blob b1"></div>
+  <div class="usp1-blob b2"></div>
+  <div class="usp1-inner">
+
+    <div class="usp1-note">
+      Keep icons simple &amp; consistent
+      <svg viewBox="0 0 60 40"><path d="M5 5 C 20 30, 35 30, 50 15" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#uarrow)"/></svg>
+    </div>
+
+    <div class="usp1-header">
+      <span class="usp1-eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p>A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="usp1-grid">
+
+      <div class="usp1-card">
+        <div class="usp1-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 2 L4 14 h6 l-1 8 L20 10 h-6 z" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Feature 1</h3>
+        <p>Short benefit here explaining why this matters to the customer in one or two lines.</p>
+        <span class="usp1-pill">98% stat pill</span>
+      </div>
+
+      <div class="usp1-card">
+        <div class="usp1-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2 L20 6 V12 C20 18 16 21 12 22 C8 21 4 18 4 12 V6 Z"/></svg>
+        </div>
+        <h3>Feature 2</h3>
+        <p>Short benefit here explaining why this matters to the customer in one or two lines.</p>
+        <span class="usp1-pill">2x stat pill</span>
+      </div>
+
+      <div class="usp1-card">
+        <div class="usp1-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 20 V12 M10 20 V6 M16 20 V14 M22 20 V9" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Feature 3</h3>
+        <p>Short benefit here explaining why this matters to the customer in one or two lines.</p>
+        <span class="usp1-pill">24/7 stat pill</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+</body>
+</html>

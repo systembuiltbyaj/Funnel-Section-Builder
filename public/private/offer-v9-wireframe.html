@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OFFER POSITIONING — Offer Positioning Variation 9 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* offer · 06i */
+.offer9{background:var(--bg);padding:100px 32px;font-family:var(--font-body);}
+.offer9 .wrap{max-width:1240px;margin:0 auto;position:relative;}
+.offer9 .head{text-align:center;max-width:640px;margin:0 auto 48px;}
+.offer9 .eyebrow{display:inline-block;background:var(--surface);color:var(--muted);
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;
+  border-radius:999px;margin-bottom:16px;}
+.offer9 h2{font-family:var(--font-head);font-size:clamp(28px,4vw,40px);color:var(--text);margin:0 0 12px;}
+.offer9 .sub{color:var(--muted);font-size:15px;line-height:1.6;margin:0;}
+
+.offer9 .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
+.offer9 .card{border-radius:18px;padding:36px 32px;background:var(--surface);}
+.offer9 .bonus{border:1px solid var(--border);background:var(--bg);}
+.offer9 .card h3{margin:0 0 24px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;
+  font-weight:700;color:var(--text);}
+.offer9 .bonus h3{color:var(--muted);}
+
+.offer9 .row{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 0;border-bottom:1px dashed var(--border);}
+.offer9 .row:last-child{border-bottom:none;}
+.offer9 .row .left{display:flex;align-items:center;gap:10px;color:var(--text);font-size:14px;}
+.offer9 .row .val{color:var(--muted);font-size:13px;font-weight:600;white-space:nowrap;}
+.offer9 .icon{width:20px;height:20px;border-radius:50%;background:var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.offer9 .icon svg{width:11px;height:11px;}
+
+.offer9 .bar{margin-top:32px;background:var(--surface);border-radius:18px;
+  padding:32px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.offer9 .bar .total{color:var(--muted);font-size:14px;text-decoration:line-through;}
+.offer9 .bar .price{font-size:clamp(40px,6vw,64px);font-weight:700;color:var(--text);
+  font-family:var(--font-head);}
+.offer9 .bar .right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+.offer9 .cta{background:var(--brand);color:var(--brand-contrast);border:none;
+  padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;}
+.offer9 .plan{font-size:12px;color:var(--muted);}
+
+.offer9 .note{position:absolute;top:-8px;right:0;max-width:150px;font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;color:var(--muted);text-align:left;display:none;}
+@media(min-width:900px){.offer9 .note{display:block;}}
+
+@media(max-width:768px){
+  .offer9{padding:60px 20px;}
+  .offer9 .grid{grid-template-columns:1fr;}
+  .offer9 .bar{flex-direction:column;text-align:center;}
+  .offer9 .bar .right{align-items:center;}
+}
+</style>
+</head>
+<body>
+<!-- offer · 06i -->
+<section class="offer9">
+  <div class="wrap">
+    <div class="note">
+      That price should feel massive — biggest text on the page
+      <svg width="60" height="40" viewBox="0 0 60 40"><path d="M5 5 C 20 30, 40 10, 55 30" stroke="var(--muted)" stroke-width="1.5" fill="none"/></svg>
+    </div>
+
+    <div class="head">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card core">
+        <h3>Core Modules</h3>
+        <div class="row"><div class="left"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg></span>Feature 1</div><div class="val">$XXX</div></div>
+        <div class="row"><div class="left"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg></span>Feature 2</div><div class="val">$XXX</div></div>
+        <div class="row"><div class="left"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg></span>Feature 3</div><div class="val">$XXX</div></div>
+        <div class="row"><div class="left"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg></span>Feature 4</div><div class="val">$XXX</div></div>
+        <div class="row"><div class="left"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg></span>Feature 5</div><div class="val">$XXX</div></div>
+      </div>
+
+      <div class="card bonus">
+        <h3>Bonus Stack</h3>
+        <div class="row"><div class="left"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M12 2l2.9 6.9L22 9.6l-5.5 4.8L18 22l-6-3.9L6 22l1.5-7.6L2 9.6l7.1-.7z"/></svg></span>Bonus 1</div><div class="val">$XXX</div></div>
+        <div class="row"><div class="left"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M12 2l2.9 6.9L22 9.6l-5.5 4.8L18 22l-6-3.9L6 22l1.5-7.6L2 9.6l7.1-.7z"/></svg></span>Bonus 2</div><div class="val">$XXX</div></div>
+        <div class="row"><div class="left"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M12 2l2.9 6.9L22 9.6l-5.5 4.8L18 22l-6-3.9L6 22l1.5-7.6L2 9.6l7.1-.7z"/></svg></span>Bonus 3</div><div class="val">$XXX</div></div>
+        <div class="row"><div class="left"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M12 2l2.9 6.9L22 9.6l-5.5 4.8L18 22l-6-3.9L6 22l1.5-7.6L2 9.6l7.1-.7z"/></svg></span>Bonus 4</div><div class="val">$XXX</div></div>
+      </div>
+    </div>
+
+    <div class="bar">
+      <div class="total">Total value: $X,XXX</div>
+      <div class="price">$XXX</div>
+      <div class="right">
+        <button class="cta">Primary CTA →</button>
+        <span class="plan">Optional small text (e.g. one-time payment)</span>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

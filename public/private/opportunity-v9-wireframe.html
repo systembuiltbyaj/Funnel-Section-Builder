@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OPPORTUNITY VEHICLE — Opportunity Variation 9 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* opportunity · 03i */
+.opp-var9{
+  box-sizing:border-box;
+  overflow-x:hidden;
+  background:var(--bg);
+  font-family:var(--font-body);
+  padding:64px 24px;
+  position:relative;
+}
+.opp-var9 .wrap{
+  max-width:1200px;
+  margin:0 auto;
+  position:relative;
+}
+.opp-var9 .grid{
+  display:grid;
+  grid-template-columns:38% 62%;
+  gap:64px;
+  align-items:start;
+}
+@media (max-width:768px){
+  .opp-var9 .grid{grid-template-columns:1fr;}
+}
+.opp-var9 .eyebrow{
+  display:inline-block;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:4px 12px;
+  margin-bottom:16px;
+}
+.opp-var9 h2{
+  font-family:var(--font-head);
+  font-size:clamp(24px,3vw,32px);
+  color:var(--text);
+  margin:0 0 12px;
+  line-height:1.2;
+}
+.opp-var9 .sub{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+  margin:0 0 28px;
+}
+.opp-var9 .stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.opp-var9 .stat{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px;
+}
+.opp-var9 .stat .num{
+  font-family:var(--font-head);
+  font-size:22px;
+  color:var(--text);
+  font-weight:700;
+}
+.opp-var9 .stat .lbl{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--muted);
+  margin-top:4px;
+}
+.opp-var9 .timeline{
+  position:relative;
+  padding-left:44px;
+}
+.opp-var9 .connector{
+  position:absolute;
+  left:13px;
+  top:14px;
+  bottom:14px;
+  width:0;
+  border-left:2px dashed var(--border);
+}
+.opp-var9 .node{
+  position:relative;
+  margin-bottom:28px;
+}
+.opp-var9 .node:last-child{margin-bottom:0;}
+.opp-var9 .circle{
+  position:absolute;
+  left:-44px;
+  top:2px;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid var(--bg);
+  box-shadow:0 0 0 1px var(--border);
+}
+.opp-var9 .c1{background:var(--muted); opacity:.55;}
+.opp-var9 .c2{background:var(--muted); opacity:.75;}
+.opp-var9 .c3{background:var(--muted); opacity:.95;}
+.opp-var9 .c4{background:var(--brand);}
+.opp-var9 .circle svg{width:14px;height:14px;}
+.opp-var9 .card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px 18px;
+}
+.opp-var9 .period{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+.opp-var9 .title{
+  font-family:var(--font-head);
+  font-size:15px;
+  color:var(--text);
+  margin:0 0 4px;
+  font-weight:600;
+}
+.opp-var9 .body{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.5;
+  margin:0;
+}
+.opp-var9 .note{
+  position:absolute;
+  top:8px;
+  right:8px;
+  max-width:150px;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  text-align:left;
+  display:none;
+}
+@media (min-width:900px){
+  .opp-var9 .note{display:block;}
+}
+</style>
+</head>
+<body>
+<!-- opportunity · 03i -->
+<section class="opp-var9">
+  <div class="wrap">
+    <svg class="note" width="90" height="60" style="position:absolute;top:70px;right:170px;overflow:visible;">
+      <path d="M80 5 C 40 5, 10 30, 5 55" stroke="#6a6a6d" stroke-width="1.5" fill="none" marker-end="url(#arrow9)"/>
+      <defs><marker id="arrow9" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 z" fill="#6a6a6d"/>
+      </marker></defs>
+    </svg>
+    <div class="note">Timeline should feel chronological, top to bottom</div>
+
+    <div class="grid">
+      <!-- LEFT -->
+      <div>
+        <span class="eyebrow">EYEBROW / TAGLINE</span>
+        <h2>Main Headline Goes Here</h2>
+        <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+        <div class="stats">
+          <div class="stat"><div class="num">12x</div><div class="lbl">Stat label 1</div></div>
+          <div class="stat"><div class="num">98%</div><div class="lbl">Stat label 2</div></div>
+          <div class="stat"><div class="num">4wks</div><div class="lbl">Stat label 3</div></div>
+          <div class="stat"><div class="num">250+</div><div class="lbl">Stat label 4</div></div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="timeline">
+        <div class="connector"></div>
+
+        <div class="node">
+          <div class="circle c1"></div>
+          <div class="card">
+            <div class="period">Phase 1 — Week 1</div>
+            <div class="title">Milestone 1</div>
+            <p class="body">Short sentence describing the first step of the method.</p>
+          </div>
+        </div>
+
+        <div class="node">
+          <div class="circle c2"></div>
+          <div class="card">
+            <div class="period">Phase 2 — Week 3</div>
+            <div class="title">Milestone 2</div>
+            <p class="body">Short sentence describing the second step of the method.</p>
+          </div>
+        </div>
+
+        <div class="node">
+          <div class="circle c3"></div>
+          <div class="card">
+            <div class="period">Phase 3 — Week 6</div>
+            <div class="title">Milestone 3</div>
+            <p class="body">Short sentence describing the third step of the method.</p>
+          </div>
+        </div>
+
+        <div class="node">
+          <div class="circle c4">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 3v18M5 4h12l-2 4 2 4H5" fill="var(--brand-contrast)"/></svg>
+          </div>
+          <div class="card">
+            <div class="period">Outcome</div>
+            <div class="title">Final Result</div>
+            <p class="body">Short sentence describing the outcome the method produces.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

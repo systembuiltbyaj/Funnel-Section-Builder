@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP — USP Variation 2 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* usp · 05b */
+.usp2 {
+  background: var(--bg);
+  padding: 100px 24px;
+  font-family: var(--font-body);
+  position: relative;
+}
+.usp2 .wrap { max-width: var(--maxw); margin: 0 auto; }
+.usp2 .header { text-align: center; max-width: 700px; margin: 0 auto 56px; }
+.usp2 .eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--surface);
+  color: var(--muted);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+.usp2 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 38px);
+  color: var(--text);
+  margin: 0 0 14px;
+}
+.usp2 .sub { color: var(--muted); font-size: 16px; line-height: 1.6; margin: 0; }
+
+.usp2 .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.usp2 .pillar {
+  background: var(--surface);
+  border-top: 2px solid var(--brand);
+  border-radius: 12px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.usp2 .pillar .num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(44px, 5vw, 56px);
+  letter-spacing: -0.02em;
+  color: var(--brand);
+  line-height: 1;
+}
+.usp2 .pillar h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+.usp2 .pillar p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+  flex-grow: 1;
+}
+.usp2 .badge {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--brand-contrast);
+}
+
+.usp2 .note {
+  position: absolute;
+  top: 60px;
+  right: 8px;
+  width: 150px;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: left;
+  display: none;
+}
+.usp2 .note svg { position: absolute; top: -30px; left: -60px; }
+
+@media (min-width: 900px) {
+  .usp2 .note { display: block; }
+}
+
+@media (max-width: 768px) {
+  .usp2 .grid { grid-template-columns: 1fr; }
+  .usp2 { padding: 64px 20px; }
+}
+</style>
+</head>
+<body>
+<!-- usp · 05b -->
+<section class="usp2">
+  <div class="wrap" style="position:relative;">
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="note">
+      Highlight the strongest pillar first — most people only read #1.
+      <svg width="70" height="50" viewBox="0 0 70 50" fill="none">
+        <path d="M60 5 C 30 5, 20 30, 5 40" stroke="#9a9a9a" stroke-width="1.5" fill="none" marker-end="url(#arrow2)"/>
+        <defs>
+          <marker id="arrow2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#9a9a9a"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="grid">
+      <div class="pillar">
+        <div class="num">01</div>
+        <h3>Pillar One Title</h3>
+        <p>Body paragraph explaining the first key differentiator, roughly two lines of supporting detail.</p>
+        <span class="badge">Proof badge 1</span>
+      </div>
+      <div class="pillar">
+        <div class="num">02</div>
+        <h3>Pillar Two Title</h3>
+        <p>Body paragraph explaining the second key differentiator, roughly two lines of supporting detail.</p>
+        <span class="badge">Proof badge 2</span>
+      </div>
+      <div class="pillar">
+        <div class="num">03</div>
+        <h3>Pillar Three Title</h3>
+        <p>Body paragraph explaining the third key differentiator, roughly two lines of supporting detail.</p>
+        <span class="badge">Proof badge 3</span>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

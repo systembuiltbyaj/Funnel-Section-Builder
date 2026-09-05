@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AUTHORITY — Authority Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* authority · 09e */
+.authority-wireframe{
+  position:relative;
+  min-height:500px;
+  overflow:hidden;
+  background:var(--bg);
+  border-radius:var(--radius);
+  padding:3rem 1.5rem;
+  font-family:var(--font-body);
+  color:var(--text);
+  display:flex;
+  align-items:center;
+}
+.authority-wireframe .blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--border);
+  opacity:.18;
+  z-index:0;
+}
+.authority-wireframe .blob.b1{ width:320px; height:320px; top:-80px; left:-80px; }
+.authority-wireframe .blob.b2{ width:260px; height:260px; bottom:-60px; right:10%; }
+
+.authority-wireframe .bg-photo{
+  position:absolute; inset:0;
+  background:var(--surface);
+  border:1px solid var(--border);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:.5rem;
+  z-index:0;
+}
+.authority-wireframe .bg-photo span{
+  font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+}
+
+.authority-wireframe .content{
+  position:relative; z-index:2;
+  max-width:55%;
+  display:flex; flex-direction:column; gap:1rem;
+}
+.authority-wireframe .eyebrow{
+  display:inline-block; align-self:flex-start;
+  padding:.3rem .9rem; border-radius:999px;
+  background:var(--surface); border:1px solid var(--border);
+  font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+}
+.authority-wireframe h2{
+  font-family:var(--font-head); font-size:2rem; line-height:1.2; margin:0; color:var(--text);
+}
+.authority-wireframe p{
+  font-family:var(--font-sub); color:var(--muted); max-width:32rem; margin:0;
+}
+.authority-wireframe .badges{
+  display:flex; flex-wrap:wrap; gap:.6rem;
+}
+.authority-wireframe .badge{
+  background:var(--surface); border:1px solid var(--border);
+  padding:.5rem 1.1rem; border-radius:999px; font-size:.8rem; color:var(--text);
+}
+.authority-wireframe .cta{
+  align-self:flex-start;
+  background:var(--brand); color:var(--brand-contrast);
+  border:none; padding:.85rem 1.7rem; border-radius:var(--radius);
+  font-weight:600; font-size:.95rem; cursor:pointer;
+}
+
+.authority-wireframe .cutout{
+  position:absolute; right:2rem; bottom:0;
+  width:220px; height:380px;
+  background:var(--surface); border:1px dashed var(--border);
+  border-radius:var(--radius) var(--radius) 0 0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem;
+  z-index:1;
+}
+.authority-wireframe .cutout span{
+  font-size:.65rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); text-align:center; padding:0 .5rem;
+}
+
+.authority-wireframe .annotation{
+  position:absolute; top:1.2rem; right:1.5rem; max-width:180px;
+  font-family:'Segoe Script','Bradley Hand',cursive; font-size:13px; color:var(--muted);
+  z-index:3; text-align:right;
+}
+
+@media (max-width:768px){
+  .authority-wireframe{ padding:2.2rem 1rem; }
+  .authority-wireframe .content{ max-width:100%; }
+  .authority-wireframe .cutout, .authority-wireframe .annotation{ display:none; }
+}
+</style>
+</head>
+<body>
+<!-- authority · 09e -->
+<section class="authority-wireframe">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+
+  <div class="bg-photo">
+    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.2">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <circle cx="8" cy="10" r="1.8"/>
+      <path d="M3 18l5-6 4 4 5-7 4 9"/>
+    </svg>
+    <span>Full-bleed coach background photo · dark overlay heavier on left</span>
+  </div>
+
+  <div class="content">
+    <span class="eyebrow">MEET YOUR COACH</span>
+    <h2>Main Headline Goes Here</h2>
+    <p>A short sentence or two describing the coach's turning point — the before, the epiphany, and the transformation that followed.</p>
+    <div class="badges">
+      <span class="badge">Credential 1</span>
+      <span class="badge">Credential 2</span>
+      <span class="badge">Credential 3</span>
+      <span class="badge">Credential 4</span>
+    </div>
+    <button class="cta">Primary CTA →</button>
+  </div>
+
+  <div class="cutout">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.2">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <circle cx="8" cy="10" r="1.8"/>
+      <path d="M3 18l5-6 4 4 5-7 4 9"/>
+    </svg>
+    <span>Transparent coach cutout photo, anchored bottom-right</span>
+  </div>
+
+  <div class="annotation">
+    <svg width="60" height="40" viewBox="0 0 60 40"><path d="M55 5 C 30 5, 20 30, 5 35" stroke="var(--muted)" stroke-width="1" fill="none"/></svg>
+    Cutout overlaps the photo — keep the overlay lighter here.
+  </div>
+</section>
+</body>
+</html>

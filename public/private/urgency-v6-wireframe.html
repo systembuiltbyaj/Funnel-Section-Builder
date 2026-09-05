@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>URGENCY — Urgency Variation 6 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* urgency · 10f */
+.urgency-wire{
+  position:relative;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:4rem 1.5rem;
+  overflow:hidden;
+}
+.urgency-wire .panel{
+  position:relative;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:3rem 1.5rem;
+  min-height:500px;
+  text-align:center;
+  overflow:hidden;
+}
+.urgency-wire .blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--border);
+  opacity:.25;
+  filter:blur(2px);
+}
+.urgency-wire .blob1{ width:280px;height:280px; top:-80px; left:-80px; }
+.urgency-wire .blob2{ width:220px;height:220px; bottom:-60px; right:-60px; }
+
+.urgency-wire .eyebrow,
+.urgency-wire .badge{
+  display:inline-block;
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:.35rem .9rem;
+  border-radius:999px;
+  margin:0 .3rem .6rem;
+}
+.urgency-wire .eyebrow{
+  background:var(--bg);
+  color:var(--muted);
+  border:1px solid var(--border);
+}
+.urgency-wire .badge{
+  background:var(--brand);
+  color:var(--brand-contrast);
+}
+
+.urgency-wire h2{
+  font-family:var(--font-head);
+  font-size:clamp(1.6rem,4vw,2.4rem);
+  color:var(--text);
+  margin:1rem auto .6rem;
+  max-width:38rem;
+}
+.urgency-wire h2 .accent{
+  color:var(--muted);
+  border-bottom:2px solid var(--brand);
+}
+
+.urgency-wire .sub{
+  font-family:var(--font-body);
+  color:var(--muted);
+  max-width:34rem;
+  margin:0 auto 1.6rem;
+  font-size:.95rem;
+}
+
+.urgency-wire .timer-label{
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--muted);
+  margin-bottom:1rem;
+}
+
+.urgency-wire .timer{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:1rem;
+  margin-bottom:1.8rem;
+}
+.urgency-wire .tbox{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  min-width:80px;
+  padding:1rem .8rem;
+  box-shadow:0 0 12px rgba(0,0,0,.05);
+}
+.urgency-wire .tbox .num{
+  display:block;
+  font-family:var(--font-head);
+  font-variant-numeric:tabular-nums;
+  font-size:44px;
+  line-height:1;
+  color:var(--text);
+  font-weight:600;
+}
+.urgency-wire .tbox .lbl{
+  display:block;
+  font-size:.65rem;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-top:.4rem;
+}
+
+.urgency-wire .cta{
+  font-family:var(--font-head);
+  background:var(--brand);
+  color:var(--brand-contrast);
+  border:none;
+  padding:.9rem 2rem;
+  border-radius:calc(var(--radius) - 4px);
+  font-size:1rem;
+  cursor:pointer;
+  margin-bottom:1rem;
+}
+
+.urgency-wire .price-note{
+  font-size:.8rem;
+  color:var(--muted);
+  border:1px dashed var(--border);
+  display:inline-block;
+  padding:.3rem .8rem;
+  border-radius:6px;
+  margin-bottom:.6rem;
+}
+
+.urgency-wire .scarcity{
+  font-size:.75rem;
+  color:var(--muted);
+}
+
+.urgency-wire .note{
+  position:absolute;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  line-height:1.3;
+}
+.urgency-wire .note1{ top:8%; right:1%; text-align:left; }
+.urgency-wire .note2{ bottom:6%; left:1%; text-align:right; }
+
+@media (max-width:768px){
+  .urgency-wire .timer{ flex-direction:column; align-items:stretch; }
+  .urgency-wire .tbox{ width:100%; }
+  .urgency-wire .note{ display:none; }
+}
+</style>
+</head>
+<body>
+<!-- urgency · 10f -->
+<section class="urgency-wire">
+  <div class="panel">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+
+    <span class="eyebrow">EYEBROW / TAGLINE</span><br/>
+    <span class="badge">Urgency Badge — Closing Soon</span>
+
+    <h2>Main Headline Goes Here — Lock In <span class="accent">$4,997</span></h2>
+    <p class="sub">A short and clear sentence describing what changes after the deadline passes — price increase, bonus removal, or doors closing.</p>
+
+    <div class="timer-label">Offer closes in:</div>
+    <div class="timer">
+      <div class="tbox"><span class="num">02</span><span class="lbl">Days</span></div>
+      <div class="tbox"><span class="num">14</span><span class="lbl">Hours</span></div>
+      <div class="tbox"><span class="num">59</span><span class="lbl">Minutes</span></div>
+      <div class="tbox"><span class="num">42</span><span class="lbl">Seconds</span></div>
+    </div>
+
+    <button class="cta">Primary CTA →</button>
+    <div class="price-note">Price rises to $6,997 once the timer hits zero</div>
+    <div class="scarcity">Only 12 spots remaining at this price</div>
+
+    <div class="note note1">Countdown box: bold tabular numbers, updates live</div>
+    <div class="note note2">Stack price increase + bonus + closing date here</div>
+  </div>
+</section>
+</body>
+</html>

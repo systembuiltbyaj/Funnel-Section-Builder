@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OPPORTUNITY VEHICLE — Opportunity Variation 6 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* opportunity · 03f */
+.opp-v6 {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background: var(--bg);
+  padding: 96px 32px;
+  font-family: var(--font-body);
+  position: relative;
+}
+.opp-v6 * { box-sizing: border-box; }
+.opp-v6 .wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  position: relative;
+}
+.opp-v6 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 0;
+}
+.opp-v6 .blob1 { width: 320px; height: 320px; top: -80px; right: -60px; }
+.opp-v6 .header { text-align: center; position: relative; z-index: 1; }
+.opp-v6 .eyebrow {
+  display: inline-block;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+.opp-v6 h2 {
+  font-family: var(--font-head);
+  font-size: 2.1rem;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+.opp-v6 .sub {
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.opp-v6 .tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  background: var(--surface);
+  padding: 6px;
+  border-radius: 999px;
+  max-width: fit-content;
+  margin: 40px auto 0;
+  overflow-x: auto;
+  position: relative;
+  z-index: 1;
+}
+.opp-v6 .tab {
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .88rem;
+  cursor: pointer;
+  color: var(--muted);
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  font-family: var(--font-body);
+  transition: background .2s;
+}
+.opp-v6 .tab.active {
+  background: var(--brand);
+  color: var(--brand-contrast);
+}
+.opp-v6 .tab:not(.active):hover { background: var(--border); }
+.opp-v6 .panel {
+  display: none;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  padding-top: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.opp-v6 .panel.active { display: grid; }
+.opp-v6 .panel-title {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  color: var(--text);
+  margin: 0 0 6px;
+}
+.opp-v6 .panel-weeks {
+  color: var(--muted);
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 14px;
+}
+.opp-v6 .panel-body {
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.6;
+  max-width: 440px;
+}
+.opp-v6 .icon-block {
+  width: 240px;
+  height: 240px;
+  background: var(--surface);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  color: var(--muted);
+}
+.opp-v6 .stats {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  padding-top: 56px;
+  margin-top: 48px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.opp-v6 .stat { text-align: center; }
+.opp-v6 .stat-num {
+  font-family: var(--font-head);
+  font-size: 1.8rem;
+  color: var(--text);
+  font-weight: 700;
+}
+.opp-v6 .stat-label {
+  color: var(--muted);
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-top: 4px;
+}
+.opp-v6 .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  top: 200px;
+  right: 20px;
+  max-width: 140px;
+  text-align: left;
+  z-index: 2;
+}
+@media (max-width: 768px) {
+  .opp-v6 .panel { grid-template-columns: 1fr; }
+  .opp-v6 .panel .icon-block { order: -1; }
+  .opp-v6 .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- opportunity · 03f -->
+<section class="opp-v6">
+  <div class="wrap">
+    <div class="blob blob1"></div>
+
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here™</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="1">Phase 1</button>
+      <button class="tab" data-tab="2">Phase 2</button>
+      <button class="tab" data-tab="3">Phase 3</button>
+      <button class="tab" data-tab="4">Phase 4</button>
+    </div>
+
+    <div class="note">Tabs switch this whole panel — highlight the active state clearly ↴</div>
+
+    <div class="panel active" data-panel="1">
+      <div>
+        <div class="panel-title">Step 1 Title Goes Here</div>
+        <div class="panel-weeks">Weeks 1–2</div>
+        <p class="panel-body">A short paragraph describing what happens during this phase and the outcome the reader can expect.</p>
+      </div>
+      <div class="icon-block">
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="3"/>
+          <path d="M3 20l6-7 4 4 5-6 3 9" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="2" y="3" width="20" height="18" rx="3"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="2">
+      <div>
+        <div class="panel-title">Step 2 Title Goes Here</div>
+        <div class="panel-weeks">Weeks 3–4</div>
+        <p class="panel-body">A short paragraph describing what happens during this phase and the outcome the reader can expect.</p>
+      </div>
+      <div class="icon-block">
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="3">
+      <div>
+        <div class="panel-title">Step 3 Title Goes Here</div>
+        <div class="panel-weeks">Weeks 5–6</div>
+        <p class="panel-body">A short paragraph describing what happens during this phase and the outcome the reader can expect.</p>
+      </div>
+      <div class="icon-block">
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7l3-7z" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="4">
+      <div>
+        <div class="panel-title">Step 4 Title Goes Here</div>
+        <div class="panel-weeks">Weeks 7–8</div>
+        <p class="panel-body">A short paragraph describing what happens during this phase and the outcome the reader can expect.</p>
+      </div>
+      <div class="icon-block">
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="9" cy="8" r="3"/>
+          <circle cx="17" cy="9" r="2.5"/>
+          <path d="M3 20c0-3 3-5 6-5s6 2 6 5" stroke-linecap="round"/>
+          <path d="M14 20c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">120+</div>
+        <div class="stat-label">Metric label</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Metric label</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.9</div>
+        <div class="stat-label">Metric label</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var root = document.currentScript.previousElementSibling;
+  if(!root || !root.classList.contains('opp-v6')) return;
+  var tabs = root.querySelectorAll('.tab');
+  var panels = root.querySelectorAll('.panel');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){x.classList.remove('active');});
+      panels.forEach(function(p){p.classList.remove('active');});
+      t.classList.add('active');
+      root.querySelector('.panel[data-panel="'+t.dataset.tab+'"]').classList.add('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>

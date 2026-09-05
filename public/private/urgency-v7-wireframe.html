@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>URGENCY — Urgency Variation 7 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* urgency · 10g */
+.urgency-wire{
+  position:relative;
+  background:#fafafa;
+  color:var(--text);
+  padding:4rem 1.25rem;
+  min-height:500px;
+  overflow:hidden;
+}
+.urgency-wire .wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  position:relative;
+}
+.urgency-wire .blob{
+  position:absolute;
+  border-radius:50%;
+  background:#ececec;
+  opacity:.6;
+  z-index:0;
+}
+.urgency-wire .blob1{width:300px;height:300px;top:-80px;right:-80px;}
+.urgency-wire .blob2{width:220px;height:220px;bottom:-60px;left:-60px;}
+.urgency-wire .content{position:relative;z-index:1;text-align:center;}
+.urgency-wire .eyebrow{
+  display:inline-block;
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:.35rem .9rem;
+  border-radius:999px;
+  margin-bottom:1rem;
+}
+.urgency-wire h2{
+  font-family:var(--font-head);
+  font-size:clamp(1.6rem,4vw,2.4rem);
+  margin:0 0 .5rem;
+}
+.urgency-wire .price-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1.5rem;
+  margin:2rem 0;
+  flex-wrap:wrap;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .5s ease, transform .5s ease;
+}
+.urgency-wire .price-row.in-view{opacity:1;transform:translateY(0);}
+.urgency-wire .price-box{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1rem 1.5rem;
+  min-width:150px;
+}
+.urgency-wire .price-box .tag{font-size:.7rem;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.3rem;}
+.urgency-wire .price-box .price{font-size:1.8rem;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;}
+.urgency-wire .price-box.after .price{text-decoration:line-through;color:var(--muted);}
+.urgency-wire .arrow{
+  font-size:1.6rem;
+  color:var(--muted);
+  transition:transform .3s ease;
+}
+.urgency-wire .price-row.in-view .arrow{animation:pulse 1.2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.25);}}
+.urgency-wire .sub{
+  color:var(--muted);
+  max-width:500px;
+  margin:0 auto 1.5rem;
+  font-size:.95rem;
+}
+.urgency-wire .timer-label{
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--muted);
+  margin-bottom:.5rem;
+}
+.urgency-wire .timer{
+  display:inline-flex;
+  gap:.75rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:.9rem 1.5rem;
+  margin-bottom:1.5rem;
+  background:#fff;
+}
+.urgency-wire .timer .unit{text-align:center;}
+.urgency-wire .timer .num{
+  font-size:1.4rem;
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+  color:var(--text);
+  display:block;
+}
+.urgency-wire .timer .unit-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;}
+.urgency-wire .closed-msg{display:none;color:var(--muted);margin-bottom:1.5rem;}
+.urgency-wire .cta{
+  display:inline-block;
+  background:var(--brand);
+  color:var(--brand-contrast);
+  border:none;
+  border-radius:var(--radius);
+  padding:.9rem 2rem;
+  font-size:1rem;
+  cursor:pointer;
+  margin-bottom:1rem;
+}
+.urgency-wire .scarcity{
+  color:var(--muted);
+  font-weight:600;
+  margin-bottom:.5rem;
+}
+.urgency-wire .trust{
+  color:var(--muted);
+  font-size:.85rem;
+}
+.urgency-wire .note{
+  position:absolute;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  z-index:2;
+}
+.urgency-wire .note1{top:0;left:0;text-align:left;}
+@media(max-width:768px){
+  .urgency-wire .price-row{flex-direction:column;}
+  .urgency-wire .arrow{transform:rotate(90deg);}
+  .urgency-wire .price-row.in-view .arrow{animation:pulseV 1.2s ease-in-out infinite;}
+  @keyframes pulseV{0%,100%{transform:rotate(90deg) scale(1);}50%{transform:rotate(90deg) scale(1.25);}}
+  .urgency-wire .note{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  .urgency-wire .price-row,.urgency-wire .arrow{animation:none!important;transition:none!important;}
+}
+</style>
+</head>
+<body>
+<!-- urgency · 10g -->
+<section class="urgency-wire">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="wrap">
+    <div class="note note1">
+      Timer + price drop drive urgency — keep both visible above the fold
+      <svg width="60" height="40" style="position:absolute;top:20px;left:-10px;" viewBox="0 0 60 40"><path d="M55 5 C 30 5, 10 25, 5 35" stroke="var(--muted)" fill="none" stroke-width="1.5"/></svg>
+    </div>
+    <div class="content">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+
+      <div class="price-row" id="priceRow">
+        <div class="price-box today">
+          <span class="tag">Today Only</span>
+          <span class="price">$XXX</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="price-box after">
+          <span class="tag">After Friday</span>
+          <span class="price">$XXX</span>
+        </div>
+      </div>
+
+      <p class="sub">A short and clear sentence noting that only the price changes — everything else stays the same.</p>
+
+      <div class="timer-label">Offer ends in</div>
+      <div class="timer" id="timer">
+        <div class="unit"><span class="num" id="dd">00</span><span class="unit-label">Days</span></div>
+        <div class="unit"><span class="num" id="hh">00</span><span class="unit-label">Hrs</span></div>
+        <div class="unit"><span class="num" id="mm">00</span><span class="unit-label">Min</span></div>
+        <div class="unit"><span class="num" id="ss">00</span><span class="unit-label">Sec</span></div>
+      </div>
+      <p class="closed-msg" id="closedMsg">This offer has ended.</p>
+
+      <div>
+        <button class="cta">Primary CTA →</button>
+      </div>
+
+      <p class="scarcity">Only X seats remaining at this price</p>
+      <p class="trust">Trusted by 1,000+ business owners</p>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var DEADLINE = "2026-08-01T23:59:59";
+  var deadline = new Date(DEADLINE).getTime();
+  var timerEl = document.getElementById('timer');
+  var closedEl = document.getElementById('closedMsg');
+  var dd=document.getElementById('dd'), hh=document.getElementById('hh'),
+      mm=document.getElementById('mm'), ss=document.getElementById('ss');
+  function pad(n){return String(n).padStart(2,'0');}
+  function tick(){
+    var now=new Date().getTime();
+    var diff=deadline-now;
+    if(diff<=0){
+      timerEl.style.display='none';
+      closedEl.style.display='block';
+      clearInterval(iv);
+      return;
+    }
+    var d=Math.floor(diff/86400000);
+    var h=Math.floor((diff%86400000)/3600000);
+    var m=Math.floor((diff%3600000)/60000);
+    var s=Math.floor((diff%60000)/1000);
+    dd.textContent=pad(d); hh.textContent=pad(h); mm.textContent=pad(m); ss.textContent=pad(s);
+  }
+  tick();
+  var iv=setInterval(tick,1000);
+
+  var row=document.getElementById('priceRow');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ row.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    },{threshold:.3});
+    obs.observe(row);
+  } else {
+    row.classList.add('in-view');
+  }
+})();
+</script>
+</body>
+</html>

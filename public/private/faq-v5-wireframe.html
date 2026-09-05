@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ — FAQ Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* faq · 11e */
+.faq-v5{
+  box-sizing:border-box;
+  overflow-x:hidden;
+  position:relative;
+  background:var(--surface);
+  padding:56px 24px 48px;
+  font-family:var(--font-body);
+}
+.faq-v5 .wrap{max-width:1200px;margin:0 auto;position:relative;}
+.faq-v5 .head{text-align:center;max-width:640px;margin:0 auto 28px;}
+.faq-v5 .eyebrow{
+  display:inline-block;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:5px 14px;
+  margin-bottom:14px;
+}
+.faq-v5 h2{
+  font-family:var(--font-head);
+  font-size:clamp(24px,3vw,32px);
+  color:var(--text);
+  margin:0 0 10px;
+}
+.faq-v5 .sub{color:var(--muted);font-size:14px;line-height:1.6;margin:0;}
+
+.faq-v5 .search{
+  max-width:460px;
+  margin:0 auto 34px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:12px 16px;
+}
+.faq-v5 .search svg{flex:none;color:var(--muted);}
+.faq-v5 .search span{color:var(--muted);font-size:13px;}
+
+.faq-v5 .list{
+  max-width:820px;
+  margin:0 auto;
+  border-top:1px solid var(--border);
+}
+.faq-v5 .item{
+  border-bottom:1px solid var(--border);
+  padding:16px 18px;
+  border-left:3px solid transparent;
+  transition:background .2s;
+}
+.faq-v5 .item.open{
+  background:var(--bg);
+  border-left:3px solid var(--brand);
+  border-radius:8px;
+}
+.faq-v5 .row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+}
+.faq-v5 .q{font-weight:600;font-size:15px;color:var(--text);}
+.faq-v5 .toggle{
+  flex:none;
+  width:28px;height:28px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+  color:var(--muted);
+  background:var(--surface);
+}
+.faq-v5 .item.open .toggle{
+  background:var(--brand);
+  border-color:var(--brand);
+  color:var(--brand-contrast);
+}
+.faq-v5 .a{
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.6;
+  margin-top:10px;
+  padding-right:40px;
+}
+
+.faq-v5 .note{
+  position:absolute;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  line-height:1.3;
+}
+.faq-v5 .note1{top:8px;right:10px;text-align:left;}
+.faq-v5 .note2{display:none;}
+
+@media (max-width:768px){
+  .faq-v5 .list,.faq-v5 .search,.faq-v5 .head{max-width:100%;}
+  .faq-v5 .note{display:none;}
+}
+</style>
+</head>
+<body>
+<!-- faq · 11e -->
+<section class="faq-v5">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Section Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Search questions...</span>
+    </div>
+
+    <div class="list">
+      <div class="item open">
+        <div class="row">
+          <span class="q">Question 1 goes here — Pricing</span>
+          <span class="toggle">–</span>
+        </div>
+        <div class="a">Muted answer text describing the response to question 1 in one or two clear sentences.</div>
+      </div>
+      <div class="item">
+        <div class="row"><span class="q">Question 2 goes here — Getting Started</span><span class="toggle">+</span></div>
+      </div>
+      <div class="item">
+        <div class="row"><span class="q">Question 3 goes here — Features</span><span class="toggle">+</span></div>
+      </div>
+      <div class="item">
+        <div class="row"><span class="q">Question 4 goes here — Support</span><span class="toggle">+</span></div>
+      </div>
+      <div class="item">
+        <div class="row"><span class="q">Question 5 goes here — Security</span><span class="toggle">+</span></div>
+      </div>
+      <div class="item">
+        <div class="row"><span class="q">Question 6 goes here — Cancellation</span><span class="toggle">+</span></div>
+      </div>
+      <div class="item">
+        <div class="row"><span class="q">Question 7 goes here — General</span><span class="toggle">+</span></div>
+      </div>
+      <div class="item">
+        <div class="row"><span class="q">Question 8 goes here — General</span><span class="toggle">+</span></div>
+      </div>
+    </div>
+
+    <div class="note note1">Only one answer opens at a time — circle toggles fill grey when active ↴</div>
+  </div>
+</section>
+</body>
+</html>

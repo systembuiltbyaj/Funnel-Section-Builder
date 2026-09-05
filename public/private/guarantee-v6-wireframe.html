@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RISK REVERSAL — Risk Reversal Variation 6 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* risk · 08f */
+.risk-reversal-v6 {
+  position: relative;
+  background: var(--bg);
+  padding: 5rem 1.5rem;
+  min-height: 420px;
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+.risk-reversal-v6 .wrap {
+  max-width: 620px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.risk-reversal-v6 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 1;
+}
+.risk-reversal-v6 .blob1 { width: 340px; height: 340px; top: -120px; left: -140px; }
+.risk-reversal-v6 .blob2 { width: 260px; height: 260px; bottom: -100px; right: -100px; }
+
+.risk-reversal-v6 .eyebrow {
+  display: inline-block;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: .35rem 1rem;
+  margin-bottom: 1.25rem;
+}
+.risk-reversal-v6 h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  color: var(--text);
+  margin: 0 0 .5rem;
+  line-height: 1.15;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rr6-fade .6s ease forwards .1s;
+}
+.risk-reversal-v6 .subline {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin: 0 0 1.5rem;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rr6-fade .6s ease forwards .25s;
+}
+.risk-reversal-v6 p.body-copy {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 1rem;
+  margin: 0 0 2.5rem;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rr6-fade .6s ease forwards .4s;
+}
+
+.risk-reversal-v6 .layer {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--brand);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: rr6-fade .6s ease forwards;
+}
+.risk-reversal-v6 .layer:nth-of-type(1) { animation-delay: .55s; }
+.risk-reversal-v6 .layer:nth-of-type(2) {
+  border-left-color: var(--muted);
+  animation-delay: .7s;
+}
+.risk-reversal-v6 .layer .tag {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin-bottom: .4rem;
+}
+.risk-reversal-v6 .layer h3 {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  color: var(--text);
+  margin: 0 0 .35rem;
+}
+.risk-reversal-v6 .layer p {
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.risk-reversal-v6 .cta-wrap {
+  text-align: center;
+  margin-top: 2.5rem;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rr6-fade .6s ease forwards .9s;
+}
+.risk-reversal-v6 .cta {
+  display: inline-block;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  border: none;
+  border-radius: 999px;
+  padding: .9rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.risk-reversal-v6 .small-print {
+  display: block;
+  margin-top: .8rem;
+  font-size: .8rem;
+  color: var(--muted);
+}
+
+.risk-reversal-v6 .note {
+  position: absolute;
+  right: -1rem;
+  top: 40%;
+  max-width: 150px;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  z-index: 3;
+  display: none;
+}
+@media (min-width: 900px) {
+  .risk-reversal-v6 .note { display: block; }
+}
+
+@keyframes rr6-fade {
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .risk-reversal-v6 h2,
+  .risk-reversal-v6 .subline,
+  .risk-reversal-v6 p.body-copy,
+  .risk-reversal-v6 .layer,
+  .risk-reversal-v6 .cta-wrap {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 480px) {
+  .risk-reversal-v6 { padding: 3.5rem 1.25rem; }
+  .risk-reversal-v6 .layer { padding: 1.25rem; }
+}
+</style>
+</head>
+<body>
+<!-- risk · 08f -->
+<section class="risk-reversal-v6">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <div class="wrap">
+    <span class="eyebrow">EYEBROW / TAGLINE</span>
+    <h2>Section Headline Goes Here</h2>
+    <p class="subline">A short serif accent line reinforcing the promise beneath the headline.</p>
+    <p class="body-copy">A short and clear value proposition that explains your offer and the main benefit, written with an authoritative, confident tone across two or three lines.</p>
+
+    <div class="layer">
+      <div class="tag">Layer 1</div>
+      <h3>14-Day Refund</h3>
+      <p>Short benefit here describing the no-risk trial window and how a refund is requested.</p>
+    </div>
+
+    <div class="layer">
+      <div class="tag">Layer 2</div>
+      <h3>Outcome Guarantee</h3>
+      <p>Short benefit here describing the longer-term outcome guarantee and its condition.</p>
+    </div>
+
+    <div class="cta-wrap">
+      <button class="cta">Primary CTA →</button>
+      <span class="small-print">Optional small text (e.g. no credit card required)</span>
+    </div>
+  </div>
+
+  <div class="note" style="top:8%;">
+    Show both guarantee layers stacked here.
+    <svg width="60" height="40" viewBox="0 0 60 40" style="overflow:visible">
+      <path d="M50 5 C20 5 10 25 5 35" stroke="#9a9a9a" stroke-width="1.5" fill="none" marker-end="url(#arrow6)"/>
+      <defs>
+        <marker id="arrow6" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#9a9a9a"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</section>
+</body>
+</html>

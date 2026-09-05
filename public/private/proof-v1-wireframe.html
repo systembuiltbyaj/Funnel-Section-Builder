@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SOCIAL PROOF — Social Proof Variation 1 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* social · 07a */
+.socialproof-wf{
+  box-sizing:border-box;
+  overflow-x:hidden;
+  background:#fff;
+  padding:96px 24px;
+  font-family:var(--font-body);
+  color:var(--text);
+  position:relative;
+}
+.socialproof-wf *{box-sizing:border-box;}
+.spwf-container{
+  max-width:1200px;
+  margin:0 auto;
+  position:relative;
+}
+.spwf-blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--surface);
+  opacity:.5;
+  z-index:0;
+}
+.spwf-blob.b1{width:340px;height:340px;top:-80px;left:-120px;}
+.spwf-blob.b2{width:260px;height:260px;bottom:-60px;right:-100px;}
+
+.spwf-header{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  max-width:680px;
+  margin:0 auto 56px;
+}
+.spwf-eyebrow{
+  display:inline-block;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--surface);
+  border-radius:999px;
+  padding:6px 16px;
+  margin-bottom:18px;
+}
+.spwf-stat{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:10px;
+  letter-spacing:.02em;
+}
+.spwf-stars{color:var(--brand);letter-spacing:2px;}
+.spwf-h2{
+  font-family:var(--font-head);
+  font-size:34px;
+  font-weight:700;
+  margin:0 0 12px;
+}
+.spwf-sub{
+  font-size:15px;
+  color:var(--muted);
+  line-height:1.5;
+  margin:0;
+}
+
+.spwf-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin-bottom:56px;
+}
+.spwf-card{
+  background:var(--surface);
+  border-radius:16px;
+  padding:28px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  border:1px solid var(--border);
+}
+.spwf-card .spwf-stars{
+  font-size:14px;
+  margin-bottom:12px;
+  display:block;
+}
+.spwf-quote{
+  font-style:italic;
+  font-size:14.5px;
+  line-height:1.6;
+  color:var(--text);
+  margin:0 0 20px;
+}
+.spwf-person{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.spwf-avatar{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#d9d9db;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.spwf-name{
+  font-weight:700;
+  font-size:14px;
+  margin:0;
+}
+.spwf-role{
+  font-size:12px;
+  color:var(--muted);
+  margin:2px 0 0;
+}
+
+.spwf-brandbar{
+  position:relative;
+  z-index:1;
+  border-top:1px solid var(--border);
+  padding-top:32px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:40px;
+}
+.spwf-logo{
+  width:120px;
+  height:28px;
+  background:var(--border);
+  border-radius:6px;
+  opacity:.7;
+}
+.spwf-logo.w2{width:90px;font-weight:800;}
+.spwf-logo.w3{width:140px;}
+
+.spwf-note{
+  position:absolute;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  z-index:2;
+  max-width:150px;
+  line-height:1.3;
+}
+.spwf-note.n1{top:-70px;right:20px;text-align:left;}
+
+@media (max-width:768px){
+  .spwf-grid{grid-template-columns:1fr;}
+  .spwf-h2{font-size:26px;}
+  .spwf-note{display:none;}
+}
+</style>
+</head>
+<body>
+<!-- social · 07a -->
+<section class="socialproof-wf">
+  <div class="spwf-container">
+    <div class="spwf-blob b1"></div>
+    <div class="spwf-blob b2"></div>
+
+    <div class="spwf-note n1">
+      Aggregate rating + review count builds instant trust
+      <svg width="60" height="40" viewBox="0 0 60 40" style="overflow:visible;">
+        <path d="M50 5 C 20 5, 10 25, 15 35" stroke="#a0a0a3" stroke-width="1.5" fill="none" marker-end="url(#arrow1)"/>
+        <defs>
+          <marker id="arrow1" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="#a0a0a3"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="spwf-header">
+      <span class="spwf-eyebrow">EYEBROW / TAGLINE</span>
+      <div class="spwf-stat"><span class="spwf-stars">★★★★★</span> 4.9/5 across 1,200+ reviews · 98% success rate</div>
+      <h2 class="spwf-h2">Section Headline Goes Here</h2>
+      <p class="spwf-sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="spwf-grid">
+      <div class="spwf-card">
+        <span class="spwf-stars">★★★★★</span>
+        <p class="spwf-quote">"Testimonial 1 — specific outcome quote with numbers and a timeframe goes here."</p>
+        <div class="spwf-person">
+          <div class="spwf-avatar"></div>
+          <div>
+            <p class="spwf-name">Name Surname</p>
+            <p class="spwf-role">Title, Location</p>
+          </div>
+        </div>
+      </div>
+      <div class="spwf-card">
+        <span class="spwf-stars">★★★★★</span>
+        <p class="spwf-quote">"Testimonial 2 — specific outcome quote with numbers and a timeframe goes here."</p>
+        <div class="spwf-person">
+          <div class="spwf-avatar"></div>
+          <div>
+            <p class="spwf-name">Name Surname</p>
+            <p class="spwf-role">Title, Location</p>
+          </div>
+        </div>
+      </div>
+      <div class="spwf-card">
+        <span class="spwf-stars">★★★★★</span>
+        <p class="spwf-quote">"Testimonial 3 — specific outcome quote with numbers and a timeframe goes here."</p>
+        <div class="spwf-person">
+          <div class="spwf-avatar"></div>
+          <div>
+            <p class="spwf-name">Name Surname</p>
+            <p class="spwf-role">Title, Location</p>
+          </div>
+        </div>
+      </div>
+      <div class="spwf-card">
+        <span class="spwf-stars">★★★★★</span>
+        <p class="spwf-quote">"Testimonial 4 — specific outcome quote with numbers and a timeframe goes here."</p>
+        <div class="spwf-person">
+          <div class="spwf-avatar"></div>
+          <div>
+            <p class="spwf-name">Name Surname</p>
+            <p class="spwf-role">Title, Location</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spwf-brandbar">
+      <div class="spwf-logo"></div>
+      <div class="spwf-logo w2"></div>
+      <div class="spwf-logo w3"></div>
+      <div class="spwf-logo"></div>
+      <div class="spwf-logo w2"></div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

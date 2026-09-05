@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SOCIAL PROOF — Social Proof Variation 4 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* social · 07d */
+.sp4-wrap{
+  background:var(--bg);
+  padding:100px 24px;
+  position:relative;
+  overflow:hidden;
+  font-family:var(--font-body);
+}
+.sp4-blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--surface);
+  opacity:.6;
+  z-index:0;
+}
+.sp4-blob.b1{width:420px;height:420px;top:-120px;right:-140px;}
+.sp4-blob.b2{width:300px;height:300px;bottom:-100px;left:-100px;}
+.sp4-inner{max-width:var(--maxw);margin:0 auto;position:relative;z-index:1;}
+.sp4-head{text-align:center;max-width:640px;margin:0 auto 56px;}
+.sp4-eyebrow{
+  display:inline-block;
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:6px 14px;
+  margin-bottom:16px;
+}
+.sp4-stars{color:var(--text);font-size:1rem;letter-spacing:2px;margin-bottom:10px;}
+.sp4-agg{color:var(--muted);font-size:.9rem;margin-bottom:18px;}
+.sp4-head h2{
+  font-family:var(--font-head);
+  font-size:2rem;
+  color:var(--text);
+  margin:0 0 12px;
+}
+.sp4-head p{color:var(--muted);font-size:1rem;line-height:1.6;margin:0;}
+
+.sp4-videos{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-bottom:64px;
+}
+.sp4-vcard{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  overflow:hidden;
+}
+.sp4-thumb{
+  position:relative;
+  aspect-ratio:16/9;
+  background:repeating-linear-gradient(45deg,var(--border),var(--border) 10px,var(--surface) 10px,var(--surface) 20px);
+  display:flex;align-items:center;justify-content:center;
+}
+.sp4-play{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--brand);
+  display:flex;align-items:center;justify-content:center;
+}
+.sp4-play svg{width:16px;height:16px;fill:var(--brand-contrast);}
+.sp4-vinfo{padding:14px 16px;}
+.sp4-vinfo .t{font-size:.9rem;color:var(--text);margin:0 0 4px;font-weight:600;}
+.sp4-vinfo .n{font-size:.8rem;color:var(--muted);margin:0;}
+
+.sp4-texts{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-bottom:64px;
+}
+.sp4-card{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  padding:22px 20px;
+}
+.sp4-card .stars{color:var(--text);font-size:.85rem;margin-bottom:10px;}
+.sp4-card blockquote{
+  font-style:italic;
+  color:var(--text);
+  font-size:.92rem;
+  line-height:1.55;
+  margin:0 0 16px;
+}
+.sp4-person{display:flex;align-items:center;gap:10px;}
+.sp4-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--border);
+  flex-shrink:0;
+  object-fit:cover;
+}
+.sp4-person .who p{margin:0;font-size:.82rem;}
+.sp4-person .who .name{color:var(--text);font-weight:600;}
+.sp4-person .who .role{color:var(--muted);}
+
+.sp4-brandbar{
+  border-top:1px solid var(--border);
+  padding-top:36px;
+  text-align:center;
+}
+.sp4-brandbar .lbl{
+  font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:20px;
+}
+.sp4-logos{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:20px;
+}
+.sp4-logo{
+  width:110px;height:32px;
+  background:var(--border);
+  border-radius:6px;
+  opacity:.7;
+}
+
+.sp4-note{
+  position:absolute;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  z-index:2;
+}
+.sp4-note.n1{top:10px;right:-10px;text-align:left;}
+.sp4-note.n2{bottom:170px;left:-14px;text-align:right;}
+
+@media(max-width:768px){
+  .sp4-videos,.sp4-texts{grid-template-columns:1fr;}
+  .sp4-note{display:none;}
+}
+</style>
+</head>
+<body>
+<!-- social · 07d -->
+<section class="sp4-wrap">
+  <div class="sp4-blob b1"></div>
+  <div class="sp4-blob b2"></div>
+
+  <div class="sp4-note n1">
+    Real client photos swap in here
+    <svg width="60" height="40" viewBox="0 0 60 40"><path d="M55 5 C 30 5, 10 20, 8 35" stroke="#6a6a6d" stroke-width="1.5" fill="none" marker-end="url(#ah1)"/><defs><marker id="ah1" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6a6a6d"/></marker></defs></svg>
+  </div>
+
+  <div class="sp4-inner">
+    <div class="sp4-head">
+      <div class="sp4-eyebrow">EYEBROW / TAGLINE</div>
+      <div class="sp4-stars">★★★★★</div>
+      <div class="sp4-agg">4.9/5 average across 1,200+ reviews · 96% success rate</div>
+      <h2>Main Headline Goes Here</h2>
+      <p>A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="sp4-videos">
+      <div class="sp4-vcard">
+        <div class="sp4-thumb">
+          <div class="sp4-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="sp4-vinfo">
+          <p class="t">Video Testimonial 1 title</p>
+          <p class="n">Name, Title / Location</p>
+        </div>
+      </div>
+      <div class="sp4-vcard">
+        <div class="sp4-thumb">
+          <div class="sp4-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="sp4-vinfo">
+          <p class="t">Video Testimonial 2 title</p>
+          <p class="n">Name, Title / Location</p>
+        </div>
+      </div>
+      <div class="sp4-vcard">
+        <div class="sp4-thumb">
+          <div class="sp4-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="sp4-vinfo">
+          <p class="t">Video Testimonial 3 title</p>
+          <p class="n">Name, Title / Location</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp4-texts">
+      <div class="sp4-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Testimonial D — specific outcome with a number and a timeframe."</blockquote>
+        <div class="sp4-person">
+          <img class="sp4-avatar" src="AVATAR_PLACEHOLDER_D" alt="" />
+          <div class="who"><p class="name">Name D</p><p class="role">Title / Location</p></div>
+        </div>
+      </div>
+      <div class="sp4-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Testimonial E — specific outcome with a number and a timeframe."</blockquote>
+        <div class="sp4-person">
+          <img class="sp4-avatar" src="AVATAR_PLACEHOLDER_E" alt="" />
+          <div class="who"><p class="name">Name E</p><p class="role">Title / Location</p></div>
+        </div>
+      </div>
+      <div class="sp4-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Testimonial F — specific outcome with a number and a timeframe."</blockquote>
+        <div class="sp4-person">
+          <img class="sp4-avatar" src="AVATAR_PLACEHOLDER_F" alt="" />
+          <div class="who"><p class="name">Name F</p><p class="role">Title / Location</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp4-note n2">
+      Brand bar sits below testimonials
+      <svg width="50" height="40" viewBox="0 0 50 40"><path d="M5 5 C 20 15, 20 25, 40 30" stroke="#6a6a6d" stroke-width="1.5" fill="none" marker-end="url(#ah2)"/><defs><marker id="ah2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6a6a6d"/></marker></defs></svg>
+    </div>
+
+    <div class="sp4-brandbar">
+      <div class="lbl">As featured in</div>
+      <div class="sp4-logos">
+        <div class="sp4-logo"></div>
+        <div class="sp4-logo"></div>
+        <div class="sp4-logo"></div>
+        <div class="sp4-logo"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

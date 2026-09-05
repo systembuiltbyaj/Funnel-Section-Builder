@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AUTHORITY — Authority Variation 1 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* authority · 09a */
+.authv1 {
+  position: relative;
+  background: var(--bg);
+  padding: 4rem 1.5rem;
+  overflow: hidden;
+}
+.authv1 * { box-sizing: border-box; }
+.authv1__wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 2.5rem;
+  align-items: stretch;
+  min-height: 500px;
+  position: relative;
+}
+.authv1__blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 0;
+}
+.authv1__blob--a { width: 320px; height: 320px; top: -60px; left: -80px; }
+.authv1__blob--b { width: 220px; height: 220px; bottom: -40px; left: 10%; }
+
+.authv1__photo-col {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+}
+.authv1__photo {
+  width: 100%;
+  aspect-ratio: 1 / 1.4;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.authv1__photo-tint {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(60,60,66,.18), transparent);
+}
+.authv1__photo-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  padding-bottom: 2rem;
+  color: var(--muted);
+}
+.authv1__photo-inner span {
+  font-size: .65rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.authv1__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  justify-content: center;
+}
+.authv1__eyebrow {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .35rem .9rem;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.authv1__h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--text);
+  margin: 0;
+}
+.authv1__h2 em {
+  font-style: normal;
+  color: var(--muted);
+  font-weight: 700;
+}
+.authv1__body {
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 55ch;
+}
+.authv1__creds {
+  display: grid;
+  gap: .7rem;
+  margin: .25rem 0 .5rem;
+  padding: 0;
+  list-style: none;
+}
+.authv1__creds li {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  color: var(--text);
+  font-size: .95rem;
+}
+.authv1__check {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.authv1__cta {
+  align-self: flex-start;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  border: none;
+  border-radius: var(--radius);
+  padding: .9rem 1.8rem;
+  font-size: .95rem;
+  font-family: var(--font-sub);
+  cursor: pointer;
+}
+
+.authv1__note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 150px;
+  z-index: 2;
+}
+.authv1__note--photo {
+  top: -2.2rem;
+  left: 2%;
+}
+
+[data-animate] { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-animate="left"] { opacity: 0; transform: translateX(-40px); transition: opacity .7s ease, transform .7s ease; }
+  [data-animate="up"] { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+  [data-animate].is-visible { opacity: 1; transform: none; }
+}
+
+@media (max-width: 768px) {
+  .authv1__wrap {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .authv1__photo-col { order: 0; }
+  .authv1__photo { aspect-ratio: 16/9; }
+  .authv1__note--photo { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- authority · 09a -->
+<section class="authv1">
+  <div class="authv1__wrap">
+    <div class="authv1__blob authv1__blob--a"></div>
+    <div class="authv1__blob authv1__blob--b"></div>
+
+    <div class="authv1__note authv1__note--photo">
+      Coach photo here — warm, tall crop
+      <svg width="50" height="30" viewBox="0 0 50 30" style="overflow:visible">
+        <path d="M2 2 C 20 20, 30 20, 46 6" stroke="var(--muted)" stroke-width="1.2" fill="none" marker-end="url(#arrhead1)"/>
+        <defs>
+          <marker id="arrhead1" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="var(--muted)"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="authv1__photo-col" data-animate="left">
+      <div class="authv1__photo">
+        <div class="authv1__photo-tint"></div>
+        <div class="authv1__photo-inner">
+          <svg width="48" height="48" viewBox="0 0 48 48">
+            <rect x="4" y="4" width="40" height="40" rx="8" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+            <circle cx="17" cy="17" r="4" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+            <path d="M6 36 L18 22 L26 30 L34 18 L44 36 Z" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+          </svg>
+          <span>COACH PORTRAIT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="authv1__content">
+      <span class="authv1__eyebrow" data-animate="up">MEET YOUR COACH</span>
+
+      <h2 class="authv1__h2" data-animate="up">
+        From Main Headline Goes Here <em>→ Transformed State Headline</em>
+      </h2>
+
+      <p class="authv1__body" data-animate="up">
+        A short and clear personal story paragraph that explains the coach's own turning point, not just their credentials — this is the epiphany moment that builds trust and connection with the reader.
+      </p>
+
+      <ul class="authv1__creds">
+        <li data-animate="up">
+          <span class="authv1__check">
+            <svg width="12" height="10" viewBox="0 0 12 10"><path d="M1 5 L4.5 8.5 L11 1" stroke="var(--text)" stroke-width="1.6" fill="none"/></svg>
+          </span>
+          Quantified achievement — e.g. "Grew revenue 4x in 18 months"
+        </li>
+        <li data-animate="up">
+          <span class="authv1__check">
+            <svg width="12" height="10" viewBox="0 0 12 10"><path d="M1 5 L4.5 8.5 L11 1" stroke="var(--text)" stroke-width="1.6" fill="none"/></svg>
+          </span>
+          Client count — e.g. "Helped 500+ founders scale"
+        </li>
+        <li data-animate="up">
+          <span class="authv1__check">
+            <svg width="12" height="10" viewBox="0 0 12 10"><path d="M1 5 L4.5 8.5 L11 1" stroke="var(--text)" stroke-width="1.6" fill="none"/></svg>
+          </span>
+          Media features — e.g. "Featured in top publications"
+        </li>
+        <li data-animate="up">
+          <span class="authv1__check">
+            <svg width="12" height="10" viewBox="0 0 12 10"><path d="M1 5 L4.5 8.5 L11 1" stroke="var(--text)" stroke-width="1.6" fill="none"/></svg>
+          </span>
+          Created the method — e.g. "Creator of the XYZ Framework"
+        </li>
+      </ul>
+
+      <button class="authv1__cta" data-animate="up">Primary CTA →</button>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OPPORTUNITY VEHICLE — Opportunity Variation 8 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* opportunity · 03h */
+.opv8 {
+  background: var(--bg);
+  padding: 100px 32px;
+  font-family: var(--font-body);
+  position: relative;
+  overflow: hidden;
+}
+.opv8 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .5;
+  z-index: 0;
+}
+.opv8 .blob1 { width: 380px; height: 380px; top: -120px; right: -100px; }
+.opv8 .blob2 { width: 260px; height: 260px; bottom: -80px; left: -60px; }
+
+.opv8 .wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.opv8 .header { text-align: center; margin-bottom: 56px; }
+.opv8 .eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 18px;
+}
+.opv8 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 42px);
+  color: var(--text);
+  margin: 0 0 14px;
+}
+.opv8 .sub {
+  color: var(--muted);
+  font-size: 16px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.opv8 .annotation {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  width: 160px;
+  line-height: 1.4;
+  z-index: 2;
+}
+.opv8 .annotation.a1 { top: -30px; right: 0; text-align: left; }
+
+.opv8 .phases {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.opv8 .phase {
+  padding: 28px;
+  border-right: 1px solid var(--border);
+  transition: background .2s ease;
+}
+.opv8 .phase:last-child { border-right: none; }
+.opv8 .phase:hover { background: var(--surface); }
+.opv8 .phase .num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(56px, 6vw, 72px);
+  line-height: 1;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.opv8 .phase:nth-child(1) .num { opacity: .85; }
+.opv8 .phase:nth-child(2) .num { opacity: .65; }
+.opv8 .phase:nth-child(3) .num { opacity: .45; }
+.opv8 .phase:nth-child(4) .num { opacity: .3; }
+.opv8 .phase h3 {
+  font-family: var(--font-head);
+  font-size: 18px;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+.opv8 .phase p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.opv8 .stats-band {
+  background: var(--surface);
+  padding: 32px 0;
+  margin-top: 64px;
+  border-radius: var(--radius);
+}
+.opv8 .stats {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.opv8 .stat .big {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 40px);
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.opv8 .stat .label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+@media (max-width: 768px) {
+  .opv8 .phases { grid-template-columns: 1fr 1fr; }
+  .opv8 .phase { border-right: none; border-bottom: 1px solid var(--border); }
+  .opv8 .annotation { display: none; }
+}
+@media (max-width: 480px) {
+  .opv8 .phases { grid-template-columns: 1fr; }
+  .opv8 .stats { gap: 32px; }
+}
+</style>
+</head>
+<body>
+<!-- opportunity · 03h -->
+<section class="opv8">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="wrap">
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Section Headline Goes Here (Method™)</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="annotation a1">
+      Walk them through your process step by step here
+      <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
+        <path d="M55 5 C 30 5, 15 20, 5 35" stroke="var(--muted)" stroke-width="1.2" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="num">01</div>
+        <h3>Step 1</h3>
+        <p>Short benefit here explaining the first phase of the process.</p>
+      </div>
+      <div class="phase">
+        <div class="num">02</div>
+        <h3>Step 2</h3>
+        <p>Short benefit here explaining the second phase of the process.</p>
+      </div>
+      <div class="phase">
+        <div class="num">03</div>
+        <h3>Step 3</h3>
+        <p>Short benefit here explaining the third phase of the process.</p>
+      </div>
+      <div class="phase">
+        <div class="num">04</div>
+        <h3>Step 4</h3>
+        <p>Short benefit here explaining the fourth phase of the process.</p>
+      </div>
+    </div>
+
+    <div class="stats-band">
+      <div class="stats">
+        <div class="stat">
+          <div class="big">100+</div>
+          <div class="label">Stat label one</div>
+        </div>
+        <div class="stat">
+          <div class="big">98%</div>
+          <div class="label">Stat label two</div>
+        </div>
+        <div class="stat">
+          <div class="big">24/7</div>
+          <div class="label">Stat label three</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

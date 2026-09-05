@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RISK REVERSAL — Risk Reversal Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* risk · 08e */
+.risk-rev-5 {
+  background: var(--bg);
+  padding: 4rem 1.5rem;
+  min-height: 420px;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+.risk-rev-5 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 0;
+}
+.risk-rev-5 .blob.b1 { width: 260px; height: 260px; top: -80px; left: -80px; }
+.risk-rev-5 .blob.b2 { width: 320px; height: 320px; bottom: -120px; right: -100px; }
+
+.risk-rev-5 .wrap { max-width: var(--maxw); margin: 0 auto; position: relative; z-index: 1; }
+
+.risk-rev-5 .header { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
+.risk-rev-5 .eyebrow {
+  display: inline-block;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .3rem .9rem;
+  margin-bottom: 1rem;
+}
+.risk-rev-5 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text);
+  margin: 0 0 .75rem;
+}
+.risk-rev-5 .sub { color: var(--muted); font-size: .95rem; line-height: 1.5; }
+
+.risk-rev-5 .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+@media (max-width: 768px) {
+  .risk-rev-5 .grid { grid-template-columns: 1fr; }
+}
+
+.risk-rev-5 .col {
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: transform .6s ease, opacity .6s ease;
+}
+.risk-rev-5 .col.left { opacity: 0; transform: translateX(-40px); }
+.risk-rev-5 .col.right { opacity: 0; transform: translateX(40px); }
+.risk-rev-5 .col.in-view { opacity: 1; transform: translateX(0); }
+@media (prefers-reduced-motion: reduce) {
+  .risk-rev-5 .col { opacity: 1 !important; transform: none !important; }
+}
+
+.risk-rev-5 .col h3 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  color: var(--text);
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.risk-rev-5 .item {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: .85rem 0;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  font-size: .9rem;
+}
+.risk-rev-5 .item:first-of-type { border-top: none; }
+
+.risk-rev-5 .mark {
+  flex: none;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem;
+  font-weight: bold;
+}
+.risk-rev-5 .col.left .mark { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+.risk-rev-5 .col.right .mark { background: var(--brand); color: var(--brand-contrast); }
+
+.risk-rev-5 .layer {
+  margin-top: .5rem;
+  padding: .85rem;
+  border: 1px dashed var(--border);
+  border-radius: calc(var(--radius) - 6px);
+  background: var(--bg);
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+.risk-rev-5 .cta-wrap { text-align: center; }
+.risk-rev-5 .cta-btn {
+  display: inline-block;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  font-family: var(--font-head);
+  font-size: .95rem;
+  padding: .85rem 2rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: default;
+}
+.risk-rev-5 .small-print {
+  margin-top: .75rem;
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+.risk-rev-5 .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 150px;
+  line-height: 1.3;
+  z-index: 2;
+}
+.risk-rev-5 .note.n1 { top: 8%; right: -2%; text-align: left; }
+@media (max-width: 900px) { .risk-rev-5 .note { display: none; } }
+</style>
+</head>
+<body>
+<!-- risk · 08e -->
+<section class="risk-rev-5">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+
+  <div class="note n1">
+    Two guarantee layers always visible — refund AND outcome promise
+    <svg width="60" height="40" viewBox="0 0 60 40" style="position:absolute; top:20px; left:-55px;">
+      <path d="M55 5 C30 5 10 20 5 35" stroke="#6a6a6d" stroke-width="1.5" fill="none" marker-end="url(#arrow5)"/>
+      <defs>
+        <marker id="arrow5" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#6a6a6d"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="wrap">
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="grid">
+      <div class="col left" data-anim>
+        <h3>Typical Program</h3>
+        <div class="item"><span class="mark">✗</span><span>Feature 1 / short drawback here</span></div>
+        <div class="item"><span class="mark">✗</span><span>Feature 2 / short drawback here</span></div>
+        <div class="item"><span class="mark">✗</span><span>Feature 3 / short drawback here</span></div>
+        <div class="item"><span class="mark">✗</span><span>Feature 4 / short drawback here</span></div>
+      </div>
+
+      <div class="col right" data-anim>
+        <h3>Our Program</h3>
+        <div class="item"><span class="mark">✓</span><span>Feature 1 / short benefit here</span></div>
+        <div class="item"><span class="mark">✓</span><span>Feature 2 / short benefit here</span></div>
+        <div class="item"><span class="mark">✓</span><span>Feature 3 / short benefit here</span></div>
+        <div class="item"><span class="mark">✓</span><span>Feature 4 / short benefit here</span></div>
+        <div class="layer">14-Day Refund Guarantee — plain-English description of the policy.</div>
+        <div class="layer">Outcome Guarantee — plain-English description of the result promised.</div>
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <button class="cta-btn">Primary CTA →</button>
+      <p class="small-print">Optional small text (e.g. no credit card required)</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var sec = document.currentScript.closest('section');
+  if (!sec) return;
+  var cols = sec.querySelectorAll('[data-anim]');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cols.forEach(function(c){ c.classList.add('in-view'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+    });
+  }, { threshold: .2 });
+  cols.forEach(function(c){ io.observe(c); });
+})();
+</script>
+</body>
+</html>

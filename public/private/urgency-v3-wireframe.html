@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>URGENCY — Urgency Variation 3 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* urgency · 10c */
+.urgency3 {
+  position: relative;
+  background: var(--bg);
+  padding: 4rem 1.5rem;
+  font-family: var(--font-body);
+  color: var(--text);
+  overflow: hidden;
+}
+.urgency3__blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .5;
+  z-index: 0;
+}
+.urgency3__blob--a { width: 320px; height: 320px; top: -80px; left: -100px; }
+.urgency3__blob--b { width: 260px; height: 260px; bottom: -60px; right: -80px; }
+
+.urgency3__inner {
+  position: relative;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  text-align: center;
+  z-index: 1;
+}
+.urgency3__eyebrow {
+  display: inline-block;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .3rem .9rem;
+  margin-bottom: 1rem;
+}
+.urgency3__h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  margin: 0 0 .75rem;
+}
+.urgency3__sub {
+  color: var(--muted);
+  max-width: 42ch;
+  margin: 0 auto 2rem;
+  font-size: .95rem;
+}
+
+.urgency3__timer {
+  display: flex;
+  justify-content: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+  margin: 0 auto 2rem;
+}
+.urgency3__unit {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .9rem 1.1rem;
+  min-width: 72px;
+}
+.urgency3__num {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+}
+.urgency3__lbl {
+  font-size: .65rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.urgency3__closed {
+  display: none;
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.urgency3__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.urgency3__grid.is-visible { opacity: 1; transform: translateY(0); }
+
+.urgency3__col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+}
+.urgency3__col h3 {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  margin: 0 0 .75rem;
+  color: var(--text);
+}
+.urgency3__col ul { list-style: none; margin: 0; padding: 0; }
+.urgency3__col li {
+  font-size: .9rem;
+  color: var(--muted);
+  margin-bottom: .5rem;
+  padding-left: 1.4rem;
+  position: relative;
+}
+.urgency3__col li::before {
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--text);
+}
+.urgency3__col--lose li::before { content: "✗"; }
+.urgency3__col--keep li::before { content: "✓"; }
+
+.urgency3__cta {
+  display: inline-block;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  border: none;
+  border-radius: var(--radius);
+  padding: .9rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: .75rem;
+}
+.urgency3__scarcity {
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+.urgency3__note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 140px;
+  top: 40px;
+  right: 1rem;
+  text-align: left;
+  z-index: 2;
+  display: none;
+}
+@media (min-width: 900px) { .urgency3__note { display: block; } }
+
+@media (max-width: 768px) {
+  .urgency3__grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .urgency3__grid { transition: none; opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<!-- urgency · 10c -->
+<section class="urgency3" style="min-height:500px;">
+  <div class="urgency3__blob urgency3__blob--a"></div>
+  <div class="urgency3__blob urgency3__blob--b"></div>
+
+  <div class="urgency3__note">
+    Countdown pulls focus first — everything else fades in after.
+    <svg width="60" height="40" style="position:absolute; top:-30px; left:-40px;">
+      <path d="M50 5 Q10 5 10 35" stroke="#6a6a6d" stroke-width="1.5" fill="none" marker-end="url(#arrowhead3)"/>
+      <defs>
+        <marker id="arrowhead3" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#6a6a6d"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="urgency3__inner">
+    <span class="urgency3__eyebrow">EYEBROW / TAGLINE</span>
+    <h2 class="urgency3__h2">Main Headline Goes Here — Enrollment Closes Friday</h2>
+    <p class="urgency3__sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+
+    <div class="urgency3__timer" id="urgency3Timer">
+      <div class="urgency3__unit"><span class="urgency3__num" id="u3-days">00</span><span class="urgency3__lbl">Days</span></div>
+      <div class="urgency3__unit"><span class="urgency3__num" id="u3-hours">00</span><span class="urgency3__lbl">Hours</span></div>
+      <div class="urgency3__unit"><span class="urgency3__num" id="u3-mins">00</span><span class="urgency3__lbl">Mins</span></div>
+      <div class="urgency3__unit"><span class="urgency3__num" id="u3-secs">00</span><span class="urgency3__lbl">Secs</span></div>
+    </div>
+    <p class="urgency3__closed" id="u3-closed">Enrollment is now closed.</p>
+
+    <div class="urgency3__grid" id="u3Grid">
+      <div class="urgency3__col urgency3__col--lose">
+        <h3>After Friday you lose</h3>
+        <ul>
+          <li>Loss point 1 — e.g. current price</li>
+          <li>Loss point 2 — e.g. bonus module</li>
+          <li>Loss point 3 — e.g. live cohort access</li>
+        </ul>
+      </div>
+      <div class="urgency3__col urgency3__col--keep">
+        <h3>Enroll now and keep</h3>
+        <ul>
+          <li>Keep point 1 — e.g. locked-in rate</li>
+          <li>Keep point 2 — e.g. bonus workbook</li>
+          <li>Keep point 3 — e.g. lifetime updates</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="urgency3__cta">Primary CTA →</button>
+    <p class="urgency3__scarcity">Only 12 seats remaining at this price</p>
+  </div>
+</section>
+
+<script>
+(function(){
+  const DEADLINE = "2026-08-01T23:59:59";
+  const target = new Date(DEADLINE).getTime();
+  const timerEl = document.getElementById('urgency3Timer');
+  const closedEl = document.getElementById('u3-closed');
+  const d = document.getElementById('u3-days');
+  const h = document.getElementById('u3-hours');
+  const m = document.getElementById('u3-mins');
+  const s = document.getElementById('u3-secs');
+
+  function tick(){
+    const now = Date.now();
+    const diff = target - now;
+    if (diff <= 0) {
+      timerEl.style.display = 'none';
+      closedEl.style.display = 'block';
+      clearInterval(interval);
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    d.textContent = String(days).padStart(2,'0');
+    h.textContent = String(hours).padStart(2,'0');
+    m.textContent = String(mins).padStart(2,'0');
+    s.textContent = String(secs).padStart(2,'0');
+  }
+  tick();
+  const interval = setInterval(tick, 1000);
+
+  const grid = document.getElementById('u3Grid');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    grid.classList.add('is-visible');
+  } else if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => grid.classList.add('is-visible'), 400);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .3 });
+    io.observe(grid);
+  } else {
+    grid.classList.add('is-visible');
+  }
+})();
+</script>
+</body>
+</html>

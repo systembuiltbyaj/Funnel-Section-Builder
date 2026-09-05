@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP — USP Variation 4 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* usp · 05d */
+.usp4-section {
+  background: var(--bg);
+  padding: 6rem 1.5rem;
+  position: relative;
+}
+.usp4-wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  position: relative;
+}
+.usp4-blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 0;
+}
+.usp4-blob.b1 { width: 320px; height: 320px; top: -120px; left: -100px; }
+.usp4-blob.b2 { width: 260px; height: 260px; bottom: -80px; right: -80px; }
+
+.usp4-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3.5rem;
+  position: relative;
+  z-index: 1;
+}
+.usp4-eyebrow {
+  display: inline-block;
+  font-family: var(--font-sub);
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .35rem 1rem;
+  margin-bottom: 1rem;
+}
+.usp4-h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 .75rem;
+}
+.usp4-sub {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.usp4-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  position: relative;
+  z-index: 1;
+}
+.usp4-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--muted);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.usp4-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -20px rgba(15,15,20,.25);
+}
+.usp4-number {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: .75rem;
+}
+.usp4-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text);
+  margin: 0 0 .5rem;
+}
+.usp4-body {
+  font-family: var(--font-body);
+  font-size: .9375rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.usp4-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.usp4-note {
+  position: absolute;
+  top: -2.75rem;
+  right: -1rem;
+  max-width: 180px;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  z-index: 2;
+}
+.usp4-note svg { position: absolute; top: 30px; left: -40px; }
+
+@media (max-width: 768px) {
+  .usp4-grid { grid-template-columns: 1fr; }
+  .usp4-note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- usp · 05d -->
+<section class="usp4-section">
+  <div class="usp4-wrap">
+    <div class="usp4-blob b1"></div>
+    <div class="usp4-blob b2"></div>
+
+    <div class="usp4-header">
+      <span class="usp4-eyebrow">EYEBROW / TAGLINE</span>
+      <h2 class="usp4-h2">Main Headline Goes Here</h2>
+      <p class="usp4-sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="usp4-grid">
+      <div class="usp4-note" aria-hidden="true">
+        Numbers count up on scroll — make them big and bold
+        <svg width="60" height="50" viewBox="0 0 60 50" fill="none">
+          <path d="M55 5 C 30 5, 15 25, 8 40" stroke="#9a9a9a" stroke-width="1.5" fill="none" marker-end="url(#arrow4)"/>
+          <defs>
+            <marker id="arrow4" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="#9a9a9a"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="usp4-card">
+        <div class="usp4-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="1.8">
+            <path d="M13 2 L4 14 h6 l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="usp4-number">100+</div>
+        <div class="usp4-title">Feature 1</div>
+        <p class="usp4-body">Short benefit here explaining this stat in one clear sentence.</p>
+      </div>
+
+      <div class="usp4-card">
+        <div class="usp4-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="1.8">
+            <path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="usp4-number">98%</div>
+        <div class="usp4-title">Feature 2</div>
+        <p class="usp4-body">Short benefit here explaining this stat in one clear sentence.</p>
+      </div>
+
+      <div class="usp4-card">
+        <div class="usp4-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="1.8">
+            <path d="M4 20V10M12 20V4M20 20v-7" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="usp4-number">50k</div>
+        <div class="usp4-title">Feature 3</div>
+        <p class="usp4-body">Short benefit here explaining this stat in one clear sentence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

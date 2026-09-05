@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OFFER POSITIONING — Offer Positioning Variation 4 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* offer · 06d */
+.offer4{position:relative;background:var(--bg);padding:96px 24px;overflow:hidden;font-family:var(--font-body);}
+.offer4 *{box-sizing:border-box;}
+.offer4 .blob{position:absolute;border-radius:50%;background:var(--surface);opacity:.6;z-index:0;}
+.offer4 .blob1{width:340px;height:340px;top:-120px;left:-100px;}
+.offer4 .blob2{width:260px;height:260px;bottom:-80px;right:-60px;}
+.offer4 .wrap{position:relative;max-width:1200px;margin:0 auto;z-index:1;}
+.offer4 .header{text-align:center;max-width:640px;margin:0 auto 56px;}
+.offer4 .eyebrow{display:inline-block;background:var(--surface);color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:16px;}
+.offer4 h2{font-family:var(--font-head);font-size:2.1rem;color:var(--text);margin:0 0 12px;}
+.offer4 .sub{color:var(--muted);font-size:1rem;line-height:1.6;margin:0;}
+.offer4 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start;}
+.offer4 .card{position:relative;background:var(--bg);border:1px solid var(--border);border-radius:18px;padding:36px 28px;transition:transform .2s ease;}
+.offer4 .card:hover{transform:translateY(-4px);}
+.offer4 .card.mid{border:2px solid var(--brand);box-shadow:0 12px 30px rgba(0,0,0,.08);transform:translateY(-8px);}
+.offer4 .badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--brand);color:var(--brand-contrast);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:6px 14px;border-radius:999px;white-space:nowrap;}
+.offer4 .plan-label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;}
+.offer4 .price{font-family:var(--font-head);font-size:2rem;font-weight:700;color:var(--text);margin-bottom:20px;}
+.offer4 .price span{font-size:.9rem;color:var(--muted);font-weight:400;}
+.offer4 .feat{list-style:none;padding:0;margin:0 0 20px;display:flex;flex-direction:column;gap:10px;}
+.offer4 .feat li{display:flex;align-items:flex-start;gap:8px;font-size:.92rem;color:var(--text);}
+.offer4 .icon{flex:0 0 auto;width:18px;height:18px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;}
+.offer4 .icon svg{width:10px;height:10px;stroke:var(--muted);}
+.offer4 .bonus{font-size:.85rem;color:var(--muted);margin-bottom:16px;padding-top:12px;border-top:1px dashed var(--border);}
+.offer4 .cta{display:block;width:100%;text-align:center;background:var(--brand);color:var(--brand-contrast);border:none;border-radius:10px;padding:13px;font-size:.95rem;font-weight:600;cursor:pointer;margin-bottom:10px;}
+.offer4 .note{font-size:.78rem;color:var(--muted);font-style:italic;text-align:center;margin:0;}
+.offer4 .note-arrow{position:absolute;top:-30px;right:-10px;font-family:'Segoe Script','Bradley Hand',cursive;font-size:13px;color:var(--muted);width:150px;text-align:left;}
+@media(max-width:768px){
+  .offer4 .grid{grid-template-columns:1fr;}
+  .offer4 .card.mid{order:-1;transform:none;}
+  .offer4 .note-arrow{display:none;}
+}
+@media(prefers-reduced-motion:no-preference){
+  .offer4 .card{animation:fanIn .6s ease both;}
+  .offer4 .card:nth-child(1){animation-delay:.05s;}
+  .offer4 .card:nth-child(2){animation-delay:.15s;}
+  .offer4 .card:nth-child(3){animation-delay:.25s;}
+  .offer4 .card.mid{animation:fanIn .6s ease both, pulse 1.2s ease .8s 1;}
+}
+@keyframes fanIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{box-shadow:0 12px 30px rgba(0,0,0,.08);}50%{box-shadow:0 12px 40px rgba(0,0,0,.18);}}
+</style>
+</head>
+<body>
+<!-- offer · 06d -->
+<section class="offer4">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="wrap">
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="plan-label">Plan Label 1</div>
+        <div class="price">$XX<span>/mo</span></div>
+        <ul class="feat">
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 1</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 2</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 3</li>
+        </ul>
+        <button class="cta">Primary CTA →</button>
+        <p class="note">Optional small text (e.g. no credit card required)</p>
+      </div>
+      <div class="card mid">
+        <div class="badge">Most Popular</div>
+        <div class="note-arrow">This is the plan you<br/>want them to pick</div>
+        <div class="plan-label">Plan Label 2</div>
+        <div class="price">$XX<span>/mo</span></div>
+        <ul class="feat">
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 1</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 2</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 3</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 4</li>
+        </ul>
+        <div class="bonus">★ Bonus item one included</div>
+        <button class="cta">Primary CTA →</button>
+        <p class="note">Optional small text (e.g. no credit card required)</p>
+      </div>
+      <div class="card">
+        <div class="plan-label">Plan Label 3</div>
+        <div class="price">$XX<span>/mo</span></div>
+        <ul class="feat">
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 1</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 2</li>
+          <li><span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke-width="3"/></svg></span>Feature 3</li>
+        </ul>
+        <button class="cta">Primary CTA →</button>
+        <p class="note">Optional small text (e.g. no credit card required)</p>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

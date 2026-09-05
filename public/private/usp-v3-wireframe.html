@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP — USP Variation 3 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* usp · 05c */
+.usp3-section{
+  background:var(--surface);
+  padding:96px 24px;
+  position:relative;
+  overflow:hidden;
+  font-family:var(--font-body);
+}
+.usp3-section .blob{
+  position:absolute;
+  border-radius:50%;
+  background:var(--border);
+  opacity:.25;
+  z-index:0;
+}
+.usp3-section .blob1{width:340px;height:340px;top:-80px;right:-100px;}
+.usp3-section .blob2{width:220px;height:220px;bottom:-60px;left:-60px;}
+.usp3-wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:40% 60%;
+  gap:56px;
+  align-items:center;
+  position:relative;
+  z-index:1;
+}
+.usp3-eyebrow{
+  display:inline-block;
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.08em;
+  color:var(--muted);
+  background:var(--bg);
+  border:1px solid var(--border);
+  padding:6px 14px;
+  border-radius:999px;
+  margin-bottom:18px;
+}
+.usp3-left h2{
+  font-family:var(--font-head);
+  font-size:clamp(28px,4vw,40px);
+  font-weight:800;
+  color:var(--text);
+  line-height:1.2;
+  margin:0 0 8px;
+}
+.usp3-left h2 em{
+  display:block;
+  font-style:italic;
+  color:var(--muted);
+  font-weight:600;
+  font-size:0.85em;
+}
+.usp3-left p{
+  color:var(--muted);
+  line-height:1.65;
+  font-size:15.5px;
+  margin:18px 0 28px;
+  max-width:42ch;
+}
+.usp3-cta{
+  display:inline-block;
+  border:1.5px solid var(--brand);
+  color:var(--brand);
+  background:transparent;
+  padding:12px 28px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:600;
+  text-decoration:none;
+}
+.usp3-cards{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.usp3-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px 24px;
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+}
+.usp3-icon{
+  flex:0 0 48px;
+  width:48px;height:48px;
+  border-radius:50%;
+  background:var(--surface);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.usp3-icon svg{width:22px;height:22px;stroke:var(--muted);fill:none;stroke-width:1.6;}
+.usp3-card h3{
+  margin:0 0 4px;
+  font-size:18px;
+  font-weight:700;
+  color:var(--text);
+}
+.usp3-card p{
+  margin:0;
+  font-size:14.5px;
+  color:var(--muted);
+  line-height:1.5;
+}
+.usp3-note{
+  position:absolute;
+  top:20px;
+  right:40px;
+  max-width:150px;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  z-index:2;
+}
+@media (max-width:768px){
+  .usp3-wrap{grid-template-columns:1fr;}
+  .usp3-note{display:none;}
+}
+</style>
+</head>
+<body>
+<!-- usp · 05c -->
+<section class="usp3-section">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="usp3-note">
+    Emphasize the personal, lived-experience angle here
+    <svg width="60" height="40" viewBox="0 0 60 40"><path d="M55 5 C 30 5, 20 30, 5 35" stroke="var(--muted)" stroke-width="1.2" fill="none" marker-end="url(#arrow)"/><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--muted)"/></marker></defs></svg>
+  </div>
+  <div class="usp3-wrap">
+    <div class="usp3-left">
+      <span class="usp3-eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here<em>We've Lived It.</em></h2>
+      <p>A short and clear value proposition that explains your offer and the main benefit, written in a warm reassuring tone.</p>
+      <a href="#" class="usp3-cta">Primary CTA →</a>
+    </div>
+    <div class="usp3-cards">
+      <div class="usp3-card">
+        <div class="usp3-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+        </div>
+        <div>
+          <h3>Feature 1</h3>
+          <p>Short benefit here explaining the first reason to trust this offering.</p>
+        </div>
+      </div>
+      <div class="usp3-card">
+        <div class="usp3-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+        </div>
+        <div>
+          <h3>Feature 2</h3>
+          <p>Short benefit here explaining the second reason to trust this offering.</p>
+        </div>
+      </div>
+      <div class="usp3-card">
+        <div class="usp3-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+        </div>
+        <div>
+          <h3>Feature 3</h3>
+          <p>Short benefit here explaining the third reason to trust this offering.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

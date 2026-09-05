@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ — FAQ Variation 8 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* faq · 11h */
+.faq8{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:5rem 1.5rem;
+  position:relative;
+}
+.faq8 .wrap{
+  display:grid;
+  grid-template-columns:62% 36%;
+  gap:2%;
+  align-items:start;
+}
+.faq8 .eyebrow{
+  display:inline-block;
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--surface);
+  border-radius:999px;
+  padding:.35rem .9rem;
+  margin-bottom:1rem;
+}
+.faq8 h2{
+  font-family:var(--font-head);
+  font-size:2rem;
+  color:var(--text);
+  margin:0 0 2rem;
+  max-width:20ch;
+}
+.faq8 .item{
+  border-bottom:1px solid var(--border);
+}
+.faq8 details{
+  padding:1.1rem 0;
+}
+.faq8 summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  cursor:pointer;
+  font-weight:600;
+  color:var(--text);
+  font-size:1rem;
+}
+.faq8 summary::-webkit-details-marker{display:none;}
+.faq8 .toggle{
+  flex:none;
+  width:28px;height:28px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  transition:background .25s, transform .25s;
+}
+.faq8 .toggle::before,.faq8 .toggle::after{
+  content:"";
+  position:absolute;
+  background:var(--muted);
+  transition:transform .25s;
+}
+.faq8 .toggle::before{width:10px;height:1.5px;}
+.faq8 .toggle::after{width:1.5px;height:10px;}
+.faq8 details[open] .toggle{background:var(--surface);}
+.faq8 details[open] .toggle::after{transform:scaleY(0);}
+.faq8 details[open] summary{color:var(--text);}
+.faq8 details[open]{background:var(--surface);border-radius:var(--radius);}
+.faq8 .answer{
+  color:var(--muted);
+  font-size:.92rem;
+  line-height:1.6;
+  max-width:60ch;
+  padding:.75rem 1rem 0 0;
+}
+.faq8 details[open] .answer{padding-left:0;}
+
+/* right widget */
+.faq8 .widget{
+  position:sticky;
+  top:2rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.75rem;
+}
+.faq8 .widget h3{
+  font-family:var(--font-head);
+  font-size:1.15rem;
+  color:var(--text);
+  margin:0 0 1.25rem;
+}
+.faq8 .opt{
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+  padding:.75rem 0;
+  border-bottom:1px solid var(--border);
+}
+.faq8 .opt:last-of-type{border-bottom:none;}
+.faq8 .icon-circ{
+  flex:none;
+  width:38px;height:38px;
+  border-radius:50%;
+  background:var(--bg);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+}
+.faq8 .opt-text b{display:block;font-size:.9rem;color:var(--text);}
+.faq8 .opt-text span{font-size:.78rem;color:var(--muted);}
+.faq8 .cta-card{
+  margin-top:1.5rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.25rem;
+  text-align:center;
+  background:var(--bg);
+}
+.faq8 .cta-card p{
+  font-size:.85rem;
+  color:var(--muted);
+  margin:0 0 1rem;
+}
+.faq8 .btn{
+  display:inline-block;
+  background:var(--brand);
+  color:var(--brand-contrast);
+  border:none;
+  border-radius:8px;
+  padding:.7rem 1.4rem;
+  font-size:.9rem;
+  font-weight:600;
+  cursor:pointer;
+}
+.faq8 .note{
+  position:absolute;
+  right:2%;
+  top:1rem;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:150px;
+  text-align:left;
+}
+
+@media(max-width:768px){
+  .faq8 .wrap{grid-template-columns:1fr;}
+  .faq8 .widget{position:static;margin-top:2.5rem;}
+  .faq8 .note{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  .faq8 .toggle,.faq8 .toggle::after{transition:none;}
+}
+</style>
+</head>
+<body>
+<!-- faq · 11h -->
+<section class="faq8" style="min-height:400px;">
+  <div class="note">
+    Only one panel open at a time →
+    <svg width="60" height="40" viewBox="0 0 60 40" style="overflow:visible;">
+      <path d="M5,5 C20,25 40,10 55,30" stroke="#9a9a9d" stroke-width="1.5" fill="none" marker-end="url(#arrow8)"/>
+      <defs>
+        <marker id="arrow8" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 z" fill="#9a9a9d"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="wrap">
+    <div class="left">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Section Headline Goes Here</h2>
+
+      <div class="item">
+        <details open name="faq8group">
+          <summary>Question 1 goes here <span class="toggle"></span></summary>
+          <div class="answer">A short and clear answer sentence describing pricing details, delivered in muted secondary text.</div>
+        </details>
+      </div>
+      <div class="item">
+        <details name="faq8group">
+          <summary>Question 2 goes here <span class="toggle"></span></summary>
+          <div class="answer">A short and clear answer sentence covering onboarding or setup process for new customers.</div>
+        </details>
+      </div>
+      <div class="item">
+        <details name="faq8group">
+          <summary>Question 3 goes here <span class="toggle"></span></summary>
+          <div class="answer">A short and clear answer sentence explaining refund or cancellation policy in plain terms.</div>
+        </details>
+      </div>
+      <div class="item">
+        <details name="faq8group">
+          <summary>Question 4 goes here <span class="toggle"></span></summary>
+          <div class="answer">A short and clear answer sentence about integrations, compatibility, or supported platforms.</div>
+        </details>
+      </div>
+      <div class="item">
+        <details name="faq8group">
+          <summary>Question 5 goes here <span class="toggle"></span></summary>
+          <div class="answer">A short and clear answer sentence describing security, privacy, and data handling practices.</div>
+        </details>
+      </div>
+      <div class="item">
+        <details name="faq8group">
+          <summary>Question 6 goes here <span class="toggle"></span></summary>
+          <div class="answer">A short and clear answer sentence about support channels and average response time.</div>
+        </details>
+      </div>
+    </div>
+
+    <aside class="widget">
+      <h3>Still have a question?</h3>
+
+      <div class="opt">
+        <span class="icon-circ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="1.6">
+            <path d="M4 5h16v11H8l-4 4z"/>
+          </svg>
+        </span>
+        <span class="opt-text"><b>Live Chat</b><span>Optional small text (e.g. instant reply)</span></span>
+      </div>
+
+      <div class="opt">
+        <span class="icon-circ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6a6a6d" stroke-width="1.6">
+            <path d="M4 5h16v14H4z"/><path d="M4 6l8 7 8-7"/>
+          </svg>
+        </span>
+        <span class="opt-text"><b>Email Us</b><span>Optional small text (e.g. within 24 hrs)</span></span>
+      </div>
+
+      <div class="cta-card">
+        <p>A short and clear value proposition inviting the visitor to reach out directly.</p>
+        <button class="btn">Primary CTA →</button>
+      </div>
+    </aside>
+  </div>
+</section>
+</body>
+</html>

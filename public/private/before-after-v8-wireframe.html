@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BEFORE VS AFTER — Before vs After Variation 8 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* compare · 04h */
+.baf8 {
+  background: var(--bg);
+  padding: 96px 24px;
+  font-family: var(--font-body);
+  position: relative;
+}
+.baf8 .wrap { max-width: var(--maxw); margin: 0 auto; }
+.baf8 .head { text-align: center; max-width: 640px; margin: 0 auto 56px; }
+.baf8 .eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-bottom: 18px;
+}
+.baf8 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--text);
+  margin: 0 0 14px;
+}
+.baf8 .sub { color: var(--muted); font-size: 16px; line-height: 1.6; margin: 0; }
+
+.baf8 .compare {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+.baf8 .compare-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.baf8 .compare-head div {
+  padding: 18px 24px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.baf8 .compare-head .old { border-right: 1px solid var(--border); }
+.baf8 .compare-head .old span, .baf8 .compare-head .new span { color: var(--muted); }
+
+.baf8 .row { display: grid; grid-template-columns: 1fr 1fr; }
+.baf8 .row:nth-child(odd) .old,
+.baf8 .row:nth-child(odd) .new { background: var(--bg); }
+.baf8 .row:nth-child(even) .old,
+.baf8 .row:nth-child(even) .new { background: var(--surface); }
+.baf8 .row:hover .old,
+.baf8 .row:hover .new { filter: brightness(0.97); }
+
+.baf8 .old, .baf8 .new {
+  padding: 22px 24px;
+  font-size: 16px;
+  color: var(--text);
+  border-left: 3px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.baf8 .old { border-right: 1px solid var(--border); }
+.baf8 .mark { color: var(--muted); font-weight: 700; }
+
+.baf8 .note {
+  position: absolute;
+  right: -6px;
+  top: 40%;
+  max-width: 150px;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  display: none;
+}
+@media (min-width: 1100px) {
+  .baf8 .note { display: block; }
+}
+
+@media (max-width: 768px) {
+  .baf8 .compare-head { display: none; }
+  .baf8 .row { grid-template-columns: 1fr; }
+  .baf8 .old { border-right: none; border-bottom: 1px solid var(--border); }
+}
+</style>
+</head>
+<body>
+<!-- compare · 04h -->
+<section class="baf8">
+  <div class="wrap" style="position:relative;">
+    <div class="head">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="compare">
+      <div class="compare-head">
+        <div class="old"><span>✗</span> Without the System</div>
+        <div class="new"><span>✓</span> With the System</div>
+      </div>
+
+      <div class="row">
+        <div class="old"><span class="mark">✗</span> Old way item 1 — short pain point description.</div>
+        <div class="new"><span class="mark">✓</span> New way item 1 — short outcome description.</div>
+      </div>
+      <div class="row">
+        <div class="old"><span class="mark">✗</span> Old way item 2 — short pain point description.</div>
+        <div class="new"><span class="mark">✓</span> New way item 2 — short outcome description.</div>
+      </div>
+      <div class="row">
+        <div class="old"><span class="mark">✗</span> Old way item 3 — short pain point description.</div>
+        <div class="new"><span class="mark">✓</span> New way item 3 — short outcome description.</div>
+      </div>
+      <div class="row">
+        <div class="old"><span class="mark">✗</span> Old way item 4 — short pain point description.</div>
+        <div class="new"><span class="mark">✓</span> New way item 4 — short outcome description.</div>
+      </div>
+      <div class="row">
+        <div class="old"><span class="mark">✗</span> Old way item 5 — short pain point description.</div>
+        <div class="new"><span class="mark">✓</span> New way item 5 — short outcome description.</div>
+      </div>
+    </div>
+
+    <div class="note">Highlight the contrast between before/after rows here →</div>
+  </div>
+</section>
+</body>
+</html>

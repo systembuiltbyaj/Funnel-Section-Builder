@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP — USP Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* usp · 05e */
+.usp5{position:relative;background:var(--bg);padding:6rem 1.5rem;font-family:var(--font-body);}
+.usp5 .wrap{max-width:var(--maxw);margin:0 auto;}
+.usp5 .head{text-align:center;max-width:640px;margin:0 auto 3rem;}
+.usp5 .eyebrow{display:inline-block;background:var(--surface);color:var(--muted);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;border:1px solid var(--border);margin-bottom:1rem;}
+.usp5 h2{font-family:var(--font-head);font-size:2rem;color:var(--text);margin:0 0 .75rem;}
+.usp5 .sub{color:var(--muted);font-size:1rem;line-height:1.5;margin:0;}
+.usp5 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.usp5 .card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:2rem 1.75rem;display:flex;flex-direction:column;gap:.9rem;}
+.usp5 .icon{width:52px;height:52px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);}
+.usp5 .card h3{font-family:var(--font-head);font-size:1.15rem;color:var(--text);margin:0;}
+.usp5 .card p{font-size:.9rem;color:var(--muted);line-height:1.5;margin:0;}
+.usp5 .badge{align-self:flex-start;margin-top:auto;background:var(--bg);border:1px solid var(--border);color:var(--muted);font-size:.75rem;letter-spacing:.03em;padding:.35rem .85rem;border-radius:999px;}
+.usp5 .note{position:absolute;font-family:'Segoe Script','Bradley Hand',cursive;font-size:13px;color:var(--muted);max-width:150px;line-height:1.3;}
+.usp5 .note1{top:2.2rem;right:0;text-align:left;}
+@media (max-width:768px){
+  .usp5 .grid{grid-template-columns:1fr;}
+  .usp5 .note{display:none;}
+}
+</style>
+</head>
+<body>
+<!-- usp · 05e -->
+<section class="usp5">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Section Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
+        </div>
+        <h3>Feature 1</h3>
+        <p>Short benefit here describing the first key differentiator of the product.</p>
+        <span class="badge">Stat 1</span>
+      </div>
+      <div class="card">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4z"/></svg>
+        </div>
+        <h3>Feature 2</h3>
+        <p>Short benefit here describing the second key differentiator of the product.</p>
+        <span class="badge">Stat 2</span>
+      </div>
+      <div class="card">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+        </div>
+        <h3>Feature 3</h3>
+        <p>Short benefit here describing the third key differentiator of the product.</p>
+        <span class="badge">Stat 3</span>
+      </div>
+    </div>
+  </div>
+  <div class="note note1">
+    Highlight the strongest stat here
+    <svg width="60" height="40" viewBox="0 0 60 40" style="position:absolute;top:-10px;left:-50px;"><path d="M55 5 C 30 5, 20 25, 5 30" stroke="#9a9a9a" stroke-width="1.3" fill="none" marker-end="url(#arrow5)"/><defs><marker id="arrow5" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9a9a9a"/></marker></defs></svg>
+  </div>
+</section>
+</body>
+</html>

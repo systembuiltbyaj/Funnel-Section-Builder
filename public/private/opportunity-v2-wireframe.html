@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OPPORTUNITY VEHICLE — Opportunity Variation 2 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* opportunity · 03b */
+.opv2 {
+  background: var(--bg);
+  padding: 6rem 2rem;
+  position: relative;
+  font-family: var(--font-body);
+}
+.opv2 .wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 4rem;
+  align-items: start;
+  position: relative;
+}
+.opv2 .eyebrow {
+  display: inline-block;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.opv2 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text);
+  margin: 0 0 1rem;
+}
+.opv2 .accent-line {
+  width: 60px;
+  height: 3px;
+  background: var(--border);
+  margin: 0 0 1.25rem;
+}
+.opv2 .body-copy {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+.opv2 .stats { display: flex; flex-direction: column; gap: 1.25rem; }
+.opv2 .stat-num {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1;
+}
+.opv2 .stat-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+.opv2 .stepper { position: relative; padding-left: 0; }
+.opv2 .step-row {
+  display: flex;
+  gap: 1.25rem;
+  position: relative;
+  margin-bottom: 2rem;
+}
+.opv2 .step-row:last-child { margin-bottom: 0; }
+.opv2 .connector {
+  position: absolute;
+  left: 28px;
+  top: 56px;
+  bottom: -2rem;
+  width: 0;
+  border-left: 2px dashed var(--border);
+}
+.opv2 .step-row:last-child .connector { display: none; }
+.opv2 .circle {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--text);
+  z-index: 1;
+}
+.opv2 .step-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.375rem;
+  flex: 1;
+}
+.opv2 .step-card .icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+.opv2 .step-title {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  color: var(--text);
+  margin: 0 0 0.35rem;
+}
+.opv2 .step-desc {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+}
+.opv2 .note {
+  position: absolute;
+  top: -2.2rem;
+  right: 6%;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  color: var(--muted);
+  font-size: 13px;
+  width: 190px;
+  text-align: left;
+}
+.opv2 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: 0.5;
+  z-index: 0;
+}
+@media (max-width: 768px) {
+  .opv2 .wrap { grid-template-columns: 1fr; }
+  .opv2 .stats { flex-direction: row; flex-wrap: wrap; gap: 1.5rem; }
+  .opv2 .note { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- opportunity · 03b -->
+<section class="opv2">
+  <div class="blob" style="width:280px;height:280px;top:10%;left:-80px;"></div>
+  <div class="wrap">
+    <div class="note">
+      Stepper should draw downward on scroll — connector animates in
+      <svg width="60" height="40" viewBox="0 0 60 40" style="overflow:visible;"><path d="M50 5 C 20 5, 10 25, 15 35" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#arrow2)"/><defs><marker id="arrow2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--muted)"/></marker></defs></svg>
+    </div>
+
+    <div class="left">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here (Method Name™)</h2>
+      <div class="accent-line"></div>
+      <p class="body-copy">A short and clear value proposition that explains your offer and the main benefit of this method.</p>
+
+      <div class="stats">
+        <div>
+          <div class="stat-num">120+</div>
+          <div class="stat-label">Stat label one</div>
+        </div>
+        <div>
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Stat label two</div>
+        </div>
+        <div>
+          <div class="stat-num">3x</div>
+          <div class="stat-label">Stat label three</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="stepper">
+        <div class="step-row">
+          <div class="connector"></div>
+          <div class="circle">1</div>
+          <div class="step-card">
+            <div class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M13 2 L4 14 h6 l-1 8 9-12 h-6 z"/></svg>
+            </div>
+            <h3 class="step-title">Step 1</h3>
+            <p class="step-desc">Short description of this step and what it accomplishes for the user.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="connector"></div>
+          <div class="circle">2</div>
+          <div class="step-card">
+            <div class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M12 2 L2 7 l10 5 10-5z"/><path d="M2 17 l10 5 10-5"/><path d="M2 12 l10 5 10-5"/></svg>
+            </div>
+            <h3 class="step-title">Step 2</h3>
+            <p class="step-desc">Short description of this step and what it accomplishes for the user.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="circle">3</div>
+          <div class="step-card">
+            <div class="icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M3 12 l5 5 13-13"/></svg>
+            </div>
+            <h3 class="step-title">Step 3</h3>
+            <p class="step-desc">Short description of this step and what it accomplishes for the user.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

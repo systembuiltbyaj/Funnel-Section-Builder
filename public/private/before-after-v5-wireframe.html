@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BEFORE VS AFTER — Before vs After Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* compare · 04e */
+.bva5 {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background: var(--bg);
+  padding: 72px 24px 56px;
+  font-family: var(--font-body);
+}
+.bva5 * { box-sizing: border-box; }
+.bva5 .wrap {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.bva5 .head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 48px;
+}
+.bva5 .eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 16px;
+}
+.bva5 h2 {
+  font-family: var(--font-head);
+  font-size: 32px;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+.bva5 .sub {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+.bva5 .items {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.bva5 .item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  background: var(--surface);
+}
+.bva5 .row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.bva5 .metric {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 15px;
+}
+.bva5 .badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+.bva5 .barrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.bva5 .barrow:last-child { margin-bottom: 0; }
+.bva5 .track {
+  flex: 1;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+}
+.bva5 .fill {
+  height: 100%;
+  border-radius: 999px;
+}
+.bva5 .fill.before { background: var(--border); width: var(--before); }
+.bva5 .fill.after { background: var(--text); width: var(--after); }
+.bva5 .barlabel {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  min-width: 92px;
+}
+.bva5 .note {
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  width: 150px;
+  text-align: left;
+  display: none;
+}
+@media (min-width: 1000px) {
+  .bva5 .note { display: block; }
+}
+@media (max-width: 480px) {
+  .bva5 h2 { font-size: 24px; }
+  .bva5 .item { padding: 16px; }
+  .bva5 .barlabel { min-width: 70px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<!-- compare · 04e -->
+<section class="bva5">
+  <div class="wrap">
+    <div class="note">Bars animate from 0 → target width on scroll
+      <svg width="60" height="40" viewBox="0 0 60 40"><path d="M50 5 C 20 5, 10 30, 5 35" stroke="#a0a0a0" stroke-width="1.5" fill="none" marker-end="url(#arrbva5)"/><defs><marker id="arrbva5" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#a0a0a0"/></marker></defs></svg>
+    </div>
+
+    <div class="head">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="items">
+      <div class="item">
+        <div class="row-top"><span class="metric">Metric Label 1</span><span class="badge">+24%</span></div>
+        <div class="barrow"><div class="track"><div class="fill before" style="--before:38%"></div></div><span class="barlabel">Before: 38</span></div>
+        <div class="barrow"><div class="track"><div class="fill after" style="--after:72%"></div></div><span class="barlabel">After: 72</span></div>
+      </div>
+
+      <div class="item">
+        <div class="row-top"><span class="metric">Metric Label 2</span><span class="badge">+31%</span></div>
+        <div class="barrow"><div class="track"><div class="fill before" style="--before:45%"></div></div><span class="barlabel">Before: 45</span></div>
+        <div class="barrow"><div class="track"><div class="fill after" style="--after:84%"></div></div><span class="barlabel">After: 84</span></div>
+      </div>
+
+      <div class="item">
+        <div class="row-top"><span class="metric">Metric Label 3</span><span class="badge">+18%</span></div>
+        <div class="barrow"><div class="track"><div class="fill before" style="--before:52%"></div></div><span class="barlabel">Before: 52</span></div>
+        <div class="barrow"><div class="track"><div class="fill after" style="--after:70%"></div></div><span class="barlabel">After: 70</span></div>
+      </div>
+
+      <div class="item">
+        <div class="row-top"><span class="metric">Metric Label 4</span><span class="badge">+40%</span></div>
+        <div class="barrow"><div class="track"><div class="fill before" style="--before:30%"></div></div><span class="barlabel">Before: 30</span></div>
+        <div class="barrow"><div class="track"><div class="fill after" style="--after:78%"></div></div><span class="barlabel">After: 78</span></div>
+      </div>
+
+      <div class="item">
+        <div class="row-top"><span class="metric">Metric Label 5</span><span class="badge">+22%</span></div>
+        <div class="barrow"><div class="track"><div class="fill before" style="--before:41%"></div></div><span class="barlabel">Before: 41</span></div>
+        <div class="barrow"><div class="track"><div class="fill after" style="--after:65%"></div></div><span class="barlabel">After: 65</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

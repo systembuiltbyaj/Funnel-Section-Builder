@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>URGENCY — Urgency Variation 2 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* urgency · 10b */
+.urgency-wire{
+  padding:4rem 1.5rem;
+  background:var(--bg);
+  font-family:var(--font-body);
+  position:relative;
+}
+.urgency-wire .wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  display:flex;
+  min-height:500px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  overflow:hidden;
+  position:relative;
+}
+.urgency-wire .left{
+  flex:0 0 55%;
+  padding:2.75rem 2.5rem;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+.urgency-wire .divider{
+  width:1px;
+  background:var(--border);
+}
+.urgency-wire .right{
+  flex:0 0 45%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2.5rem;
+}
+.urgency-wire .eyebrow{
+  align-self:flex-start;
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:.35rem .9rem;
+}
+.urgency-wire h2{
+  font-family:var(--font-head);
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  color:var(--text);
+  margin:0;
+}
+.urgency-wire .sub{
+  color:var(--muted);
+  font-size:.98rem;
+  max-width:34ch;
+  margin:0;
+}
+.urgency-wire .timer{
+  display:flex;
+  gap:.75rem;
+  margin-top:.5rem;
+}
+.urgency-wire .tbox{
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:.6rem .5rem;
+  min-width:56px;
+  text-align:center;
+  background:var(--bg);
+}
+.urgency-wire .tnum{
+  display:block;
+  font-variant-numeric:tabular-nums;
+  font-size:1.4rem;
+  font-weight:700;
+  color:var(--text);
+}
+.urgency-wire .tlabel{
+  display:block;
+  font-size:.62rem;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-top:.15rem;
+}
+.urgency-wire .closed{
+  color:var(--text);
+  font-weight:600;
+}
+.urgency-wire .scarcity{
+  color:var(--muted);
+  font-size:.9rem;
+  margin-top:.25rem;
+  border-left:3px solid var(--border);
+  padding-left:.6rem;
+}
+.urgency-wire .offercard{
+  width:100%;
+  max-width:320px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.75rem;
+  transition:transform .6s ease, opacity .6s ease;
+  opacity:0;
+  transform:translateX(24px);
+}
+.urgency-wire .offercard.in-view{
+  opacity:1;
+  transform:translateX(0);
+}
+.urgency-wire .offercard h3{
+  font-family:var(--font-head);
+  font-size:1.05rem;
+  color:var(--text);
+  margin:0 0 1rem;
+}
+.urgency-wire .offercard ul{
+  list-style:none;
+  margin:0 0 1.1rem;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:.55rem;
+}
+.urgency-wire .offercard li{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  font-size:.9rem;
+  color:var(--text);
+}
+.urgency-wire .offercard svg{flex:0 0 auto}
+.urgency-wire .price{
+  font-weight:600;
+  color:var(--text);
+  margin:0 0 1.1rem;
+}
+.urgency-wire .cta{
+  width:100%;
+  padding:.85rem 1rem;
+  border:none;
+  border-radius:8px;
+  background:var(--brand);
+  color:var(--brand-contrast);
+  font-weight:600;
+  font-size:.95rem;
+  cursor:pointer;
+}
+.urgency-wire .note{
+  position:absolute;
+  top:-1.6rem;
+  right:2rem;
+  font-family:'Segoe Script','Bradley Hand',cursive;
+  font-size:13px;
+  color:var(--muted);
+  max-width:180px;
+  text-align:right;
+}
+.urgency-wire .note svg{position:absolute;left:-40px;top:20px}
+@media (max-width:768px){
+  .urgency-wire .wrap{flex-direction:column}
+  .urgency-wire .left,.urgency-wire .right{flex:none;width:100%}
+  .urgency-wire .divider{width:100%;height:1px}
+  .urgency-wire .note{display:none}
+}
+</style>
+</head>
+<body>
+<!-- urgency · 10b -->
+<section class="urgency-wire">
+  <div class="note">Countdown + scarcity stack drives urgency
+    <svg width="50" height="40" viewBox="0 0 50 40"><path d="M45 5 C20 5 10 20 8 35" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--muted)"/></marker></defs></svg>
+  </div>
+  <div class="wrap">
+    <div class="left">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here</h2>
+      <p class="sub">A short and clear sentence explaining exactly what changes once this deadline passes.</p>
+      <div class="timer" id="urgencyTimer">
+        <div class="tbox"><span class="tnum" data-u="d">00</span><span class="tlabel">Days</span></div>
+        <div class="tbox"><span class="tnum" data-u="h">00</span><span class="tlabel">Hrs</span></div>
+        <div class="tbox"><span class="tnum" data-u="m">00</span><span class="tlabel">Min</span></div>
+        <div class="tbox"><span class="tnum" data-u="s">00</span><span class="tlabel">Sec</span></div>
+      </div>
+      <p class="closed" hidden>Enrollment is now closed</p>
+      <p class="scarcity">Only 12 of 150 seats remaining — real scarcity number goes here</p>
+    </div>
+    <div class="divider"></div>
+    <div class="right">
+      <div class="offercard" id="offerCard">
+        <h3>Offer summary header goes here</h3>
+        <ul>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="var(--muted)"/><path d="M4.5 8.2l2.3 2.3 4.7-5" stroke="var(--bg)" stroke-width="1.6" fill="none"/></svg>
+            Feature 1 short benefit here
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="var(--muted)"/><path d="M4.5 8.2l2.3 2.3 4.7-5" stroke="var(--bg)" stroke-width="1.6" fill="none"/></svg>
+            Feature 2 short benefit here
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="var(--muted)"/><path d="M4.5 8.2l2.3 2.3 4.7-5" stroke="var(--bg)" stroke-width="1.6" fill="none"/></svg>
+            Feature 3 short benefit here
+          </li>
+        </ul>
+        <p class="price">Price today: $4,997</p>
+        <button class="cta">Primary CTA →</button>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var DEADLINE = new Date("2026-08-01T23:59:59").getTime();
+  var timerEl = document.getElementById('urgencyTimer');
+  var closedEl = document.querySelector('.urgency-wire .closed');
+  function tick(){
+    var now = Date.now();
+    var diff = DEADLINE - now;
+    if(diff <= 0){
+      timerEl.hidden = true;
+      closedEl.hidden = false;
+      clearInterval(iv);
+      return;
+    }
+    var d = Math.floor(diff/86400000);
+    var h = Math.floor((diff%86400000)/3600000);
+    var m = Math.floor((diff%3600000)/60000);
+    var s = Math.floor((diff%60000)/1000);
+    var map = {d:d,h:h,m:m,s:s};
+    timerEl.querySelectorAll('.tnum').forEach(function(el){
+      var u = el.getAttribute('data-u');
+      el.textContent = String(map[u]).padStart(2,'0');
+    });
+  }
+  var iv = setInterval(tick,1000);
+  tick();
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var card = document.getElementById('offerCard');
+  if(reduce){ card.classList.add('in-view'); }
+  else if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ card.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    },{threshold:0.3});
+    obs.observe(card);
+  } else { card.classList.add('in-view'); }
+})();
+</script>
+</body>
+</html>

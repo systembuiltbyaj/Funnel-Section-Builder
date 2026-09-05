@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USP — USP Variation 8 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* usp · 05h */
+.usp8 {
+  background: var(--bg);
+  padding: 96px 32px;
+}
+.usp8 .wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  position: relative;
+}
+.usp8 .header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.usp8 .eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-family: var(--font-sub);
+}
+.usp8 h2 {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--text);
+  margin: 18px 0 12px;
+}
+.usp8 .sub {
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.usp8 .tabs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 32px 0 28px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.usp8 .tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-family: var(--font-sub);
+  font-size: 14px;
+  white-space: nowrap;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.usp8 .tab.active {
+  background: var(--brand);
+  color: var(--brand-contrast);
+  border-color: var(--brand);
+}
+.usp8 .tab:not(.active) {
+  background: var(--surface);
+  color: var(--muted);
+}
+.usp8 .tab .icn {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.usp8 .panel {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 48px 40px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 32px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.usp8 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--border);
+  opacity: 0.25;
+  z-index: 0;
+}
+.usp8 .blob1 { width: 220px; height: 220px; top: -80px; right: -60px; }
+.usp8 .blob2 { width: 160px; height: 160px; bottom: -60px; left: -40px; }
+.usp8 .bignum {
+  font-family: var(--font-head);
+  font-size: clamp(60px, 8vw, 96px);
+  font-weight: 800;
+  color: var(--brand);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+.usp8 .panel-text {
+  position: relative;
+  z-index: 1;
+}
+.usp8 .panel-text h3 {
+  font-family: var(--font-head);
+  font-size: 22px;
+  color: var(--text);
+  margin: 0 0 10px;
+}
+.usp8 .panel-text p {
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+.usp8 .note {
+  position: absolute;
+  font-family: 'Segoe Script', 'Bradley Hand', cursive;
+  font-size: 13px;
+  color: var(--muted);
+  width: 160px;
+  line-height: 1.3;
+  top: -30px;
+  right: -10px;
+  text-align: left;
+}
+.usp8 .note svg { position: absolute; top: 30px; left: -40px; }
+
+@media (max-width: 768px) {
+  .usp8 .panel {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .usp8 .note { display: none; }
+}
+@media (max-width: 360px) {
+  .usp8 .panel { padding: 32px 24px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .usp8 .tabs { animation: usp8slide 0.5s ease; }
+  .usp8 .panel { animation: usp8fade 0.25s ease; }
+}
+@keyframes usp8slide {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes usp8fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<!-- usp · 05h -->
+<section class="usp8">
+  <div class="wrap">
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Section Headline Goes Here</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active">
+        <svg class="icn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" stroke-linejoin="round"/></svg>
+        Feature 1
+      </button>
+      <button class="tab">
+        <svg class="icn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 5-3.2 7.5-7 9-3.8-1.5-7-4-7-9V6l7-3z" stroke-linejoin="round"/></svg>
+        Feature 2
+      </button>
+      <button class="tab">
+        <svg class="icn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M11 20V4M18 20v-7" stroke-linecap="round"/></svg>
+        Feature 3
+      </button>
+    </div>
+
+    <div class="panel">
+      <div class="blob blob1"></div>
+      <div class="blob blob2"></div>
+      <div class="bignum">87%</div>
+      <div class="panel-text">
+        <h3>Feature 1 Title Goes Here</h3>
+        <p>Short benefit here — a sentence describing the outcome this stat or feature delivers for the user.</p>
+      </div>
+      <div class="note">
+        Tabs switch this panel's content and number
+        <svg width="60" height="40" viewBox="0 0 60 40"><path d="M55 5 C 30 5, 20 25, 5 30" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#arrow8)"/><defs><marker id="arrow8" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--muted)"/></marker></defs></svg>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

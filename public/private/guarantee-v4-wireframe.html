@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RISK REVERSAL — Risk Reversal Variation 4 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* risk · 08d */
+.risk-rev4 {
+  position: relative;
+  background: var(--surface);
+  padding: 5rem 1.5rem;
+  overflow: hidden;
+  min-height: 420px;
+}
+.risk-rev4 .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--border);
+  opacity: 0.25;
+  z-index: 0;
+}
+.risk-rev4 .blob1 { width: 320px; height: 320px; top: -100px; left: -120px; }
+.risk-rev4 .blob2 { width: 260px; height: 260px; bottom: -80px; right: -100px; }
+
+.risk-rev4 .wrap {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  text-align: center;
+}
+.risk-rev4 .eyebrow {
+  display: inline-block;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.risk-rev4 h2 {
+  font-family: var(--font-head);
+  color: var(--text);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin: 0 0 3rem;
+}
+
+.risk-rev4 .badges {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 3.5rem;
+}
+.risk-rev4 .badge {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.risk-rev4 .badge.in { opacity: 1; transform: translateY(0); }
+.risk-rev4 .badge:nth-child(2) { transition-delay: 0.1s; }
+.risk-rev4 .badge:nth-child(3) { transition-delay: 0.2s; }
+.risk-rev4 .badge:nth-child(4) { transition-delay: 0.3s; }
+
+.risk-rev4 .icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.9rem;
+}
+.risk-rev4 .icon-circle svg { width: 22px; height: 22px; stroke: var(--text); fill: none; stroke-width: 1.8; }
+
+.risk-rev4 .badge h3 {
+  font-family: var(--font-head);
+  color: var(--text);
+  font-size: 1rem;
+  margin: 0 0 0.4rem;
+}
+.risk-rev4 .badge p {
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.risk-rev4 .guarantee {
+  max-width: 600px;
+  margin: 0 auto 2.2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.risk-rev4 .guarantee.in { opacity: 1; transform: translateY(0); }
+
+.risk-rev4 .guarantee p.outcome {
+  font-family: var(--font-body);
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 0.9rem;
+}
+.risk-rev4 .guarantee p.refund {
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.risk-rev4 .cta {
+  display: inline-block;
+  background: var(--brand);
+  color: var(--brand-contrast);
+  font-family: var(--font-head);
+  font-size: 0.95rem;
+  padding: 0.85rem 2.2rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+.risk-rev4 .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 150px;
+  z-index: 2;
+  line-height: 1.3;
+}
+.risk-rev4 .note1 { top: 1.5rem; right: 1rem; text-align: left; }
+
+@media (max-width: 768px) {
+  .risk-rev4 .badges { grid-template-columns: repeat(2, 1fr); }
+  .risk-rev4 .note { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .risk-rev4 .badge, .risk-rev4 .guarantee {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<!-- risk · 08d -->
+<section class="risk-rev4">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <span class="note note1">
+    ↳ Keep the two guarantee layers visually separate
+    <svg width="50" height="40" viewBox="0 0 50 40"><path d="M45 5 Q10 5 15 35" stroke="#6a6a6d" stroke-width="1.2" fill="none" marker-end="url(#arrow)"/></svg>
+  </span>
+
+  <div class="wrap">
+    <span class="eyebrow">EYEBROW / TAGLINE</span>
+    <h2>Section Headline Goes Here — Naming the Protection</h2>
+
+    <div class="badges">
+      <div class="badge">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6l7-4z"/></svg>
+        </div>
+        <h3>Trust Badge 1</h3>
+        <p>Short line of body copy describing this guarantee element.</p>
+      </div>
+      <div class="badge">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Trust Badge 2</h3>
+        <p>Short line of body copy describing this guarantee element.</p>
+      </div>
+      <div class="badge">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
+        </div>
+        <h3>Trust Badge 3</h3>
+        <p>Short line of body copy describing this guarantee element.</p>
+      </div>
+      <div class="badge">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 015 5c0 3-5 9-5 9s-5-6-5-9a5 5 0 015-5z"/><circle cx="12" cy="7" r="2"/></svg>
+        </div>
+        <h3>Trust Badge 4</h3>
+        <p>Short line of body copy describing this guarantee element.</p>
+      </div>
+    </div>
+
+    <div class="guarantee">
+      <p class="outcome">Outcome guarantee paragraph — a real sentence describing the specific results-based promise, terms, and what happens if it isn't met.</p>
+      <p class="refund">Layer 1 — 14-day no-questions-asked refund line goes here, in italics.</p>
+    </div>
+
+    <button class="cta">Primary CTA →</button>
+  </div>
+</section>
+</body>
+</html>

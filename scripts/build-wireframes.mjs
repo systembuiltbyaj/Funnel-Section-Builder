@@ -114,7 +114,21 @@ STYLE:
   clear type hierarchy: headline large and near-black, body mid-grey, labels
   small uppercase.
 - Give the section a light background (#fff or #fafafa), never a dark one.
-- Output markup only. Do NOT prefix the fragment with /* … */ notes.`;
+- Output markup only. Do NOT prefix the fragment with /* … */ notes.
+
+FIT — the wireframe is screenshotted at exactly 1280x800 for a gallery card:
+- It MUST NOT scroll horizontally at 1280px. Measured on the first run: 10 of
+  100 overflowed, and the card crops whatever sticks out. Give the section
+  \`box-sizing: border-box\` and \`overflow-x: hidden\`, cap any inner container at
+  \`max-width: 1200px; margin: 0 auto\`, and let grids wrap rather than forcing a
+  row wider than the viewport. Absolutely-positioned annotations must sit INSIDE
+  that container, never past its right edge.
+- The section must END where its content ends. No \`min-height: 100vh\`, no tall
+  trailing padding, no empty spacer rows — one wireframe shipped 240px of blank
+  white below its last card, which reads as a broken screenshot.
+- The most important content — headline, CTA, the structure that distinguishes
+  this variation — belongs in the TOP 800px, because that is all the thumbnail
+  shows.`;
 
 function slugsFromArgs() {
   const args = process.argv.slice(2).filter((a) => !a.startsWith("--"));

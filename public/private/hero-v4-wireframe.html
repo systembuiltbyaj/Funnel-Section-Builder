@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HERO — Hero Variation 4 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* hero · 01d */
+.hero4-wf {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: var(--font-body);
+  color: var(--text);
+}
+.hero4-wf .bg-split {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+.hero4-wf .bg-half {
+  flex: 1;
+  position: relative;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero4-wf .bg-half + .bg-half {
+  border-left: 1px solid var(--border);
+}
+.hero4-wf .photo-glyph {
+  opacity: 0.5;
+  margin-bottom: 0.5rem;
+}
+.hero4-wf .bg-caption {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero4-wf .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--border);
+  opacity: 0.25;
+  z-index: 0;
+}
+.hero4-wf .blob1 { width: 20rem; height: 20rem; top: -5rem; left: -6rem; }
+.hero4-wf .blob2 { width: 16rem; height: 16rem; bottom: -4rem; right: -5rem; }
+
+.hero4-wf .nav {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem clamp(1rem, 4vw, 3rem);
+}
+.hero4-wf .logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+.hero4-wf .hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+.hero4-wf .hamburger span {
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  display: block;
+}
+
+.hero4-wf .headline-wrap {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 3rem 1rem 6rem;
+  max-width: 90%;
+  margin: 0 auto;
+}
+.hero4-wf .eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  margin-bottom: 1rem;
+}
+.hero4-wf .pre-word {
+  display: block;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+  transform: translateX(-1.5rem);
+}
+.hero4-wf h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 1.08;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0.2rem 0;
+}
+.hero4-wf .subhead {
+  max-width: 40rem;
+  margin: 1.2rem auto 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+.hero4-wf .cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.8rem;
+  flex-wrap: wrap;
+}
+.hero4-wf .btn-primary {
+  background: var(--brand);
+  color: var(--brand-contrast);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.8rem 1.6rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.hero4-wf .btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.8rem 1.6rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.hero4-wf .bottom-bar {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1.2rem clamp(1rem, 4vw, 3rem);
+}
+.hero4-wf .arrow-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  background: var(--bg);
+}
+.hero4-wf .featured-col {
+  text-align: center;
+}
+.hero4-wf .featured-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.hero4-wf .logo-row {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+.hero4-wf .logo-box {
+  width: 3rem;
+  height: 1.1rem;
+  background: var(--border);
+  border-radius: 4px;
+}
+.hero4-wf .quote-col {
+  text-align: right;
+}
+.hero4-wf .quote-text {
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text);
+  margin: 0 0 0.3rem;
+}
+.hero4-wf .quote-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+.hero4-wf .quote-title {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.hero4-wf .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  z-index: 4;
+  max-width: 9rem;
+  line-height: 1.3;
+}
+.hero4-wf .note1 { top: 4.5rem; right: 1rem; text-align: right; }
+.hero4-wf .note2 { bottom: 8rem; left: 1rem; }
+
+@media (max-width: 768px) {
+  .hero4-wf .bg-split { flex-direction: column; }
+  .hero4-wf .bg-half + .bg-half { border-left: none; border-top: 1px solid var(--border); display: none; }
+  .hero4-wf .bottom-bar {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .hero4-wf .quote-col { text-align: center; }
+  .hero4-wf .note { display: none; }
+}
+@media (max-width: 480px) {
+  .hero4-wf .quote-col { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- hero · 01d -->
+<section class="hero4-wf">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <div class="bg-split">
+    <div class="bg-half">
+      <svg class="photo-glyph" width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <rect x="4" y="4" width="40" height="40" rx="8" stroke="var(--muted)" stroke-width="2"/>
+        <circle cx="16" cy="16" r="4" stroke="var(--muted)" stroke-width="2"/>
+        <path d="M6 34L18 22L26 30L34 20L42 34" stroke="var(--muted)" stroke-width="2" fill="none"/>
+      </svg>
+      <span class="bg-caption">BACKGROUND IMAGE LEFT</span>
+    </div>
+    <div class="bg-half">
+      <svg class="photo-glyph" width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <rect x="4" y="4" width="40" height="40" rx="8" stroke="var(--muted)" stroke-width="2"/>
+        <circle cx="16" cy="16" r="4" stroke="var(--muted)" stroke-width="2"/>
+        <path d="M6 34L18 22L26 30L34 20L42 34" stroke="var(--muted)" stroke-width="2" fill="none"/>
+      </svg>
+      <span class="bg-caption">BACKGROUND IMAGE RIGHT</span>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="logo">LOGO</div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="headline-wrap">
+    <span class="pre-word">a little intro word</span>
+    <div class="eyebrow">EYEBROW / TAGLINE</div>
+    <h1>Main Headline Goes Here</h1>
+    <h1>Second Line Of Headline</h1>
+    <h1>Third Line Closes It</h1>
+    <p class="subhead">A short and clear value proposition that explains your offer and the main benefit.</p>
+    <div class="cta-row">
+      <button class="btn-primary">Primary CTA →</button>
+      <button class="btn-secondary">Secondary CTA</button>
+    </div>
+  </div>
+
+  <div class="note note1">Show your product, dashboard, or a relevant hero image behind the split</div>
+
+  <div class="bottom-bar">
+    <div class="arrow-col">
+      <div class="arrow-btn">↓</div>
+    </div>
+    <div class="featured-col">
+      <div class="featured-label">Trusted by 1,000+ business owners</div>
+      <div class="logo-row">
+        <div class="logo-box"></div>
+        <div class="logo-box"></div>
+        <div class="logo-box"></div>
+        <div class="logo-box"></div>
+      </div>
+    </div>
+    <div class="quote-col">
+      <p class="quote-text">"Short testimonial or social proof."</p>
+      <div class="quote-name">Testimonial Name</div>
+      <div class="quote-title">Title, Company</div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

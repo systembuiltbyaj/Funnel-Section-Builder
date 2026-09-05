@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OPPORTUNITY VEHICLE — Opportunity Variation 5 (wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --brand: #3f3f46;            /* accents, CTAs, emphasis. Never body text. */
+  --brand-contrast: #f5f5f7;   /* text ON a --brand fill */
+  --bg: #ffffff;               /* the page ground. Already set on body. */
+  --surface: #f5f5f5;          /* cards and raised panels. The ONLY other background. */
+  --border: #d4d4d5;           /* hairlines and dividers */
+  --text: #0f0f14;             /* body and headings. TEXT ONLY, never a background. */
+  --muted: #6a6a6d;            /* secondary text. TEXT ONLY. */
+  --font-head: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sub: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --maxw: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); }
+
+/* opportunity · 03e */
+.opp-vehicle {
+  background: var(--bg);
+  padding: 96px 24px;
+  position: relative;
+}
+.opp-vehicle .wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  position: relative;
+}
+.opp-vehicle .blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--surface);
+  opacity: .6;
+  z-index: 0;
+}
+.opp-vehicle .blob.b1 { width: 300px; height: 300px; top: -80px; left: -100px; }
+.opp-vehicle .blob.b2 { width: 220px; height: 220px; bottom: -60px; right: -60px; }
+.opp-vehicle .header { text-align: center; max-width: 640px; margin: 0 auto 64px; position: relative; z-index: 1; }
+.opp-vehicle .eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 16px;
+}
+.opp-vehicle h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: var(--text);
+  margin: 0 0 12px;
+}
+.opp-vehicle .sub { font-family: var(--font-sub); color: var(--muted); font-size: 1rem; line-height: 1.5; }
+
+.opp-vehicle .flow {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.opp-vehicle .cell { flex: 1; display: flex; flex-direction: column; }
+.opp-vehicle .arrow-cell { display: flex; align-items: center; justify-content: center; flex: 0 0 40px; }
+.opp-vehicle .arrow-cell svg { width: 40px; height: 20px; }
+.opp-vehicle .arrow-cell path { stroke: var(--border); stroke-width: 2; fill: none; }
+
+.opp-vehicle .stage {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  height: 100%;
+}
+.opp-vehicle .stage-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+.opp-vehicle .icon-circle {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+}
+.opp-vehicle .icon-circle svg { width: 20px; height: 20px; stroke: var(--muted); fill: none; stroke-width: 1.6; }
+.opp-vehicle .stage h3 { font-family: var(--font-head); font-size: 1rem; color: var(--text); margin: 0 0 6px; }
+.opp-vehicle .stage p { font-family: var(--font-body); font-size: .875rem; color: var(--muted); margin: 0; line-height: 1.5; }
+
+.opp-vehicle .outcome {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+}
+.opp-vehicle .outcome .stage-label { border-bottom-color: var(--muted); }
+.opp-vehicle .outcome h3 { font-family: var(--font-head); font-size: 1.1rem; color: var(--text); margin: 0 0 8px; }
+.opp-vehicle .outcome p { font-family: var(--font-body); font-size: .875rem; color: var(--muted); margin: 0; }
+
+.opp-vehicle .stats {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  margin-top: 72px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.opp-vehicle .stat { text-align: center; }
+.opp-vehicle .stat .num { font-family: var(--font-head); font-size: 2rem; color: var(--text); }
+.opp-vehicle .stat .lbl { font-family: var(--font-body); font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+
+.opp-vehicle .note {
+  position: absolute;
+  font-family: 'Segoe Script','Bradley Hand',cursive;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 160px;
+  top: -30px;
+  right: -20px;
+  text-align: left;
+  z-index: 2;
+}
+.opp-vehicle .note svg { width: 70px; height: 40px; stroke: var(--muted); }
+
+@media (max-width: 768px) {
+  .opp-vehicle .flow { flex-direction: column; }
+  .opp-vehicle .arrow-cell { transform: rotate(90deg); flex: 0 0 30px; }
+  .opp-vehicle .note { position: static; margin-bottom: 16px; max-width: 100%; }
+}
+</style>
+</head>
+<body>
+<!-- opportunity · 03e -->
+<section class="opp-vehicle">
+  <div class="wrap">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+
+    <div class="header">
+      <span class="eyebrow">EYEBROW / TAGLINE</span>
+      <h2>Main Headline Goes Here (Method™)</h2>
+      <p class="sub">A short and clear value proposition that explains your offer and the main benefit.</p>
+    </div>
+
+    <div class="flow">
+      <div class="cell">
+        <div class="stage">
+          <div class="stage-label">Stage 1</div>
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
+          </div>
+          <h3>Step 1 title</h3>
+          <p>Short benefit here describing what happens in this stage.</p>
+        </div>
+      </div>
+
+      <div class="arrow-cell">
+        <svg viewBox="0 0 40 20"><path d="M0 10 H34 M28 4 L36 10 L28 16"/></svg>
+      </div>
+
+      <div class="cell">
+        <div class="stage">
+          <div class="stage-label">Stage 2</div>
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+          </div>
+          <h3>Step 2 title</h3>
+          <p>Short benefit here describing what happens in this stage.</p>
+        </div>
+      </div>
+
+      <div class="arrow-cell">
+        <svg viewBox="0 0 40 20"><path d="M0 10 H34 M28 4 L36 10 L28 16"/></svg>
+      </div>
+
+      <div class="cell">
+        <div class="stage">
+          <div class="stage-label">Stage 3</div>
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          </div>
+          <h3>Step 3 title</h3>
+          <p>Short benefit here describing what happens in this stage.</p>
+        </div>
+      </div>
+
+      <div class="arrow-cell">
+        <svg viewBox="0 0 40 20"><path d="M0 10 H34 M28 4 L36 10 L28 16"/></svg>
+      </div>
+
+      <div class="cell" style="position:relative;">
+        <div class="note">
+          Highlight the end result users get
+          <svg viewBox="0 0 70 40"><path d="M5 5 C 30 5, 30 35, 60 30" fill="none" stroke-width="1.5"/></svg>
+        </div>
+        <div class="outcome">
+          <div class="stage-label">Outcome</div>
+          <h3>Final Result Goes Here</h3>
+          <p>The prominent transformation or result the process leads to.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="num">1,000+</div>
+        <div class="lbl">Stat label 1</div>
+      </div>
+      <div class="stat">
+        <div class="num">98%</div>
+        <div class="lbl">Stat label 2</div>
+      </div>
+      <div class="stat">
+        <div class="num">24/7</div>
+        <div class="lbl">Stat label 3</div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
