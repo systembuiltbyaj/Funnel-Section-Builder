@@ -44,6 +44,23 @@ text, and never client prose.** The server rebuilds the prompt from the
 catalogue. That is what stops the endpoint being farmed as a general-purpose LLM
 proxy, and it is worth more than any rate limit. Keep it that way.
 
+### Ten groups, not the 10P's twelve
+
+`compare` (before/after) folded into `usp` → **Features & Benefits**, and
+`urgency` into `risk` → **Final CTA & Guarantee**. All 110 variations survived;
+nothing was deleted or renumbered. Three consequences worth knowing:
+
+- **`MERGED_GROUP_IDS` in `lib/funnel-selection.ts` is load-bearing.**
+  `validatePersisted` drops a group id the catalogue no longer has, so without
+  the map every saved funnel using `compare`/`urgency` would silently lose those
+  sections. An explicit pick under the new id always wins over a migrated one.
+- **The 04x run keeps its numbers under `usp`**, hole at `04g` and all. Numbers
+  are persisted inside saved funnels; renumbering them into the 05x sequence
+  would reset every funnel that used one.
+- **`FUNNEL_ORDER` in `lib/prompt-groups.ts` sets the order.** It used to come
+  from first-appearance in the `sections` array, which would place a merged
+  group wherever its earliest member happened to sit.
+
 ### The output is a skeleton — layout and design only
 
 This is a **layout picker**. There are no per-section copy fields,
@@ -52,9 +69,17 @@ This is a **layout picker**. There are no per-section copy fields,
 and design are the product; copy, images and brand colour belong to the client
 (see `docs/superpowers/specs/2026-08-30-layout-picker-restore-design.md`).
 
-`CONTENT_SLOT_RULE` in `lib/prompt-assembly.ts` is the single contract that
-enforces this, and **both** output paths use it — the copyable prompts and
-`/api/generate-section`. It requires:
+`CONTENT_SLOT_RULE` in `lib/prompt-assembly.ts` and `WIREFRAME_RULE` in
+`lib/wireframe-rule.ts` are the two contracts that enforce this, and **every**
+output path uses both — the copyable per-section prompts, the full-funnel master
+prompt, `/api/generate-section`, and `scripts/build-wireframes.mjs`. That is
+deliberate: a gallery preview and the thing you actually generate must not drift.
+
+**The brand kit no longer reaches a prompt.** It is still collected and still
+validated on the wire, but its only job now is the gallery's Design preview
+re-skin. `buildOutputs` has one path, not a branded and an unbranded one.
+
+`CONTENT_SLOT_RULE` It requires:
 
 - every text slot to be `[LABEL — what belongs there, and how long]`, one per line
 - every image to be a CSS placeholder box holding `[IMAGE 16:9 — …]`, never a
