@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { GalleryItem } from "@/lib/gallery-filter";
 import { variationShortName } from "@/lib/prompt-assembly";
+import { wireframeThumb } from "@/lib/samples";
 
 /**
  * One variation in the gallery.
@@ -34,6 +35,12 @@ export function GalleryCard({
   // browser's `window.setTimeout`, which actually returns a number.
   const resetTimer = useRef<number | null>(null);
   const v = item.variation;
+
+  // Prefer the wireframe: the card's job is to let someone judge a LAYOUT, and
+  // a finished photo-rich design competes for that attention. The designed
+  // sample is still one click away in the live preview.
+  const thumbSrc = wireframeThumb(v.previewSrc) ?? v.previewSrc;
+  const absoluteFallback = v.previewSrc ?? "";
 
   // Clear the pending reset on unmount so it cannot call setState on an
   // unmounted card (the gallery re-filters on every keystroke, which unmounts
@@ -90,11 +97,21 @@ export function GalleryCard({
         /* Plain img, not next/image: these thumbnails already pass unoptimized. */
         /* eslint-disable-next-line @next/next/no-img-element */
         <img
-          src={v.previewSrc}
+          src={thumbSrc}
           alt={`${v.title} thumbnail`}
           loading="lazy"
           decoding="async"
-          className="block aspect-[16/10] w-full object-cover"
+          /* A wireframe that has not been generated yet falls back to the
+             designed thumbnail. Guarded by a flag rather than comparing src:
+             the DOM reports an absolute URL, so comparing against the relative
+             path would never match and the handler would loop. */
+          onError={(e) => {
+            const img = e.currentTarget;
+            if (img.dataset.fellBack === "1" || !absoluteFallback) return;
+            img.dataset.fellBack = "1";
+            img.src = absoluteFallback;
+          }}
+          className="block aspect-[16/10] w-full bg-white object-cover object-top"
         />
       )}
 

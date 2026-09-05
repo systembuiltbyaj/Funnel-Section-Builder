@@ -30,6 +30,8 @@ export type PreviewItem = {
    * and the mapping stays legible.
    */
   copy?: string;
+  /** The greyscale wireframe for this section, when one has been generated. */
+  wireframeSrc?: string;
 };
 
 /** Width of the copy column. Below this the layout is not worth splitting. */
@@ -48,12 +50,15 @@ const DEVICE_WIDTH: Record<Device, number> = { desktop: 1280, mobile: 390 };
  */
 function PreviewFrame({
   item,
+  src,
   kit,
   applyBrand,
   device,
   containerWidth,
 }: {
   item: PreviewItem;
+  /** Which document to render — the designed sample or the wireframe. */
+  src: string | undefined;
   kit: BrandKit;
   applyBrand: boolean;
   device: Device;
@@ -66,8 +71,8 @@ function PreviewFrame({
   // Device is deliberately excluded: resizing the frame element makes the
   // document re-report its height, so switching devices needs no refetch.
   const frameId = useMemo(
-    () => `${item.id}-${applyBrand ? "brand" : "orig"}`,
-    [item.id, applyBrand]
+    () => `${item.id}-${applyBrand ? "brand" : "orig"}-${src ?? "inline"}`,
+    [item.id, applyBrand, src]
   );
 
   useEffect(() => {
@@ -80,12 +85,12 @@ function PreviewFrame({
         setHtml(withHeightReporter(item.html, frameId));
         return;
       }
-      if (!item.sampleSrc) {
+      if (!src) {
         setError("Preview unavailable — no document to show.");
         return;
       }
       try {
-        const res = await fetch(item.sampleSrc);
+        const res = await fetch(src);
         if (!res.ok) throw new Error(`${res.status}`);
         const raw = await res.text();
         if (cancelled) return;
@@ -99,7 +104,7 @@ function PreviewFrame({
     return () => {
       cancelled = true;
     };
-  }, [item.sampleSrc, item.html, applyBrand, kit, frameId]);
+  }, [src, item.html, applyBrand, kit, frameId]);
 
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
@@ -170,6 +175,12 @@ export function LivePreview({
   const brandAvailable = hasBrandKit(kit);
   const [applyBrand, setApplyBrand] = useState(brandAvailable);
   const [device, setDevice] = useState<Device>("desktop");
+  // Wireframe first: the preview is opened to judge a LAYOUT, and the finished
+  // design competes for that attention. The design is one click away.
+  const wireframeAvailable = items.some((i) => i.wireframeSrc);
+  const [view, setView] = useState<"wireframe" | "design">(
+    wireframeAvailable ? "wireframe" : "design"
+  );
   const [containerWidth, setContainerWidth] = useState(0);
   const stageRef = useRef<HTMLDivElement | null>(null);
 
@@ -223,7 +234,25 @@ export function LivePreview({
         </span>
 
         <div className="ml-auto flex items-center gap-2 flex-wrap">
-          {brandAvailable && (
+          {wireframeAvailable && (
+            <div className="flex items-center gap-1.5 rounded-lg border border-[#2A2250] p-1">
+              <button
+                type="button"
+                className={tabCls(view === "wireframe")}
+                onClick={() => setView("wireframe")}
+              >
+                Wireframe
+              </button>
+              <button
+                type="button"
+                className={tabCls(view === "design")}
+                onClick={() => setView("design")}
+              >
+                Design
+              </button>
+            </div>
+          )}
+          {brandAvailable && view === "design" && (
             <div className="flex items-center gap-1.5 rounded-lg border border-[#2A2250] p-1">
               <button type="button" className={tabCls(applyBrand)} onClick={() => setApplyBrand(true)}>
                 Brand kit
@@ -255,7 +284,7 @@ export function LivePreview({
         </div>
       </header>
 
-      {brandAvailable && applyBrand && (
+      {brandAvailable && applyBrand && view === "design" && (
         <p className="shrink-0 border-b border-[#2A2250] bg-[#100C24] px-4 py-2 text-[11px] leading-[1.5] text-[#A09AB8]">
           Approximate re-skin — the template palette and fonts are swapped for your brand kit.
           Colours hard-coded outside a template&apos;s palette may not change. The generated
@@ -273,10 +302,13 @@ export function LivePreview({
             // loading state instead of showing the previous skin mid-fetch.
             const frame = (
               <PreviewFrame
-                key={`${item.id}-${applyBrand ? "brand" : "orig"}`}
+                key={`${item.id}-${view}-${applyBrand ? "brand" : "orig"}`}
                 item={item}
+                src={view === "wireframe" ? (item.wireframeSrc ?? item.sampleSrc) : item.sampleSrc}
                 kit={kit}
-                applyBrand={applyBrand}
+                /* A wireframe is greyscale on purpose — re-skinning it to the
+                   client's palette would defeat the point of showing it. */
+                applyBrand={applyBrand && view === "design"}
                 device={device}
                 containerWidth={device === "mobile" ? Math.min(frameWidth, 390) : frameWidth}
               />

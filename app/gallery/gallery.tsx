@@ -6,7 +6,7 @@ import { PROMPT_GROUPS } from "@/lib/prompt-groups";
 import { flattenGroups, filterGallery } from "@/lib/gallery-filter";
 import { EXTRA_GROUPS, isExtraGroup } from "@/lib/gallery-extras";
 import { singleSectionPrompt } from "@/lib/single-section-prompt";
-import { sampleForPreview } from "@/lib/samples";
+import { sampleForPreview, wireframeForPreview } from "@/lib/samples";
 import { LivePreview, type PreviewItem } from "../live-preview";
 import { GalleryCard } from "./card";
 import { FunnelTray } from "./tray";
@@ -123,7 +123,12 @@ export function Gallery({
                               setLive({
                                 heading: v.title,
                                 items: [
-                                  { id: `${item.groupId}-${v.number}`, title: v.title, sampleSrc: sample },
+                                  {
+                                    id: `${item.groupId}-${v.number}`,
+                                    title: v.title,
+                                    sampleSrc: sample,
+                                    wireframeSrc: wireframeForPreview(v.previewSrc) ?? undefined,
+                                  },
                                 ],
                               })
                           : null

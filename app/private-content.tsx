@@ -6,7 +6,7 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { LivePreview, type PreviewItem } from "./live-preview";
 import { GeneratePanel } from "./build/generate-panel";
 import { AnalyzePanel } from "./build/analyze-panel";
-import { sampleForPreview } from "@/lib/samples";
+import { sampleForPreview, wireframeForPreview } from "@/lib/samples";
 import { PROMPT_GROUPS as builderGroups } from "@/lib/prompt-groups";
 import { useFunnelSelection } from "@/lib/funnel-selection-provider";
 import { buildOutputs as assemblePrompts, variationShortName } from "@/lib/prompt-assembly";
@@ -241,6 +241,7 @@ function FunnelBuilder() {
           id: `${g.id}-${v.number}`,
           title: `${g.label} — ${v.title}`,
           sampleSrc,
+          wireframeSrc: wireframeForPreview(v.previewSrc) ?? undefined,
           copy: sectionCopy[g.id],
         });
       }
@@ -533,6 +534,7 @@ function FunnelBuilder() {
                                 id: `${g.id}-${v.number}`,
                                 title: v.title,
                                 sampleSrc: sampleForPreview(v.previewSrc)!,
+                                wireframeSrc: wireframeForPreview(v.previewSrc) ?? undefined,
                               },
                             ],
                           })
