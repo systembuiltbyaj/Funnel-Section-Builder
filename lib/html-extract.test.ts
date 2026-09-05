@@ -63,3 +63,29 @@ test("void tags do not skew the balance check", () => {
   const r = extractSectionFragment('<section><img src="x.png" /><br><input></section>');
   assert.equal(r.truncated, false);
 });
+
+test("loose CSS comments outside a style block are stripped, not rendered as text", () => {
+  // Observed from gpt-oss-120b: it prefixes the fragment with a numbered list of
+  // /* … */ notes. Outside <style> those are text nodes, so they render at the
+  // top of the section as visible gibberish.
+  const raw = [
+    "/* 1. Edit navigation links or logo text. */",
+    "/* 2. Replace [HEADLINE …] with actual copy. */",
+    "",
+    "<style>.hero{color:red} /* keep me: I am inside style */</style>",
+    "<section class='hero'><h1>Hi</h1></section>",
+  ].join("\n");
+
+  const { html, truncated } = extractSectionFragment(raw);
+  assert.equal(truncated, false);
+  assert.equal(html.includes("Edit navigation links"), false, "leading notes must go");
+  assert.equal(html.includes("Replace [HEADLINE"), false);
+  assert.ok(html.includes("keep me: I am inside style"), "comments inside <style> are CSS, not text");
+  assert.ok(html.includes("<section"), "the section itself survives");
+});
+
+test("a comment between markup blocks does not survive either", () => {
+  const raw = "<style>.a{}</style>\n/* stray note */\n<section><p>x</p></section>";
+  const { html } = extractSectionFragment(raw);
+  assert.equal(html.includes("stray note"), false);
+});
